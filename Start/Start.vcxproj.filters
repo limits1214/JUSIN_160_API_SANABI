@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\MGR">
+      <UniqueIdentifier>{12801e77-6a8c-4148-87eb-a536f9d04c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DESIGN">
+      <UniqueIdentifier>{ed5a9411-933c-4c00-af5d-6e33e68a6abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ">
+      <UniqueIdentifier>{72693f75-e359-47f2-ab2e-398b9d13e27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\SCENE">
+      <UniqueIdentifier>{143c67b5-48e5-4a21-8206-67e570e6dac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\UI_DBG_PANEL">
+      <UniqueIdentifier>{89221537-7027-41d6-a5d0-88836676dcdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\UI">
+      <UniqueIdentifier>{ebbd2d3a-6fd9-4b1f-adcc-aae8b1008722}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Start.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainGame.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>소스 파일\DESIGN</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CBmpMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyBitmap.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneLogo.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMenu.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="Mgrs.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjButton.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneStage.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CScrollMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTestUI.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMouse.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjInfoDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjListDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjPanel.h">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjRectButton.h">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjSceneDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjText.h">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjTest.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayer.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouseEventMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjBmpDbgPannel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTutorial.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjGrp.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjLine.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjSprite.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjInputController.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTileEdit.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Start.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CBmpMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CMyBitmap.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneLogo.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMenu.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjButton.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneStage.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CScrollMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTestUI.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMouse.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjDbgText.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjInfoDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjListDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjPanel.cpp">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjRectButton.cpp">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjSceneDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjText.cpp">
+      <Filter>소스 파일\OBJ\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjTest.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouseEventMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouseEvent.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjBmpDbgPannel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTutorial.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjGrp.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjLine.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionEvent.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjSprite.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjInputController.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTileEdit.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Start.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Start.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
