@@ -11,6 +11,7 @@
 #include "CUIObjDbgPanel.h"
 #include "CUIObjSceneDbgPanel.h"
 #include "CUIObjBmpDbgPannel.h"
+#include "CEditMgr.h"
 
 CMainGame::CMainGame()
 	:m_dwFPSTime(GetTickCount())
@@ -149,6 +150,7 @@ void CMainGame::Release()
 	CScrollMgr::Destroy_Instance();
 	CBmpMgr::Destroy_Instance();
 	CKeyMgr::Destroy_Instance();
+	CEditMgr::Destroy_Instance();
 	CTimeMgr::Destroy_Instance();
 
 	ReleaseDC(g_hWnd, m_hDC);

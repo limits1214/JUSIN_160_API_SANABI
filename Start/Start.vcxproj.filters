@@ -162,6 +162,24 @@
     <ClInclude Include="CSceneTileEdit.h">
       <Filter>소스 파일\SCENE</Filter>
     </ClInclude>
+    <ClInclude Include="CUIObjTileEditDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditMgr.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjEditArea.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjTile.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjNoClimableLine.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjClimableLine.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -280,6 +298,24 @@
     </ClCompile>
     <ClCompile Include="CSceneTileEdit.cpp">
       <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjTileEditDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditMgr.cpp">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjEditArea.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjTile.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjClimableLine.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjNoClimableLine.cpp">
+      <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

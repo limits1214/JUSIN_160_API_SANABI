@@ -36,7 +36,7 @@ int CObjButton::Update()
 				CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
 			else if (!lstrcmp(_T("Edit"), m_pFrameKey))
 			{
-				CSceneMgr::Get_Instance()->Scene_Change(SC_TEST_UI);
+				CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
 			}	
 			else
 				DestroyWindow(g_hWnd);

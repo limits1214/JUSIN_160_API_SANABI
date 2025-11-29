@@ -12,6 +12,12 @@
 #define OBJ_DEAD 1
 #define OBJ_NOEVENT 0
 
+#define TILECX 16
+#define TILECY 16
+
+
+#define CASE_MACRO(t) case t: lstrcpy(szText, _T(#t)); break;
+
 enum OBJID
 {
 	OBJ_GRP,
@@ -19,12 +25,18 @@ enum OBJID
 	OBJ_SPRITE,
 	OBJ_INPUTCONTROLLER,
 
+	OBJ_CLIMABLE_LINE,
+	OBJ_NO_CLIMABLE_LINE,
+
 	OBJ_PLAYER,
 
 	OBJ_BUTTON,
 
 	OBJ_DBG_UI,
 	OBJ_UI,
+	OBJ_EDIT_AREA,
+
+	OBJ_TILE,
 
 	OBJ_MOUSE,
 
@@ -133,27 +145,13 @@ inline void SceneID_To_Text(SCENEID eID, TCHAR* szText)
 {
 	switch (eID)
 	{
-	case SC_LOGO:
-		lstrcpy(szText, _T("SC_LOGO"));
-		break;
-	case SC_MENU:
-		lstrcpy(szText, _T("SC_MENU"));
-		break;
-	case SC_STAGE:
-		lstrcpy(szText, _T("SC_STAGE"));
-		break;
-	case SC_TEST_UI:
-		lstrcpy(szText, _T("SC_TEST_UI"));
-		break;
-	case SC_TUTORIAL:
-		lstrcpy(szText, _T("SC_TUTORIAL"));
-		break;
-	case SC_TILEEIDT:
-		lstrcpy(szText, _T("SC_TILEEIDT"));
-		break;
-	case SC_END:
-		lstrcpy(szText, _T("SC_END"));
-		break;
+		CASE_MACRO(SC_LOGO)
+		CASE_MACRO(SC_MENU)
+		CASE_MACRO(SC_STAGE)
+		CASE_MACRO(SC_TEST_UI)
+		CASE_MACRO(SC_TUTORIAL)
+		CASE_MACRO(SC_TILEEIDT)
+		CASE_MACRO(SC_END)
 	}
 }
 
@@ -161,36 +159,20 @@ inline void ObjID_To_Text(OBJID eID, TCHAR* szText)
 {
 	switch (eID)
 	{
-	case OBJ_PLAYER:
-		lstrcpy(szText, _T("OBJ_PLAYER"));
-		break;
-	case OBJ_LINE:
-		lstrcpy(szText, _T("OBJ_LINE"));
-		break;
-	case OBJ_INPUTCONTROLLER:
-		lstrcpy(szText, _T("OBJ_INPUTCONTROLLER"));
-		break;
-	case OBJ_SPRITE:
-		lstrcpy(szText, _T("OBJ_SPRITE"));
-		break;
-	case OBJ_BUTTON:
-		lstrcpy(szText, _T("OBJ_BUTTON"));
-		break;
-	case OBJ_UI:
-		lstrcpy(szText, _T("OBJ_UI"));
-		break;
-	case OBJ_DBG_UI:
-		lstrcpy(szText, _T("OBJ_DBG_UI"));
-		break;
-	case OBJ_MOUSE:
-		lstrcpy(szText, _T("OBJ_MOUSE"));
-		break;
-	case OBJ_GRP:
-		lstrcpy(szText, _T("OBJ_GRP"));
-		break;
-	case OBJ_END:
-		lstrcpy(szText, _T("OBJ_END"));
-		break;
+		CASE_MACRO(OBJ_CLIMABLE_LINE)
+		CASE_MACRO(OBJ_NO_CLIMABLE_LINE)
+		CASE_MACRO(OBJ_PLAYER)
+		CASE_MACRO(OBJ_LINE)
+		CASE_MACRO(OBJ_INPUTCONTROLLER)
+		CASE_MACRO(OBJ_SPRITE)
+		CASE_MACRO(OBJ_BUTTON)
+		CASE_MACRO(OBJ_UI)
+		CASE_MACRO(OBJ_DBG_UI)
+		CASE_MACRO(OBJ_MOUSE)
+		CASE_MACRO(OBJ_GRP)
+		CASE_MACRO(OBJ_EDIT_AREA)
+		CASE_MACRO(OBJ_TILE)
+		CASE_MACRO(OBJ_END)
 	}
 }
 
@@ -251,5 +233,149 @@ inline void BmpRender(
 		srcWidth,		// 복사할 이미지의 가로, 세로
 		srcHeight,
 		RGB(255, 0, 255)
-	);	// 제거할 색상
+	);
+}
+
+enum TILE_EDIT_MODE
+{
+	TEM_LINE,
+	TEM_TILE,
+	TEM_IMG,
+	TEM_TRIGGER,
+	TEM_GRID_TOGGLE,
+	TEM_PICKING_MODE,
+	TEM_FILE_SAVE,
+	TEM_FILE_LOAD,
+	TEM_END
+};
+
+enum TRIGGER_ID
+{
+	TRIG_END
+};
+
+inline void TileEditMode_To_Text(TILE_EDIT_MODE eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+		CASE_MACRO(TEM_LINE)
+		CASE_MACRO(TEM_TILE)
+		CASE_MACRO(TEM_IMG)
+		CASE_MACRO(TEM_GRID_TOGGLE)
+		CASE_MACRO(TEM_TRIGGER)
+		CASE_MACRO(TEM_PICKING_MODE)
+		CASE_MACRO(TEM_FILE_SAVE)
+		CASE_MACRO(TEM_FILE_LOAD)
+		CASE_MACRO(TEM_END)
+	}
+}
+
+enum FILE_NAME_ID
+{
+	FNI_TUTORIAL,
+	FNI_ETC,
+	FNI_END
+};
+
+inline void FileNameId_To_Text(FILE_NAME_ID eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+		CASE_MACRO(FNI_TUTORIAL)
+		CASE_MACRO(FNI_ETC)
+		CASE_MACRO(FNI_END)
+	}
+}
+
+enum TILE_ID
+{
+	TILE_START,
+	TILE_END,
+	TILE_TEST_1,
+	TILE_TEST_2,
+	Spr_Prologue_Tileset_1,
+	TILE_ID_END
+};
+
+inline void Tile_Id_To_Text(TILE_ID eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+		CASE_MACRO(TILE_START)
+		CASE_MACRO(TILE_END)
+
+		CASE_MACRO(TILE_TEST_1)
+		CASE_MACRO(TILE_TEST_2)
+		CASE_MACRO(Spr_Prologue_Tileset_1)
+		CASE_MACRO(TILE_ID_END)
+	}
+}
+
+inline void Tile_Id_To_FrameKey(TILE_ID eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+	case TILE_TEST_1:
+	case TILE_TEST_2:
+		lstrcpy(szText, _T("TILE_TEST"));
+		break;
+	case Spr_Prologue_Tileset_1:
+		lstrcpy(szText, _T("Spr_Prologue_Tileset"));
+		break;
+	case TILE_ID_END:
+		break;
+	}
+}
+
+
+inline INFO Tile_Id_To_TileInfo(TILE_ID eID)
+{
+	switch (eID)
+	{
+		case TILE_TEST_1: return {0, 0, 64, 64};
+		case TILE_TEST_2: return { 64, 0, 64, 64 };
+		case Spr_Prologue_Tileset_1: return { 0, 0, 16, 16 };
+
+		case TILE_ID_END: return { 0, 0, 0, 0 };
+	}
+}
+
+enum EDIT_MOUSE_PICKING_MODE
+{
+	EMPM_TILE_ORIGIN,
+	EMPM_TILE_SIDE,
+	EMPM_NONE,
+	EMPM_END
+};
+
+inline void EditMousePickingMode_To_Text(EDIT_MOUSE_PICKING_MODE eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+		CASE_MACRO(EMPM_TILE_ORIGIN)
+		CASE_MACRO(EMPM_TILE_SIDE)
+		CASE_MACRO(EMPM_NONE)
+		CASE_MACRO(EMPM_END)
+	}
+}
+
+enum LINE_ID
+{
+	LINE_START,
+	LINE_END,
+	LINE_CLIMABLE,
+	LINE_NO_CLIMABLE,
+	LINE_ID_END
+};
+
+inline void LineId_To_Text(LINE_ID eID, TCHAR* szText)
+{
+	switch (eID)
+	{
+		CASE_MACRO(LINE_START)
+		CASE_MACRO(LINE_END)
+		CASE_MACRO(LINE_CLIMABLE)
+		CASE_MACRO(LINE_NO_CLIMABLE)
+		CASE_MACRO(LINE_ID_END)
+	}
 }

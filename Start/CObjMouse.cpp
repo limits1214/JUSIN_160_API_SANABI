@@ -33,24 +33,47 @@ int CObjMouse::Update()
 	m_ptPrev = m_ptCurr;
 	m_ptCurr = pt;
 
+	m_sLastKey = 0;
 	PropagateMouseEvent<CMousePosEvent>([=](CMousePosEvent* pMouse) {pMouse->On_Mouse_Pos(this); });
 	
+	
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
-	{ 
+	{
+		m_sLastKey = VK_LBUTTON;
+		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Down(this); });
+	}
+	else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
+	{
+		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Down(this); });
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
 	{
+		m_sLastKey = VK_LBUTTON;
+		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Pressing(this); });
+	}
+	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RBUTTON))
+	{
+		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Pressing(this); });
 	}
 
+
 	if (CKeyMgr::Get_Instance()->Key_Up(VK_LBUTTON))
 	{
+		m_sLastKey = VK_LBUTTON;
+		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Up(this); });
+	}
+	else if (CKeyMgr::Get_Instance()->Key_Up(VK_RBUTTON))
+	{
+		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Up(this); });
 	}
 
 	__super::Update_Rect();
+
+	m_sLastKey = 0;
 	return OBJ_NOEVENT;
 }
 
@@ -116,7 +139,14 @@ void CObjMouse::PropagateMouseEvent(F func)
 					//pActive = pObj;
 					if (m_pBringToTopObj != nullptr)
 					{
-						m_pBringToTopObj->Set_RDOTempRestore();
+						if (CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pBringToTopObj) != OBJ_END)
+						{
+							m_pBringToTopObj->Set_RDOTempRestore();
+						}
+						else
+						{
+							m_pBringToTopObj = nullptr;
+						}
 					}
 					m_pBringToTopObj = pObj;
 					m_pBringToTopObj->Set_RDOTempChange(RDO_8);
@@ -127,8 +157,14 @@ void CObjMouse::PropagateMouseEvent(F func)
 
 				if (m_bPreventEvent)
 				{
+					// TODO: 이중포문나가야됨 현재는 일차포문만
 					break;
 				}
+			}
+			if (m_bPreventEvent)
+			{
+				// TODO: 이중포문나가야됨 현재는 일차포문만
+				break;
 			}
 		}
 		//if (pActive != nullptr)

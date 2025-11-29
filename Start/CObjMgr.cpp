@@ -485,8 +485,6 @@ void CObjMgr::Make_Render_Order(list<CObj*>* pRDOList)
 void CObjMgr::Update()
 {
 
-	//m_HierarchyViewMap = Make_HierarchyObjIDPair();
-	//list<CObj*> deadList[OBJ_END];
 	list<CObj*> deadList;
 
 	for (size_t i = 0; i < OBJ_END; ++i)

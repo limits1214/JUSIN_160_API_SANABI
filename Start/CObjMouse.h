@@ -28,6 +28,11 @@ public:
 		m_bTargetBringToTop = true;
 	}
 
+	SHORT Get_Last_Key()
+	{
+		return m_sLastKey;
+	}
+
 
 public:
 	void Initialize() override;
@@ -48,10 +53,11 @@ private:
 	POINT m_ptCurr;
 	POINT m_ptPrev;
 
-	//bool m_bCatch;
 	bool m_bTargetBringToTop;
 	bool m_bPreventEvent;
 
 	CObj* m_pBringToTopObj;
+
+	SHORT m_sLastKey;
 };
 

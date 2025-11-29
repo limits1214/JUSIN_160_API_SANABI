@@ -1,10 +1,10 @@
 #pragma once
-#include "CObj.h"
-class CObjGrp: public CObj
+#include "CObjLine.h"
+class CObjClimableLine : public CObjLine
 {
 public:
-	CObjGrp();
-	virtual ~CObjGrp();
+	CObjClimableLine();
+	virtual ~CObjClimableLine();
 
 public:
 	void Initialize() override;

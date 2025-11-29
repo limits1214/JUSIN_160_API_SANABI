@@ -1,10 +1,13 @@
 #pragma once
-#include "CObj.h"
-class CObjGrp: public CObj
+
+
+#include "CUIObjPanel.h"
+
+class CUIObjTileEditDbgPanel: public CUIObjPanel
 {
 public:
-	CObjGrp();
-	virtual ~CObjGrp();
+	CUIObjTileEditDbgPanel();
+	virtual ~CUIObjTileEditDbgPanel();
 
 public:
 	void Initialize() override;
@@ -12,5 +15,8 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+
+private:
+	TILE_EDIT_MODE m_eTEM;
 };
 
