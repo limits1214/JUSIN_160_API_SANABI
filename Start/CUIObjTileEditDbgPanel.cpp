@@ -365,7 +365,8 @@ int CUIObjTileEditDbgPanel::Update()
 				(*iter4)->Set_CX(tileInfo.fCX);
 				(*iter4)->Set_CY(tileInfo.fCY);
 				(*iter4)->Set_Pos(-110, +(itemHeight * 0.5) - (info->fCY * 0.5) + (idx * itemHeight));
-				(*iter4)->Set_FrameKey(Tile_Id_To_FrameKey(static_cast<TILE_ID>(i)));
+				//(*iter4)->Set_FrameKey(Tile_Id_To_FrameKey(static_cast<TILE_ID>(i)));
+				(*iter4)->Set_FrameKeyId(Tile_Id_To_FrameKeyId(static_cast<TILE_ID>(i)));
 				(*iter4)->Set_MoveFrame(false);
 				(*iter4)->Set_Frame(FRAME{ int(tileInfo.fX / tileInfo.fCX),int(tileInfo.fX / tileInfo.fCX), int(tileInfo.fY / tileInfo.fCY), 0, 0});
 

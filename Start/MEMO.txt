@@ -1,0 +1,13 @@
+
+	// TEST: DrawText가 조금만 많아져도 상당한 프레임에 악영향을 준다.
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	for (int j = 0; j < 10; ++j)
+	//	{
+	//		CUIObjText* p = new CUIObjText();
+	//		p->Initialize();
+	//		p->Set_Text(L"1");
+	//		p->Set_Pos(200 + i * 10,  200 +j * 10);
+	//		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, p);
+	//	}
+	//}

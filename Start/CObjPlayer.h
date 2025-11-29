@@ -13,6 +13,12 @@ public:
 	virtual ~CObjPlayer();
 
 public:
+	void Set_PlayerState(STATE eState)
+	{
+		m_eCurState = eState;
+	}
+
+public:
 	void Initialize() override;
 	int Update() override;
 	void Late_Update() override;

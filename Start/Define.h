@@ -1,5 +1,7 @@
 #pragma once
 
+extern HWND g_hWnd;
+
 #define WINCX 800
 #define WINCY 600
 
@@ -15,72 +17,9 @@
 #define TILECX 16
 #define TILECY 16
 
-
-
 #define STR_MACRO(A) static const TCHAR* STR_##A = _T(#A)
 #define STR_MACRO2(A, B) static const TCHAR* STR_##A = _T(B)
-
 #define STR_CASE_MACRO(A) case A: return STR_##A;
-
-enum OBJID
-{
-	OBJ_GRP,
-	OBJ_LINE,
-	OBJ_SPRITE,
-	OBJ_INPUTCONTROLLER,
-
-	OBJ_CLIMABLE_LINE,
-	OBJ_NO_CLIMABLE_LINE,
-
-	OBJ_PLAYER,
-
-	OBJ_BUTTON,
-	OBJ_THINGS,
-
-	OBJ_DBG_UI,
-	OBJ_UI,
-	OBJ_EDIT_AREA,
-
-
-	OBJ_TILE,
-
-	OBJ_MOUSE,
-
-	OBJ_END
-};
-
-enum SCENEID
-{
-	SC_LOGO,
-	SC_MENU,
-	SC_STAGE,
-	SC_TEST_UI,
-	SC_TUTORIAL,
-	SC_TILEEIDT,
-	SC_END
-};
-
-enum RENDER_ORDERID
-{
-	RDO_0,
-	RDO_1,
-	RDO_2,
-	RDO_3,
-	RDO_4,
-	RDO_5,
-	RDO_6,
-	RDO_7,
-	RDO_8,
-	RDO_9,
-	RDO_END
-};
-
-enum COLLISIONID
-{
-	COLL_LINE,
-
-	COLL_END
-};
 
 template<typename T>
 void Safe_Delete(T& p)
@@ -97,12 +36,6 @@ typedef struct tagInfo
 	float fX, fY;
 	float fCX, fCY;
 } INFO;
-
-
-
-extern HWND g_hWnd;
-
-
 
 typedef struct tagTimerInfo
 {
@@ -148,6 +81,50 @@ typedef struct tagFrame
 } FRAME;
 
 
+typedef struct tagLinePoint
+{
+	float		fX;
+	float		fY;
+
+	tagLinePoint() { ZeroMemory(this, sizeof(tagLinePoint)); }
+	tagLinePoint(float _fX, float _fY) : fX(_fX), fY(_fY) {}
+
+}LINEPOINT;
+
+
+typedef struct tagLine
+{
+	tagLinePoint		tLeft;
+	tagLinePoint		tRight;
+
+	tagLine() { ZeroMemory(this, sizeof(tagLine)); }
+	tagLine(tagLinePoint _tLeft, tagLinePoint _tRight)
+		: tLeft(_tLeft), tRight(_tRight) {
+	}
+
+}LINE;
+
+enum RENDER_ORDERID
+{
+	RDO_0,
+	RDO_1,
+	RDO_2,
+	RDO_3,
+	RDO_4,
+	RDO_5,
+	RDO_6,
+	RDO_7,
+	RDO_8,
+	RDO_9,
+	RDO_END
+};
+
+enum COLLISIONID
+{
+	COLL_LINE,
+	COLL_END
+};
+
 enum FRAME_KEY_ID
 {
 	FKI_TILE_TEST,
@@ -158,8 +135,6 @@ enum FRAME_KEY_ID
 	FKI_SNB,
 	FKI_END
 };
-
-
 
 STR_MACRO2(FKI_TILE_TEST, "TILE_TEST");
 STR_MACRO2(FKI_Spr_Prologue_Tileset, "Spr_Prologue_Tileset");
@@ -192,6 +167,18 @@ inline const TCHAR* FrameKeyId_To_Text2(FRAME_KEY_ID eID)
 	}
 }
 
+enum SCENEID
+{
+	SC_LOGO,
+	SC_MENU,
+	SC_STAGE,
+	SC_TEST_UI,
+	SC_TUTORIAL,
+	SC_TILEEIDT,
+	SC_END
+};
+
+
 STR_MACRO(SC_LOGO);
 STR_MACRO(SC_MENU);
 STR_MACRO(SC_STAGE);
@@ -214,6 +201,33 @@ inline const TCHAR* SceneID_To_Text(SCENEID eID)
 	}
 }
 
+
+enum OBJID
+{
+	OBJ_GRP,
+	OBJ_LINE,
+	OBJ_SPRITE,
+	OBJ_INPUTCONTROLLER,
+
+	OBJ_CLIMABLE_LINE,
+	OBJ_NO_CLIMABLE_LINE,
+
+	OBJ_PLAYER,
+
+	OBJ_BUTTON,
+	OBJ_THINGS,
+
+	OBJ_DBG_UI,
+	OBJ_UI,
+	OBJ_EDIT_AREA,
+
+
+	OBJ_TILE,
+
+	OBJ_MOUSE,
+
+	OBJ_END
+};
 
 STR_MACRO(OBJ_CLIMABLE_LINE);
 STR_MACRO(OBJ_NO_CLIMABLE_LINE);
@@ -253,43 +267,7 @@ inline const TCHAR* ObjID_To_Text(OBJID eID)
 	}
 }
 
-typedef struct tagLinePoint
-{
-	float		fX;
-	float		fY;
 
-	tagLinePoint() { ZeroMemory(this, sizeof(tagLinePoint)); }
-	tagLinePoint(float _fX, float _fY) : fX(_fX), fY(_fY) {}
-
-}LINEPOINT;
-
-
-typedef struct tagLine
-{
-	tagLinePoint		tLeft;
-	tagLinePoint		tRight;
-
-	tagLine() { ZeroMemory(this, sizeof(tagLine)); }
-	tagLine(tagLinePoint _tLeft, tagLinePoint _tRight)
-		: tLeft(_tLeft), tRight(_tRight) {
-	}
-
-}LINE;
-
-/// <summary>
-/// 
-/// 
-/// </summary>
-/// <param name="dsthDC">대상 </param>
-/// <param name="dstX">대상의 레프트</param>
-/// <param name="dstY">대상의 탑</param>
-/// <param name="dstWidth">대상의 가로</param>
-/// <param name="dstHeight">대상 세로</param>
-/// <param name="srchDC">이미지</param>
-/// <param name="srcX">이미지 레프트</param>
-/// <param name="srcY">이미지 탑</param>
-/// <param name="srcWidth">이미지 가로</param>
-/// <param name="srcHeight">이미지 세로</param>
 inline void BmpRender(
 	HDC dsthDC,
 	int dstX, int dstY,

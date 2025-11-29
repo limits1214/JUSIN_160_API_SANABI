@@ -194,13 +194,14 @@
     <ClInclude Include="CEditMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CMainGame.h" />
-    <ClInclude Include="CMouseEventMgr.h" />
     <ClInclude Include="CMyBitmap.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjBossFireBird.h" />
     <ClInclude Include="CObjButton.h" />
+    <ClInclude Include="CObjCollider.h" />
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjEditArea.h" />
+    <ClInclude Include="CObjGravity.h" />
     <ClInclude Include="CObjGrp.h" />
     <ClInclude Include="CObjInputController.h" />
     <ClInclude Include="CObjLine.h" />
@@ -211,10 +212,8 @@
     <ClInclude Include="CObjMouse.h" />
     <ClInclude Include="CObjPlayer.h" />
     <ClInclude Include="CObjSprite.h" />
-    <ClInclude Include="CObjTest.h" />
     <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
-    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneLogo.h" />
     <ClInclude Include="CSceneMenu.h" />
@@ -251,14 +250,15 @@
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CMouseEvent.h" />
-    <ClCompile Include="CMouseEventMgr.cpp" />
     <ClCompile Include="CMyBitmap.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjBossFireBird.cpp" />
     <ClCompile Include="CObjButton.cpp" />
+    <ClCompile Include="CObjCollider.cpp" />
     <ClCompile Include="CObjCollisionLine.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
+    <ClCompile Include="CObjGravity.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
     <ClCompile Include="CObjInputController.cpp" />
     <ClCompile Include="CObjLine.cpp" />
@@ -269,10 +269,8 @@
     <ClCompile Include="CObjMouse.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
     <ClCompile Include="CObjSprite.cpp" />
-    <ClCompile Include="CObjTest.cpp" />
     <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
-    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneLogo.cpp" />
     <ClCompile Include="CSceneMenu.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
@@ -308,6 +306,9 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="Start.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MEMO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

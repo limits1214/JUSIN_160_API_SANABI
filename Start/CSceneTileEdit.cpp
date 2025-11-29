@@ -19,6 +19,9 @@ CSceneTileEdit::~CSceneTileEdit()
 
 void CSceneTileEdit::Initialize()
 {
+	
+
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Edit/Tile.bmp", L"TILE_TEST");
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;

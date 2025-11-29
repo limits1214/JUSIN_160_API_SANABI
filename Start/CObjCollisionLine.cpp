@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CObjCollisionLine.h"
+#include "CScrollMgr.h"
 
 CObjCollisionLine::CObjCollisionLine()
 {
@@ -14,6 +15,9 @@ CObjCollisionLine::~CObjCollisionLine()
 void CObjCollisionLine::Initialize()
 {
 	CObjLine::Initialize();
+
+
+	m_bUseMainScroll = true;
 }
 
 int CObjCollisionLine::Update()

@@ -7,6 +7,7 @@
 #include "CScrollMgr.h"
 
 CObjThings::CObjThings()
+	:m_bMouseTrack(false)
 {
 	Set_DbgName(_T("CObjThings"));
 }
@@ -18,7 +19,7 @@ CObjThings::~CObjThings()
 
 void CObjThings::Initialize()
 {
-
+	m_bUseMainScroll = true;
 
 	if (m_eThings == TGS_PLAYER_POS)
 	{
@@ -59,7 +60,7 @@ void CObjThings::Initialize()
 	pText->Set_Text(ThginsId_To_Text(m_eThings));
 	pText->Set_Pos(0, 0);
 	pText->Set_Parent(this);
-	pText->Set_ApplyScroll(true);
+	pText->Set_UseMainScroll(true);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pText);
 
 }
@@ -80,9 +81,9 @@ void CObjThings::Late_Update()
 
 void CObjThings::Render(HDC hDC)
 {
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-	Rectangle(hDC, m_tRect.left + iScrollX, m_tRect.top + iScrollY, m_tRect.right + iScrollX, m_tRect.bottom + iScrollY);
+//	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+//	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+	Rectangle(hDC, m_tRect.left, m_tRect.top , m_tRect.right , m_tRect.bottom );
 }
 
 void CObjThings::Release()
@@ -103,7 +104,11 @@ void CObjThings::On_Mouse_Key_Down(CObj* pObj)
 			}
 			else if (pMouse->Get_Last_Key() == VK_RBUTTON)
 			{
-				Set_Dead_Cascade();
+				if (1 == MessageBox(g_hWnd, L"지우나요", L"지우나요", MB_OKCANCEL))
+				{
+					Set_Dead_Cascade();
+				}
+				
 			}
 			
 			pMouse->Mouse_PreventEvent();
@@ -121,7 +126,6 @@ void CObjThings::On_Mouse_Key_Up(CObj* pObj)
 			m_bMouseTrack = false;
 			pMouse->Mouse_PreventEvent();
 		}
-		
 	}
 }
 

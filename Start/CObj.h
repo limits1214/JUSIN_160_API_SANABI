@@ -32,11 +32,6 @@ public:
 	}
 	void Set_Dead();
 	void Set_Dead_Cascade();
-	//void		Set_FrameKey(const TCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
-	//void		Set_SZFrameKey(const TCHAR* pFrameKey) { 
-	//	lstrcpy(m_szFrameKey, pFrameKey);
-	//}
-	//TCHAR* Get_SZFrameKey() { return m_szFrameKey; }
 
 	void Set_FrameKeyId(FRAME_KEY_ID eFrameKey)
 	{
@@ -66,7 +61,7 @@ public:
 	{
 		return m_bDead;
 	}
-	// TODO: set active cascade
+
 	void Set_Active(bool bActive)
 	{
 		m_bActive = bActive;
@@ -76,6 +71,7 @@ public:
 	{
 		return m_bVisible;
 	}
+
 	// TODO: set visible cascade
 	void Set_Visible(bool bVisible)
 	{
@@ -120,6 +116,17 @@ public:
 		return m_tFrame;
 	}
 
+	void Apply_Scroll(int iScrollX, int iScrollY)
+	{
+		m_tRect.left += iScrollX;
+		m_tRect.right += iScrollX;
+		m_tRect.top += iScrollY;
+		m_tRect.bottom += iScrollY;
+	}
+
+	void Set_UseMainScroll(bool bUseMainScroll) { m_bUseMainScroll = bUseMainScroll; }
+	bool Get_UseMainScroll() { return m_bUseMainScroll; }
+
 	// TODO: REMOVE
 private:
 	OBJID Get_ParentObjIdWithDefault(OBJID eDefualtObjID);
@@ -139,8 +146,6 @@ protected:
 	bool m_bDead;
 
 	FRAME		m_tFrame;
-	//const TCHAR* m_pFrameKey;
-	//TCHAR m_szFrameKey[256];
 
 	FRAME_KEY_ID m_eFrameKey;
 
@@ -153,6 +158,8 @@ protected:
 	RENDER_ORDERID m_eRdo2;
 
 	TCHAR m_szDbgName[256];
+
+	bool m_bUseMainScroll;
 
 private:
 	static unsigned long long seqGenerator;

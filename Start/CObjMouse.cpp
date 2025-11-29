@@ -119,7 +119,6 @@ void CObjMouse::PropagateMouseEvent(F func)
 
 	for (int i = (RDO_END - 1); i >= 0; --i)
 	{
-		//CObj* pActive = nullptr;
 		for (auto riter = renderOrderList[i].rbegin(); riter != renderOrderList[i].rend(); ++riter)
 		{
 			auto* pObj = (*riter);
@@ -130,13 +129,10 @@ void CObjMouse::PropagateMouseEvent(F func)
 			auto pMouse = dynamic_cast<T*>(pObj);
 			if (pMouse != nullptr)
 			{
-				//pMouse->On_Mouse_Key_Up(this);
 				func(pMouse);
-				//pMouse->On_Mouse_Pos(this);
 
 				if (m_bTargetBringToTop && bFirstActive)
 				{
-					//pActive = pObj;
 					if (m_pBringToTopObj != nullptr)
 					{
 						if (CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pBringToTopObj) != OBJ_END)
@@ -151,70 +147,18 @@ void CObjMouse::PropagateMouseEvent(F func)
 					m_pBringToTopObj = pObj;
 					m_pBringToTopObj->Set_RDOTempChange(RDO_8);
 					
-
 					bFirstActive = false;
 				}
 
 				if (m_bPreventEvent)
 				{
-					// TODO: 이중포문나가야됨 현재는 일차포문만
 					break;
 				}
 			}
 			if (m_bPreventEvent)
 			{
-				// TODO: 이중포문나가야됨 현재는 일차포문만
 				break;
 			}
 		}
-		//if (pActive != nullptr)
-		//{
-		//	//pActive->Set_RDO(RDO_8);
-		//	//pActive->Get_SuperParent()->Set_RDO(RDO_8);
-		//}
-
-		//if (false && pActive != nullptr)
-		//{
-		//	list<pair<OBJID, CObj*>> activeHierList = CObjMgr::Get_Instance()->Get_HierarchyObjIDPairList(pActive);
-
-		//	list<CObj*> tempActiveObjList[OBJ_END];
-
-		//	//for (pair<OBJID, CObj*>& pObjPair : activeHierList)
-		//	//{
-		//	//	tempActiveObjList[pObjPair.first].push_back(pObjPair.second);
-		//	//}
-
-		//	list<CObj*>* objList = CObjMgr::Get_Instance()->Get_ObjectList();
-
-		//	for (int i = 0; i < OBJ_END; ++i)
-		//	{
-		//		for (auto iter = objList[i].begin(); iter != objList[i].end();)
-		//		{
-		//			bool bIterSkip = false;
-
-		//			for (pair<OBJID, CObj*>& pObjPair : activeHierList)
-		//			{
-		//				if (pObjPair.second == (*iter))
-		//				{
-		//					tempActiveObjList[pObjPair.first].push_back(pObjPair.second);
-		//					iter = objList[i].erase(iter);
-		//					bIterSkip = true;
-		//					break;
-		//				}
-		//			}
-
-		//			if (!bIterSkip)
-		//				++iter;
-		//		}
-		//	}
-
-		//	for (int i = 0; i < OBJ_END; ++i)
-		//	{
-		//		for (auto*& pObj : tempActiveObjList[i])
-		//		{
-		//			objList[i].push_back(pObj);
-		//		}
-		//	}
-		//}
 	}
 }

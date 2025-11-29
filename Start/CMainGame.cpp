@@ -2,7 +2,6 @@
 #include "CMainGame.h"
 #include "CObjMgr.h"
 #include "CTimeMgr.h"
-#include "CPlayer.h"
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
 #include "CScrollMgr.h"

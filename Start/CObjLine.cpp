@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CObjLine.h"
-
+#include "CScrollMgr.h"
 CObjLine::CObjLine()
 {
 }
@@ -30,16 +30,18 @@ void CObjLine::Late_Update()
 
 void CObjLine::Render(HDC hDC)
 {
+
+
 	float fIncline = Get_LineIncline();
 	if (fIncline < 0)
 	{
-		MoveToEx(hDC, m_tRect.left, m_tRect.bottom, nullptr);
-		LineTo(hDC, m_tRect.right, m_tRect.top);
+		MoveToEx(hDC, m_tRect.left , m_tRect.bottom , nullptr);
+		LineTo(hDC, m_tRect.right , m_tRect.top );
 	}
 	else
 	{
-		MoveToEx(hDC, m_tRect.left, m_tRect.top, nullptr);
-		LineTo(hDC, m_tRect.right, m_tRect.bottom);
+		MoveToEx(hDC, m_tRect.left , m_tRect.top , nullptr);
+		LineTo(hDC, m_tRect.right , m_tRect.bottom);
 	}
 }
 

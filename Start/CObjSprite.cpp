@@ -7,7 +7,7 @@ CObjSprite::CObjSprite()
 	:m_bMoveFrame(false)
 {
 	Set_DbgName(_T("CObjSprite"));
-	ZeroMemory(m_szFrameKey, sizeof(m_szFrameKey));
+	//ZeroMemory(m_szFrameKey, sizeof(m_szFrameKey));
 }
 
 CObjSprite::~CObjSprite()
@@ -38,10 +38,11 @@ void CObjSprite::Late_Update()
 
 void CObjSprite::Render(HDC hDC)
 {
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+	//int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	//int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
 
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_szFrameKey);
+	
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 
 	//GdiTransparentBlt(hDC,				// 복사 받을 DC
 	//	m_tRect.left ,	// 복사 받을 공간의 LEFT	
@@ -58,7 +59,7 @@ void CObjSprite::Render(HDC hDC)
 
 	BmpRender(
 		hDC,
-		m_tRect.left + iScrollX, m_tRect.top + iScrollY,
+		m_tRect.left, m_tRect.top,
 		(int)m_tInfo.fCX, (int)m_tInfo.fCY,
 		hMemDC,
 		m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,

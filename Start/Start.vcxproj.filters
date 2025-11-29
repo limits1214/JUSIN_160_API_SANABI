@@ -141,9 +141,6 @@
     <ClInclude Include="CUIObjText.h">
       <Filter>소스 파일\OBJ\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CMouseEventMgr.h">
-      <Filter>소스 파일\MGR</Filter>
-    </ClInclude>
     <ClInclude Include="CUIObjBmpDbgPannel.h">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClInclude>
@@ -180,14 +177,8 @@
     <ClInclude Include="CObjPlayer.h">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CObjInputController.h">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
-    </ClInclude>
-    <ClInclude Include="CObjTest.h">
-      <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="CObjCollisionLine.h">
       <Filter>소스 파일\OBJ\LINE</Filter>
@@ -209,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="CUIObjScrollDbgPanel.h">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjGravity.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjCollider.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +281,6 @@
     <ClCompile Include="CUIObjText.cpp">
       <Filter>소스 파일\OBJ\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CMouseEventMgr.cpp">
-      <Filter>소스 파일\MGR</Filter>
-    </ClCompile>
     <ClCompile Include="CMouseEvent.h">
       <Filter>소스 파일\MGR</Filter>
     </ClCompile>
@@ -329,14 +323,8 @@
     <ClCompile Include="CObjPlayer.cpp">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CObjInputController.cpp">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
-    </ClCompile>
-    <ClCompile Include="CObjTest.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CObjDbgText.h">
       <Filter>소스 파일\MGR</Filter>
@@ -362,6 +350,12 @@
     <ClCompile Include="CUIObjScrollDbgPanel.cpp">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClCompile>
+    <ClCompile Include="CObjGravity.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjCollider.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Start.rc">
@@ -375,5 +369,8 @@
     <Image Include="Start.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MEMO.txt" />
   </ItemGroup>
 </Project>

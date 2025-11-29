@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CObjMgr.h"
-
+#include "CScrollMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
@@ -178,7 +178,6 @@ map<CObj*, list<CObj*>> CObjMgr::Make_Hierarchy()
 			else
 			{
 				// 단일 개체이거나 최상위
-				
 			}
 		}
 	}
@@ -201,7 +200,6 @@ map<CObj*, list<pair<OBJID, CObj*>>> CObjMgr::Make_HierarchyObjIDPair()
 			else
 			{
 				// 단일 개체이거나 최상위
-				
 			}
 		}
 	}
@@ -210,7 +208,6 @@ map<CObj*, list<pair<OBJID, CObj*>>> CObjMgr::Make_HierarchyObjIDPair()
 
 list<CObj*> CObjMgr::Get_HierarchyList(CObj* pObj)
 {
-	//map<CObj*, list<CObj*>> hier = CObjMgr::Get_Instance()->Make_Hierarchy();
 	map<CObj*, list<pair<OBJID, CObj*>>> hier = m_HierarchyViewMap;
 	OBJID objID = Get_ObjID_By_Obj(pObj);
 	list<CObj*> targetList;
@@ -236,10 +233,7 @@ list<CObj*> CObjMgr::Get_HierarchyList(CObj* pObj)
 map<CObj*, list<CObj*>> CObjMgr::Get_HierarchyMap(CObj* _pObj)
 {
 	OBJID objID = Get_ObjID_By_Obj(_pObj);
-
-	//map<CObj*, list<CObj*>> hierMap = CObjMgr::Get_Instance()->Make_Hierarchy();
 	map<CObj*, list<pair<OBJID, CObj*>>> hierMap = m_HierarchyViewMap;
-
 
 	map<CObj*, list< CObj*>> targetMap;
 
@@ -268,61 +262,10 @@ map<CObj*, list<CObj*>> CObjMgr::Get_HierarchyMap(CObj* _pObj)
 	}
 
 	return targetMap;
-
-
-	//OBJID objID = Get_ObjID_By_Obj(_pObj);
-
-	//map<CObj*, list<pair<OBJID, CObj*>>> hierMap = CObjMgr::Get_Instance()->Make_HierarchyObjIDPair();
-
-	//map<CObj*, list<pair<OBJID, CObj*>>> targetMap;
-
-	//list<pair<OBJID, CObj*>> tempList;
-	//tempList.push_back({objID, _pObj});
-
-	//while (!tempList.empty())
-	//{
-	//	pair<OBJID, CObj*> node = tempList.front();
-	//	tempList.pop_front();
-	//	///
-	//	targetMap[node.second].push_back(node);
-	//	///
-	//	for (auto child : hierMap[node.second])
-	//	{
-	//		tempList.push_back(child);
-	//	}
-	//}
-	//return targetMap;
-
-
-
-
-
-
-
-
-
-
-	//list<CObj*> hierList = Get_HierarchyList(_pObj);
-
-	//map<CObj*, list<CObj*>> hierachy;
-
-	//for (auto*& pObj : hierList)
-	//{
-	//	if (pObj == _pObj)
-	//		continue;
-	//	CObj* pParent = pObj->Get_Parent();
-	//	if (pParent != nullptr)
-	//	{
-	//		hierachy[pParent].push_back(pObj);
-	//	}
-	//}
-
-	//return hierachy;
 }
 
 list<pair<OBJID, CObj*>> CObjMgr::Get_HierarchyObjIDPairList(CObj* pObj)
 {
-	//map<CObj*, list<pair<OBJID, CObj*>>> hier = CObjMgr::Get_Instance()->Make_HierarchyObjIDPair();
 	map<CObj*, list<pair<OBJID, CObj*>>> hier = m_HierarchyViewMap;
 
 	list<pair<OBJID, CObj*>> targetList;
@@ -350,10 +293,7 @@ list<pair<OBJID, CObj*>> CObjMgr::Get_HierarchyObjIDPairList(CObj* pObj)
 map<CObj*, list<pair<OBJID, CObj*>>> CObjMgr::Get_HierarchyObjIDPairMap(CObj* pObj)
 {
 	OBJID objID = Get_ObjID_By_Obj(pObj);
-
-	//map<CObj*, list<pair<OBJID, CObj*>>> hierMap = CObjMgr::Get_Instance()->Make_HierarchyObjIDPair();
 	map<CObj*, list<pair<OBJID, CObj*>>> hierMap = m_HierarchyViewMap;
-
 	map<CObj*, list<pair<OBJID, CObj*>>> targetMap;
 
 	list<pair<OBJID, CObj*>> tempList;
@@ -373,88 +313,15 @@ map<CObj*, list<pair<OBJID, CObj*>>> CObjMgr::Get_HierarchyObjIDPairMap(CObj* pO
 	}
 
 	return targetMap;
-
-
-	//map<CObj*, list<pair<OBJID, CObj*>>> hier = CObjMgr::Get_Instance()->Make_HierarchyObjIDPair();
-	//list<pair<OBJID, CObj*>>  hierList = CObjMgr::Get_Instance()->Get_HierarchyObjIDPairList(pObj);
-
-	//map<CObj*, list<pair<OBJID, CObj*>>> targetMap;
-
-
-	//for (auto child : hierList)
-	//{
-	//	if (child.second->Get_Parent() != nullptr)
-	//	{
-	//		targetMap[child.second->Get_Parent()].push_back(child);
-	//	}
-	//}
-
-
-
-
-	//list<pair<OBJID, CObj*>> tempList;
-	//OBJID objID = Get_ObjID_By_Obj(pObj);
-	//// TODO: 만약 OBJ_END가리턴된다면? 처리
-	//tempList.push_back({ objID, pObj });
-
-	//while (!tempList.empty())
-	//{
-	//	pair<OBJID, CObj*> node = tempList.front();
-	//	tempList.pop_front();
-	//	///
-	//	targetMap[node.second]
-	//	//targetMap[node.second].
-	//	//targetList.push_back(node);
-	//	///
-	//	for (auto child : hier[node.second])
-	//	{
-	//		tempList.push_back(child);
-	//	}
-	//}
-	return targetMap;
 }
 
 
 void CObjMgr::Make_Render_Order(list<CObj*>* pRDOList)
 {
 	/*
-
-	렌더 순서
-	1. 계층 정렬 계층끼리 계층이 깊어질수록 나중에 렌더가 나중에되고, 동일 계층에서는 왼쪽에서 오른쪽으로 렌더 순서가 결정된다.
-	2. 계층에 해당하는 애들을 오브젝트 리스트에서 빼와서 계층 정렬을 진행한다.
-	3. 계층의 최상위 부모의 렌더오더를 기준으로 렌더오더 정렬을 진행한다.
-
-	동일 렌더오더
-
+	1. 계층 정렬 계층끼리 계층이 깊어질수록 나중에 렌더가 나중에되고, 동일 계층에서는 왼쪽에서 오른쪽으로 렌더리스트에 쌓인다(즉 오른쪽이 먼저 보인다)
+	2. 계층의 최상위 부모의 렌더오더를 기준으로 렌더오더 정렬을 진행한다.
 	*/
-
-	//list<CObj*> copyObjList[OBJ_END];
-	//for (int i = 0; i < OBJ_END; ++i)
-	//{
-	//	copyObjList[i] = m_ObjList[i];
-	//}
-
-	//map<CObj*, list<CObj*>> hier = Make_Hierarchy();
-
-	//for (auto iter = hier.begin(); iter != hier.end(); ++iter)
-	//{
-
-	//}
-
-	//for (auto& pair : hier)
-	//{
-	//	if (pair.second.empty())
-	//	{
-	//		// 최상위 또는 단일 개체
-	//		RENDER_ORDERID rdo = pair.first->Get_RDO();
-	//		list<CObj*> hierList = Get_HierarchyList(pair.first);
-	//		for (auto*& pObj: hierList)
-	//		{
-	//			pRDOList[rdo].push_back(pObj);
-	//		}
-	//	}
-	//}
-
 	list<CObj*> noParentList = Make_NoParentList();
 
 	for (auto& pObj : noParentList)
@@ -466,17 +333,6 @@ void CObjMgr::Make_Render_Order(list<CObj*>* pRDOList)
 			pRDOList[rdo].push_back(pObj);
 		}
 	}
-
-
-
-
-	//for (size_t i = 0; i < OBJ_END; ++i)
-	//{
-	//	for (auto*& pObj : m_ObjList[i])
-	//	{
-	//		pRDOList[pObj->Get_RDO()].push_back(pObj);
-	//	}
-	//}
 }
 
 
@@ -489,13 +345,11 @@ void CObjMgr::Update()
 	{
 		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();)
 		{
-			//m_HierarchyViewMap = Make_HierarchyObjIDPair();
 			if (!(*iter)->Get_Active())
 			{
 				// 음... 다른방법 없을까?
 				if ((*iter)->Get_Dead())
 				{
-					//Safe_Delete<CObj*>(*iter);
 					deadList.push_back(*iter);
 					iter = m_ObjList[i].erase(iter);
 				}
@@ -510,7 +364,6 @@ void CObjMgr::Update()
 
 			if (iResult == OBJ_DEAD)
 			{
-				//Safe_Delete<CObj*>(*iter);
 				deadList.push_back(*iter);
 				iter = m_ObjList[i].erase(iter);
 			}
@@ -530,17 +383,8 @@ void CObjMgr::Update()
 
 	if (!bDeadListEmpty)
 	{
-		//m_HierarchyViewMap = Make_HierarchyObjIDPair();
 		RefreshHierarchyView();
 	}
-
-	//for (int i = 0; i < OBJ_END; ++i)
-	//{
-	//	for (auto*& pObj : deadList[i])
-	//	{
-
-	//	}
-	//}
 	
 }
 
@@ -559,14 +403,7 @@ void CObjMgr::Late_Update()
 
 void CObjMgr::Render(HDC hDC)
 {
-	
-
-
-
-
-	pair<int, list<CObj*>>a;
 	list< CObj*> renderOrderList[RDO_END];
-	//list<CObj*> renderOrderList[RDO_END];
 	Make_Render_Order(renderOrderList);
 
 	for (int i = 0; i < RDO_END; ++i)
@@ -577,19 +414,34 @@ void CObjMgr::Render(HDC hDC)
 				continue;
 			if (!pObj->Get_Visible())
 				continue;
+
+			if (pObj->Get_UseMainScroll())
+			{
+				int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+				int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+				pObj->Apply_Scroll(iScrollX, iScrollY);
+			}
+
+			// culling
+			if (
+				pObj->Get_Rect()->left > WINCX
+				||
+				pObj->Get_Rect()->top > WINCY
+				||
+				pObj->Get_Rect()->right < 0
+				||
+				pObj->Get_Rect()->bottom < 0 
+				)
+			{
+				continue;
+
+				// TODO: 컬링이 되더라도 컬링에서 강제로 제외시키는거 만들까?
+			}
+
 			pObj->Render(hDC);
 		}
 	}
 
-	//for (size_t i = 0; i < OBJ_END; ++i)
-	//{
-	//	for (auto*& pObj : m_ObjList[i])
-	//	{
-	//		if (!pObj->Get_Active())
-	//			continue;
-	//		pObj->Render(hDC);
-	//	}
-	//}
 }
 
 void CObjMgr::Release()

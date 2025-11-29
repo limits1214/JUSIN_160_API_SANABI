@@ -2,7 +2,6 @@
 #include "CObjMgr.h"
 #include "CSceneStage.h"
 #include "CAbstractFactory.h"
-#include "CPlayer.h"
 #include "CBmpMgr.h"
 
 CSceneStage::CSceneStage()
@@ -17,7 +16,6 @@ CSceneStage::~CSceneStage()
 void CSceneStage::Initialize()
 {
 	
-	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create(WINCX >> 1, WINCY >> 1));
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
 }
 
@@ -51,10 +49,4 @@ void CSceneStage::Release()
 {
 	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_DBG_UI });
 	CBmpMgr::Get_Instance()->Delete_Bmp(L"Ground");
-
-	//for (int i = 0; i < OBJ_END; ++i)
-	//{
-	//	CObjMgr::Get_Instance()->Dead_ID(static_cast<OBJID>(i));
-	//}
-	//CObjMgr::Get_Instance()->Release();
 }

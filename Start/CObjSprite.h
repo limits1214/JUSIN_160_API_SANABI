@@ -7,15 +7,8 @@ public:
 	virtual ~CObjSprite();
 
 public:
-	void Set_FrameKey(const TCHAR* pFrameKey)
-	{
-		lstrcpy(m_szFrameKey, pFrameKey);
-	}
 
-	void Set_Frame(FRAME tFrame)
-	{
-		m_tFrame = tFrame;
-	}
+
 	void Set_MoveFrame(bool bMoveFrame)
 	{
 		m_bMoveFrame = bMoveFrame;
@@ -29,7 +22,6 @@ public:
 	void Release() override;
 
 private:
-	TCHAR m_szFrameKey[256];
 	bool m_bMoveFrame;
 };
 

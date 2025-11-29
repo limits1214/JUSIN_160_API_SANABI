@@ -122,7 +122,8 @@ int CUIObjBmpDbgPannel::Update()
 			TCHAR szTemp[256]{};
 			swprintf_s(szTemp, _T("%d-%s"), i, (*iter2).first);
 			dynamic_cast<CUIObjText*>(hiermap2[*iter3].front())->Set_Text(szTemp);
-
+			dynamic_cast<CUIObjText*>(hiermap2[*iter3].front())->Set_CX(info->fCX);
+			dynamic_cast<CUIObjText*>(hiermap2[*iter3].front())->Set_CY(itemHeight);
 			++idx;
 		}
 

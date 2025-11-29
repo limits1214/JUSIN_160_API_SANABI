@@ -3,7 +3,7 @@
 #include "CObjMgr.h"
 #include "CObjPlayer.h"
 #include "CBmpMgr.h"
-#include "CObjLine.h"
+#include "CObjCollisionLine.h"
 #include "CCollisionMgr.h"
 #include "CObjSprite.h"
 #include "CObjGrp.h"
@@ -22,61 +22,71 @@ CSceneTutorial::~CSceneTutorial()
 void CSceneTutorial::Initialize()
 {
     // TEST BG
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
+   // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
 
     // IMG
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Monster/Monster.bmp", L"Monster");
+   // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Monster/Monster.bmp", L"Monster");
+
+    //CObjGrp* pGrp = new CObjGrp;
+    //pGrp->Initialize();
+    //pGrp->Set_Pos(WINCX >> 1, WINCY >> 1);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_GRP, pGrp);
 
     // PLAYER
     CObjPlayer* pPlayer = new CObjPlayer;
     CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
     pPlayer->Initialize();
     pPlayer->Set_Pos(WINCX >> 1, WINCY >> 1);
-
-    // LINE
-    CObjLine* pLine1 = new CObjLine;
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine1);
-    pLine1->Initialize();
-    pLine1->Set_Line_Point({ 0,0 }, { 200, 200 });
-    pLine1->Set_Pos(WINCX >> 1, (WINCY >> 1) + 60);
-    pLine1->Set_Visible(false);
-
-
-    //CObjGrp* pGrp1 = new CObjGrp;
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_GRP, pGrp1);
-    //pGrp1->Initialize();
-    //pGrp1->Set_Pos(WINCX >> 1, WINCY >> 1);
-
-    //CObjSprite* pSprite1 = new CObjSprite;
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_SPRITE, pSprite1);
-    //pSprite1->Set_FrameKey(_T("Monster"));
-    //pSprite1->Initialize();
-    //pSprite1->Set_CX(300);
-    //pSprite1->Set_CY(300);
-    //pSprite1->Set_Pos(110, 0 );
-    //pSprite1->Set_Parent(pGrp1);
-
-    //CObjSprite* pSprite2 = new CObjSprite;
-    //pSprite2->Set_FrameKey(_T("Monster"));
-    //pSprite2->Initialize();
-    //pSprite2->Set_CX(300);
-    //pSprite2->Set_CY(300);
-    //pSprite2->Set_Pos(0, 110);
-    //pSprite2->Set_Parent(pGrp1);
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_SPRITE, pSprite2);
-
+    //pPlayer->Set_Parent(pGrp);
 
     //CObjInputController* pInputController = new CObjInputController;
     //pInputController->Initialize();
     //pInputController->Set_Pos(0, 0);
-    //pInputController->Set_Parent(pGrp1);
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_INPUTCONTROLLER, pInputController);
+    //pInputController->Set_Parent(pGrp);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pInputController);
 
-    //CObjLine* pLine2 = new CObjLine;
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine2);
-    //pLine2->Initialize();
-    //pLine2->Set_Line_Point({ 0,0 }, { 200, -200 });
-    //pLine2->Set_Pos(WINCX >> 1, (WINCY >> 1) + 260);
+  
+
+
+    // LINE
+    CObjCollisionLine* pLine1 = new CObjCollisionLine;
+    pLine1->Initialize();
+    pLine1->Set_Line_Point({ 0,0 }, { 200, 200 });
+    pLine1->Set_Pos(WINCX >> 1, (WINCY >> 1) + 60);
+    pLine1->Set_Option(LCT_CLIMABLE);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine1);
+
+    CObjCollisionLine* pLine2 = new CObjCollisionLine;
+    pLine2->Initialize();
+    pLine2->Set_Line_Point({ 0,0 }, { 200, 0 });
+    pLine2->Set_Pos((WINCX >> 1) - 200, (WINCY >> 1) - 40);
+    pLine2->Set_Option(LCT_CLIMABLE);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine2);
+
+    CObjCollisionLine* pLine3 = new CObjCollisionLine;
+    pLine3->Initialize();
+    pLine3->Set_Line_Point({ 0,0 }, { 200, 0 });
+    pLine3->Set_Pos((WINCX >> 1) + 200, (WINCY >> 1) + 160);
+    pLine3->Set_Option(LCT_CLIMABLE);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine3);
+
+
+    CObjCollisionLine* pLine4 = new CObjCollisionLine;
+    pLine4->Initialize();
+    pLine4->Set_Line_Point({ 0,0 }, { 0, 200 });
+    pLine4->Set_Pos((WINCX >> 1) - 300, (WINCY >> 1) - 140);
+    pLine4->Set_Option(LCT_CLIMABLE);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine4);
+
+
+
+    CObjCollisionLine* pLine5 = new CObjCollisionLine;
+    pLine5->Initialize();
+    pLine5->Set_Line_Point({ 0,0 }, { 0, 200 });
+    pLine5->Set_Pos((WINCX >> 1) + 300, (WINCY >> 1) + 60);
+    pLine5->Set_Option(LCT_NOCLIMABLE);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine5);
+    
 }
 
 int CSceneTutorial::Update()
@@ -95,24 +105,10 @@ void CSceneTutorial::Late_Update()
 
 void CSceneTutorial::Render(HDC hDC)
 {
-    HDC		hGroundDC = CBmpMgr::Get_Instance()->Find_Image(L"Ground");
-    
-    int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-    int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-
-    BitBlt(hDC,
-        iScrollX,
-        iScrollY,
-        1920,			// 복사 받을 공간의 가로 
-        1280,			// 복사 받을 공간의 세로 
-        hGroundDC,				// 복사 할 DC
-        0,					// 복사할 이미지의 LEFT, TOP
-        0,
-        SRCCOPY);			// 그대로 복사
     CObjMgr::Get_Instance()->Render(hDC);
 }
 
 void CSceneTutorial::Release()
 {
-    CBmpMgr::Get_Instance()->Delete_Bmp(L"Ground");
+    //CBmpMgr::Get_Instance()->Delete_Bmp(L"Ground");
 }

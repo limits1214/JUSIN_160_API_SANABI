@@ -32,9 +32,6 @@ void CBmpMgr::Insert_Bmp(const TCHAR* pFilePath, const TCHAR* pImgKey)
 		CMyBitmap* pBmp = new CMyBitmap;
 		pBmp->Load_Bmp(pFilePath);
 
-		//TCHAR szTemp[256]{};
-		//lstrcpy(szTemp, pImgKey);
-
 		m_mapBit.insert({ pImgKey, pBmp });
 	}
 }

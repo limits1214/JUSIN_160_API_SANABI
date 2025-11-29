@@ -434,28 +434,13 @@ void CEditMgr::EditAreaTileMLKeyDown(POINT ptMouse)
 		}
 	}
 
-
-
 	INFO tileInfo = Tile_Id_To_TileInfo(m_eTile);
 	FRAME frame = FRAME{ int(tileInfo.fX / tileInfo.fCX),int(tileInfo.fX / tileInfo.fCX), int(tileInfo.fY / tileInfo.fCY), 0, 0 };
 
 	CObjTile* pTile = new CObjTile;
 	pTile->Initialize();
 	pTile->Set_Pos(x, y);
-
-	//TCHAR szFrameKey[256]{};
-	//Tile_Id_To_FrameKey(m_eTile);
-	//pTile->Set_SZFrameKey(szFrameKey);
-
-	
-	//pTile->Set_FrameKeyId(Tile_Id_ToFrameKeyId(m_eTile));
-
-;
-	
 	pTile->Set_FrameKeyId(Tile_Id_To_FrameKeyId(m_eTile));
 	pTile->Set_Frame(frame);
-
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);
-
-	
 }

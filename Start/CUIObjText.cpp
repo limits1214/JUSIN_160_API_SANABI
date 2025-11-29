@@ -4,7 +4,7 @@
 #include "CScrollMgr.h"
 CUIObjText::CUIObjText()
 	:m_pText(nullptr), m_bAlignBottom(false), m_bAlignTop(false), m_bAlignLeft(false), m_bAlignRight(false)
-	, m_bApplyScroll(false)
+	
 {
 	Set_DbgName(_T("CUIObjText"));
 }
@@ -88,17 +88,11 @@ void CUIObjText::Render(HDC hDC)
 		rc.bottom = rc.top + rcHeightHalf * 2;
 	}
 
-	if (m_bApplyScroll)
-	{
-		auto x = CScrollMgr::Get_Instance()->Get_ScrollX();
-		auto y = CScrollMgr::Get_Instance()->Get_ScrollY();
-		rc.left += x;
-		rc.right += x;
-		rc.top += y;
-		rc.bottom += y;
-	}
-
 	DrawText(hDC, m_pText, lstrlen(m_pText), &rc, DT_CENTER);
+
+	// Text는 출력하려면 그 크기를 CalRect로 계산하고 그거를 출력중인데
+	// m_tRect를 사용하지 않아서 컬링이 이상하게 될수 있다.
+	// 컬링은 m_tRect를 보고 하고 있어서 컬링을 제대로 하려면 반드시 CX, CY값을 잘 넘겨주자
 }
 
 void CUIObjText::Release()

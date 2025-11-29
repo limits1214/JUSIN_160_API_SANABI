@@ -34,18 +34,24 @@ void CObjPlayer::Initialize()
 	m_tFrame.dwTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
 	m_eCurState = IDLE;
+
+	m_bUseMainScroll = true;
 }
 
 int CObjPlayer::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+	// 입력받고 그릴지 아니면 그리고 입력받을지...
+	__super::Update_Rect();
+
+
 	m_eCurState = IDLE;
 	Key_Input();
 
 	Move_Frame();
 
-	__super::Update_Rect();
+	
 
 	return OBJ_NOEVENT;
 }
@@ -58,12 +64,7 @@ void CObjPlayer::Late_Update()
 
 void CObjPlayer::Render(HDC hDC)
 {
-	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	//TCHAR szFrameKey[256]{};
-	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 	//GdiTransparentBlt(hDC,				// 복사 받을 DC
 	//	m_tRect.left + iScrollX,	// 복사 받을 공간의 LEFT	
@@ -79,7 +80,7 @@ void CObjPlayer::Render(HDC hDC)
 
 	BmpRender(
 		hDC,
-		m_tRect.left + iScrollX, m_tRect.top + iScrollY,
+		m_tRect.left , m_tRect.top,
 		(int)m_tInfo.fCX, (int)m_tInfo.fCY,
 
 		hMemDC,
@@ -168,7 +169,29 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 	if (eCollID == COLL_LINE)
 	{
 		float targetY = *static_cast<float*>(etc);
-		m_tInfo.fY = targetY;
+
+		if (
+			// under margin
+			(targetY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY)
+			&&
+			// top margin
+			(targetY - (m_tInfo.fCY * 0.5f) < m_tInfo.fY)
+			)
+		{
+			
+			m_tInfo.fY = targetY - (m_tInfo.fCY * 0.5f);
+
+			//if (
+			//	// under margin
+			//	(targetY + (m_tInfo.fCY * 0) > m_tInfo.fY)
+			//	&&
+			//	// top margin
+			//	(targetY - (m_tInfo.fCY * 0.5) < m_tInfo.fY)
+			//	)
+			//{
+			//	
+			//}
+		}
 	}
 }
 void CObjPlayer::Key_Input()
@@ -192,6 +215,18 @@ void CObjPlayer::Key_Input()
 	if (bKeyDownSpace)
 	{
 		m_eCurState = JUMP;
+	}
+
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
+	{
+
+		m_tInfo.fY -= 5;
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
+	{
+		m_tInfo.fY += 5;
 	}
 }
 
@@ -231,6 +266,7 @@ void CObjPlayer::Motion_Change()
 
 void CObjPlayer::Offset()
 {
+	return;
 	int	iOffsetminX = 100;
 	int	iOffsetmaxX = 700;
 

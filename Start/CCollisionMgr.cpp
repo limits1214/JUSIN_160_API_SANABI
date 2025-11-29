@@ -14,10 +14,10 @@ void CCollisionMgr::Collision_Line(list<CObj*> _Dst, list<CObj*> _Src)
 			{
 				float inputX = Dst->Get_Info()->fX;
 				float inputY = 0;
-				//if (Line_Equation(pLine, inputX, 0, &inputY))
-				//{
-				//	pDst->On_Collision(Src, COLL_LINE, &inputY);
-				//}
+				if (Line_Equation(pLine, inputX, 0, &inputY))
+				{
+					pDst->On_Collision(Src, COLL_LINE, &inputY);
+				}
 			}
 		}
 	}
