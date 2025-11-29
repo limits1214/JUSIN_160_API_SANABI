@@ -4,6 +4,7 @@
 #include "CBmpMgr.h"
 
 CObjTile::CObjTile()
+	: m_iOption(0)
 {
 }
 
@@ -36,7 +37,10 @@ void CObjTile::Render(HDC hDC)
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
 
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_szFrameKey);
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	//HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(szFrameKey);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 
 	BmpRender(
 		hDC,

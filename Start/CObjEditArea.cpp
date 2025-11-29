@@ -38,6 +38,9 @@ void CObjEditArea::Render(HDC hDC)
 
 	if (CEditMgr::Get_Instance()->Get_ShowGrid())
 	{
+		HPEN hNewPen = CreatePen(PS_SOLID, 1, RGB(80, 80, 80));
+		HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
+
 		for (int j = 0; j < iXCnt; ++j)
 		{
 			MoveToEx(hDC, TILECX * j, 0, nullptr);
@@ -49,6 +52,10 @@ void CObjEditArea::Render(HDC hDC)
 			MoveToEx(hDC, 0, TILECY * i, nullptr);
 			LineTo(hDC, WINCX, TILECY * i);
 		}
+
+		HPEN hOldPen2 = (HPEN)SelectObject(hDC, hOldPen);
+		DeleteObject(hOldPen2);
+		DeleteObject(hNewPen);
 	}
 
 	//현재 마우스표시용
@@ -58,12 +65,18 @@ void CObjEditArea::Render(HDC hDC)
 		POINT ptMouse = CEditMgr::Get_Instance()->Get_MousePoint();
 		MoveToEx(hDC, ptMouse.x , ptMouse.y , nullptr);
 		LineTo(hDC, ptMouse.x  + 16, ptMouse.y  + 16);
+
+		MoveToEx(hDC, ptMouse.x + 16, ptMouse.y, nullptr);
+		LineTo(hDC, ptMouse.x, ptMouse.y + 16);
 	}
 	else if (pickingMode == EMPM_TILE_SIDE)
 	{
 		POINT ptMouse = CEditMgr::Get_Instance()->Get_MousePoint();
 		MoveToEx(hDC, ptMouse.x  - 8, ptMouse.y  - 8, nullptr);
 		LineTo(hDC, ptMouse.x  + 8, ptMouse.y + 8);
+
+		MoveToEx(hDC, ptMouse.x + 8, ptMouse.y - 8, nullptr);
+		LineTo(hDC, ptMouse.x - 8, ptMouse.y + 8);
 	}
 	else
 	{

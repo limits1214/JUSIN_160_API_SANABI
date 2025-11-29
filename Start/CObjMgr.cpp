@@ -258,7 +258,6 @@ map<CObj*, list<CObj*>> CObjMgr::Get_HierarchyMap(CObj* _pObj)
 			tmplist.push_back(a.second);
 		}
 
-
 		targetMap[node.second] = tmplist;
 
 		///
@@ -292,7 +291,6 @@ map<CObj*, list<CObj*>> CObjMgr::Get_HierarchyMap(CObj* _pObj)
 	//		tempList.push_back(child);
 	//	}
 	//}
-
 	//return targetMap;
 
 

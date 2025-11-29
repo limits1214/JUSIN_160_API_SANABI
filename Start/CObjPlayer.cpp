@@ -19,9 +19,17 @@ void CObjPlayer::Initialize()
 {
 	m_tInfo.fCX = 60.f;
 	m_tInfo.fCY = 60.f;
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", L"SNB");
-	m_pFrameKey = _T("SNB");
 
+	auto a = CBmpMgr::Get_Instance();
+
+	m_eFrameKey = FKI_SNB;
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", szFrameKey);
+	
+	//TCHAR szFrameKey[256]{};
+	;
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", FrameKeyId_To_Text2(m_eFrameKey));
 	
 	m_tFrame.dwTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
@@ -54,8 +62,9 @@ void CObjPlayer::Render(HDC hDC)
 	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
 
 	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 	//GdiTransparentBlt(hDC,				// 복사 받을 DC
 	//	m_tRect.left + iScrollX,	// 복사 받을 공간의 LEFT	
 	//	m_tRect.top + iScrollY,				// 복사 받을 공간의 TOP
@@ -150,6 +159,9 @@ void CObjPlayer::Render(HDC hDC)
 
 void CObjPlayer::Release()
 {
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	//CBmpMgr::Get_Instance()->Delete_Bmp(szFrameKey);
 }
 void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 {

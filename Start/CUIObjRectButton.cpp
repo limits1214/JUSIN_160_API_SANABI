@@ -67,8 +67,6 @@ void CUIObjRectButton::Late_Update()
 
 void CUIObjRectButton::Render(HDC hDC)
 {
-	if (!m_bVisible)
-		return;
 	COLORREF color = m_colCur;
 	HBRUSH hBrush = CreateSolidBrush(color);
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, hBrush);

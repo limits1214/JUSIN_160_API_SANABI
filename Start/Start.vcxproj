@@ -198,14 +198,13 @@
     <ClInclude Include="CMyBitmap.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjButton.h" />
-    <ClInclude Include="CObjClimableLine.h" />
+    <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjEditArea.h" />
     <ClInclude Include="CObjGrp.h" />
     <ClInclude Include="CObjInputController.h" />
     <ClInclude Include="CObjLine.h" />
     <ClInclude Include="CObjMgr.h" />
     <ClInclude Include="CObjMouse.h" />
-    <ClInclude Include="CObjNoClimableLine.h" />
     <ClInclude Include="CObjPlayer.h" />
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjTest.h" />
@@ -250,7 +249,7 @@
     <ClCompile Include="CMyBitmap.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjButton.cpp" />
-    <ClCompile Include="CObjClimableLine.cpp" />
+    <ClCompile Include="CObjCollisionLine.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
@@ -258,7 +257,6 @@
     <ClCompile Include="CObjLine.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
     <ClCompile Include="CObjMouse.cpp" />
-    <ClCompile Include="CObjNoClimableLine.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjTest.cpp" />

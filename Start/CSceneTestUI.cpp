@@ -124,13 +124,13 @@ void CSceneTestUI::Initialize()
 	//pUiTextTemp->Set_Text(_T("asdfasdfasdfasdfasdfasdf"));
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pUiTextTemp);
 
-	CUIObjDbgPanel* pDbgPanel = new CUIObjDbgPanel;
-	CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
-	pDbgPanel->Initialize();
-	pDbgPanel->Set_CX(WINCX >> 2);
-	pDbgPanel->Set_CY(WINCY >> 2);
-	pDbgPanel->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + 0);
-	pDbgPanel->Set_Header_Text(_T("DBG_PANEL"));
+	//CUIObjDbgPanel* pDbgPanel = new CUIObjDbgPanel;
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
+	//pDbgPanel->Initialize();
+	//pDbgPanel->Set_CX(WINCX >> 2);
+	//pDbgPanel->Set_CY(WINCY >> 2);
+	//pDbgPanel->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + 0);
+	//pDbgPanel->Set_Header_Text(_T("DBG_PANEL"));
 }
 
 int CSceneTestUI::Update()

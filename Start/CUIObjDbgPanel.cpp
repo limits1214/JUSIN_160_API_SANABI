@@ -68,11 +68,10 @@ void CUIObjDbgPanel::Initialize()
 
 
 
-			TCHAR szObjText[256]{};
-			ObjID_To_Text(static_cast<OBJID>(i), szObjText);
+		
 
 			TCHAR szTemp[256]{};
-			swprintf_s(szTemp, _T("%d-%s: %d"), i, szObjText, oblList[i].size());
+			swprintf_s(szTemp, _T("%d-%s: %d"), i, ObjID_To_Text(static_cast<OBJID>(i)), oblList[i].size());
 			CUIObjText* pText = new CUIObjText;
 
 			pText->Initialize();
@@ -157,23 +156,22 @@ int CUIObjDbgPanel::Update()
 			//(*iter2)->Set_Parent(this->m_pUIContentBox);
 			(*iter2)->Set_OnKeyDown([=]() {
 				CUIObjListDbgPanel* pDbgPanel = new CUIObjListDbgPanel;
-				TCHAR szObjText[256];
-				ObjID_To_Text(static_cast<OBJID>(i), szObjText);
+				
+				;
 				//OBJID eID = Get_ParentObjIdWithDefault(OBJ_DBG_UI);
 				CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
 				pDbgPanel->Initialize();
 				pDbgPanel->Set_CX(WINCX >> 2);
 				pDbgPanel->Set_CY(WINCY >> 2);
 				pDbgPanel->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + 0);
-				pDbgPanel->Set_Header_Text(szObjText);
+				pDbgPanel->Set_Header_Text(ObjID_To_Text(static_cast<OBJID>(i)));
 				pDbgPanel->Set_ObjID(static_cast<OBJID>(i));
 			});
 
 			list<CObj*>* oblList = CObjMgr::Get_Instance()->Get_ObjectList();
-			TCHAR szObjText[256]{};
-			ObjID_To_Text(static_cast<OBJID>(i), szObjText);
+			
 			TCHAR szTemp[256]{};
-			swprintf_s(szTemp, _T("%d-%s: %d"), i, szObjText, oblList[i].size());
+			swprintf_s(szTemp, _T("%d-%s: %d"), i, ObjID_To_Text(static_cast<OBJID>(i)), oblList[i].size());
 			//TODO: nullcheck
 			dynamic_cast<CUIObjText*>(hiermap[*iter2].front())->Set_Text(szTemp);
 

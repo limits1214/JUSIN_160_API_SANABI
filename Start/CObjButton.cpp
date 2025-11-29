@@ -32,9 +32,9 @@ int CObjButton::Update()
 	{
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
 		{
-			if (!lstrcmp(_T("Start"), m_pFrameKey))
+			if (m_eFrameKey == FKI_TEST_BTN_START)
 				CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
-			else if (!lstrcmp(_T("Edit"), m_pFrameKey))
+			else if (m_eFrameKey == FKI_TEST_BTN_EDIT)
 			{
 				CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
 			}	
@@ -57,7 +57,13 @@ void CObjButton::Late_Update()
 
 void CObjButton::Render(HDC hDC)
 {
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	//HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(szFrameKey);
+
+	//TCHAR szFrameKey[256]{};
+	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 
 	GdiTransparentBlt(hDC,				// 복사 받을 DC
 		m_tRect.left,	// 복사 받을 공간의 LEFT	

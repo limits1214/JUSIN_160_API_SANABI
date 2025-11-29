@@ -113,11 +113,10 @@ int CUIObjListDbgPanel::Update()
 			(*iter3)->Set_Parent(this->m_pUIContentBox);
 			(*iter3)->Set_OnKeyDown([=]() {
 				CUIObjInfoDbgPanel* pDbgPanel = new CUIObjInfoDbgPanel;
-				TCHAR szObjText[256]{};
-				ObjID_To_Text(static_cast<OBJID>(m_eObjID), szObjText);
+				
 
 				TCHAR szText[256]{};
-				swprintf_s(szText, _T("%s-%d-%s"), szObjText, sq, szDbgName);
+				swprintf_s(szText, _T("%s-%d-%s"), ObjID_To_Text(static_cast<OBJID>(m_eObjID)), sq, szDbgName);
 				//OBJID eID = Get_ParentObjIdWithDefault(OBJ_DBG_UI);
 				CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
 				pDbgPanel->Initialize();

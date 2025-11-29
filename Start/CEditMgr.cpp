@@ -3,8 +3,8 @@
 #include "CObjTile.h"
 #include "CObjMgr.h"
 #include "CKeyMgr.h"
-#include "CObjClimableLine.h"
-#include "CObjNoClimableLine.h"
+#include "CObjCollisionLine.h"
+#include "CCollisionMgr.h"
 
 CEditMgr* CEditMgr::m_pInstance = nullptr;
 
@@ -34,7 +34,10 @@ void CEditMgr::EditAreaLineMLKeyDown(POINT ptMouse)
 	{
 		return;
 	}
-
+	if (!m_bEditLine)
+	{
+		return;
+	}
 	if (m_bFirstLine)
 	{
 		m_bFirstLine = false;
@@ -52,21 +55,25 @@ void CEditMgr::EditAreaLineMLKeyDown(POINT ptMouse)
 		float posy = m_ptLastLine.y + lHeight * 0.5f;
 		if (m_eLine == LINE_CLIMABLE)
 		{
-			CObjClimableLine* line = new CObjClimableLine;
+			CObjCollisionLine* line = new CObjCollisionLine;
 			line->Initialize();
 			line->Set_Pos(posx, posy);
 			line->Set_Line_Point( lpLeft, lpRight);
+			line->Set_Option(LCT_CLIMABLE);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, line);
 		}
 		else if (m_eLine == LINE_NO_CLIMABLE)
 		{
-			CObjNoClimableLine* line = new CObjNoClimableLine;
+			CObjCollisionLine* line = new CObjCollisionLine;
 			line->Initialize();
 			line->Set_Pos(posx, posy);
 			line->Set_Line_Point(lpLeft, lpRight);
+			line->Set_Option(LCT_NOCLIMABLE);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, line);
 		}
-		m_ptLastLine = ptMouse;
+		//m_ptLastLine = ptMouse;
+
+		m_bFirstLine = true;
 	}
 }
 
@@ -76,6 +83,56 @@ void CEditMgr::EditAreaLineMRKeyDown(POINT ptMouse)
 	{
 		return;
 	}
+	if (!m_bEditLine)
+	{
+		return;
+	}
+
+	// 마우스 너비에 포함되는지 순회 돌면서 포함되면 첫번째 제거
+	list<CObj*>* lineObjList = CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE);
+
+	CObj* pTargetObj = nullptr;
+	for (auto iter = lineObjList->begin(); iter != lineObjList->end(); ++iter)
+	{
+		CObjLine* pLine = dynamic_cast<CObjLine*>(*iter);
+		INFO lineInfo = *pLine->Get_Info();
+		float outputY = 0;
+		if (CCollisionMgr::Line_Equation(pLine, ptMouse.x, 0, &outputY))
+		{
+			if (isnan(outputY))
+			{
+				// 기울기가 세로인경우
+					if (
+						ptMouse.y <= pLine->Get_Rect()->bottom + 16
+						&&
+						ptMouse.y >= pLine->Get_Rect()->top - 16
+						)
+					{
+						pTargetObj = pLine;
+					}
+			}
+			else
+			{
+				if (
+					// bottomMarin
+					outputY <= ptMouse.y + 16
+					&&
+					// topMargin
+					outputY >=  ptMouse.y - 16
+					)
+				{
+					pTargetObj = pLine;
+				}
+			}
+		}
+	}
+
+	if (pTargetObj != nullptr)
+	{
+		pTargetObj->Set_Dead();
+	}
+
+
 }
 
 void CEditMgr::EditAreaSpriteMLKeyDown(POINT ptMouse)
@@ -85,13 +142,225 @@ void CEditMgr::EditAreaSpriteMLKeyDown(POINT ptMouse)
 void CEditMgr::EditAreaSpriteMRKeyDown(POINT ptMouse)
 {
 }
+
+void CEditMgr::Save_File(FILE_NAME_ID eID)
+{
+	const TCHAR* szFileName = FileNameId_To_Text(eID);
+
+	TCHAR szText[256]{};
+	swprintf_s(szText, _T("%s 저장 합니까"), szFileName);
+	// OK: 1, NO OK: 2
+	auto res = MessageBox(g_hWnd, szText, L"Save_File", MB_OKCANCEL);
+
+	if (res == 1)
+	{
+		TCHAR szPath[256]{};
+		swprintf_s(szPath, _T("../Data/%s"), szFileName);
+		HANDLE	hFile = CreateFile(szPath, // 파일 이름이 포함된 경로
+			GENERIC_WRITE,		// 파일 접근 모드(GENERIC_WRITE : 쓰기, GENERIC_READ : 읽기)
+			NULL,				// 공유 방식(파일이 열려 있는 상태에서 다른 프로세스가 오픈 할 때 허가하는 것에 대해 설정, 지정하지 않을 경우 NULL)
+			NULL,				// 보안 속성(기본값인 경우 NULL)
+			CREATE_ALWAYS,		// 파일이 없을 경우 파일을 생성하여 저장(OPEN_EXISTING : 파일이 있을 경우에만 로드)
+			FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+			NULL);				// 생성될 파일의 속성ㅇ르 제공할 템플릿 파일
+		if (hFile == INVALID_HANDLE_VALUE)
+		{
+			MessageBox(g_hWnd, _T("OPEN FAIL"), L"Save_File", MB_OKCANCEL);
+			return;
+		}
+		
+		/*
+		
+		저장할 데이터
+		1. 라인데이터
+		2. 타일데이터
+		3. TODO: 띵스 데이터
+		*/
+
+		list<CObj*> lineList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE);
+		list<CObj*> tileList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_TILE);
+
+
+		DWORD		dwByte(0);
+
+		// 파일 버전
+		int fileVersion = 0;
+		WriteFile(hFile, &fileVersion, sizeof(int), &dwByte, NULL);
+
+		// 파일 헤더
+		int lineListSize = lineList.size();
+		int tileListSize = tileList.size();
+
+		WriteFile(hFile, &lineListSize, sizeof(int), &dwByte, NULL);
+		WriteFile(hFile, &tileListSize, sizeof(int), &dwByte, NULL);
+		
+
+		// 파일 데이터
+
+		// 파일 데이터 - 라인
+		for (auto *& line: lineList)
+		{
+			CObjCollisionLine* cline = dynamic_cast<CObjCollisionLine*>(line);
+			if (cline != nullptr)
+			{
+				INFO info = *line->Get_Info();
+				//FRAME frame = line->Get_Frame();
+				LINE l = cline->Get_Line();
+				int option = cline->Get_Option();
+				
+				float fWidth = l.tRight.fX - l.tLeft.fX;
+				float fHeight = l.tRight.fY - l.tRight.fY;
+
+				WriteFile(hFile, &info, sizeof(INFO), &dwByte, NULL);
+				//WriteFile(hFile, &frame, sizeof(FRAME), &dwByte, NULL);
+				WriteFile(hFile, &l, sizeof(LINE), &dwByte, NULL);
+				WriteFile(hFile, &option, sizeof(int), &dwByte, NULL);
+			}
+		}
+
+		// 파일 데이터 - 타일
+		for (auto*& tile : tileList)
+		{
+			CObjTile* pTile = dynamic_cast<CObjTile*>(tile);
+			if (pTile != nullptr)
+			{
+				INFO info = *pTile->Get_Info();
+				FRAME frame = pTile->Get_Frame();
+				FRAME_KEY_ID frameKeyId = pTile->Get_FrameKeyId();
+				int option = pTile->Get_Option();
+
+				WriteFile(hFile, &info, sizeof(INFO), &dwByte, NULL);
+				WriteFile(hFile, &frame, sizeof(FRAME), &dwByte, NULL);
+				WriteFile(hFile, &frameKeyId, sizeof(FRAME_KEY_ID), &dwByte, NULL);
+				WriteFile(hFile, &option, sizeof(int), &dwByte, NULL);
+			}
+		}
+
+
+
+
+
+		CloseHandle(hFile);
+		MessageBox(g_hWnd, L"저장완료", L"Save_File", MB_OK);
+	}
+	else if (res == 2)
+	{
+		MessageBox(g_hWnd, L"취소 되었습니다.", L"Save_File", MB_OK);
+	}
+}
+
+void CEditMgr::Load_File(FILE_NAME_ID eID)
+{
+	const TCHAR* szFileName = FileNameId_To_Text(eID);
+
+	TCHAR szText[256]{};
+	swprintf_s(szText, _T("%s 로드 합니까"), szFileName);
+	// OK: 1, NO OK: 2
+	auto res = MessageBox(g_hWnd, szText, L"Load_File", MB_OKCANCEL);
+
+	if (res == 1)
+	{
+		TCHAR szPath[256]{};
+		swprintf_s(szPath, _T("../Data/%s"), szFileName);
+		HANDLE	hFile = CreateFile(szPath, // 파일 이름이 포함된 경로
+			GENERIC_READ,		// 파일 접근 모드(GENERIC_WRITE : 쓰기, GENERIC_READ : 읽기)
+			NULL,				// 공유 방식(파일이 열려 있는 상태에서 다른 프로세스가 오픈 할 때 허가하는 것에 대해 설정, 지정하지 않을 경우 NULL)
+			NULL,				// 보안 속성(기본값인 경우 NULL)
+			OPEN_EXISTING,		// 파일이 없을 경우 파일을 생성하여 저장(OPEN_EXISTING : 파일이 있을 경우에만 로드)
+			FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+			NULL);				// 생성될 파일의 속성ㅇ르 제공할 템플릿 파일
+
+		if (hFile == INVALID_HANDLE_VALUE)
+		{
+			MessageBox(g_hWnd, _T("OPEN FAIL"), L"Load_File", MB_OKCANCEL);
+			return;
+		}
+
+		/*
+
+		로드할 데이터
+		1. 버전
+		2. 헤더
+		3. 파일
+
+
+		1. 라인데이터
+		2. 타일데이터
+		3. TODO: 띵스 데이터
+		*/
+
+		DWORD	dwByte(0);		// eof 역할
+		
+		// 버전 읽기;
+		int iVersion = 0;
+		ReadFile(hFile, &iVersion, sizeof(int), &dwByte, nullptr);
+
+		// 헤더 일기
+		int lineListSize = 0;
+		int tileListSize = 0;
+		ReadFile(hFile, &lineListSize, sizeof(int), &dwByte, nullptr);
+		ReadFile(hFile, &tileListSize, sizeof(int), &dwByte, nullptr);
+
+		for (int i = 0; i < lineListSize; ++i)
+		{
+			INFO info;
+			//FRAME frame;
+			LINE l;
+			int option;
+			
+			ReadFile(hFile, &info, sizeof(INFO), &dwByte, nullptr);
+			//ReadFile(hFile, &frame, sizeof(FRAME), &dwByte, nullptr);
+			ReadFile(hFile, &l, sizeof(LINE), &dwByte, nullptr);
+			ReadFile(hFile, &option, sizeof(int), &dwByte, nullptr);
+
+			CObjCollisionLine* cLine = new CObjCollisionLine;
+			cLine->Initialize();
+			cLine->Set_Pos(info.fX, info.fY);
+			cLine->Set_Line_Point(l.tLeft, l.tRight);
+			cLine->Set_Option(option);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, cLine);
+		}
+
+		for (int i = 0; i < tileListSize; ++i)
+		{
+			INFO info;
+			FRAME frame;
+			FRAME_KEY_ID frameKeyId;
+			int option;
+
+			ReadFile(hFile, &info, sizeof(INFO), &dwByte, nullptr);
+			ReadFile(hFile, &frame, sizeof(FRAME), &dwByte, nullptr);
+			ReadFile(hFile, &frameKeyId, sizeof(FRAME_KEY_ID), &dwByte, nullptr);
+			ReadFile(hFile, &option, sizeof(int), &dwByte, nullptr);
+
+			CObjTile* pTile = new CObjTile;
+			pTile->Initialize();
+			pTile->Set_Pos(info.fX, info.fY);
+			pTile->Set_Option(option);
+			pTile->Set_FrameKeyId(frameKeyId);
+			pTile->Set_Frame(frame);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);
+		}
+
+		CloseHandle(hFile);
+		MessageBox(g_hWnd, L"로드완료", L"Save_File", MB_OK);
+	}
+	else if (res == 2)
+	{
+		MessageBox(g_hWnd, L"취소 되었습니다.", L"Save_File", MB_OK);
+	}
+}
+
 void CEditMgr::EditAreaTileMRKeyDown(POINT ptMouse)
 {
 	if (m_eTile == TILE_ID_END || m_eTile == TILE_START)
 	{
 		return;
 	}
-
+	if (!m_bEditTile)
+	{
+		return;
+	}
 
 	int x = ptMouse.x;
 	int y = ptMouse.y;
@@ -111,6 +380,10 @@ void CEditMgr::EditAreaTileMRKeyDown(POINT ptMouse)
 void CEditMgr::EditAreaTileMLKeyDown(POINT ptMouse)
 {
 	if (m_eTile == TILE_ID_END || m_eTile == TILE_START || m_eTile == TILE_END)
+	{
+		return;
+	}
+	if (!m_bEditTile)
 	{
 		return;
 	}
@@ -138,9 +411,16 @@ void CEditMgr::EditAreaTileMLKeyDown(POINT ptMouse)
 	pTile->Initialize();
 	pTile->Set_Pos(x, y);
 
-	TCHAR szFrameKey[256];
-	Tile_Id_To_FrameKey(m_eTile, szFrameKey);
-	pTile->Set_FrameKey(szFrameKey);
+	//TCHAR szFrameKey[256]{};
+	//Tile_Id_To_FrameKey(m_eTile);
+	//pTile->Set_SZFrameKey(szFrameKey);
+
+	
+	//pTile->Set_FrameKeyId(Tile_Id_ToFrameKeyId(m_eTile));
+
+;
+	
+	pTile->Set_FrameKeyId(Tile_Id_To_FrameKeyId(m_eTile));
 	pTile->Set_Frame(frame);
 
 	CObjMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);

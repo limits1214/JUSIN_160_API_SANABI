@@ -67,15 +67,13 @@ void CUIObjSceneDbgPanel::Initialize()
 
 
 
-			TCHAR szTemp[256]{};
-			SceneID_To_Text(static_cast<SCENEID>(i), szTemp);
 			//swprintf_s(szTemp, _T("%d-%s: %d"), i, objText);
 			CUIObjText* pText = new CUIObjText;
 
 			pText->Initialize();
 			//pText->Set_Pos(0, + (itemHeight * 0.5) - (info->fCY * 0.5) + (idx * itemHeight));
 			pText->Set_Pos(0, 0);
-			pText->Set_Text(szTemp);
+			pText->Set_Text(SceneID_To_Text(static_cast<SCENEID>(i)));
 			pText->Set_Parent(pRectBtn);
 			pText->Set_CX(info->fCX);
 			pText->Set_CY(itemHeight);
@@ -172,12 +170,11 @@ int CUIObjSceneDbgPanel::Update()
 				});
 
 			list<CObj*>* oblList = CObjMgr::Get_Instance()->Get_ObjectList();
-			TCHAR szTemp[256]{};
-			SceneID_To_Text(static_cast<SCENEID>(i), szTemp);
+		
 			
 			//swprintf_s(szTemp, _T("%d-%s: %d"), i, objText, oblList[i].size());
 			//TODO: nullcheck
-			dynamic_cast<CUIObjText*>(hiermap[*iter2].front())->Set_Text(szTemp);
+			dynamic_cast<CUIObjText*>(hiermap[*iter2].front())->Set_Text(SceneID_To_Text(static_cast<SCENEID>(i)));
 			//Safe_Delete(objText);
 
 			++idx;

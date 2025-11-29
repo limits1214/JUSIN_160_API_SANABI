@@ -32,7 +32,21 @@ public:
 	}
 	void Set_Dead();
 	void Set_Dead_Cascade();
-	void		Set_FrameKey(const TCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	//void		Set_FrameKey(const TCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	//void		Set_SZFrameKey(const TCHAR* pFrameKey) { 
+	//	lstrcpy(m_szFrameKey, pFrameKey);
+	//}
+	//TCHAR* Get_SZFrameKey() { return m_szFrameKey; }
+
+	void Set_FrameKeyId(FRAME_KEY_ID eFrameKey)
+	{
+		m_eFrameKey = eFrameKey;
+	}
+
+	FRAME_KEY_ID Get_FrameKeyId()
+	{
+		return m_eFrameKey;
+	}
 
 	const RECT* Get_Rect() const { return &m_tRect; }
 	const INFO* Get_Info() const { return &m_tInfo; }
@@ -97,6 +111,15 @@ public:
 
 	CObj* Get_SuperParent();
 
+	void Set_Frame(FRAME tFrame)
+	{
+		m_tFrame = tFrame;
+	}
+	FRAME Get_Frame()
+	{
+		return m_tFrame;
+	}
+
 	// TODO: REMOVE
 private:
 	OBJID Get_ParentObjIdWithDefault(OBJID eDefualtObjID);
@@ -116,7 +139,10 @@ protected:
 	bool m_bDead;
 
 	FRAME		m_tFrame;
-	const TCHAR* m_pFrameKey;
+	//const TCHAR* m_pFrameKey;
+	//TCHAR m_szFrameKey[256];
+
+	FRAME_KEY_ID m_eFrameKey;
 
 	CObj* m_pParent;
 

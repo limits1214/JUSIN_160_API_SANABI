@@ -13,6 +13,10 @@ public:
 	{
 		m_tLine = {ptLeft, ptRight};
 	}
+	LINE Get_Line()
+	{
+		return m_tLine;
+	}
 
 	float Get_LineIncline()
 	{

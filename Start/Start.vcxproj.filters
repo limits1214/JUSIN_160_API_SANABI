@@ -31,6 +31,21 @@
     <Filter Include="소스 파일\OBJ\UI">
       <UniqueIdentifier>{ebbd2d3a-6fd9-4b1f-adcc-aae8b1008722}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\OBJ\LINE">
+      <UniqueIdentifier>{76908f58-3209-4eaf-a7a6-e6a8ee68a088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\PLAYER">
+      <UniqueIdentifier>{682153fd-8d6f-410f-adc2-15a9447808c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\THINGS">
+      <UniqueIdentifier>{55f2953d-fe24-4694-8bb6-5f90fd6e9a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\MONSTER">
+      <UniqueIdentifier>{f2998a17-b61a-4207-8648-60c35bdb0320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\OBJ\BOSS">
+      <UniqueIdentifier>{20e419e6-7ec4-4aad-a407-dc89a2de5a24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -59,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
       <Filter>소스 파일\MGR</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
     <ClInclude Include="CBmpMgr.h">
       <Filter>소스 파일\MGR</Filter>
@@ -129,12 +141,6 @@
     <ClInclude Include="CUIObjText.h">
       <Filter>소스 파일\OBJ\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CObjTest.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="CObjPlayer.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
     <ClInclude Include="CMouseEventMgr.h">
       <Filter>소스 파일\MGR</Filter>
     </ClInclude>
@@ -147,16 +153,10 @@
     <ClInclude Include="CObjGrp.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="CObjLine.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
       <Filter>소스 파일\MGR</Filter>
     </ClInclude>
     <ClInclude Include="CObjSprite.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="CObjInputController.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
     <ClInclude Include="CSceneTileEdit.h">
@@ -174,11 +174,23 @@
     <ClInclude Include="CObjTile.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
-    <ClInclude Include="CObjNoClimableLine.h">
-      <Filter>소스 파일\OBJ</Filter>
+    <ClInclude Include="CObjLine.h">
+      <Filter>소스 파일\OBJ\LINE</Filter>
     </ClInclude>
-    <ClInclude Include="CObjClimableLine.h">
-      <Filter>소스 파일\OBJ</Filter>
+    <ClInclude Include="CObjPlayer.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjInputController.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjTest.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjCollisionLine.h">
+      <Filter>소스 파일\OBJ\LINE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -196,9 +208,6 @@
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>소스 파일\MGR</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
     <ClCompile Include="CBmpMgr.cpp">
       <Filter>소스 파일\MGR</Filter>
@@ -236,9 +245,6 @@
     <ClCompile Include="CObjMouse.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="CObjDbgText.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
     <ClCompile Include="CUIObjDbgPanel.cpp">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClCompile>
@@ -260,12 +266,6 @@
     <ClCompile Include="CUIObjText.cpp">
       <Filter>소스 파일\OBJ\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CObjTest.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="CObjPlayer.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
     <ClCompile Include="CMouseEventMgr.cpp">
       <Filter>소스 파일\MGR</Filter>
     </ClCompile>
@@ -281,9 +281,6 @@
     <ClCompile Include="CObjGrp.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="CObjLine.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
       <Filter>소스 파일\MGR</Filter>
     </ClCompile>
@@ -291,9 +288,6 @@
       <Filter>소스 파일\MGR</Filter>
     </ClCompile>
     <ClCompile Include="CObjSprite.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="CObjInputController.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
     <ClCompile Include="CSceneTileEdit.cpp">
@@ -311,11 +305,26 @@
     <ClCompile Include="CObjTile.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
-    <ClCompile Include="CObjClimableLine.cpp">
-      <Filter>소스 파일\OBJ</Filter>
+    <ClCompile Include="CObjLine.cpp">
+      <Filter>소스 파일\OBJ\LINE</Filter>
     </ClCompile>
-    <ClCompile Include="CObjNoClimableLine.cpp">
-      <Filter>소스 파일\OBJ</Filter>
+    <ClCompile Include="CObjPlayer.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjInputController.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjDbgText.h">
+      <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjCollisionLine.cpp">
+      <Filter>소스 파일\OBJ\LINE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,10 +9,10 @@ public:
 	void Set_ShowGrid(bool bShowGrid) { m_bShowGrid = bShowGrid; }
 
 	bool Get_EditTile() { return m_bEditTile; }
-	void Set_EditTile(bool bEditTile) { m_bEditTile = bEditTile; }
+	void Set_EditTile(bool bEditTile) { m_bEditTile = bEditTile; m_eTile = TILE_ID_END; }
 
 	bool Get_EditLine() { return m_bEditLine; }
-	void Set_EditLine(bool bEditLine) { m_bEditLine = bEditLine; }
+	void Set_EditLine(bool bEditLine) { m_bEditLine = bEditLine; ZeroMemory(&m_ptLastLine, sizeof(POINT)); m_bFirstLine = true; m_eLine = LINE_ID_END; }
 
 	bool Get_EditSprite() { return m_bEditSprite; }
 	void Set_EditSprite(bool bEditSprite) { m_bEditSprite = bEditSprite; }
@@ -40,6 +40,10 @@ public:
 
 	void Set_Line(LINE_ID eLine) { m_eLine = eLine; };
 	LINE_ID Get_Line() { return m_eLine; };
+
+	void Save_File(FILE_NAME_ID eID);
+	void Load_File(FILE_NAME_ID eID);
+	
 
 private:
 	bool m_bShowGrid;

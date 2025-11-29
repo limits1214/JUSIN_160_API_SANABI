@@ -23,7 +23,8 @@ void CPlayer::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Player/Player_RIGHT.bmp", L"Player_RIGHT");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", L"SNB");
 
-	m_pFrameKey = _T("SNB");
+	//m_pFrameKey = _T("SNB");
+	m_eFrameKey = FKI_SNB;
 	m_tFrame.iStart = 0;
 	m_tFrame.iEnd = 7;
 	m_tFrame.iMotion = 4;
@@ -113,7 +114,7 @@ void DrawRotated(HDC destDC, HDC srcDC, int x, int y, int w, int h, float angleD
 void CPlayer::Render(HDC hDC)
 {
 	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
+	//HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(m_pFrameKey);
 
 	//GdiTransparentBlt(hDC,				// 복사 받을 DC
 	//	m_tRect.left ,	// 복사 받을 공간의 LEFT	
@@ -141,7 +142,7 @@ void CPlayer::Render(HDC hDC)
 	//0,
 	//SRCCOPY);
 
-	DrawRotated(hDC, hMemDC, 300, 200, 60, 60, 45.0f);
+	//DrawRotated(hDC, hMemDC, 300, 200, 60, 60, 45.0f);
 
 	//GdiTransparentBlt(tempDC,				// 복사 받을 DC
 	//	m_tRect.left ,	// 복사 받을 공간의 LEFT	

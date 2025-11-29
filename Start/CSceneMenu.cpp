@@ -22,15 +22,15 @@ void CSceneMenu::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Menu/Menu.bmp", L"Menu");
 
 	CObj* pButton = CAbstractFactory<CObjButton>::Create(200.f, 400.f);
-	pButton->Set_FrameKey(L"Start");
+	pButton->Set_FrameKeyId(FKI_TEST_BTN_START);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
 
 	pButton = CAbstractFactory<CObjButton>::Create(400.f, 400.f);
-	pButton->Set_FrameKey(L"Edit");
+	pButton->Set_FrameKeyId(FKI_TEST_BTN_EDIT);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
 
 	pButton = CAbstractFactory<CObjButton>::Create(600.f, 400.f);
-	pButton->Set_FrameKey(L"Exit");
+	pButton->Set_FrameKeyId(FKI_TEST_BTN_EXIT);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
 }
 
