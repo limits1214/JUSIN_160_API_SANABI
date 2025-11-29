@@ -5,6 +5,7 @@
 #include "CUIObjText.h"
 #include "CObjSprite.h"
 #include "CEditMgr.h"
+#include "CObjThings.h"
 
 CUIObjTileEditDbgPanel::CUIObjTileEditDbgPanel()
 	: m_eTEM(TEM_END)
@@ -42,16 +43,6 @@ int CUIObjTileEditDbgPanel::Update()
 	{
 		a->Set_Active_Cascade(false);
 	}
-
-
-	
-	//CObjSprite* pSprite = new CObjSprite;
-	//pSprite->Initialize();
-	//pSprite->Set_CX(128);
-	//pSprite->Set_CY(64);
-	//pSprite->Set_Pos(WINCX >> 1, WINCY >> 1);
-	//pSprite->Set_FrameKey(_T("TEST_TILE"));
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pSprite);
 
 	if (m_eTEM == TEM_LINE)
 	{
@@ -144,10 +135,7 @@ int CUIObjTileEditDbgPanel::Update()
 			}
 		}
 	}
-	else if (m_eTEM == TEM_GRID_TOGGLE)
-	{
-
-	}
+	
 	else if (m_eTEM == TEM_PICKING_MODE)
 	{
 		{
@@ -389,9 +377,89 @@ int CUIObjTileEditDbgPanel::Update()
 			}
 		}
 	}
-	else if (m_eTEM == TEM_IMG)
+
+	else if (m_eTEM == TEM_THINGS)
 	{
-		
+		{
+			auto info = this->m_pUIContentBox->Get_Info();
+			auto itemHeight = 20;
+			int viewItemCnt = info->fCY / itemHeight;
+			int listSize = TGS_END;
+			int startIemIdx = 0;
+			if (listSize > viewItemCnt)
+			{
+				startIemIdx = (listSize - viewItemCnt) * m_fYScrollPercent;
+			}
+			int endItemIdx = startIemIdx + viewItemCnt;
+			if (endItemIdx > listSize)
+			{
+				endItemIdx = listSize;
+			}
+
+			list<CUIObjRectButton*> targetBtnList;
+
+			for (auto iter = hiermap.begin(); iter != hiermap.end(); ++iter)
+			{
+				auto pBtn = dynamic_cast<CUIObjRectButton*>((*iter).first);
+				if (pBtn != nullptr)
+				{
+					targetBtnList.push_back(pBtn);
+				}
+			}
+
+			auto shortageCnt = viewItemCnt - targetBtnList.size();
+			if (shortageCnt > 0)
+			{
+				list<CObj*> tempList;
+				for (int i = 0; i < shortageCnt; ++i)
+				{
+					CUIObjRectButton* pRectBtn = new CUIObjRectButton;
+					pRectBtn->Initialize();
+					pRectBtn->Set_Parent(this->m_pUIContentBox);
+
+					CUIObjText* pText = new CUIObjText;
+					pText->Initialize();
+					pText->Set_Parent(pRectBtn);
+
+					tempList.push_back(pText);
+					tempList.push_back(pRectBtn);
+
+					targetBtnList.push_back(pRectBtn);
+				}
+
+				for (auto*& a : tempList)
+				{
+					CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, a);
+				}
+			}
+
+
+			int idx = 0;
+			for (int i = startIemIdx; i < endItemIdx; ++i)
+			{
+				auto iter3 = std::next(targetBtnList.begin(), idx);
+				(*iter3)->Set_Active_Cascade(true);
+
+				(*iter3)->Set_CX(info->fCX);
+				(*iter3)->Set_CY(itemHeight);
+				(*iter3)->Set_Pos(0, +(itemHeight * 0.5) - (info->fCY * 0.5) + (idx * itemHeight));
+				(*iter3)->Set_Parent(this->m_pUIContentBox);
+
+				(*iter3)->Set_OnKeyDown([=]() {
+					CObjThings* pThgins = new CObjThings;
+					pThgins->Set_Thgins(static_cast<THINGS_ID>(i));
+					pThgins->Initialize();
+					pThgins->Set_Pos(WINCX >> 1, TILECY * 5);
+					CObjMgr::Get_Instance()->Add_Object(OBJ_THINGS, pThgins);
+					});
+
+
+				auto hiermap2 = CObjMgr::Get_Instance()->Get_HierarchyMap(this->m_pUIContentBox);
+				dynamic_cast<CUIObjText*>(hiermap2[*iter3].front())->Set_Text(ThginsId_To_Text(static_cast<THINGS_ID>(i)));
+
+				++idx;
+			}
+		}
 	}
 	
 	else if (m_eTEM == TEM_FILE_SAVE || m_eTEM == TEM_FILE_LOAD)
@@ -557,8 +625,9 @@ int CUIObjTileEditDbgPanel::Update()
 					case TEM_TILE:
 						this->m_eTEM = TEM_TILE;
 						break;
-					case TEM_IMG:
-						this->m_eTEM = TEM_IMG;
+					case TEM_THINGS:
+						this->m_eTEM = TEM_THINGS;
+						break;
 					case TEM_GRID_TOGGLE:
 						CEditMgr::Get_Instance()->Set_ShowGrid(!CEditMgr::Get_Instance()->Get_ShowGrid());
 						break;

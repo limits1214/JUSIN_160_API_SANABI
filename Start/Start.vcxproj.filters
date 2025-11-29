@@ -192,6 +192,24 @@
     <ClInclude Include="CObjCollisionLine.h">
       <Filter>소스 파일\OBJ\LINE</Filter>
     </ClInclude>
+    <ClInclude Include="CObjMonsterA.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterG.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterB.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossFireBird.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjThings.h">
+      <Filter>소스 파일\OBJ\THINGS</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIObjScrollDbgPanel.h">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -325,6 +343,24 @@
     </ClCompile>
     <ClCompile Include="CObjCollisionLine.cpp">
       <Filter>소스 파일\OBJ\LINE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterA.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterG.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterB.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFireBird.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjThings.cpp">
+      <Filter>소스 파일\OBJ\THINGS</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIObjScrollDbgPanel.cpp">
+      <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,8 @@ public:
 		m_bAlignBottom = bAlignBottom;
 	}
 
+	void Set_ApplyScroll(bool bApplyScroll) { m_bApplyScroll = bApplyScroll; }
+
 public:
 	void Initialize() override;
 	int Update() override;
@@ -41,5 +43,7 @@ private:
 	TCHAR* m_pText;
 
 	bool m_bAlignLeft, m_bAlignRight, m_bAlignTop, m_bAlignBottom;
+
+	bool m_bApplyScroll;
 };
 

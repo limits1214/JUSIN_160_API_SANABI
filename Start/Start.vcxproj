@@ -197,6 +197,7 @@
     <ClInclude Include="CMouseEventMgr.h" />
     <ClInclude Include="CMyBitmap.h" />
     <ClInclude Include="CObj.h" />
+    <ClInclude Include="CObjBossFireBird.h" />
     <ClInclude Include="CObjButton.h" />
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjEditArea.h" />
@@ -204,10 +205,14 @@
     <ClInclude Include="CObjInputController.h" />
     <ClInclude Include="CObjLine.h" />
     <ClInclude Include="CObjMgr.h" />
+    <ClInclude Include="CObjMonsterA.h" />
+    <ClInclude Include="CObjMonsterB.h" />
+    <ClInclude Include="CObjMonsterG.h" />
     <ClInclude Include="CObjMouse.h" />
     <ClInclude Include="CObjPlayer.h" />
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjTest.h" />
+    <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CScene.h" />
@@ -227,6 +232,7 @@
     <ClInclude Include="CUIObjPanel.h" />
     <ClInclude Include="CUIObjRectButton.h" />
     <ClInclude Include="CUIObjSceneDbgPanel.h" />
+    <ClInclude Include="CUIObjScrollDbgPanel.h" />
     <ClInclude Include="CUIObjText.h" />
     <ClInclude Include="CUIObjTileEditDbgPanel.h" />
     <ClInclude Include="Define.h" />
@@ -248,6 +254,7 @@
     <ClCompile Include="CMouseEventMgr.cpp" />
     <ClCompile Include="CMyBitmap.cpp" />
     <ClCompile Include="CObj.cpp" />
+    <ClCompile Include="CObjBossFireBird.cpp" />
     <ClCompile Include="CObjButton.cpp" />
     <ClCompile Include="CObjCollisionLine.cpp" />
     <ClCompile Include="CObjDbgText.h" />
@@ -256,10 +263,14 @@
     <ClCompile Include="CObjInputController.cpp" />
     <ClCompile Include="CObjLine.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
+    <ClCompile Include="CObjMonsterA.cpp" />
+    <ClCompile Include="CObjMonsterB.cpp" />
+    <ClCompile Include="CObjMonsterG.cpp" />
     <ClCompile Include="CObjMouse.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjTest.cpp" />
+    <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneLogo.cpp" />
@@ -278,6 +289,7 @@
     <ClCompile Include="CUIObjPanel.cpp" />
     <ClCompile Include="CUIObjRectButton.cpp" />
     <ClCompile Include="CUIObjSceneDbgPanel.cpp" />
+    <ClCompile Include="CUIObjScrollDbgPanel.cpp" />
     <ClCompile Include="CUIObjText.cpp" />
     <ClCompile Include="CUIObjTileEditDbgPanel.cpp" />
     <ClCompile Include="pch.cpp">

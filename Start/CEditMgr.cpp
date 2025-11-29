@@ -5,6 +5,7 @@
 #include "CKeyMgr.h"
 #include "CObjCollisionLine.h"
 #include "CCollisionMgr.h"
+#include "CObjThings.h"
 
 CEditMgr* CEditMgr::m_pInstance = nullptr;
 
@@ -174,12 +175,12 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 		저장할 데이터
 		1. 라인데이터
 		2. 타일데이터
-		3. TODO: 띵스 데이터
+		3. 띵스 데이터
 		*/
 
 		list<CObj*> lineList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE);
 		list<CObj*> tileList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_TILE);
-
+		list<CObj*> thingsList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS);
 
 		DWORD		dwByte(0);
 
@@ -190,10 +191,11 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 		// 파일 헤더
 		int lineListSize = lineList.size();
 		int tileListSize = tileList.size();
+		int thingsListSize = thingsList.size();
 
 		WriteFile(hFile, &lineListSize, sizeof(int), &dwByte, NULL);
 		WriteFile(hFile, &tileListSize, sizeof(int), &dwByte, NULL);
-		
+		WriteFile(hFile, &thingsListSize, sizeof(int), &dwByte, NULL);
 
 		// 파일 데이터
 
@@ -233,6 +235,18 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 				WriteFile(hFile, &frame, sizeof(FRAME), &dwByte, NULL);
 				WriteFile(hFile, &frameKeyId, sizeof(FRAME_KEY_ID), &dwByte, NULL);
 				WriteFile(hFile, &option, sizeof(int), &dwByte, NULL);
+			}
+		}
+
+		for (auto*& things : thingsList)
+		{
+			CObjThings* pThgins = dynamic_cast<CObjThings*>(things);
+			if (pThgins != nullptr)
+			{
+				INFO info = *pThgins->Get_Info();
+				THINGS_ID eThings = pThgins->Get_Thgins();
+				WriteFile(hFile, &info, sizeof(INFO), &dwByte, NULL);
+				WriteFile(hFile, &eThings, sizeof(THINGS_ID), &dwByte, NULL);
 			}
 		}
 
@@ -286,7 +300,7 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 
 		1. 라인데이터
 		2. 타일데이터
-		3. TODO: 띵스 데이터
+		3. 띵스 데이터
 		*/
 
 		DWORD	dwByte(0);		// eof 역할
@@ -298,8 +312,10 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 		// 헤더 일기
 		int lineListSize = 0;
 		int tileListSize = 0;
+		int thingsListSize = 0;
 		ReadFile(hFile, &lineListSize, sizeof(int), &dwByte, nullptr);
 		ReadFile(hFile, &tileListSize, sizeof(int), &dwByte, nullptr);
+		ReadFile(hFile, &thingsListSize, sizeof(int), &dwByte, nullptr);
 
 		for (int i = 0; i < lineListSize; ++i)
 		{
@@ -340,6 +356,22 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 			pTile->Set_FrameKeyId(frameKeyId);
 			pTile->Set_Frame(frame);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_TILE, pTile);
+		}
+
+		for (int i = 0; i < thingsListSize; ++i)
+		{
+			INFO info ;
+			THINGS_ID eThings;
+
+			ReadFile(hFile, &info, sizeof(INFO), &dwByte, nullptr);
+			ReadFile(hFile, &eThings, sizeof(THINGS_ID), &dwByte, nullptr);
+
+			CObjThings* pThings = new CObjThings;
+			pThings->Set_Thgins(eThings);
+			pThings->Initialize();
+			pThings->Set_Pos(info.fX, info.fY);
+			
+			CObjMgr::Get_Instance()->Add_Object(OBJ_THINGS, pThings);
 		}
 
 		CloseHandle(hFile);

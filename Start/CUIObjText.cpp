@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "CUIObjText.h"
 
+#include "CScrollMgr.h"
 CUIObjText::CUIObjText()
 	:m_pText(nullptr), m_bAlignBottom(false), m_bAlignTop(false), m_bAlignLeft(false), m_bAlignRight(false)
+	, m_bApplyScroll(false)
 {
 	Set_DbgName(_T("CUIObjText"));
 }
@@ -84,6 +86,16 @@ void CUIObjText::Render(HDC hDC)
 	{
 		rc.top = m_tRect.bottom - rcHeightHalf* 2;
 		rc.bottom = rc.top + rcHeightHalf * 2;
+	}
+
+	if (m_bApplyScroll)
+	{
+		auto x = CScrollMgr::Get_Instance()->Get_ScrollX();
+		auto y = CScrollMgr::Get_Instance()->Get_ScrollY();
+		rc.left += x;
+		rc.right += x;
+		rc.top += y;
+		rc.bottom += y;
 	}
 
 	DrawText(hDC, m_pText, lstrlen(m_pText), &rc, DT_CENTER);
