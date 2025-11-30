@@ -3,6 +3,7 @@
 #include "CObjMgr.h"
 #include "CCollisionMgr.h"
 #include "CObjEditArea.h"
+#include "CUIObjText.h"
 
 CSceneLab::CSceneLab()
 {
@@ -15,6 +16,18 @@ CSceneLab::~CSceneLab()
 
 void CSceneLab::Initialize()
 {
+	//for (int i = 0; i < 20; ++i)
+	//{
+	//	for (int j = 0; j < 20; ++j)
+	//	{
+	//		CUIObjText* p = new CUIObjText();
+	//		p->Initialize();
+	//		p->Set_Text(L"1");
+	//		p->Set_Pos(200 + i * 10,  200 +j * 10);
+	//		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, p);
+	//	}
+	//}
+
 	CObjEditArea* pEditArea = new CObjEditArea;
 	pEditArea->Initialize();
 	pEditArea->Set_CX(WINCX);
@@ -32,6 +45,8 @@ int CSceneLab::Update()
 void CSceneLab::Late_Update()
 {
 	CObjMgr::Get_Instance()->Late_Update();
+
+	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 	CCollisionMgr::Collision_Line(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE));
 }
 

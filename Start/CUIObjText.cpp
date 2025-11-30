@@ -88,7 +88,13 @@ void CUIObjText::Render(HDC hDC)
 		rc.bottom = rc.top + rcHeightHalf * 2;
 	}
 
-	DrawText(hDC, m_pText, lstrlen(m_pText), &rc, DT_CENTER);
+	//Rectangle(hDC, rc.left, rc.top, rc.right, rc.bottom);
+
+
+
+	//DrawText(hDC, m_pText, lstrlen(m_pText), &rc, DT_CENTER);
+
+	TextOutW(hDC, rc.left , rc.top , m_pText, lstrlen(m_pText));
 
 	// Text는 출력하려면 그 크기를 CalRect로 계산하고 그거를 출력중인데
 	// m_tRect를 사용하지 않아서 컬링이 이상하게 될수 있다.

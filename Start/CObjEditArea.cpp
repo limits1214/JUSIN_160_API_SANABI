@@ -146,8 +146,35 @@ void CObjEditArea::On_Mouse_Key_Up(CObj* pMouse)
 {
 }
 
-void CObjEditArea::On_Mouse_Key_Pressing(CObj* pMouse)
+void CObjEditArea::On_Mouse_Key_Pressing(CObj* pObj)
 {
+	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
+	if (pMouse != nullptr)
+	{
+		POINT ptCurr = pMouse->Get_Pt_Curr();
+		if (PtInRect(&m_tRect, ptCurr))
+		{
+			int	x = ptCurr.x / TILECX;
+			int	y = ptCurr.y / TILECY;
+
+			x *= TILECX;
+			y *= TILECY;
+			if (CEditMgr::Get_Instance()->Get_EditTile())
+			{
+				if (pMouse->Get_Last_Key() & VK_LBUTTON)
+				{
+					CEditMgr::Get_Instance()->EditAreaTileMLKeyDown({ x, y });
+				}
+				else if (pMouse->Get_Last_Key() & VK_RBUTTON)
+				{
+					CEditMgr::Get_Instance()->EditAreaTileMRKeyDown({ x, y });
+				}
+			}
+
+			
+
+		}
+	}
 }
 
 void CObjEditArea::On_Mouse_Pos(CObj* pObj)

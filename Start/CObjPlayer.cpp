@@ -6,6 +6,7 @@
 #include "CScrollMgr.h"
 #include "CObjLine.h"
 #include "CCollisionMgr.h"
+#include "CObjRect.h"
 
 
 CObjPlayer::CObjPlayer()
@@ -180,7 +181,6 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		
 		if (isnan(lineCollEtc.fY))
 		{
-			//return;
 			if (
 				true
 				&&
@@ -205,7 +205,6 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		}
 		else
 		{
-			
 			if (
 				// under margin
 				(lineCollEtc.fY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY)
@@ -227,7 +226,40 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			}
 		}
 	}
+
+	CObjRect* pRect = dynamic_cast<CObjRect*>(pObj);
+	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
+	if (eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr)
+	{
+		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
+		float fDistance = rectExCollEtc.fDistance;
+		
+		switch (rectExCollEtc.eDir)
+		{
+		case DIR_UP:
+		{
+			m_tInfo.fY -= fDistance;
+		}
+			break;
+		case DIR_DOWN:
+		{
+			m_tInfo.fY += fDistance;
+		}
+			break;
+		case DIR_LEFT:
+		{
+			m_tInfo.fX -= fDistance;
+		}
+			break;
+		case DIR_RIGHT:
+		{
+			m_tInfo.fX += fDistance;
+		}
+			break;
+		}
+	}
 }
+
 void CObjPlayer::Key_Input()
 {
 	bool bPressingA = CKeyMgr::Get_Instance()->Key_Pressing('A');

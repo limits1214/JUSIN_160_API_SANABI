@@ -4,6 +4,7 @@
 #include "CUIObjText.h"
 #include "CUIObjRectButton.h"
 #include "CScrollMgr.h"
+#include "CKeyMgr.h"
 
 CUIObjScrollDbgPanel::CUIObjScrollDbgPanel()
 {
@@ -153,9 +154,36 @@ int CUIObjScrollDbgPanel::Update()
 			{
 				dynamic_cast<CUIObjText*>(hiermap2[*iter3].front())->Set_Text(_T("오른쪽"));
 			}
-			
+
 
 			++idx;
+		}
+	}
+
+
+	{
+		// 위
+		if (CKeyMgr::Get_Instance()->Key_Pressing('I'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollY(TILECX );
+		}
+
+		// 왼
+		if (CKeyMgr::Get_Instance()->Key_Pressing('J'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollX(TILECX );
+		}
+
+		// 아
+		if (CKeyMgr::Get_Instance()->Key_Pressing('K'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX );
+		}
+
+		// 오
+		if (CKeyMgr::Get_Instance()->Key_Pressing('L'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX );
 		}
 	}
 
