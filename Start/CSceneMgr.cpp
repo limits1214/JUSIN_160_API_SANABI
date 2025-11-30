@@ -6,6 +6,7 @@
 #include "CSceneTestUI.h"
 #include "CSceneTutorial.h"
 #include "CSceneTileEdit.h"
+#include "CSceneLab.h"
 
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 CSceneMgr::CSceneMgr()
@@ -43,6 +44,9 @@ void CSceneMgr::Scene_Change(SCENEID eID)
 			break;
 		case SC_TUTORIAL:
 			m_pScene = new CSceneTutorial;
+			break;
+		case SC_LAB:
+			m_pScene = new CSceneLab;
 			break;
 		case SC_TILEEIDT:
 			m_pScene = new CSceneTileEdit;

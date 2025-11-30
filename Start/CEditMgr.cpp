@@ -4,8 +4,10 @@
 #include "CObjMgr.h"
 #include "CKeyMgr.h"
 #include "CObjCollisionLine.h"
+#include "CObjCollisionRect.h"
 #include "CCollisionMgr.h"
 #include "CObjThings.h"
+#include "CScrollMgr.h"
 
 CEditMgr* CEditMgr::m_pInstance = nullptr;
 
@@ -13,15 +15,18 @@ CEditMgr* CEditMgr::m_pInstance = nullptr;
 CEditMgr::CEditMgr()
 	:m_bShowGrid(false),
 	m_bEditLine(false),
-	m_bEditSprite(false),
+	m_bEditRect(false),
 	m_bEditTile(false),
 	m_eTile(TILE_ID_END),
 	m_eFileName(FNI_END),
 	m_eMousePickingMode(EMPM_END),
 	m_bFirstLine(true),
-	m_eLine(LINE_ID_END)
+	m_bFirstRect(true),
+	m_eLine(LINE_ID_END),
+	m_eEditRect(ERI_END)
 {
 	ZeroMemory(&m_ptLastLine, sizeof(POINT));
+	ZeroMemory(&m_ptLastRect, sizeof(POINT));
 }
 
 CEditMgr::~CEditMgr()
@@ -46,6 +51,17 @@ void CEditMgr::EditAreaLineMLKeyDown(POINT ptMouse)
 	}
 	else
 	{
+
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+		ptMouse.x -= iScrollX;
+		ptMouse.y -= iScrollY;
+
+		m_ptLastLine.x -= iScrollX;
+		m_ptLastLine.y -= iScrollY;
+
+
 		LONG lWidth = ptMouse.x - m_ptLastLine.x;
 		LONG lHeight = ptMouse.y - m_ptLastLine.y;
 		LINEPOINT lpLeft = { (float)m_ptLastLine.x , (float)m_ptLastLine.y};
@@ -89,6 +105,12 @@ void CEditMgr::EditAreaLineMRKeyDown(POINT ptMouse)
 		return;
 	}
 
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+	ptMouse.x -= iScrollX;
+	ptMouse.y -= iScrollY;
+
 	// 마우스 너비에 포함되는지 순회 돌면서 포함되면 첫번째 제거
 	list<CObj*>* lineObjList = CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE);
 
@@ -97,8 +119,9 @@ void CEditMgr::EditAreaLineMRKeyDown(POINT ptMouse)
 	{
 		CObjLine* pLine = dynamic_cast<CObjLine*>(*iter);
 		INFO lineInfo = *pLine->Get_Info();
+		float outputX = 0;
 		float outputY = 0;
-		if (CCollisionMgr::Line_Equation(pLine, ptMouse.x, 0, &outputY))
+		if (CCollisionMgr::Line_Equation(pLine, ptMouse.x, ptMouse.y, 0, 0, &outputX, &outputY))
 		{
 			if (isnan(outputY))
 			{
@@ -136,12 +159,102 @@ void CEditMgr::EditAreaLineMRKeyDown(POINT ptMouse)
 
 }
 
-void CEditMgr::EditAreaSpriteMLKeyDown(POINT ptMouse)
+void CEditMgr::EditAreaRectMLKeyDown(POINT ptMouse)
 {
+	if (m_eEditRect == ERI_END || m_eEditRect == ERI_START || m_eEditRect == ERI_STOP)
+	{
+		return;
+	}
+	if (!m_bEditRect)
+	{
+		return;
+	}
+
+	if (m_bFirstRect)
+	{
+		m_bFirstRect = false;
+		m_ptLastRect = ptMouse;
+	}
+	else
+	{
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+		ptMouse.x -= iScrollX;
+		ptMouse.y -= iScrollY;
+
+		m_ptLastRect.x -= iScrollX;
+		m_ptLastRect.y -= iScrollY;
+
+		LONG lWidth = ptMouse.x - m_ptLastRect.x;
+		LONG lHeight = ptMouse.y - m_ptLastRect.y;
+		//LONG lWidth = fabsf(ptMouse.x - m_ptLastRect.x);
+		//LONG lHeight = fabsf(ptMouse.y - m_ptLastRect.y);
+		LINEPOINT lpLeft = { (float)m_ptLastRect.x , (float)m_ptLastRect.y };
+		LINEPOINT lpRight = { (float)ptMouse.x , (float)ptMouse.y };
+
+
+		float posx = m_ptLastRect.x + lWidth * 0.5f;
+		float posy = m_ptLastRect.y + lHeight * 0.5f;
+		if (m_eEditRect == ERI_CLIMABLE)
+		{
+			CObjCollisionRect* rect = new CObjCollisionRect;
+			rect->Initialize();
+			rect->Set_Pos(posx, posy);
+			rect->Set_CX(fabsf(lWidth));
+			rect->Set_CY(fabsf(lHeight));
+			rect->Set_Option(ERI_CLIMABLE);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_RECT, rect);
+		}
+		else if (m_eEditRect == ERI_NO_CLIMABLE)
+		{
+			CObjCollisionRect* rect = new CObjCollisionRect;
+			rect->Initialize();
+			rect->Set_Pos(posx, posy); 
+			rect->Set_CX(lWidth);
+			rect->Set_CY(lHeight);
+			rect->Set_Option(ERI_NO_CLIMABLE);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_RECT, rect);
+		}
+
+		m_bFirstRect = true;
+	}
 }
 
-void CEditMgr::EditAreaSpriteMRKeyDown(POINT ptMouse)
+void CEditMgr::EditAreaRectMRKeyDown(POINT ptMouse)
 {
+	if (m_eEditRect == ERI_END || m_eEditRect == ERI_START)
+	{
+		return;
+	}
+	if (!m_bEditRect)
+	{
+		return;
+	}
+
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+	ptMouse.x -= iScrollX;
+	ptMouse.y -= iScrollY;
+
+	// 마우스 너비에 포함되는지 순회 돌면서 포함되면 첫번째 제거
+	list<CObj*>* rectObjList = CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT);
+
+	CObj* pTargetObj = nullptr;
+	for (auto iter = rectObjList->begin(); iter != rectObjList->end(); ++iter)
+	{
+		CObjRect* pRect = dynamic_cast<CObjRect*>(*iter);
+		if (PtInRect(pRect->Get_Rect(), ptMouse))
+		{
+			pTargetObj = pRect;
+		}
+	}
+
+	if (pTargetObj != nullptr)
+	{
+		pTargetObj->Set_Dead();
+	}
 }
 
 void CEditMgr::Save_File(FILE_NAME_ID eID)
@@ -174,11 +287,15 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 		
 		저장할 데이터
 		1. 라인데이터
-		2. 타일데이터
-		3. 띵스 데이터
+		2. 렉트데이터
+		3. 타일데이터
+		4. 띵스 데이터
+
+		// TODO: 
 		*/
 
 		list<CObj*> lineList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE);
+		list<CObj*> rectList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT);
 		list<CObj*> tileList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_TILE);
 		list<CObj*> thingsList = *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS);
 
@@ -190,10 +307,12 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 
 		// 파일 헤더
 		int lineListSize = lineList.size();
+		int rectListSize = rectList.size();
 		int tileListSize = tileList.size();
 		int thingsListSize = thingsList.size();
 
 		WriteFile(hFile, &lineListSize, sizeof(int), &dwByte, NULL);
+		WriteFile(hFile, &rectListSize, sizeof(int), &dwByte, NULL);
 		WriteFile(hFile, &tileListSize, sizeof(int), &dwByte, NULL);
 		WriteFile(hFile, &thingsListSize, sizeof(int), &dwByte, NULL);
 
@@ -216,6 +335,20 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 				WriteFile(hFile, &info, sizeof(INFO), &dwByte, NULL);
 				//WriteFile(hFile, &frame, sizeof(FRAME), &dwByte, NULL);
 				WriteFile(hFile, &l, sizeof(LINE), &dwByte, NULL);
+				WriteFile(hFile, &option, sizeof(int), &dwByte, NULL);
+			}
+		}
+
+		// 파일데이터 - 렉트
+		for (auto*& rect : rectList)
+		{
+			CObjCollisionRect* crect = dynamic_cast<CObjCollisionRect*>(rect);
+			if (crect != nullptr)
+			{
+				INFO info = *crect->Get_Info();
+				int option = crect->Get_Option();
+
+				WriteFile(hFile, &info, sizeof(INFO), &dwByte, NULL);
 				WriteFile(hFile, &option, sizeof(int), &dwByte, NULL);
 			}
 		}
@@ -311,9 +444,11 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 
 		// 헤더 일기
 		int lineListSize = 0;
+		int rectListSize = 0;
 		int tileListSize = 0;
 		int thingsListSize = 0;
 		ReadFile(hFile, &lineListSize, sizeof(int), &dwByte, nullptr);
+		ReadFile(hFile, &rectListSize, sizeof(int), &dwByte, nullptr);
 		ReadFile(hFile, &tileListSize, sizeof(int), &dwByte, nullptr);
 		ReadFile(hFile, &thingsListSize, sizeof(int), &dwByte, nullptr);
 
@@ -335,6 +470,24 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 			cLine->Set_Line_Point(l.tLeft, l.tRight);
 			cLine->Set_Option(option);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, cLine);
+		}
+
+		for (int i = 0; i < rectListSize; ++i)
+		{
+			INFO info;
+			int option;
+
+			ReadFile(hFile, &info, sizeof(INFO), &dwByte, nullptr);
+			ReadFile(hFile, &option, sizeof(int), &dwByte, nullptr);
+
+
+			CObjCollisionRect* cRect = new CObjCollisionRect;
+			cRect->Initialize();
+			cRect->Set_Pos(info.fX, info.fY);
+			cRect->Set_CX(info.fCX);
+			cRect->Set_CY(info.fCY);
+			cRect->Set_Option(option);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_RECT, cRect);
 		}
 
 		for (int i = 0; i < tileListSize; ++i)
@@ -394,6 +547,12 @@ void CEditMgr::EditAreaTileMRKeyDown(POINT ptMouse)
 		return;
 	}
 
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+	ptMouse.x -= iScrollX;
+	ptMouse.y -= iScrollY;
+
 	int x = ptMouse.x;
 	int y = ptMouse.y;
 	for (auto& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_TILE))
@@ -419,6 +578,12 @@ void CEditMgr::EditAreaTileMLKeyDown(POINT ptMouse)
 	{
 		return;
 	}
+
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+	ptMouse.x -= iScrollX;
+	ptMouse.y -= iScrollY;
 	
 	int x = ptMouse.x;
 	int y = ptMouse.y;

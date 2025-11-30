@@ -4,6 +4,8 @@
 #include "CBmpMgr.h"
 #include "CTimeMgr.h"
 #include "CScrollMgr.h"
+#include "CObjLine.h"
+#include "CCollisionMgr.h"
 
 
 CObjPlayer::CObjPlayer()
@@ -77,6 +79,8 @@ void CObjPlayer::Render(HDC hDC)
 	//	(INT)m_tInfo.fCX,		// 복사할 이미지의 가로, 세로
 	//	(INT)m_tInfo.fCY,
 	//	RGB(255, 0, 255));	// 제거할 색상
+
+	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 
 	BmpRender(
 		hDC,
@@ -164,33 +168,63 @@ void CObjPlayer::Release()
 	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
 	//CBmpMgr::Get_Instance()->Delete_Bmp(szFrameKey);
 }
+
+// late_update
 void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 {
-	if (eCollID == COLL_LINE)
+	CObjLine* pLine = dynamic_cast<CObjLine*>(pObj);
+	COLL_ETC_LINE* pLineCollEtc = static_cast<COLL_ETC_LINE*>(etc);
+	if (eCollID == COLL_LINE && pLine != nullptr && pLineCollEtc != nullptr)
 	{
-		float targetY = *static_cast<float*>(etc);
-
-		if (
-			// under margin
-			(targetY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY)
-			&&
-			// top margin
-			(targetY - (m_tInfo.fCY * 0.5f) < m_tInfo.fY)
-			)
+		COLL_ETC_LINE lineCollEtc = *pLineCollEtc;
+		
+		if (isnan(lineCollEtc.fY))
+		{
+			//return;
+			if (
+				true
+				&&
+				// left margin
+				(lineCollEtc.fX - (m_tInfo.fCX * 0.5f) < m_tInfo.fX)
+				&&
+				// right margin
+				(lineCollEtc.fX + (m_tInfo.fCX * 0.5f) > m_tInfo.fX)
+				)
+			{
+				// 왼쪽 접근
+				if (lineCollEtc.fX - (m_tInfo.fCX * 0.5f) < m_tInfo.fX && m_tInfo.fX < lineCollEtc.fX)
+				{
+					m_tInfo.fX = lineCollEtc.fX - (m_tInfo.fCX * 0.5f);
+				}
+				// 오른쪽 접근
+				else if (lineCollEtc.fX + (m_tInfo.fCX * 0.5f) > m_tInfo.fX && m_tInfo.fX > lineCollEtc.fX)
+				{
+					m_tInfo.fX = lineCollEtc.fX + (m_tInfo.fCX * 0.5f);
+				}
+			}
+		}
+		else
 		{
 			
-			m_tInfo.fY = targetY - (m_tInfo.fCY * 0.5f);
-
-			//if (
-			//	// under margin
-			//	(targetY + (m_tInfo.fCY * 0) > m_tInfo.fY)
-			//	&&
-			//	// top margin
-			//	(targetY - (m_tInfo.fCY * 0.5) < m_tInfo.fY)
-			//	)
-			//{
-			//	
-			//}
+			if (
+				// under margin
+				(lineCollEtc.fY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY)
+				&&
+				// top margin
+				(lineCollEtc.fY - (m_tInfo.fCY * 0.5f) < m_tInfo.fY)
+				)
+			{
+				if (lineCollEtc.fY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY && m_tInfo.fY > lineCollEtc.fY)
+				{
+					// 아래에서 접근
+					m_tInfo.fY = lineCollEtc.fY + (m_tInfo.fCY * 0.5f);
+				}
+				else if (lineCollEtc.fY - (m_tInfo.fCY * 0.5f) < m_tInfo.fY && m_tInfo.fY < lineCollEtc.fY)
+				{
+					// 위에서 접근
+					m_tInfo.fY = lineCollEtc.fY - (m_tInfo.fCY * 0.5f);
+				}
+			}
 		}
 	}
 }
@@ -221,12 +255,22 @@ void CObjPlayer::Key_Input()
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
 	{
 
-		m_tInfo.fY -= 5;
+		m_tInfo.fY -= 4;
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
 	{
-		m_tInfo.fY += 5;
+		m_tInfo.fY += 4;
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
+	{
+		m_tInfo.fX -= 4;
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
+	{
+		m_tInfo.fX += 4;
 	}
 }
 

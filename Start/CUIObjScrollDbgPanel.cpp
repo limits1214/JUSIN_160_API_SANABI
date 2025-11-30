@@ -105,22 +105,22 @@ int CUIObjScrollDbgPanel::Update()
 				if (i == 2)
 				{
 					// 위
-					CScrollMgr::Get_Instance()->Set_ScrollY(100.f);
+					CScrollMgr::Get_Instance()->Set_ScrollY(TILECX * 8);
 				}
 				else if (i == 3)
 				{
 					// 아래
-					CScrollMgr::Get_Instance()->Set_ScrollY(-100.f);
+					CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX * 8);
 				}
 				else if (i == 4)
 				{
 					// 왼쪽
-					CScrollMgr::Get_Instance()->Set_ScrollX(100.f);
+					CScrollMgr::Get_Instance()->Set_ScrollX(TILECX * 8);
 				}
 				else if (i == 5)
 				{
 					// 오른쪽
-					CScrollMgr::Get_Instance()->Set_ScrollX(-100.f);
+					CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX * 8);
 				}
 				});
 

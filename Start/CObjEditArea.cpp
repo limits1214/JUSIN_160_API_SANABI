@@ -126,15 +126,15 @@ void CObjEditArea::On_Mouse_Key_Down(CObj* pObj)
 				}
 			}
 
-			if (CEditMgr::Get_Instance()->Get_EditSprite())
+			if (CEditMgr::Get_Instance()->Get_EditRect())
 			{
 				if (pMouse->Get_Last_Key() & VK_LBUTTON)
 				{
-					CEditMgr::Get_Instance()->EditAreaSpriteMLKeyDown({ x, y });
+					CEditMgr::Get_Instance()->EditAreaRectMLKeyDown({ x, y });
 				}
 				else if (pMouse->Get_Last_Key() & VK_RBUTTON)
 				{
-					CEditMgr::Get_Instance()->EditAreaSpriteMRKeyDown({ x, y });
+					CEditMgr::Get_Instance()->EditAreaRectMRKeyDown({ x, y });
 				}
 			}
 			

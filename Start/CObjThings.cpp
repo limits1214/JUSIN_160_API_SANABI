@@ -5,6 +5,7 @@
 #include "CUIObjText.h"
 #include "CObjMouse.h"
 #include "CScrollMgr.h"
+#include "CObjPlayer.h"
 
 CObjThings::CObjThings()
 	:m_bMouseTrack(false)
@@ -95,7 +96,15 @@ void CObjThings::On_Mouse_Key_Down(CObj* pObj)
 	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
 	if (pMouse != nullptr)
 	{
+
 		POINT ptCurr = pMouse->Get_Pt_Curr();
+
+
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+		ptCurr.x -= iScrollX;
+		ptCurr.y -= iScrollY;
+
 		if (PtInRect(&m_tRect, ptCurr))
 		{
 			if (pMouse->Get_Last_Key() == VK_LBUTTON)
@@ -137,6 +146,15 @@ void CObjThings::On_Mouse_Key_Pressing(CObj* pObj)
 		POINT ptCurr = pMouse->Get_Pt_Curr();
 		POINT ptPrev = pMouse->Get_Pt_Prev();
 		
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+		ptPrev.x -= iScrollX;
+		ptPrev.y -= iScrollY;
+
+		ptCurr.x -= iScrollX;
+		ptCurr.y -= iScrollY;
+
+
 		if (m_bMouseTrack)
 		{
 			EDIT_MOUSE_PICKING_MODE pickingMode = CEditMgr::Get_Instance()->Get_MousePickingMode();
@@ -184,6 +202,12 @@ void CObjThings::ChangeReal()
 	switch (m_eThings)
 	{
 	case TGS_PLAYER_POS:
+	{
+		CObjPlayer* pPlayer = new CObjPlayer;
+		pPlayer->Initialize();
+		pPlayer->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
+	}
 		break;
 	case TGS_MONSTER_A_POS:
 		break;
@@ -195,5 +219,6 @@ void CObjThings::ChangeReal()
 		break;
 	}
 
+	// À½... Á×ÀÏ±î ¾Æ´Ï¸é ³öµÑ±î...?
 	Set_Dead_Cascade();
 }

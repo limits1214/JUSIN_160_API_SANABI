@@ -46,6 +46,9 @@
     <Filter Include="소스 파일\OBJ\BOSS">
       <UniqueIdentifier>{20e419e6-7ec4-4aad-a407-dc89a2de5a24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\OBJ\RECT">
+      <UniqueIdentifier>{76e93945-a486-43a5-8170-cb14ce240775}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -207,6 +210,15 @@
     <ClInclude Include="CObjCollider.h">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneLab.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjCollisionRect.h">
+      <Filter>소스 파일\OBJ\RECT</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjRect.h">
+      <Filter>소스 파일\OBJ\RECT</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -355,6 +367,15 @@
     </ClCompile>
     <ClCompile Include="CObjCollider.cpp">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneLab.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjCollisionRect.cpp">
+      <Filter>소스 파일\OBJ\RECT</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjRect.cpp">
+      <Filter>소스 파일\OBJ\RECT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

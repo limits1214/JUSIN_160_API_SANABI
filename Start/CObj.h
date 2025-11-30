@@ -43,6 +43,10 @@ public:
 		return m_eFrameKey;
 	}
 
+
+	void		Set_PosX(float fX) { m_tInfo.fX += fX; }
+	void		Set_PosY(float fY) { m_tInfo.fY += fY; }
+
 	const RECT* Get_Rect() const { return &m_tRect; }
 	const INFO* Get_Info() const { return &m_tInfo; }
 	CObj* Get_Parent() { return m_pParent; }

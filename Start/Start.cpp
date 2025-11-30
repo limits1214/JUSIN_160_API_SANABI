@@ -80,6 +80,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
                 dwTime = dwNow;
             }
+
+            //MainGame.Update();
+            //MainGame.Late_Update();
+            //MainGame.Render();
         }
        
     }

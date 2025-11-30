@@ -33,7 +33,7 @@ int CObjButton::Update()
 		if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
 		{
 			if (m_eFrameKey == FKI_TEST_BTN_START)
-				CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
+				CSceneMgr::Get_Instance()->Scene_Change(SC_LAB);
 			else if (m_eFrameKey == FKI_TEST_BTN_EDIT)
 			{
 				CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);

@@ -12,6 +12,7 @@
 #include "CUIObjBmpDbgPannel.h"
 #include "CEditMgr.h"
 #include "CUIObjScrollDbgPanel.h"
+#include "CUIObjTileEditDbgPanel.h"
 
 CMainGame::CMainGame()
 	:m_dwFPSTime(GetTickCount())
@@ -92,6 +93,17 @@ void CMainGame::Update()
 		pDbgPanel->Set_CY(WINCY >> 2);
 		pDbgPanel->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + 0);
 		pDbgPanel->Set_Header_Text(_T("SCROLL_PANEL"));
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Down(VK_F5))
+	{
+		CUIObjTileEditDbgPanel* tileEditDbgPandel = new CUIObjTileEditDbgPanel;
+		tileEditDbgPandel->Initialize();
+		tileEditDbgPandel->Set_CX(WINCX >> 2);
+		tileEditDbgPandel->Set_CY(WINCY >> 2);
+		tileEditDbgPandel->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + 0);
+		tileEditDbgPandel->Set_Header_Text(_T("TILE_EDIT_PANEL"));
+		CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, tileEditDbgPandel);
 	}
 }
 
