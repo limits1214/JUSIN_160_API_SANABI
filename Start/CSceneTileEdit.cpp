@@ -7,6 +7,8 @@
 #include "CObjSprite.h"
 #include "CBmpMgr.h"
 #include "CObjEditArea.h"
+#include "CKeyMgr.h"
+#include "CScrollMgr.h"
 
 CSceneTileEdit::CSceneTileEdit()
 {
@@ -23,6 +25,8 @@ void CSceneTileEdit::Initialize()
 
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Edit/Tile.bmp", L"TILE_TEST");
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();
@@ -71,6 +75,33 @@ void CSceneTileEdit::Initialize()
 int CSceneTileEdit::Update()
 {
 	CObjMgr::Get_Instance()->Update();
+
+	{
+		// À§
+		if (CKeyMgr::Get_Instance()->Key_Pressing('I'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollY(TILECX);
+		}
+
+		// ¿Þ
+		if (CKeyMgr::Get_Instance()->Key_Pressing('J'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollX(TILECX);
+		}
+
+		// ¾Æ
+		if (CKeyMgr::Get_Instance()->Key_Pressing('K'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX);
+		}
+
+		// ¿À
+		if (CKeyMgr::Get_Instance()->Key_Pressing('L'))
+		{
+			CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX);
+		}
+	}
+
 	return OBJ_NOEVENT;
 }
 

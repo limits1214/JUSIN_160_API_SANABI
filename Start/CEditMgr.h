@@ -46,7 +46,9 @@ public:
 
 
 	void Save_File(FILE_NAME_ID eID);
-	void Load_File(FILE_NAME_ID eID);
+
+	//template<typename F>
+	void Load_File(FILE_NAME_ID eID, function<void()> fCallback);
 	
 
 private:

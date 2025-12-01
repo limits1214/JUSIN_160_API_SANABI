@@ -4,6 +4,8 @@
 #include "CCollisionMgr.h"
 #include "CObjEditArea.h"
 #include "CUIObjText.h"
+#include "CEditMgr.h"
+#include "CObjThings.h"
 
 CSceneLab::CSceneLab()
 {
@@ -34,6 +36,18 @@ void CSceneLab::Initialize()
 	pEditArea->Set_CY(WINCY);
 	pEditArea->Set_Pos(WINCX >> 1, WINCY >> 1);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_EDIT_AREA, pEditArea);
+
+	CEditMgr::Get_Instance()->Load_File(FNI_LAB1_LINECOLL, []() {
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
+		{
+			CObjThings* pTgs = dynamic_cast<CObjThings*>(pObj);
+			if (pTgs != nullptr)
+			{
+				pTgs->ChangeReal();
+			}
+		}
+		});
+
 }
 
 int CSceneLab::Update()

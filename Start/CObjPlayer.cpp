@@ -7,6 +7,7 @@
 #include "CObjLine.h"
 #include "CCollisionMgr.h"
 #include "CObjRect.h"
+#include "CObjCollisionRect.h"
 
 
 CObjPlayer::CObjPlayer()
@@ -20,18 +21,17 @@ CObjPlayer::~CObjPlayer()
 
 void CObjPlayer::Initialize()
 {
+	m_bJumpJustPressed = false;
+	CObjMovable::Initialize();
 	m_tInfo.fCX = 60.f;
 	m_tInfo.fCY = 60.f;
+
+	m_fSpeed = 4.f;
 
 	auto a = CBmpMgr::Get_Instance();
 
 	m_eFrameKey = FKI_SNB;
-	//TCHAR szFrameKey[256]{};
-	//FrameKeyId_To_Text(m_eFrameKey, szFrameKey);
-	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", szFrameKey);
 	
-	//TCHAR szFrameKey[256]{};
-	;
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", FrameKeyId_To_Text2(m_eFrameKey));
 	
 	m_tFrame.dwTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
@@ -45,8 +45,11 @@ int CObjPlayer::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
+
 	// 입력받고 그릴지 아니면 그리고 입력받을지...
 	__super::Update_Rect();
+
+	CObjMovable::Update();
 
 
 	m_eCurState = IDLE;
@@ -194,12 +197,12 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 				// 왼쪽 접근
 				if (lineCollEtc.fX - (m_tInfo.fCX * 0.5f) < m_tInfo.fX && m_tInfo.fX < lineCollEtc.fX)
 				{
-					m_tInfo.fX = lineCollEtc.fX - (m_tInfo.fCX * 0.5f);
+					//m_tInfo.fX = lineCollEtc.fX - (m_tInfo.fCX * 0.5f);
 				}
 				// 오른쪽 접근
 				else if (lineCollEtc.fX + (m_tInfo.fCX * 0.5f) > m_tInfo.fX && m_tInfo.fX > lineCollEtc.fX)
 				{
-					m_tInfo.fX = lineCollEtc.fX + (m_tInfo.fCX * 0.5f);
+					//m_tInfo.fX = lineCollEtc.fX + (m_tInfo.fCX * 0.5f);
 				}
 			}
 		}
@@ -216,47 +219,96 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 				if (lineCollEtc.fY + (m_tInfo.fCY * 0.5f) > m_tInfo.fY && m_tInfo.fY > lineCollEtc.fY)
 				{
 					// 아래에서 접근
-					m_tInfo.fY = lineCollEtc.fY + (m_tInfo.fCY * 0.5f);
+					//m_tInfo.fY = lineCollEtc.fY + (m_tInfo.fCY * 0.5f);
 				}
 				else if (lineCollEtc.fY - (m_tInfo.fCY * 0.5f) < m_tInfo.fY && m_tInfo.fY < lineCollEtc.fY)
 				{
 					// 위에서 접근
-					m_tInfo.fY = lineCollEtc.fY - (m_tInfo.fCY * 0.5f);
+					//m_tInfo.fY = lineCollEtc.fY - (m_tInfo.fCY * 0.5f);
 				}
 			}
 		}
 	}
 
-	CObjRect* pRect = dynamic_cast<CObjRect*>(pObj);
+	CObjCollisionRect* pRect = dynamic_cast<CObjCollisionRect*>(pObj);
 	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
 	if (eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr)
 	{
 		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
 		float fDistance = rectExCollEtc.fDistance;
+
+		
 		
 		switch (rectExCollEtc.eDir)
 		{
 		case DIR_UP:
 		{
-			m_tInfo.fY -= fDistance;
+			if (m_bJumpJustPressed)
+			{
+				m_bJumpJustPressed = false;
+				return;
+			}
+
+			_Move(DIR_UP, -fDistance);
+
+			m_bJump = false;
+			m_dwGravityDeltaSum = 0;
 		}
 			break;
 		case DIR_DOWN:
 		{
-			m_tInfo.fY += fDistance;
+			_Move(DIR_DOWN, fDistance);
+
 		}
 			break;
 		case DIR_LEFT:
 		{
-			m_tInfo.fX -= fDistance;
+			_Move(DIR_LEFT, -fDistance);
+
+			if (pRect->Get_Option() == ERI_CLIMABLE)
+			{
+				// 벽 왼쪽에서 벽타기
+				m_dwGravityDeltaSum = 0;
+				m_dwJumpDeltaSum = 0;
+			}
+			
 		}
 			break;
 		case DIR_RIGHT:
 		{
-			m_tInfo.fX += fDistance;
+			_Move(DIR_RIGHT, fDistance);
+
+			if (pRect->Get_Option() == ERI_CLIMABLE)
+			{
+				// 벽 오른쪽에서 벽타기
+				
+				m_dwGravityDeltaSum = 0;
+				m_dwJumpDeltaSum = 0;
+			}
+			
 		}
 			break;
 		}
+	}
+}
+
+void CObjPlayer::_Move(DIRECTION eDir, float fDistance)
+{
+	if (eDir == DIR_UP)
+	{
+		m_tInfo.fY += fDistance;
+	}
+	else if (eDir == DIR_DOWN)
+	{
+		m_tInfo.fY += fDistance;
+	}
+	else if (eDir == DIR_LEFT)
+	{
+		m_tInfo.fX += fDistance;
+	}
+	else if (eDir == DIR_RIGHT)
+	{
+		m_tInfo.fX += fDistance;
 	}
 }
 
@@ -268,41 +320,60 @@ void CObjPlayer::Key_Input()
 
 	if (bPressingA)
 	{
-		m_tInfo.fX -= 3.f;
+		_Move(DIR_LEFT, -m_fSpeed);
 		m_eCurState = RUNNING;
 	}
 
 	if (bPressingD)
 	{
-		m_tInfo.fX += 3.f;
+		_Move(DIR_RIGHT, m_fSpeed);
 		m_eCurState = RUNNING;
 	}
 
 	if (bKeyDownSpace)
 	{
+		if (m_bJump)
+		{
+			return;
+		}
+
+		m_bJumpJustPressed = true;
+
+
 		m_eCurState = JUMP;
+		m_bJump = true;
+		m_dwJumpDeltaSum = 1000;
+		m_dwGravityDeltaSum	 = 0;
+		//m_fJumpVZero = 0.1f;
+		m_fJumpVZero = 0.0007f;
+		
+
+
+		//float fDstX, fDstY;
+		//ParabolaEquation(m_fJumpVZero, m_fJumpAngle, m_dwJumpDeltaSum, &fDstX, &fDstY);
+		//_Move(DIR_LEFT, fDstX);
+		//_Move(DIR_UP, -fDstY);
 	}
 
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_UP))
 	{
-
-		m_tInfo.fY -= 4;
+		_Move(DIR_UP, -m_fSpeed);
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_DOWN))
 	{
-		m_tInfo.fY += 4;
+		_Move(DIR_DOWN, m_fSpeed);
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LEFT))
 	{
-		m_tInfo.fX -= 4;
+		_Move(DIR_LEFT, -m_fSpeed);
 	}
 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RIGHT))
 	{
-		m_tInfo.fX += 4;
+		_Move(DIR_RIGHT, m_fSpeed);
 	}
 }
 
@@ -342,7 +413,6 @@ void CObjPlayer::Motion_Change()
 
 void CObjPlayer::Offset()
 {
-	return;
 	int	iOffsetminX = 100;
 	int	iOffsetmaxX = 700;
 
@@ -355,24 +425,24 @@ void CObjPlayer::Offset()
 	// 왼쪽으로 플레이어가 이동 중
 	if (iOffsetminX > m_tInfo.fX + iScrollX)
 	{
-		CScrollMgr::Get_Instance()->Set_ScrollX(3.f);
+		CScrollMgr::Get_Instance()->Set_ScrollX(m_fSpeed);
 	}
 
 	// 오른쪽으로 플레이어가 이동 중
 	if (iOffsetmaxX < m_tInfo.fX + iScrollX)
 	{
-		CScrollMgr::Get_Instance()->Set_ScrollX(-3.f);
+		CScrollMgr::Get_Instance()->Set_ScrollX(-m_fSpeed);
 	}
 
 
 	if (iOffsetminY > m_tInfo.fY + iScrollY)
 	{
-		CScrollMgr::Get_Instance()->Set_ScrollY(3.f);
+		CScrollMgr::Get_Instance()->Set_ScrollY(m_fSpeed);
 	}
 
 	if (iOffsetmaxY < m_tInfo.fY + iScrollY)
 	{
-		CScrollMgr::Get_Instance()->Set_ScrollY(-3.f);
+		CScrollMgr::Get_Instance()->Set_ScrollY(-m_fSpeed);
 	}
 
 }

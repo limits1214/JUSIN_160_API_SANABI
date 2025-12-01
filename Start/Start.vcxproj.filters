@@ -204,7 +204,7 @@
     <ClInclude Include="CUIObjScrollDbgPanel.h">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClInclude>
-    <ClInclude Include="CObjGravity.h">
+    <ClInclude Include="CObjMovable.h">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClInclude>
     <ClInclude Include="CObjCollider.h">
@@ -362,7 +362,7 @@
     <ClCompile Include="CUIObjScrollDbgPanel.cpp">
       <Filter>소스 파일\OBJ\UI_DBG_PANEL</Filter>
     </ClCompile>
-    <ClCompile Include="CObjGravity.cpp">
+    <ClCompile Include="CObjMovable.cpp">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClCompile>
     <ClCompile Include="CObjCollider.cpp">

@@ -396,7 +396,8 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 	}
 }
 
-void CEditMgr::Load_File(FILE_NAME_ID eID)
+//template<typename F>
+void CEditMgr::Load_File(FILE_NAME_ID eID, function<void()> fCallback)
 {
 	const TCHAR* szFileName = FileNameId_To_Text(eID);
 
@@ -528,6 +529,8 @@ void CEditMgr::Load_File(FILE_NAME_ID eID)
 		}
 
 		CloseHandle(hFile);
+
+		fCallback();
 		MessageBox(g_hWnd, L"로드완료", L"Save_File", MB_OK);
 	}
 	else if (res == 2)
@@ -599,8 +602,9 @@ void CEditMgr::EditAreaTileMLKeyDown(POINT ptMouse)
 		}
 	}
 
-	INFO tileInfo = Tile_Id_To_TileInfo(m_eTile);
-	FRAME frame = FRAME{ int(tileInfo.fX / tileInfo.fCX),int(tileInfo.fX / tileInfo.fCX), int(tileInfo.fY / tileInfo.fCY), 0, 0 };
+	TILE_INFO tileInfo = Tile_Id_To_TileInfo(m_eTile);
+
+	FRAME frame = FRAME{ tileInfo.iX, tileInfo.iX, tileInfo.iY, 0, 0 };
 
 	CObjTile* pTile = new CObjTile;
 	pTile->Initialize();

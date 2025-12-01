@@ -448,18 +448,20 @@ int CUIObjTileEditDbgPanel::Update()
 
 				if (!(i == 0 || i == 1))
 				{
-					INFO tileInfo = Tile_Id_To_TileInfo(static_cast<TILE_ID>(i));
+					//INFO tileInfo = Tile_Id_To_TileInfo(static_cast<TILE_ID>(i));
+					TILE_INFO tileInfo = Tile_Id_To_TileInfo(static_cast<TILE_ID>(i));
 
+					FRAME frame = FRAME{ tileInfo.iX, tileInfo.iX, tileInfo.iY, 0, 0 };
 
 					auto iter4 = std::next(targetSpriteList.begin(), idx);
 					(*iter4)->Set_Active_Cascade(true);
-					(*iter4)->Set_CX(tileInfo.fCX);
-					(*iter4)->Set_CY(tileInfo.fCY);
+					(*iter4)->Set_CX(tileInfo.iCX);
+					(*iter4)->Set_CY(tileInfo.iCY);
 					(*iter4)->Set_Pos(-110, +(itemHeight * 0.5) - (info->fCY * 0.5) + (idx * itemHeight));
 					//(*iter4)->Set_FrameKey(Tile_Id_To_FrameKey(static_cast<TILE_ID>(i)));
 					(*iter4)->Set_FrameKeyId(Tile_Id_To_FrameKeyId(static_cast<TILE_ID>(i)));
 					(*iter4)->Set_MoveFrame(false);
-					(*iter4)->Set_Frame(FRAME{ int(tileInfo.fX / tileInfo.fCX),int(tileInfo.fX / tileInfo.fCX), int(tileInfo.fY / tileInfo.fCY), 0, 0 });
+					(*iter4)->Set_Frame(frame);
 				}
 
 				
@@ -631,7 +633,9 @@ int CUIObjTileEditDbgPanel::Update()
 				(*iter3)->Set_OnKeyDown([=]() {
 					if (m_eTEM == TEM_FILE_LOAD)
 					{
-						CEditMgr::Get_Instance()->Load_File(static_cast<FILE_NAME_ID>(i));
+						CEditMgr::Get_Instance()->Load_File(static_cast<FILE_NAME_ID>(i), []() {
+							
+							});
 					}
 					else if (m_eTEM == TEM_FILE_SAVE)
 					{

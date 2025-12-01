@@ -153,6 +153,7 @@ void CObj::Calculate_Parent_Pos(float* pfX, float* pfY)
 CObj::CObj()
 	: m_bDead(false), m_pParent(nullptr), m_bActive(true), m_bVisible(true)
 	, m_eRdo(RDO_0), m_eRdo2(RDO_0), m_bUseMainScroll(false), m_eFrameKey(FKI_END)
+	, m_fSpeed(0.f)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));

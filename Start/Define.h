@@ -21,6 +21,8 @@ extern HWND g_hWnd;
 #define STR_MACRO2(A, B) static const TCHAR* STR_##A = _T(B)
 #define STR_CASE_MACRO(A) case A: return STR_##A;
 
+#define GRAVITY 9.81f
+
 template<typename T>
 void Safe_Delete(T& p)
 {
@@ -111,6 +113,8 @@ enum DIRECTION
 	DIR_UP,
 	DIR_RIGHT,
 	DIR_DOWN,
+	DIR_V,
+	DIR_H,
 	DIR_ID_END
 } ;
 
@@ -412,32 +416,203 @@ inline const TCHAR* FileNameId_To_Text(FILE_NAME_ID eID)
 	}
 }
 
+/*
+Spr_Prologue_Tileset: 64 * 224, 가로 4 세로 14,  56개
+*/
+
+
 enum TILE_ID
 {
 	TILE_START,
 	TILE_END,
-	TILE_TEST_1,
-	TILE_TEST_2,
+	//TILE_TEST_1,
+	//TILE_TEST_2,
+	Spr_Prologue_Tileset_0,
 	Spr_Prologue_Tileset_1,
+	Spr_Prologue_Tileset_2,
+	Spr_Prologue_Tileset_3,
+	Spr_Prologue_Tileset_4,
+	Spr_Prologue_Tileset_5,
+	Spr_Prologue_Tileset_6,
+	Spr_Prologue_Tileset_7,
+	Spr_Prologue_Tileset_8,
+	Spr_Prologue_Tileset_9,
+	Spr_Prologue_Tileset_10,
+	Spr_Prologue_Tileset_11,
+	Spr_Prologue_Tileset_12,
+	Spr_Prologue_Tileset_13,
+	Spr_Prologue_Tileset_14,
+	Spr_Prologue_Tileset_15,
+	Spr_Prologue_Tileset_16,
+	Spr_Prologue_Tileset_17,
+	Spr_Prologue_Tileset_18,
+	Spr_Prologue_Tileset_19,
+	Spr_Prologue_Tileset_20,
+	Spr_Prologue_Tileset_21,
+	Spr_Prologue_Tileset_22,
+	Spr_Prologue_Tileset_23,
+	Spr_Prologue_Tileset_24,
+	Spr_Prologue_Tileset_25,
+	Spr_Prologue_Tileset_26,
+	Spr_Prologue_Tileset_27,
+	Spr_Prologue_Tileset_28,
+	Spr_Prologue_Tileset_29,
+	Spr_Prologue_Tileset_30,
+	Spr_Prologue_Tileset_31,
+	Spr_Prologue_Tileset_32,
+	Spr_Prologue_Tileset_33,
+	Spr_Prologue_Tileset_34,
+	Spr_Prologue_Tileset_35,
+	Spr_Prologue_Tileset_36,
+	Spr_Prologue_Tileset_37,
+	Spr_Prologue_Tileset_38,
+	Spr_Prologue_Tileset_39,
+	Spr_Prologue_Tileset_40,
+	Spr_Prologue_Tileset_41,
+	Spr_Prologue_Tileset_42,
+	Spr_Prologue_Tileset_43,
+	Spr_Prologue_Tileset_44,
+	Spr_Prologue_Tileset_45,
+	Spr_Prologue_Tileset_46,
+	Spr_Prologue_Tileset_47,
+	Spr_Prologue_Tileset_48,
+	Spr_Prologue_Tileset_49,
+	Spr_Prologue_Tileset_50,
+	Spr_Prologue_Tileset_51,
+	Spr_Prologue_Tileset_52,
+	Spr_Prologue_Tileset_53,
+	Spr_Prologue_Tileset_54,
+	Spr_Prologue_Tileset_55,
+	
 	TILE_ID_END
 };
 
 STR_MACRO(TILE_START);
 STR_MACRO(TILE_END);
-STR_MACRO(TILE_TEST_1);
-STR_MACRO(TILE_TEST_2);
+//STR_MACRO(TILE_TEST_1);
+//STR_MACRO(TILE_TEST_2);
+STR_MACRO(Spr_Prologue_Tileset_0);
 STR_MACRO(Spr_Prologue_Tileset_1);
+STR_MACRO(Spr_Prologue_Tileset_2);
+STR_MACRO(Spr_Prologue_Tileset_3);
+STR_MACRO(Spr_Prologue_Tileset_4);
+STR_MACRO(Spr_Prologue_Tileset_5);
+STR_MACRO(Spr_Prologue_Tileset_6);
+STR_MACRO(Spr_Prologue_Tileset_7);
+STR_MACRO(Spr_Prologue_Tileset_8);
+STR_MACRO(Spr_Prologue_Tileset_9);
+STR_MACRO(Spr_Prologue_Tileset_10);
+STR_MACRO(Spr_Prologue_Tileset_11);
+STR_MACRO(Spr_Prologue_Tileset_12);
+STR_MACRO(Spr_Prologue_Tileset_13);
+STR_MACRO(Spr_Prologue_Tileset_14);
+STR_MACRO(Spr_Prologue_Tileset_15);
+STR_MACRO(Spr_Prologue_Tileset_16);
+STR_MACRO(Spr_Prologue_Tileset_17);
+STR_MACRO(Spr_Prologue_Tileset_18);
+STR_MACRO(Spr_Prologue_Tileset_19);
+STR_MACRO(Spr_Prologue_Tileset_20);
+STR_MACRO(Spr_Prologue_Tileset_21);
+STR_MACRO(Spr_Prologue_Tileset_22);
+STR_MACRO(Spr_Prologue_Tileset_23);
+STR_MACRO(Spr_Prologue_Tileset_24);
+STR_MACRO(Spr_Prologue_Tileset_25);
+STR_MACRO(Spr_Prologue_Tileset_26);
+STR_MACRO(Spr_Prologue_Tileset_27);
+STR_MACRO(Spr_Prologue_Tileset_28);
+STR_MACRO(Spr_Prologue_Tileset_29);
+STR_MACRO(Spr_Prologue_Tileset_30);
+STR_MACRO(Spr_Prologue_Tileset_31);
+STR_MACRO(Spr_Prologue_Tileset_32);
+STR_MACRO(Spr_Prologue_Tileset_33);
+STR_MACRO(Spr_Prologue_Tileset_34);
+STR_MACRO(Spr_Prologue_Tileset_35);
+STR_MACRO(Spr_Prologue_Tileset_36);
+STR_MACRO(Spr_Prologue_Tileset_37);
+STR_MACRO(Spr_Prologue_Tileset_38);
+STR_MACRO(Spr_Prologue_Tileset_39);
+STR_MACRO(Spr_Prologue_Tileset_40);
+STR_MACRO(Spr_Prologue_Tileset_41);
+STR_MACRO(Spr_Prologue_Tileset_42);
+STR_MACRO(Spr_Prologue_Tileset_43);
+STR_MACRO(Spr_Prologue_Tileset_44);
+STR_MACRO(Spr_Prologue_Tileset_45);
+STR_MACRO(Spr_Prologue_Tileset_46);
+STR_MACRO(Spr_Prologue_Tileset_47);
+STR_MACRO(Spr_Prologue_Tileset_48);
+STR_MACRO(Spr_Prologue_Tileset_49);
+STR_MACRO(Spr_Prologue_Tileset_50);
+STR_MACRO(Spr_Prologue_Tileset_51);
+STR_MACRO(Spr_Prologue_Tileset_52);
+STR_MACRO(Spr_Prologue_Tileset_53);
+STR_MACRO(Spr_Prologue_Tileset_54);
+STR_MACRO(Spr_Prologue_Tileset_55);
 STR_MACRO(TILE_ID_END);
 
 inline const TCHAR* Tile_Id_To_Text(TILE_ID eID)
 {
 	switch (eID)
 	{
-		STR_CASE_MACRO(TILE_START)
-		STR_CASE_MACRO(TILE_END)
-		STR_CASE_MACRO(TILE_TEST_1)
-		STR_CASE_MACRO(TILE_TEST_2)
-		STR_CASE_MACRO(Spr_Prologue_Tileset_1)
+			STR_CASE_MACRO(TILE_START)
+			STR_CASE_MACRO(TILE_END)
+			//STR_CASE_MACRO(TILE_TEST_1)
+			//STR_CASE_MACRO(TILE_TEST_2)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_0)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_1)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_2)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_3)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_4)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_5)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_6)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_7)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_8)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_9)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_10)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_11)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_12)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_13)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_14)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_15)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_16)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_17)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_18)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_19)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_20)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_21)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_22)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_23)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_24)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_25)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_26)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_27)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_28)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_29)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_30)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_31)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_32)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_33)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_34)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_35)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_36)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_37)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_38)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_39)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_40)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_41)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_42)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_43)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_44)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_45)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_46)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_47)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_48)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_49)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_50)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_51)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_52)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_53)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_54)
+			STR_CASE_MACRO(Spr_Prologue_Tileset_55)
 		STR_CASE_MACRO(TILE_ID_END)
 	}
 }
@@ -446,10 +621,65 @@ inline const TCHAR* Tile_Id_To_FrameKey(TILE_ID eID)
 {
 	switch (eID)
 	{
-	case TILE_TEST_1:
-	case TILE_TEST_2:
-		return STR_FKI_TILE_TEST;
+	//case TILE_TEST_1:
+	//case TILE_TEST_2:
+	//	return STR_FKI_TILE_TEST;
+	case Spr_Prologue_Tileset_0:
 	case Spr_Prologue_Tileset_1:
+	case Spr_Prologue_Tileset_2:
+	case Spr_Prologue_Tileset_3:
+	case Spr_Prologue_Tileset_4:
+	case Spr_Prologue_Tileset_5:
+	case Spr_Prologue_Tileset_6:
+	case Spr_Prologue_Tileset_7:
+	case Spr_Prologue_Tileset_8:
+	case Spr_Prologue_Tileset_9:
+	case Spr_Prologue_Tileset_10:
+	case Spr_Prologue_Tileset_11:
+	case Spr_Prologue_Tileset_12:
+	case Spr_Prologue_Tileset_13:
+	case Spr_Prologue_Tileset_14:
+	case Spr_Prologue_Tileset_15:
+	case Spr_Prologue_Tileset_16:
+	case Spr_Prologue_Tileset_17:
+	case Spr_Prologue_Tileset_18:
+	case Spr_Prologue_Tileset_19:
+	case Spr_Prologue_Tileset_20:
+	case Spr_Prologue_Tileset_21:
+	case Spr_Prologue_Tileset_22:
+	case Spr_Prologue_Tileset_23:
+	case Spr_Prologue_Tileset_24:
+	case Spr_Prologue_Tileset_25:
+	case Spr_Prologue_Tileset_26:
+	case Spr_Prologue_Tileset_27:
+	case Spr_Prologue_Tileset_28:
+	case Spr_Prologue_Tileset_29:
+	case Spr_Prologue_Tileset_30:
+	case Spr_Prologue_Tileset_31:
+	case Spr_Prologue_Tileset_32:
+	case Spr_Prologue_Tileset_33:
+	case Spr_Prologue_Tileset_34:
+	case Spr_Prologue_Tileset_35:
+	case Spr_Prologue_Tileset_36:
+	case Spr_Prologue_Tileset_37:
+	case Spr_Prologue_Tileset_38:
+	case Spr_Prologue_Tileset_39:
+	case Spr_Prologue_Tileset_40:
+	case Spr_Prologue_Tileset_41:
+	case Spr_Prologue_Tileset_42:
+	case Spr_Prologue_Tileset_43:
+	case Spr_Prologue_Tileset_44:
+	case Spr_Prologue_Tileset_45:
+	case Spr_Prologue_Tileset_46:
+	case Spr_Prologue_Tileset_47:
+	case Spr_Prologue_Tileset_48:
+	case Spr_Prologue_Tileset_49:
+	case Spr_Prologue_Tileset_50:
+	case Spr_Prologue_Tileset_51:
+	case Spr_Prologue_Tileset_52:
+	case Spr_Prologue_Tileset_53:
+	case Spr_Prologue_Tileset_54:
+	case Spr_Prologue_Tileset_55:
 		return STR_FKI_Spr_Prologue_Tileset;
 	case TILE_ID_END:
 		return STR_FKI_END;
@@ -460,24 +690,140 @@ inline const FRAME_KEY_ID Tile_Id_To_FrameKeyId(TILE_ID eID)
 {
 	switch (eID)
 	{
-	case TILE_TEST_1:
-	case TILE_TEST_2:
-		return FKI_TILE_TEST;
+	//case TILE_TEST_1:
+	//case TILE_TEST_2:
+	//	return FKI_TILE_TEST;
+	case Spr_Prologue_Tileset_0:
 	case Spr_Prologue_Tileset_1:
+	case Spr_Prologue_Tileset_2:
+	case Spr_Prologue_Tileset_3:
+	case Spr_Prologue_Tileset_4:
+	case Spr_Prologue_Tileset_5:
+	case Spr_Prologue_Tileset_6:
+	case Spr_Prologue_Tileset_7:
+	case Spr_Prologue_Tileset_8:
+	case Spr_Prologue_Tileset_9:
+	case Spr_Prologue_Tileset_10:
+	case Spr_Prologue_Tileset_11:
+	case Spr_Prologue_Tileset_12:
+	case Spr_Prologue_Tileset_13:
+	case Spr_Prologue_Tileset_14:
+	case Spr_Prologue_Tileset_15:
+	case Spr_Prologue_Tileset_16:
+	case Spr_Prologue_Tileset_17:
+	case Spr_Prologue_Tileset_18:
+	case Spr_Prologue_Tileset_19:
+	case Spr_Prologue_Tileset_20:
+	case Spr_Prologue_Tileset_21:
+	case Spr_Prologue_Tileset_22:
+	case Spr_Prologue_Tileset_23:
+	case Spr_Prologue_Tileset_24:
+	case Spr_Prologue_Tileset_25:
+	case Spr_Prologue_Tileset_26:
+	case Spr_Prologue_Tileset_27:
+	case Spr_Prologue_Tileset_28:
+	case Spr_Prologue_Tileset_29:
+	case Spr_Prologue_Tileset_30:
+	case Spr_Prologue_Tileset_31:
+	case Spr_Prologue_Tileset_32:
+	case Spr_Prologue_Tileset_33:
+	case Spr_Prologue_Tileset_34:
+	case Spr_Prologue_Tileset_35:
+	case Spr_Prologue_Tileset_36:
+	case Spr_Prologue_Tileset_37:
+	case Spr_Prologue_Tileset_38:
+	case Spr_Prologue_Tileset_39:
+	case Spr_Prologue_Tileset_40:
+	case Spr_Prologue_Tileset_41:
+	case Spr_Prologue_Tileset_42:
+	case Spr_Prologue_Tileset_43:
+	case Spr_Prologue_Tileset_44:
+	case Spr_Prologue_Tileset_45:
+	case Spr_Prologue_Tileset_46:
+	case Spr_Prologue_Tileset_47:
+	case Spr_Prologue_Tileset_48:
+	case Spr_Prologue_Tileset_49:
+	case Spr_Prologue_Tileset_50:
+	case Spr_Prologue_Tileset_51:
+	case Spr_Prologue_Tileset_52:
+	case Spr_Prologue_Tileset_53:
+	case Spr_Prologue_Tileset_54:
+	case Spr_Prologue_Tileset_55:
 		return FKI_Spr_Prologue_Tileset;
 	case TILE_ID_END:
 		return FKI_END;
 	}
 }
 
+typedef struct tagTileInfo
+{
+	int iX, iY;
+	int iCX, iCY;
+} TILE_INFO;
 
-inline INFO Tile_Id_To_TileInfo(TILE_ID eID)
+inline TILE_INFO Tile_Id_To_TileInfo(TILE_ID eID)
 {
 	switch (eID)
 	{
-		case TILE_TEST_1: return {0, 0, 64, 64};
-		case TILE_TEST_2: return { 64, 0, 64, 64 };
-		case Spr_Prologue_Tileset_1: return { 0, 0, 16, 16 };
+		//case TILE_TEST_1: return {0, 0, 64, 64};
+		//case TILE_TEST_2: return { 1, 0, 64, 64 };
+		case Spr_Prologue_Tileset_0: return  { 0, 0, 16, 16 };
+		case Spr_Prologue_Tileset_1: return  { 1, 0, 16, 16 };
+		case Spr_Prologue_Tileset_2: return  { 2, 0, 16, 16 };
+		case Spr_Prologue_Tileset_3: return  { 3, 0, 16, 16 };
+		case Spr_Prologue_Tileset_4: return  { 0, 1, 16, 16 };
+		case Spr_Prologue_Tileset_5: return  { 1, 1, 16, 16 };
+		case Spr_Prologue_Tileset_6: return  { 2, 1, 16, 16 };
+		case Spr_Prologue_Tileset_7: return  { 3, 1, 16, 16 };
+		case Spr_Prologue_Tileset_8: return  { 0, 2, 16, 16 };
+		case Spr_Prologue_Tileset_9: return  { 1, 2, 16, 16 };
+		case Spr_Prologue_Tileset_10: return { 2, 2, 16, 16 };
+		case Spr_Prologue_Tileset_11: return { 3, 2, 16, 16 };
+		case Spr_Prologue_Tileset_12: return { 0, 3, 16, 16 };
+		case Spr_Prologue_Tileset_13: return { 1, 3, 16, 16 };
+		case Spr_Prologue_Tileset_14: return { 2, 3, 16, 16 };
+		case Spr_Prologue_Tileset_15: return { 3, 3, 16, 16 };
+		case Spr_Prologue_Tileset_16: return { 0, 4, 16, 16 };
+		case Spr_Prologue_Tileset_17: return { 1, 4, 16, 16 };
+		case Spr_Prologue_Tileset_18: return { 2, 4, 16, 16 };
+		case Spr_Prologue_Tileset_19: return { 3, 4, 16, 16 };
+		case Spr_Prologue_Tileset_20: return { 0, 5, 16, 16 };
+		case Spr_Prologue_Tileset_21: return { 1, 5, 16, 16 };
+		case Spr_Prologue_Tileset_22: return { 2, 5, 16, 16 };
+		case Spr_Prologue_Tileset_23: return { 3, 5, 16, 16 };
+		case Spr_Prologue_Tileset_24: return { 0, 6, 16, 16 };
+		case Spr_Prologue_Tileset_25: return { 1, 6, 16, 16 };
+		case Spr_Prologue_Tileset_26: return { 2, 6, 16, 16 };
+		case Spr_Prologue_Tileset_27: return { 3, 6, 16, 16 };
+		case Spr_Prologue_Tileset_28: return { 0, 7, 16, 16 };
+		case Spr_Prologue_Tileset_29: return { 1, 7, 16, 16 };
+		case Spr_Prologue_Tileset_30: return { 2, 7, 16, 16 };
+		case Spr_Prologue_Tileset_31: return { 3, 7, 16, 16 };
+		case Spr_Prologue_Tileset_32: return { 0, 8, 16, 16 };
+		case Spr_Prologue_Tileset_33: return { 1, 8, 16, 16 };
+		case Spr_Prologue_Tileset_34: return { 2, 8, 16, 16 };
+		case Spr_Prologue_Tileset_35: return { 3, 8, 16, 16 };
+		case Spr_Prologue_Tileset_36: return { 0, 9, 16, 16 };
+		case Spr_Prologue_Tileset_37: return { 1, 9, 16, 16 };
+		case Spr_Prologue_Tileset_38: return { 2, 9, 16, 16 };
+		case Spr_Prologue_Tileset_39: return { 3, 9, 16, 16 };
+		case Spr_Prologue_Tileset_40: return { 0, 10, 16, 16 };
+		case Spr_Prologue_Tileset_41: return { 1, 10, 16, 16 };
+		case Spr_Prologue_Tileset_42: return { 2, 10, 16, 16 };
+		case Spr_Prologue_Tileset_43: return { 3, 10, 16, 16 };
+		case Spr_Prologue_Tileset_44: return { 0, 11, 16, 16 };
+		case Spr_Prologue_Tileset_45: return { 1, 11, 16, 16 };
+		case Spr_Prologue_Tileset_46: return { 2, 11, 16, 16 };
+		case Spr_Prologue_Tileset_47: return { 3, 11, 16, 16 };
+		case Spr_Prologue_Tileset_48: return { 0, 12, 16, 16 };
+		case Spr_Prologue_Tileset_49: return { 1, 12, 16, 16 };
+		case Spr_Prologue_Tileset_50: return { 2, 12, 16, 16 };
+		case Spr_Prologue_Tileset_51: return { 3, 12, 16, 16 };
+		case Spr_Prologue_Tileset_52: return { 0, 13, 16, 16 };
+		case Spr_Prologue_Tileset_53: return { 1, 13, 16, 16 };
+		case Spr_Prologue_Tileset_54: return { 2, 13, 16, 16 };
+		case Spr_Prologue_Tileset_55: return { 3, 13, 16, 16 };
+
 
 		case TILE_ID_END: return { 0, 0, 0, 0 };
 	}

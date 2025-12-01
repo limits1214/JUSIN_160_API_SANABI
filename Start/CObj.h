@@ -131,6 +131,8 @@ public:
 	void Set_UseMainScroll(bool bUseMainScroll) { m_bUseMainScroll = bUseMainScroll; }
 	bool Get_UseMainScroll() { return m_bUseMainScroll; }
 
+	void Set_Speed(float fSpeed) { m_fSpeed = fSpeed; }
+	float Get_Speed() { return m_fSpeed; }
 	// TODO: REMOVE
 private:
 	OBJID Get_ParentObjIdWithDefault(OBJID eDefualtObjID);
@@ -164,6 +166,8 @@ protected:
 	TCHAR m_szDbgName[256];
 
 	bool m_bUseMainScroll;
+
+	float m_fSpeed;
 
 private:
 	static unsigned long long seqGenerator;

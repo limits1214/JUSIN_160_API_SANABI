@@ -202,7 +202,7 @@
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjCollisionRect.h" />
     <ClInclude Include="CObjEditArea.h" />
-    <ClInclude Include="CObjGravity.h" />
+    <ClInclude Include="CObjMovable.h" />
     <ClInclude Include="CObjGrp.h" />
     <ClInclude Include="CObjInputController.h" />
     <ClInclude Include="CObjLine.h" />
@@ -262,7 +262,7 @@
     <ClCompile Include="CObjCollisionRect.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
-    <ClCompile Include="CObjGravity.cpp" />
+    <ClCompile Include="CObjMovable.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
     <ClCompile Include="CObjInputController.cpp" />
     <ClCompile Include="CObjLine.cpp" />

@@ -161,31 +161,31 @@ int CUIObjScrollDbgPanel::Update()
 	}
 
 
-	{
-		// À§
-		if (CKeyMgr::Get_Instance()->Key_Pressing('I'))
-		{
-			CScrollMgr::Get_Instance()->Set_ScrollY(TILECX );
-		}
+	//{
+	//	// À§
+	//	if (CKeyMgr::Get_Instance()->Key_Pressing('I'))
+	//	{
+	//		CScrollMgr::Get_Instance()->Set_ScrollY(TILECX );
+	//	}
 
-		// ¿Þ
-		if (CKeyMgr::Get_Instance()->Key_Pressing('J'))
-		{
-			CScrollMgr::Get_Instance()->Set_ScrollX(TILECX );
-		}
+	//	// ¿Þ
+	//	if (CKeyMgr::Get_Instance()->Key_Pressing('J'))
+	//	{
+	//		CScrollMgr::Get_Instance()->Set_ScrollX(TILECX );
+	//	}
 
-		// ¾Æ
-		if (CKeyMgr::Get_Instance()->Key_Pressing('K'))
-		{
-			CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX );
-		}
+	//	// ¾Æ
+	//	if (CKeyMgr::Get_Instance()->Key_Pressing('K'))
+	//	{
+	//		CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX );
+	//	}
 
-		// ¿À
-		if (CKeyMgr::Get_Instance()->Key_Pressing('L'))
-		{
-			CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX );
-		}
-	}
+	//	// ¿À
+	//	if (CKeyMgr::Get_Instance()->Key_Pressing('L'))
+	//	{
+	//		CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX );
+	//	}
+	//}
 
 	return OBJ_NOEVENT;
 }

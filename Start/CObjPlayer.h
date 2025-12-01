@@ -2,8 +2,9 @@
 
 #include "CObj.h"
 #include "CCollisionEvent.h"
+#include "CObjMovable.h"
 
-class CObjPlayer: public CObj, public CCollisionEvent
+class CObjPlayer: public CCollisionEvent, public CObjMovable
 {
 public:
 	enum STATE{IDLE, RUNNING, JUMP, ST_END};
@@ -29,12 +30,19 @@ public:
 	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
 
 private:
+	void _Move(DIRECTION eDir, float fDistance) override;
+
+private:
 	void Key_Input();
 	void Motion_Change();
 	void	Offset();
 
+
+
 private:
 	STATE				m_ePreState;
 	STATE				m_eCurState;
+
+	bool m_bJumpJustPressed;
 };
 
