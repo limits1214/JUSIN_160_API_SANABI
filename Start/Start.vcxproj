@@ -202,6 +202,7 @@
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjCollisionRect.h" />
     <ClInclude Include="CObjEditArea.h" />
+    <ClInclude Include="CObjGameUiChapterBtn.h" />
     <ClInclude Include="CObjMovable.h" />
     <ClInclude Include="CObjGrp.h" />
     <ClInclude Include="CObjInputController.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
     <ClInclude Include="CScene.h" />
+    <ClInclude Include="CSceneBoss.h" />
     <ClInclude Include="CSceneLab.h" />
     <ClInclude Include="CSceneLogo.h" />
     <ClInclude Include="CSceneMenu.h" />
@@ -263,6 +265,7 @@
     <ClCompile Include="CObjCollisionRect.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
+    <ClCompile Include="CObjGameUiChapterBtn.cpp" />
     <ClCompile Include="CObjMovable.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
     <ClCompile Include="CObjInputController.cpp" />
@@ -277,6 +280,7 @@
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
+    <ClCompile Include="CSceneBoss.cpp" />
     <ClCompile Include="CSceneLab.cpp" />
     <ClCompile Include="CSceneLogo.cpp" />
     <ClCompile Include="CSceneMenu.cpp" />

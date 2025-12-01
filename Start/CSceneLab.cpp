@@ -37,7 +37,7 @@ void CSceneLab::Initialize()
 	pEditArea->Set_Pos(WINCX >> 1, WINCY >> 1);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_EDIT_AREA, pEditArea);
 
-	CEditMgr::Get_Instance()->Load_File(FNI_LAB1_LINECOLL, []() {
+	CEditMgr::Get_Instance()->Load_File(FNI_LAB1_LINECOLL, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
 		{
 			CObjThings* pTgs = dynamic_cast<CObjThings*>(pObj);

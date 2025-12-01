@@ -49,6 +49,9 @@
     <Filter Include="소스 파일\OBJ\RECT">
       <UniqueIdentifier>{76e93945-a486-43a5-8170-cb14ce240775}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\OBJ\GAME_UI">
+      <UniqueIdentifier>{ac3fa43a-2c86-4464-b334-469a64324c2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -222,6 +225,12 @@
     <ClInclude Include="MyResource.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneBoss.h">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjGameUiChapterBtn.h">
+      <Filter>소스 파일\OBJ\GAME_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -379,6 +388,12 @@
     </ClCompile>
     <ClCompile Include="CObjRect.cpp">
       <Filter>소스 파일\OBJ\RECT</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneBoss.cpp">
+      <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjGameUiChapterBtn.cpp">
+      <Filter>소스 파일\OBJ\GAME_UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

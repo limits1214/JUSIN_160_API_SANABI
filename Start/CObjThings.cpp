@@ -7,6 +7,7 @@
 #include "CScrollMgr.h"
 #include "CObjPlayer.h"
 #include "CObjSprite.h"
+#include "CObjGameUiChapterBtn.h"
 
 CObjThings::CObjThings()
 	:m_bMouseTrack(false)
@@ -236,6 +237,41 @@ void CObjThings::ChangeReal()
 		break;
 	case TGS_BOSS_FIREBIRD_POS:
 		break;
+
+	case TGS_UI_Chapter1_Btn:
+	{
+		CObjGameUiChapterBtn* pBtn = new CObjGameUiChapterBtn;
+		pBtn->Set_Option(0);
+		pBtn->Initialize();
+		pBtn->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		
+		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pBtn);
+	}
+		break;
+	case TGS_UI_Chapter2_Btn:
+	{
+		CObjGameUiChapterBtn* pBtn = new CObjGameUiChapterBtn;
+		pBtn->Set_Option(1);
+		pBtn->Initialize();
+		pBtn->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		
+		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pBtn);
+	}
+		break;
+	case TGS_UI_Chapter3_Btn:
+	{
+		CObjGameUiChapterBtn* pBtn = new CObjGameUiChapterBtn;
+		pBtn->Set_Option(2);
+		pBtn->Initialize();
+		pBtn->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		
+		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pBtn);
+	}
+		break;
+
+
+
+
 	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0)
 	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1)
 	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2)

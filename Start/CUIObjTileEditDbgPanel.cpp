@@ -633,7 +633,7 @@ int CUIObjTileEditDbgPanel::Update()
 				(*iter3)->Set_OnKeyDown([=]() {
 					if (m_eTEM == TEM_FILE_LOAD)
 					{
-						CEditMgr::Get_Instance()->Load_File(static_cast<FILE_NAME_ID>(i), []() {
+						CEditMgr::Get_Instance()->Load_File(static_cast<FILE_NAME_ID>(i), true, []() {
 							
 							});
 					}

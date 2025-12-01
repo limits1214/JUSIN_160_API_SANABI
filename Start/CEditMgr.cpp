@@ -397,14 +397,20 @@ void CEditMgr::Save_File(FILE_NAME_ID eID)
 }
 
 //template<typename F>
-void CEditMgr::Load_File(FILE_NAME_ID eID, function<void()> fCallback)
+void CEditMgr::Load_File(FILE_NAME_ID eID, bool bMsgBox, function<void()> fCallback)
 {
 	const TCHAR* szFileName = FileNameId_To_Text(eID);
 
-	TCHAR szText[256]{};
-	swprintf_s(szText, _T("%s 로드 합니까"), szFileName);
-	// OK: 1, NO OK: 2
-	auto res = MessageBox(g_hWnd, szText, L"Load_File", MB_OKCANCEL);
+	auto res = 1;
+	if (bMsgBox)
+	{
+		TCHAR szText[256]{};
+		swprintf_s(szText, _T("%s 로드 합니까"), szFileName);
+		// OK: 1, NO OK: 2
+		res = MessageBox(g_hWnd, szText, L"Load_File", MB_OKCANCEL);
+	}
+	
+	
 
 	if (res == 1)
 	{
@@ -531,7 +537,11 @@ void CEditMgr::Load_File(FILE_NAME_ID eID, function<void()> fCallback)
 		CloseHandle(hFile);
 
 		fCallback();
-		MessageBox(g_hWnd, L"로드완료", L"Save_File", MB_OK);
+
+		if (bMsgBox)
+		{
+			MessageBox(g_hWnd, L"로드완료", L"Save_File", MB_OK);
+		}
 	}
 	else if (res == 2)
 	{

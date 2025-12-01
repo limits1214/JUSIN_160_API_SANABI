@@ -36,7 +36,7 @@ void CObjPlayer::Initialize()
 	
 	m_tFrame.dwTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
-	m_eCurState = IDLE;
+	m_eCurState = FSI_SNB_IDLE;
 
 	m_bUseMainScroll = true;
 }
@@ -52,7 +52,7 @@ int CObjPlayer::Update()
 	CObjMovable::Update();
 
 
-	m_eCurState = IDLE;
+	m_eCurState = FSI_SNB_IDLE;
 	Key_Input();
 
 	Move_Frame();
@@ -321,13 +321,13 @@ void CObjPlayer::Key_Input()
 	if (bPressingA)
 	{
 		_Move(DIR_LEFT, -m_fSpeed);
-		m_eCurState = RUNNING;
+		m_eCurState = FSI_SNB_RUNNING;
 	}
 
 	if (bPressingD)
 	{
 		_Move(DIR_RIGHT, m_fSpeed);
-		m_eCurState = RUNNING;
+		m_eCurState = FSI_SNB_RUNNING;
 	}
 
 	if (bKeyDownSpace)
@@ -340,7 +340,7 @@ void CObjPlayer::Key_Input()
 		m_bJumpJustPressed = true;
 
 
-		m_eCurState = JUMP;
+		m_eCurState = FSI_SNB_JUMP;
 		m_bJump = true;
 		m_dwJumpDeltaSum = 1000;
 		m_dwGravityDeltaSum	 = 0;
@@ -382,31 +382,7 @@ void CObjPlayer::Motion_Change()
 	DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
 	if (m_ePreState != m_eCurState)
 	{
-		switch (m_eCurState)
-		{
-		case IDLE:
-			m_tFrame.iStart = 0;
-			m_tFrame.iEnd = 7;
-			m_tFrame.iMotion = 4;
-			m_tFrame.dwSpeed = 200;
-			m_tFrame.dwTime = dwNow;
-			break;
-		case RUNNING:
-			m_tFrame.iStart = 0;
-			m_tFrame.iEnd = 19;
-			m_tFrame.iMotion = 3;
-			m_tFrame.dwSpeed = 80;
-			m_tFrame.dwTime = dwNow;
-			break;
-		case JUMP:
-			m_tFrame.iStart = 0;
-			m_tFrame.iEnd = 5;
-			m_tFrame.iMotion = 2;
-			m_tFrame.dwSpeed = 200;
-			m_tFrame.dwTime = dwNow;
-			break;
-		}
-
+		m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
 		m_ePreState = m_eCurState;
 	}
 }

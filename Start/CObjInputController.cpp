@@ -63,7 +63,7 @@ void CObjInputController::Key_Input()
 			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pChild);
 			if (pPlayer != nullptr)
 			{
-				pPlayer->Set_PlayerState(CObjPlayer::STATE::RUNNING);
+				//pPlayer->Set_PlayerState(CObjPlayer::STATE::RUNNING);
 			}
 		}
 	}
@@ -82,7 +82,7 @@ void CObjInputController::Key_Input()
 			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pChild);
 			if (pPlayer != nullptr)
 			{
-				pPlayer->Set_PlayerState(CObjPlayer::STATE::RUNNING);
+				//pPlayer->Set_PlayerState(CObjPlayer::STATE::RUNNING);
 			}
 		}
 	}

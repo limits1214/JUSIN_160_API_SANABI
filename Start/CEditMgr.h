@@ -48,7 +48,7 @@ public:
 	void Save_File(FILE_NAME_ID eID);
 
 	//template<typename F>
-	void Load_File(FILE_NAME_ID eID, function<void()> fCallback);
+	void Load_File(FILE_NAME_ID eID, bool bMsgBox, function<void()> fCallback);
 	
 
 private:

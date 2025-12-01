@@ -7,7 +7,7 @@
 #include "CSceneTutorial.h"
 #include "CSceneTileEdit.h"
 #include "CSceneLab.h"
-
+#include "CSceneBoss.h"
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 CSceneMgr::CSceneMgr()
 	: m_pScene(nullptr), m_ePreScene(SC_END), m_eCurScene(SC_LOGO), m_bSkip(false)
@@ -50,6 +50,9 @@ void CSceneMgr::Scene_Change(SCENEID eID)
 			break;
 		case SC_TILEEIDT:
 			m_pScene = new CSceneTileEdit;
+			break;
+		case SC_BOSS:
+			m_pScene = new CSceneBoss;
 			break;
 		}
 

@@ -4,6 +4,9 @@
 #include "CAbstractFactory.h"
 #include "CObjButton.h"
 #include "CObjMgr.h"
+#include "CEditMgr.h"
+#include "CObjGameUiChapterBtn.h"
+#include "CObjThings.h"
 
 CSceneMenu::CSceneMenu()
 {
@@ -16,28 +19,24 @@ CSceneMenu::~CSceneMenu()
 
 void CSceneMenu::Initialize()
 {
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Button/Start.bmp", L"Start");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Button/Edit.bmp", L"Edit");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Button/Exit.bmp", L"Exit");
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Menu/Menu.bmp", L"Menu");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UI_ChapterSelect_Sheet_tw186_th243_sw1116_sh243_c6.bmp", STR_FKI_UI_ChapterSelect_Sheet_tw186_th243_sw1116_sh243_c6);
 
-	CObj* pButton = CAbstractFactory<CObjButton>::Create(200.f, 400.f);
-	pButton->Set_FrameKeyId(FKI_TEST_BTN_START);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
-
-	pButton = CAbstractFactory<CObjButton>::Create(400.f, 400.f);
-	pButton->Set_FrameKeyId(FKI_TEST_BTN_EDIT);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
-
-	pButton = CAbstractFactory<CObjButton>::Create(600.f, 400.f);
-	pButton->Set_FrameKeyId(FKI_TEST_BTN_EXIT);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BUTTON, pButton);
+	CEditMgr::Get_Instance()->Load_File(FNI_MENU, false, []() {
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
+		{
+			CObjThings* pTgs = dynamic_cast<CObjThings*>(pObj);
+			if (pTgs != nullptr)
+			{
+				pTgs->ChangeReal();
+			}
+		}
+		});
 }
 
 int CSceneMenu::Update()
 {
 	CObjMgr::Get_Instance()->Update();
-	return OBJ_NOEVENT;
+	return 0;
 }
 
 void CSceneMenu::Late_Update()
@@ -47,26 +46,10 @@ void CSceneMenu::Late_Update()
 
 void CSceneMenu::Render(HDC hDC)
 {
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(L"Menu");
-	BitBlt(hDC,
-		0,
-		0,
-		WINCX,
-		WINCY,
-		hMemDC,
-		0,
-		0,
-		SRCCOPY);
-
 	CObjMgr::Get_Instance()->Render(hDC);
 }
 
 void CSceneMenu::Release()
 {
-	CObjMgr::Get_Instance()->Dead_ID(OBJ_BUTTON);
-
-	CBmpMgr::Get_Instance()->Delete_Bmp(L"Start");
-	CBmpMgr::Get_Instance()->Delete_Bmp( L"Edit");
-	CBmpMgr::Get_Instance()->Delete_Bmp( L"Exit");
-	CBmpMgr::Get_Instance()->Delete_Bmp( L"Menu");
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 }
