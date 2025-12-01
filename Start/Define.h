@@ -145,6 +145,7 @@ enum FRAME_KEY_ID
 {
 	FKI_TILE_TEST,
 	FKI_Spr_Prologue_Tileset,
+	FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60,
 	FKI_TEST_BTN_START,
 	FKI_TEST_BTN_EDIT,
 	FKI_TEST_BTN_EXIT,
@@ -154,6 +155,7 @@ enum FRAME_KEY_ID
 
 STR_MACRO2(FKI_TILE_TEST, "TILE_TEST");
 STR_MACRO2(FKI_Spr_Prologue_Tileset, "Spr_Prologue_Tileset");
+STR_MACRO2(FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60, "Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60");
 STR_MACRO2(FKI_TEST_BTN_START, "Start");
 STR_MACRO2(FKI_TEST_BTN_EDIT, "Edit");
 STR_MACRO2(FKI_TEST_BTN_EXIT, "Exit");
@@ -168,6 +170,8 @@ inline const TCHAR* FrameKeyId_To_Text2(FRAME_KEY_ID eID)
 		return STR_FKI_TILE_TEST;
 	case FKI_Spr_Prologue_Tileset:
 		return STR_FKI_Spr_Prologue_Tileset;
+	case FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60:
+		return STR_FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60;
 	case FKI_TEST_BTN_START:
 		return STR_FKI_TEST_BTN_START;
 	case FKI_TEST_BTN_EDIT:
@@ -367,6 +371,70 @@ enum THINGS_ID
 	TGS_MONSTER_G_POS,
 	TGS_MONSTER_B_POS,
 	TGS_BOSS_FIREBIRD_POS,
+
+
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58,
+	TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59,
+
+
 	TGS_END
 };
 
@@ -375,6 +443,66 @@ STR_MACRO(TGS_MONSTER_A_POS);
 STR_MACRO(TGS_MONSTER_G_POS);
 STR_MACRO(TGS_MONSTER_B_POS);
 STR_MACRO(TGS_BOSS_FIREBIRD_POS);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58);
+STR_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59);
 STR_MACRO(TGS_END);
 
 inline const TCHAR* ThginsId_To_Text(THINGS_ID eID)
@@ -386,6 +514,69 @@ inline const TCHAR* ThginsId_To_Text(THINGS_ID eID)
 		STR_CASE_MACRO(TGS_MONSTER_G_POS)
 		STR_CASE_MACRO(TGS_MONSTER_B_POS)
 		STR_CASE_MACRO(TGS_BOSS_FIREBIRD_POS)
+
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58)
+			STR_CASE_MACRO(TGS_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59)
+
+
 		STR_CASE_MACRO(TGS_END)
 	}
 }
@@ -484,6 +675,67 @@ enum TILE_ID
 	Spr_Prologue_Tileset_54,
 	Spr_Prologue_Tileset_55,
 	
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58,
+	Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59,
+
 	TILE_ID_END
 };
 
@@ -547,6 +799,68 @@ STR_MACRO(Spr_Prologue_Tileset_52);
 STR_MACRO(Spr_Prologue_Tileset_53);
 STR_MACRO(Spr_Prologue_Tileset_54);
 STR_MACRO(Spr_Prologue_Tileset_55);
+
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58);
+STR_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59);
+
 STR_MACRO(TILE_ID_END);
 
 inline const TCHAR* Tile_Id_To_Text(TILE_ID eID)
@@ -613,6 +927,69 @@ inline const TCHAR* Tile_Id_To_Text(TILE_ID eID)
 			STR_CASE_MACRO(Spr_Prologue_Tileset_53)
 			STR_CASE_MACRO(Spr_Prologue_Tileset_54)
 			STR_CASE_MACRO(Spr_Prologue_Tileset_55)
+
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58);
+			STR_CASE_MACRO(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59);
+
+
 		STR_CASE_MACRO(TILE_ID_END)
 	}
 }
@@ -681,6 +1058,69 @@ inline const TCHAR* Tile_Id_To_FrameKey(TILE_ID eID)
 	case Spr_Prologue_Tileset_54:
 	case Spr_Prologue_Tileset_55:
 		return STR_FKI_Spr_Prologue_Tileset;
+
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59:
+		return STR_FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60;
+
 	case TILE_ID_END:
 		return STR_FKI_END;
 	}
@@ -750,6 +1190,69 @@ inline const FRAME_KEY_ID Tile_Id_To_FrameKeyId(TILE_ID eID)
 	case Spr_Prologue_Tileset_54:
 	case Spr_Prologue_Tileset_55:
 		return FKI_Spr_Prologue_Tileset;
+
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58:
+	case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59:
+		return FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60;
+
 	case TILE_ID_END:
 		return FKI_END;
 	}
@@ -823,6 +1326,67 @@ inline TILE_INFO Tile_Id_To_TileInfo(TILE_ID eID)
 		case Spr_Prologue_Tileset_53: return { 1, 13, 16, 16 };
 		case Spr_Prologue_Tileset_54: return { 2, 13, 16, 16 };
 		case Spr_Prologue_Tileset_55: return { 3, 13, 16, 16 };
+
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0: return  { 0, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1: return  { 1, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2: return  { 2, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3: return  { 3, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4: return  { 4, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5: return  { 5, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6: return  { 6, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7: return  { 7, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8: return  { 8, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9: return  { 9, 0, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10: return { 0, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11: return { 1, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12: return { 2, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13: return { 3, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14: return { 4, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15: return { 5, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16: return { 6, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17: return { 7, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18: return { 8, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19: return { 9, 1, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20: return { 0, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21: return { 1, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22: return { 2, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23: return { 3, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24: return { 4, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25: return { 5, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26: return { 6, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27: return { 7, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28: return { 8, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29: return { 9, 2, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30: return { 0, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31: return { 1, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32: return { 2, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33: return { 3, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34: return { 4, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35: return { 5, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36: return { 6, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37: return { 7, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38: return { 8, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39: return { 9, 3, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40: return { 0, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41: return { 1, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42: return { 2, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43: return { 3, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44: return { 4, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45: return { 5, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46: return { 6, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47: return { 7, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48: return { 8, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49: return { 9, 4, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50: return { 0, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51: return { 1, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52: return { 2, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53: return { 3, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54: return { 4, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55: return { 5, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56: return { 6, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57: return { 7, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58: return { 8, 5, 10, 32 };
+		case Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59: return { 9, 5, 10, 32 };
 
 
 		case TILE_ID_END: return { 0, 0, 0, 0 };

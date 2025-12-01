@@ -219,6 +219,9 @@
     <ClInclude Include="CObjRect.h">
       <Filter>소스 파일\OBJ\RECT</Filter>
     </ClInclude>
+    <ClInclude Include="MyResource.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">

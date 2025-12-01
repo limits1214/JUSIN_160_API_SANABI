@@ -240,6 +240,7 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Mgrs.h" />
+    <ClInclude Include="MyResource.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Start.h" />

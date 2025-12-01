@@ -71,19 +71,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
+//#define TEST
+
+#ifdef TEST
+            MainGame.Update();
+            MainGame.Late_Update();
+            MainGame.Render();
+#endif 
+
+#ifndef TEST
             DWORD dwNow = GetTickCount();
             if (dwTime + 10 < dwNow)
             {
                 MainGame.Update();
                 MainGame.Late_Update();
                 MainGame.Render();
-
                 dwTime = dwNow;
             }
+#endif
 
-            //MainGame.Update();
-            //MainGame.Late_Update();
-            //MainGame.Render();
+            
+
+
         }
        
     }

@@ -27,6 +27,7 @@ void CSceneTileEdit::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Edit/Tile.bmp", L"TILE_TEST");
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60.bmp", STR_FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60);
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();

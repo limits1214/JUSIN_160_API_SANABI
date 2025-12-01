@@ -6,6 +6,7 @@
 #include "CObjMouse.h"
 #include "CScrollMgr.h"
 #include "CObjPlayer.h"
+#include "CObjSprite.h"
 
 CObjThings::CObjThings()
 	:m_bMouseTrack(false)
@@ -196,6 +197,24 @@ void CObjThings::On_Mouse_Key_Pressing(CObj* pObj)
 	}
 }
 
+
+void Util_CreateThingsSprite(CObj* pObj, TILE_ID eTileId)
+{
+	CObjSprite* pSprite = new CObjSprite;
+	TILE_INFO tileInfo = Tile_Id_To_TileInfo(eTileId);
+	FRAME frame = FRAME{ tileInfo.iX, tileInfo.iX, tileInfo.iY, 0, 0 };
+
+	pSprite->Set_CX(tileInfo.iCX);
+	pSprite->Set_CY(tileInfo.iCY);
+	pSprite->Set_Pos(pObj->Get_Info()->fX, pObj->Get_Info()->fY);
+	pSprite->Set_FrameKeyId(Tile_Id_To_FrameKeyId(eTileId));
+	pSprite->Set_MoveFrame(false);
+	pSprite->Set_Frame(frame);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_SPRITE, pSprite);
+}
+
+#define CREATE_THINGS_SPRITE(A) case TGS_##A: Util_CreateThingsSprite(this, A); break;
+
 void CObjThings::ChangeReal()
 {
 
@@ -217,8 +236,70 @@ void CObjThings::ChangeReal()
 		break;
 	case TGS_BOSS_FIREBIRD_POS:
 		break;
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_0)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_1)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_2)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_3)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_4)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_5)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_6)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_7)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_8)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_9)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_10)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_11)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_12)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_13)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_14)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_15)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_16)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_17)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_18)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_19)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_20)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_21)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_22)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_23)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_24)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_25)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_26)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_27)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_28)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_29)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_30)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_31)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_32)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_33)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_34)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_35)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_36)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_37)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_38)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_39)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_40)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_41)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_42)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_43)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_44)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_45)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_46)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_47)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_48)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_49)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_50)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_51)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_52)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_53)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_54)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_55)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_56)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_57)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_58)
+	CREATE_THINGS_SPRITE(Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60_59)
+
 	}
 
 	// À½... Á×ÀÏ±î ¾Æ´Ï¸é ³öµÑ±î...?
 	Set_Dead_Cascade();
 }
+
