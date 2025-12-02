@@ -181,6 +181,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -196,13 +197,17 @@
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CMyBitmap.h" />
     <ClInclude Include="CObj.h" />
+    <ClInclude Include="CObjBg.h" />
     <ClInclude Include="CObjBossFireBird.h" />
+    <ClInclude Include="CObjBossFireBirdGun.h" />
+    <ClInclude Include="CObjBossFireBirdWing.h" />
     <ClInclude Include="CObjButton.h" />
     <ClInclude Include="CObjCollider.h" />
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjCollisionRect.h" />
     <ClInclude Include="CObjEditArea.h" />
     <ClInclude Include="CObjGameUiChapterBtn.h" />
+    <ClInclude Include="CObjMonsterFloatingBomb.h" />
     <ClInclude Include="CObjMovable.h" />
     <ClInclude Include="CObjGrp.h" />
     <ClInclude Include="CObjInputController.h" />
@@ -217,6 +222,7 @@
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
+    <ClInclude Include="CObjUnstableKnockbackPlatformA.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneBoss.h" />
     <ClInclude Include="CSceneLab.h" />
@@ -258,7 +264,10 @@
     <ClCompile Include="CMouseEvent.h" />
     <ClCompile Include="CMyBitmap.cpp" />
     <ClCompile Include="CObj.cpp" />
+    <ClCompile Include="CObjBg.cpp" />
     <ClCompile Include="CObjBossFireBird.cpp" />
+    <ClCompile Include="CObjBossFireBirdGun.cpp" />
+    <ClCompile Include="CObjBossFireBirdWing.cpp" />
     <ClCompile Include="CObjButton.cpp" />
     <ClCompile Include="CObjCollider.cpp" />
     <ClCompile Include="CObjCollisionLine.cpp" />
@@ -266,6 +275,7 @@
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
     <ClCompile Include="CObjGameUiChapterBtn.cpp" />
+    <ClCompile Include="CObjMonsterFloatingBomb.cpp" />
     <ClCompile Include="CObjMovable.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
     <ClCompile Include="CObjInputController.cpp" />
@@ -280,6 +290,7 @@
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
+    <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp" />
     <ClCompile Include="CSceneBoss.cpp" />
     <ClCompile Include="CSceneLab.cpp" />
     <ClCompile Include="CSceneLogo.cpp" />

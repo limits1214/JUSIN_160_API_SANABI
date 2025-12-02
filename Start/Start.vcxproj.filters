@@ -231,6 +231,21 @@
     <ClInclude Include="CObjGameUiChapterBtn.h">
       <Filter>소스 파일\OBJ\GAME_UI</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBossFireBirdWing.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossFireBirdGun.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterFloatingBomb.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjUnstableKnockbackPlatformA.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBg.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -394,6 +409,21 @@
     </ClCompile>
     <ClCompile Include="CObjGameUiChapterBtn.cpp">
       <Filter>소스 파일\OBJ\GAME_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFireBirdWing.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFireBirdGun.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterFloatingBomb.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBg.cpp">
+      <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
