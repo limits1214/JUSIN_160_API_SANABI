@@ -210,9 +210,6 @@
     <ClInclude Include="CObjMovable.h">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClInclude>
-    <ClInclude Include="CObjCollider.h">
-      <Filter>소스 파일\OBJ\PLAYER</Filter>
-    </ClInclude>
     <ClInclude Include="CSceneLab.h">
       <Filter>소스 파일\SCENE</Filter>
     </ClInclude>
@@ -245,6 +242,21 @@
     </ClInclude>
     <ClInclude Include="CObjBg.h">
       <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayerArm.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjChain.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjGrab.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjHookGuide.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneLap2.h">
+      <Filter>소스 파일\SCENE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -392,9 +404,6 @@
     <ClCompile Include="CObjMovable.cpp">
       <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClCompile>
-    <ClCompile Include="CObjCollider.cpp">
-      <Filter>소스 파일\OBJ\PLAYER</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneLab.cpp">
       <Filter>소스 파일\SCENE</Filter>
     </ClCompile>
@@ -424,6 +433,21 @@
     </ClCompile>
     <ClCompile Include="CObjBg.cpp">
       <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayerArm.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjGrab.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjChain.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjHookGuide.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneLap2.cpp">
+      <Filter>소스 파일\SCENE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

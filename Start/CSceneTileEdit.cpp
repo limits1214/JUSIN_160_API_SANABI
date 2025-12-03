@@ -118,5 +118,5 @@ void CSceneTileEdit::Render(HDC hDC)
 
 void CSceneTileEdit::Release()
 {
-	CObjMgr::Get_Instance()->Dead_ID(OBJ_EDIT_AREA);
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 }

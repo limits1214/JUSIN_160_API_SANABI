@@ -22,19 +22,29 @@ protected:
 
 protected:
 	DWORD m_dwTime;
-	DWORD m_dwDeltaSum;
 
-	DWORD m_dwGravityDeltaSum;
-	DWORD m_dwJumpDeltaSum;
+	float m_fGravityDeltaSum;
+	float m_fJumpDeltaSum;
 
-	DWORD m_dwMoveLeftDeltaSum;
-	DWORD m_dwMoveRightDeltaSum;
-
+	float m_fMoveLeftDeltaSum;
+	float m_fMoveRightDeltaSum;
 
 
+	bool m_bGravity;
 	bool m_bJump;
 
 	float m_fJumpVZero;
 	float m_fJumpAngle;
+
+	bool m_bGround;
+
+
+	bool m_bGrab;
+	float m_fPendLength;
+	float m_fPendRad;
+	float m_fPendDeltaSum;
+	float m_fPendStartX;
+	float m_fPendStartY;
+
 };
 

@@ -2,13 +2,10 @@
 
 #include "CObj.h"
 #include "CCollisionEvent.h"
-#include "CObjMovable.h"
+#include "CMouseEvent.h"
 
-class CObjPlayer: public CCollisionEvent, public CObjMovable
+class CObjPlayer: public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent
 {
-//public:
-//	enum STATE{IDLE, RUNNING, JUMP, ST_END};
-
 public:
 	CObjPlayer();
 	virtual ~CObjPlayer();
@@ -17,6 +14,10 @@ public:
 	void Set_PlayerState(FRAME_STATE_ID eState)
 	{
 		m_eCurState = eState;
+	}
+	FRAME_STATE_ID Get_PlayerState()
+	{
+		return m_eCurState;
 	}
 
 public:
@@ -29,22 +30,85 @@ public:
 public:
 	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
 
-private:
-	void _Move(DIRECTION eDir, float fDistance) override;
+public:
+	void On_Mouse_Pos(CObj* pMouse) override;
+
+public:
+	void On_Mouse_Key_Down(CObj* pMouse) override;
+	void On_Mouse_Key_Up(CObj* pMouse) override;
+	void On_Mouse_Key_Pressing(CObj* pMouse) override;
+
+public:
+	void Grab(CObj* pObj);
 
 private:
 	void Key_Input();
 	void Motion_Change();
-	void	Offset();
+	void Offset();
+	void Move(DIRECTION eDir, float fDistance);
+
+	void JumpStart(float fVZero, float fAngle);
+	void JumpEnd();
+
+	void GrabLoad();
+
+
+private:
+	FRAME_STATE_ID m_ePreState;
+	FRAME_STATE_ID m_eCurState;
 
 
 
 private:
-	//STATE				m_ePreState;
-	//STATE				m_eCurState;
-	FRAME_STATE_ID m_ePreState;
-	FRAME_STATE_ID m_eCurState;
+	void DeltaInit();
+	void DeltaUpdate();
+
+	DWORD m_dwTime;
+	float m_fGravityDeltaSum;
+	float m_fJumpDeltaSum;
+	float m_fMoveLeftDeltaSum;
+	float m_fMoveRightDeltaSum;
 
 	bool m_bJumpJustPressed;
+
+	bool m_bRWallClimb;
+	bool m_bLWallClimb;
+	bool m_bGravity;
+	bool m_bJump;
+	bool m_bGround;
+	bool m_bGrab;
+	bool m_bGrabLoad;
+
+	bool m_bWallTop;
+
+	float m_fJumpVZero;
+	float m_fJumpAngle;
+	
+
+	
+
+
+private:
+	LINE m_tHookLine;
+	float m_fHookMaxLength;
+	float m_fHookAngle;
+	CObj* m_pGrab;
+	unsigned long long seq_pGrab;
+
+	float m_fGrabLoadX;
+	float m_fGrabLoadY;
+	RECT m_tGrabRect;
+
+	bool m_bGrabCeilingMove;
+
+
+	float m_fPendLength;
+	float m_fPendRad;
+	float m_fPendDeltaSum;
+	float m_fPendStartX;
+	float m_fPendStartY;
+
+protected:
+	void ParabolaNoGravityEquation(float fVZero, float fAngle, float fDeltaSum, float* fDstX, float* fDstY);
 };
 

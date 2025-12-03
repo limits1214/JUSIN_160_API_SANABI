@@ -24,6 +24,16 @@ void CObjMouse::Initialize()
 
 int CObjMouse::Update()
 {
+	
+
+	__super::Update_Rect();
+
+	
+	return OBJ_NOEVENT;
+}
+
+void CObjMouse::Late_Update()
+{
 	POINT pt{};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
@@ -35,8 +45,8 @@ int CObjMouse::Update()
 
 	m_sLastKey = 0;
 	PropagateMouseEvent<CMousePosEvent>([=](CMousePosEvent* pMouse) {pMouse->On_Mouse_Pos(this); });
-	
-	
+
+
 	if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
 	{
 		m_sLastKey = VK_LBUTTON;
@@ -70,16 +80,7 @@ int CObjMouse::Update()
 		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Up(this); });
 	}
-
-	__super::Update_Rect();
-
 	m_sLastKey = 0;
-	return OBJ_NOEVENT;
-}
-
-void CObjMouse::Late_Update()
-{
-
 }
 
 void CObjMouse::Render(HDC hDC)

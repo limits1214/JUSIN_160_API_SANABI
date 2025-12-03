@@ -133,6 +133,17 @@ public:
 
 	void Set_Speed(float fSpeed) { m_fSpeed = fSpeed; }
 	float Get_Speed() { return m_fSpeed; }
+
+	void Set_Target(CObj* pTarget)
+	{
+		m_pTarget = pTarget;
+	}
+
+	CObj* Get_Target()
+	{
+		return m_pTarget;
+	}
+
 	// TODO: REMOVE
 private:
 	OBJID Get_ParentObjIdWithDefault(OBJID eDefualtObjID);
@@ -168,6 +179,8 @@ protected:
 	bool m_bUseMainScroll;
 
 	float m_fSpeed;
+
+	CObj* m_pTarget;
 
 private:
 	static unsigned long long seqGenerator;

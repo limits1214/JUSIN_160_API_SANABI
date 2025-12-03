@@ -202,11 +202,13 @@
     <ClInclude Include="CObjBossFireBirdGun.h" />
     <ClInclude Include="CObjBossFireBirdWing.h" />
     <ClInclude Include="CObjButton.h" />
-    <ClInclude Include="CObjCollider.h" />
+    <ClInclude Include="CObjChain.h" />
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjCollisionRect.h" />
     <ClInclude Include="CObjEditArea.h" />
     <ClInclude Include="CObjGameUiChapterBtn.h" />
+    <ClInclude Include="CObjGrab.h" />
+    <ClInclude Include="CObjHookGuide.h" />
     <ClInclude Include="CObjMonsterFloatingBomb.h" />
     <ClInclude Include="CObjMovable.h" />
     <ClInclude Include="CObjGrp.h" />
@@ -218,6 +220,7 @@
     <ClInclude Include="CObjMonsterG.h" />
     <ClInclude Include="CObjMouse.h" />
     <ClInclude Include="CObjPlayer.h" />
+    <ClInclude Include="CObjPlayerArm.h" />
     <ClInclude Include="CObjRect.h" />
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjThings.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneBoss.h" />
     <ClInclude Include="CSceneLab.h" />
+    <ClInclude Include="CSceneLap2.h" />
     <ClInclude Include="CSceneLogo.h" />
     <ClInclude Include="CSceneMenu.h" />
     <ClInclude Include="CSceneMgr.h" />
@@ -269,12 +273,14 @@
     <ClCompile Include="CObjBossFireBirdGun.cpp" />
     <ClCompile Include="CObjBossFireBirdWing.cpp" />
     <ClCompile Include="CObjButton.cpp" />
-    <ClCompile Include="CObjCollider.cpp" />
+    <ClCompile Include="CObjChain.cpp" />
     <ClCompile Include="CObjCollisionLine.cpp" />
     <ClCompile Include="CObjCollisionRect.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
     <ClCompile Include="CObjGameUiChapterBtn.cpp" />
+    <ClCompile Include="CObjGrab.cpp" />
+    <ClCompile Include="CObjHookGuide.cpp" />
     <ClCompile Include="CObjMonsterFloatingBomb.cpp" />
     <ClCompile Include="CObjMovable.cpp" />
     <ClCompile Include="CObjGrp.cpp" />
@@ -286,6 +292,7 @@
     <ClCompile Include="CObjMonsterG.cpp" />
     <ClCompile Include="CObjMouse.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
+    <ClCompile Include="CObjPlayerArm.cpp" />
     <ClCompile Include="CObjRect.cpp" />
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjThings.cpp" />
@@ -293,6 +300,7 @@
     <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp" />
     <ClCompile Include="CSceneBoss.cpp" />
     <ClCompile Include="CSceneLab.cpp" />
+    <ClCompile Include="CSceneLap2.cpp" />
     <ClCompile Include="CSceneLogo.cpp" />
     <ClCompile Include="CSceneMenu.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />

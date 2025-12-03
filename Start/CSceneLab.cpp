@@ -6,6 +6,7 @@
 #include "CUIObjText.h"
 #include "CEditMgr.h"
 #include "CObjThings.h"
+#include "CBmpMgr.h"
 
 CSceneLab::CSceneLab()
 {
@@ -18,6 +19,8 @@ CSceneLab::~CSceneLab()
 
 void CSceneLab::Initialize()
 {
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
+
 	//for (int i = 0; i < 20; ++i)
 	//{
 	//	for (int j = 0; j < 20; ++j)
@@ -58,10 +61,12 @@ int CSceneLab::Update()
 
 void CSceneLab::Late_Update()
 {
-	CObjMgr::Get_Instance()->Late_Update();
-
+	// 플레이어가 렉트 충돌하면 플레이어에게 이벤트 호출
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
-	CCollisionMgr::Collision_Line(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE));
+	//CCollisionMgr::Collision_Line(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE));
+	//CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER));
+
+	CObjMgr::Get_Instance()->Late_Update();
 }
 
 void CSceneLab::Render(HDC hDC)
