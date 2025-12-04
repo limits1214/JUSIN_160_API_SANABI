@@ -93,12 +93,20 @@ private:
 
 	float m_bSwigDash;
 
+	bool m_bDamaged;
+	DIRECTION m_eDamagedDir;
+	int m_iDamagedInvicibleTime;
+
+	bool m_bDamagedDash;
+	DIRECTION m_eDamagedDashDir;
+	int m_iDamagedDashableTime;
 	
 
 
 private:
 	LINE m_tHookLine;
 	float m_fHookMaxLength;
+	float m_fHookMinLength;
 	float m_fHookAngle;
 	CObj* m_pGrab;
 	unsigned long long seq_pGrab;

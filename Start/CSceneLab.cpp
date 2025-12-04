@@ -20,18 +20,11 @@ CSceneLab::~CSceneLab()
 void CSceneLab::Initialize()
 {
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);
 
-	//for (int i = 0; i < 20; ++i)
-	//{
-	//	for (int j = 0; j < 20; ++j)
-	//	{
-	//		CUIObjText* p = new CUIObjText();
-	//		p->Initialize();
-	//		p->Set_Text(L"1");
-	//		p->Set_Pos(200 + i * 10,  200 +j * 10);
-	//		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, p);
-	//	}
-	//}
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatformA_Sheet.bmp", STR_FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET);
+
 
 	CObjEditArea* pEditArea = new CObjEditArea;
 	pEditArea->Initialize();

@@ -216,6 +216,16 @@ void CEditMgr::EditAreaRectMLKeyDown(POINT ptMouse)
 			rect->Set_Option(ERI_NO_CLIMABLE);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_RECT, rect);
 		}
+		else if (m_eEditRect == ERI_DAMAGE)
+		{
+			CObjCollisionRect* rect = new CObjCollisionRect;
+			rect->Initialize();
+			rect->Set_Pos(posx, posy);
+			rect->Set_CX(lWidth);
+			rect->Set_CY(lHeight);
+			rect->Set_Option(ERI_DAMAGE);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_RECT, rect);
+		}
 
 		m_bFirstRect = true;
 	}

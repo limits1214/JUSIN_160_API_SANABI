@@ -8,6 +8,8 @@
 #include "CObjPlayer.h"
 #include "CObjSprite.h"
 #include "CObjGameUiChapterBtn.h"
+#include "CObjMonsterFloatingBomb.h"
+#include "CObjUnstableKnockbackPlatformA.h"
 
 CObjThings::CObjThings()
 	:m_bMouseTrack(false)
@@ -238,6 +240,24 @@ void CObjThings::ChangeReal()
 	case TGS_BOSS_FIREBIRD_POS:
 		break;
 
+	case TGS_FLTBOMB_POS:
+	{
+		CObjMonsterFloatingBomb* pFlotBomb = new CObjMonsterFloatingBomb;
+		pFlotBomb->Initialize();
+		pFlotBomb->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFlotBomb);
+	}
+		break;
+
+	case TGS_UNSTABLE_KNOCKBACK_PLATFORM_A_POS:
+	{
+		CObjUnstableKnockbackPlatformA* pPlatform = new CObjUnstableKnockbackPlatformA;
+		pPlatform->Initialize();
+		pPlatform->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		//TODO: OBJ_PLATFORM
+		CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform);
+	}
+	break;
 	case TGS_UI_Chapter1_Btn:
 	{
 		CObjGameUiChapterBtn* pBtn = new CObjGameUiChapterBtn;

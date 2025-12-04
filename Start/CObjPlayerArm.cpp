@@ -77,6 +77,14 @@ int CObjPlayerArm::Update()
 		{
 			m_eCurState = (FRAME_STATE_ID)999;
 		}
+		else if (state == FSI_SNB_R_DAMAGED)
+		{
+			m_eCurState = FSI_SNBARM_R_DAMAGED;
+		}
+		else if (state == FSI_SNB_R_DAMAGEDDASH)
+		{
+			m_eCurState = (FRAME_STATE_ID)999;
+		}
 	}
 
 

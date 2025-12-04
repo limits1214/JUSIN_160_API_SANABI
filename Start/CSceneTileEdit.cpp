@@ -28,7 +28,12 @@ void CSceneTileEdit::Initialize()
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60.bmp", STR_FKI_Spr_Prop_Forest_Sheet1_tw10_th32_sw160_sh192_c60);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatformA_Sheet.bmp", STR_FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET);
+	
+	
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();
 	pPanelOpenBtn->Set_CX(100);

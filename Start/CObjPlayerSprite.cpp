@@ -79,6 +79,14 @@ int CObjPlayerSprite::Update()
 		{
 			m_eCurState = FSI_SNB_R_SWING;
 		}
+		else if (state == FSI_SNB_R_DAMAGED)
+		{
+			m_eCurState = FSI_SNB_R_DAMAGED;
+		}
+		else if (state == FSI_SNB_R_DAMAGEDDASH)
+		{
+			m_eCurState = FSI_SNB_R_DAMAGEDDASH;
+		}
 	}
 
 	return OBJ_NOEVENT;
