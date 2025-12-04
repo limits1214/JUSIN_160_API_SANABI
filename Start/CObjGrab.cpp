@@ -23,6 +23,7 @@ void CObjGrab::Initialize()
 
 	m_bUseMainScroll = true;
 	m_bCeiling = false;
+	m_GrabSend = false;
 }
 
 int CObjGrab::Update()
@@ -54,19 +55,18 @@ void CObjGrab::Release()
 
 void CObjGrab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 {
+	if (m_bDead)
+		return;
 	CObjCollisionRect* pRect = dynamic_cast<CObjCollisionRect*>(pObj);
 	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
 	if (eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr)
 	{
 		m_fSpeed = 0.f;
-
-		auto pPlayer = dynamic_cast<CObjPlayer*>(m_pTarget);
-		if (pPlayer != nullptr)
-		{
-			pPlayer->Grab(this);
-		}
-
+		m_iCollisionOption = pRect->Get_Option();
 		m_tCollisionRectInfo = *pRect->Get_Info();
+
+		
+		
 
 		// TODO: 들어간만큼 나오게
 		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
@@ -87,15 +87,29 @@ void CObjGrab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		case DIR_LEFT:
 		{
 			m_tInfo.fX -= fDistance;
+			m_bCollisionLeft = true;
+			m_bCollisionRight = false;
 
 		}
 		break;
 		case DIR_RIGHT:
 		{
 			m_tInfo.fX += fDistance;
-
+			m_bCollisionRight = true;
+			m_bCollisionLeft = false;
 		}
 		break;
+		}
+
+
+		if (!m_GrabSend)
+		{
+			auto pPlayer = dynamic_cast<CObjPlayer*>(m_pTarget);
+			if (pPlayer != nullptr)
+			{
+				m_GrabSend = true;
+				pPlayer->Grab(this);
+			}
 		}
 	}
 }

@@ -258,6 +258,9 @@
     <ClInclude Include="CSceneLap2.h">
       <Filter>소스 파일\SCENE</Filter>
     </ClInclude>
+    <ClInclude Include="CObjPlayerSprite.h">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -448,6 +451,9 @@
     </ClCompile>
     <ClCompile Include="CSceneLap2.cpp">
       <Filter>소스 파일\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayerSprite.cpp">
+      <Filter>소스 파일\OBJ\PLAYER</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

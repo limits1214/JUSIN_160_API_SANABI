@@ -24,6 +24,21 @@ public:
 		return m_tCollisionRectInfo;
 	}
 
+	bool Get_CollisionLeft()
+	{
+		return m_bCollisionLeft;
+	}
+
+	bool Get_CollisionRight()
+	{
+		return m_bCollisionRight;
+	}
+
+	int Get_CollisionOption()
+	{
+		return m_iCollisionOption;
+	}
+
 public:
 	void Initialize() override;
 	int Update() override;
@@ -39,5 +54,13 @@ private:
 	bool m_bCeiling;
 
 	INFO m_tCollisionRectInfo;
+
+	bool m_GrabSend;
+	bool m_bCollisionLeft;
+	bool m_bCollisionRight;
+
+	int m_iCollisionOption;
+
+
 };
 

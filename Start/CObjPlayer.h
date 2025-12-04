@@ -4,7 +4,9 @@
 #include "CCollisionEvent.h"
 #include "CMouseEvent.h"
 
-class CObjPlayer: public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent
+#include "CObjDbgText.h"
+
+class CObjPlayer: public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent, public CObjDbgText
 {
 public:
 	CObjPlayer();
@@ -37,6 +39,9 @@ public:
 	void On_Mouse_Key_Down(CObj* pMouse) override;
 	void On_Mouse_Key_Up(CObj* pMouse) override;
 	void On_Mouse_Key_Pressing(CObj* pMouse) override;
+
+public:
+	TCHAR* Dbg_Text() override;
 
 public:
 	void Grab(CObj* pObj);
@@ -80,10 +85,13 @@ private:
 	bool m_bGrabLoad;
 
 	bool m_bWallTop;
+	bool m_bWallDown;
 
 	float m_fJumpVZero;
 	float m_fJumpAngle;
 	
+
+	float m_bSwigDash;
 
 	
 
@@ -104,6 +112,7 @@ private:
 
 	float m_fPendLength;
 	float m_fPendRad;
+	float m_fPendCurr;
 	float m_fPendDeltaSum;
 	float m_fPendStartX;
 	float m_fPendStartY;

@@ -36,6 +36,21 @@ void CMainGame::Initialize()
 	CObjMouse* pMouse = new CObjMouse;
 	pMouse->Initialize();
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MOUSE, pMouse);
+
+
+
+#ifdef _DEBUG
+
+	if (::AllocConsole() == TRUE)
+	{
+		FILE* nfp[3];
+		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+		std::ios::sync_with_stdio();
+	}
+
+#endif // _DEBUG
 }
 
 // 업데이트시
@@ -165,6 +180,12 @@ void CMainGame::Render()
 
 void CMainGame::Release()
 {
+#ifdef _DEBUG
+
+	FreeConsole();
+
+#endif // _DEBUG
+
 	CSceneMgr::Destroy_Instance();
 
 	CObjMgr::Get_Instance()->Release();

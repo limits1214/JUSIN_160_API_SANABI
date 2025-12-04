@@ -221,6 +221,7 @@
     <ClInclude Include="CObjMouse.h" />
     <ClInclude Include="CObjPlayer.h" />
     <ClInclude Include="CObjPlayerArm.h" />
+    <ClInclude Include="CObjPlayerSprite.h" />
     <ClInclude Include="CObjRect.h" />
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjThings.h" />
@@ -293,6 +294,7 @@
     <ClCompile Include="CObjMouse.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
     <ClCompile Include="CObjPlayerArm.cpp" />
+    <ClCompile Include="CObjPlayerSprite.cpp" />
     <ClCompile Include="CObjRect.cpp" />
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjThings.cpp" />

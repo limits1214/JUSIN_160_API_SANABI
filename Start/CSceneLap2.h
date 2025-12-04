@@ -25,11 +25,15 @@ private:
 	CUIObjText* m_pText;
 	CUIObjText* m_pText2;
 	CUIObjText* m_pText3;
+	CUIObjText* m_pText4;
+
+
 	float m_fG;
 
 	float m_fAngle;
 
 	float m_fCurrentTargetAngle;
+	float m_fBeforeTargetAngle;
 
 	bool m_bStopDeltaSum;
 };

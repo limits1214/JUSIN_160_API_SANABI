@@ -13,6 +13,7 @@
 #include "CObjHookGuide.h"
 #include "CObjMouse.h"
 #include "CObjGrab.h"
+#include "CObjPlayerSprite.h"
 
 
 CObjPlayer::CObjPlayer() :m_fHookMaxLength(0.f), m_pGrab(nullptr)
@@ -37,8 +38,9 @@ void CObjPlayer::Initialize()
 	m_bLWallClimb = false;
 
 	m_bWallTop = false;
+	m_bWallDown = false;
 
-	m_fHookMaxLength = 200.f;
+	m_fHookMaxLength = 400.f;
 
 	//m_tInfo.fCX = 112.f;
 	//m_tInfo.fCY = 104.f;
@@ -51,6 +53,8 @@ void CObjPlayer::Initialize()
 
 	auto a = CBmpMgr::Get_Instance();
 
+	m_bSwigDash = false;
+
 	//m_eFrameKey = FKI_SNB;
 	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", FrameKeyId_To_Text2(m_eFrameKey));
 	
@@ -61,7 +65,18 @@ void CObjPlayer::Initialize()
 
 	m_bUseMainScroll = true;
 
-	
+	CObjPlayerSprite* pPSprite = new CObjPlayerSprite;
+	pPSprite->Initialize();
+	pPSprite->Set_Parent(this);
+	pPSprite->Set_Pos(10, -6);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPSprite);
+
+	CObjPlayerArm* pArm = new CObjPlayerArm;
+	pArm->Initialize();
+	pArm->Set_Parent(this);
+	pArm->Set_Pos(10, -6);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pArm);
+
 
 }
 
@@ -69,25 +84,27 @@ int CObjPlayer::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	
 
 	DeltaUpdate();
 
-
-	//m_eCurState = FSI_SNB_R_IDLE;
 	Key_Input();
-
-	if (m_eCurState == FSI_SNB_R_RUNSTART && m_tFrame.iStart == 1)
-	{
-		m_eCurState = FSI_SNB_R_RUNNING;
-	}
-	else if (m_eCurState == FSI_SNB_R_RUNSTOP && m_tFrame.iStart == 5)
-	{
-		m_eCurState = FSI_SNB_R_IDLE;
-	}
 
 
 	Move_Frame();
+
+	if (m_eCurState == FSI_SNB_R_RUNSTART ) /*&& m_tFrame.iStart == 1*/
+	{
+		m_eCurState = FSI_SNB_R_RUNNING;
+	}
+	else if (m_eCurState == FSI_SNB_R_RUNSTOP ) /*&& m_tFrame.iStart == 5*/
+	{
+		m_eCurState = FSI_SNB_R_IDLE;
+	}
+	else if (m_eCurState == FSI_SNB_R_FALLSTART )/* && m_tFrame.iStart == 2*/
+	{
+		m_eCurState = FSI_SNB_R_FALLING;
+	}
+
 
 	if (m_bGrabCeilingMove)
 	{
@@ -96,25 +113,76 @@ int CObjPlayer::Update()
 		//m_bGrab = false;
 	}
 
+	
+	// 최소길이 보다 길어지면 제거 
+	if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
+	{
+		if (m_pGrab != nullptr)
+		{
+			CObjGrab* pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
+			if (pGrab != nullptr)
+			{
+				int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+				int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+				float grabX = pGrab->Get_Info()->fX;
+				float grabY = pGrab->Get_Info()->fY ;
+				float width = grabX - m_tInfo.fX;
+				float height = grabY - m_tInfo.fY;
+				
+
+				if (sqrtf(width * width + height * height) > m_fHookMaxLength)
+				{
+					m_pGrab->Set_Dead();
+					m_pGrab = nullptr;
+					m_bGrab = false;
+				}
+			}
+		}
+	}
+	
+
+	// 그랩 땡기기 
 	if (m_bGrabLoad)
 	{
 		GrabLoad();
 	}
 
+
+	// 진자 운동
 	if (!m_bGrabLoad && !m_bGrabCeilingMove && m_bGrab)
 	{
 		auto pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
 		if (pGrab != nullptr)
 		{
+			m_eCurState = FSI_SNB_R_SWING;
+			if (m_bSwigDash)
+			{
+				m_fPendRad -= 0.01;
+
+		 		if (m_fPendRad < - 70.f * PI / 180.f)
+				{
+					m_bSwigDash = false;
+				}
+
+			}
+			m_fGravityDeltaSum = 0;
+			m_fJumpDeltaSum = 0;
+
 			float w = sqrtf(/*GRAVITY*/ 500 / m_fPendLength);
 			float l = m_fPendLength;
 
 			auto ang0 = m_fPendRad;
 
-			auto dbgAng = ang0 * 180 / PI;
+			auto dbgAng = ang0 * 180.f / PI;
 
+			cout << "dbgAng0: " << dbgAng << endl;
 
 			float tar = ang0 * cosf(w * (m_fPendDeltaSum )+0.f);
+
+			cout << "dbgTar: " << (tar * 180.f / PI) << endl;
+
+			m_fPendCurr = tar;
 
 			m_tInfo.fX = m_fPendStartX + sinf(tar) * l;
 			m_tInfo.fY = m_fPendStartY + cosf(tar) * l ; //+ (m_tInfo.fCY * 0.5f)
@@ -128,6 +196,16 @@ int CObjPlayer::Update()
 		m_bJumpJustPressed = false;
 	}
 
+	if (m_bWallDown)
+	{
+		m_bWallDown = false;
+		JumpStart(10.f, 270.f);
+		m_bJumpJustPressed = false;
+	}
+
+
+	__super::Update_Rect();
+
 
 	return OBJ_NOEVENT;
 }
@@ -137,15 +215,15 @@ void CObjPlayer::Late_Update()
 	Offset();
 	Motion_Change();
 
-	// 입력받고 그릴지 아니면 그리고 입력받을지...
-	__super::Update_Rect();
+
+	//__super::Update_Rect();
 }
 
 void CObjPlayer::Render(HDC hDC)
 {
 	
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	BmpRender(
 		hDC,
 		m_tRect.left , m_tRect.top,
@@ -157,11 +235,35 @@ void CObjPlayer::Render(HDC hDC)
 		);
 
 
-	if (!m_bGrab)
+	if (m_bGrab)
+	{
+		// 임시
+		if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
+		{
+			if (m_pGrab != nullptr)
+			{
+				CObjGrab* pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
+				if (pGrab != nullptr)
+				{
+					int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+					int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+					float grabX = pGrab->Get_Info()->fX + iScrollX;
+					float grabY = pGrab->Get_Info()->fY + iScrollY;
+
+					MoveToEx(hDC, grabX, grabY, nullptr);
+					LineTo(hDC, m_tInfo.fX + iScrollX, m_tInfo.fY + iScrollY);
+				}
+			}
+		}
+	}
+	else
 	{
 		MoveToEx(hDC, m_tHookLine.tLeft.fX, m_tHookLine.tLeft.fY, nullptr);
 		LineTo(hDC, m_tHookLine.tRight.fX, m_tHookLine.tRight.fY);
 	}
+
+
 }
 
 void CObjPlayer::Release()
@@ -239,20 +341,33 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		{
 		case DIR_UP:
 		{
+			// 바닥에 닿은 순간
 			Move(DIR_UP, -fDistance);
-			if (m_bJumpJustPressed)
+		/*	if (m_bJumpJustPressed)
 			{
 				m_bJumpJustPressed = false;
 				return;
-			}
+			}*/
 			
 
 			
-
+			//m_eCurState = FSI_SNBARM_R_IDLE;
 			// on Ground;
 			m_bJump = false;
 			m_fGravityDeltaSum = 0;
 			m_bGravity = true;
+			m_bGround = true;
+
+			m_bLWallClimb = false;
+			m_bRWallClimb = false;
+
+			
+
+			if (m_eCurState != FSI_SNB_R_RUNNING  )
+			{
+				m_eCurState = FSI_SNB_R_IDLE;
+			}
+			
 		}
 			break;
 		case DIR_DOWN:
@@ -263,23 +378,20 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			break;
 		case DIR_LEFT:
 		{
-			/*if (fDistance == 0)
-			{
-				return;
-			}*/
 			Move(DIR_LEFT, -fDistance);
 			if (pRect->Get_Option() == ERI_CLIMABLE)
-			{// 벽 왼쪽에서 벽타기
+			{
+				// 벽 왼쪽에서 벽타기
 				if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
 				{
+					
 					m_bLWallClimb = true;
 				}
-				
-			
 				
 
 				if (m_bLWallClimb)
 				{
+					m_eCurState = FSI_SNB_R_WALLCLIMBUP;
 					m_bJump = false;
 					m_fJumpDeltaSum = 0;
 					m_bGravity = false;
@@ -289,6 +401,12 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 					if (m_tInfo.fY <= fRectY)
 					{
 						m_bWallTop = true;
+					}
+
+					float fRectYDown = (pRect->Get_Info()->fY + pRect->Get_Info()->fCY * 0.5f); /*+ (m_tInfo.fCY * 0.6f)*/
+					if (m_tInfo.fY >= fRectYDown)
+					{
+						m_bWallDown = true;
 					}
 				}
 			}
@@ -307,15 +425,16 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			{
 				if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
 				{
+					
 					m_bRWallClimb = true;
 				}
 				
 
 				// 벽 오른쪽에서 벽타기
 				// 벽 왼쪽에서 벽타기
-				
 				if (m_bRWallClimb)
 				{
+					m_eCurState = FSI_SNB_R_WALLCLIMBUP;
 					m_bJump = false;
 					m_fJumpDeltaSum = 0;
 					m_bGravity = false;
@@ -328,6 +447,11 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 						m_bWallTop = true;
 					}
 
+					float fRectYDown = (pRect->Get_Info()->fY + pRect->Get_Info()->fCY * 0.5f) ; /*+ (m_tInfo.fCY * 0.6f)*/
+					if (m_tInfo.fY >= fRectYDown)
+					{
+						m_bWallDown = true;
+					}
 					
 				}
 
@@ -345,6 +469,22 @@ void CObjPlayer::Grab(CObj* pObj)
 {
 	if (!m_bGrab)
 	{
+		CObjGrab* pGrab = dynamic_cast<CObjGrab*>(pObj);
+		
+		if (pGrab->Get_CollisionOption() != ERI_CLIMABLE)
+		{
+			pObj->Set_Dead();
+			return;
+		}
+
+		if (pGrab->Get_Dead())
+		{
+			return;
+		}
+
+
+
+		m_eCurState = FSI_SNB_R_SWING;
 		m_bGrab = true;
 		auto grabInfo = pObj->Get_Info();
 
@@ -385,10 +525,12 @@ void CObjPlayer::JumpStart(float fVZero, float fAngle)
 {
 	m_bJumpJustPressed = true;
 
-	m_eCurState = FSI_SNB_R_JUMP;
+	m_eCurState = FSI_SNB_R_JUMPING;
 
 	m_bJump = true;
-	m_fJumpDeltaSum = 0;
+	m_fJumpDeltaSum = (16.f / 1000.f) * 1.f;
+
+	
 
 	m_bGravity = true;
 	m_fGravityDeltaSum = 0;
@@ -398,6 +540,15 @@ void CObjPlayer::JumpStart(float fVZero, float fAngle)
 
 	m_bLWallClimb = false;
 	m_bRWallClimb = false;
+
+
+	// 바로 반응 하게 한번 적용
+	float fDstX, fDstY;
+	ParabolaNoGravityEquation(m_fJumpVZero, m_fJumpAngle, m_fJumpDeltaSum, &fDstX, &fDstY);
+	Move(DIR_LEFT, fDstX);
+	Move(DIR_UP, -fDstY);
+
+
 }
 
 void CObjPlayer::JumpEnd()
@@ -434,21 +585,33 @@ void CObjPlayer::GrabLoad()
 						m_tInfo.fX = pGrab->Get_Info()->fX;
 						m_tInfo.fY = (pGrab->Get_Info()->fY + pGrab->Get_Info()->fCY * 0.5f) + (m_tInfo.fCY * 0.5f);
 					}
+					else if (pGrab->Get_CollisionLeft())
+					{
+						m_bGrab = false;
+						m_bGrabLoad = false;
+						m_bLWallClimb = true;
+					}
+					else if (pGrab->Get_CollisionRight())
+					{
+						m_bGrab = false;
+						m_bGrabLoad = false;
+						m_bRWallClimb = true;
+						
+					}
 					else {
 						m_bGrab = false;
 						m_bGrabLoad = false;
+
+						m_bJump = false;
+						m_bGravity = true;
+						m_fGravityDeltaSum = 0;
+						
+						
 					}
 				}
 			}
 		}
 	}
-		//m_bGrabLoad = false;
-		//m_bGrab = false;
-		//m_bGrabCeilingMove = true;
-
-		//m_bGravity = false;
-		//m_bJump = false;
-		//m_bGrab = false;
 	
 }
 
@@ -477,7 +640,8 @@ void CObjPlayer::Key_Input()
 
 	if (bKeyDownLShift)
 	{
-		m_fPendRad += 1.f * PI / 180.f;
+		//m_fPendRad += 1.f * PI / 180.f;
+		m_bSwigDash = true;
 	}
 
 	if (m_bGrabCeilingMove)
@@ -502,6 +666,9 @@ void CObjPlayer::Key_Input()
 
 						if (grabRect.fX < grabCollisionInfo.fX - grabCollisionInfo.fCX * 0.5)
 						{
+							m_bGrabCeilingMove = false;
+
+
 							if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
 							{
 								if (m_pGrab != nullptr)
@@ -555,6 +722,9 @@ void CObjPlayer::Key_Input()
 
 						if (grabRect.fX > grabCollisionInfo.fX + grabCollisionInfo.fCX * 0.5)
 						{
+							m_bGrabCeilingMove = false;
+
+
 							if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
 							{
 								if (m_pGrab != nullptr)
@@ -624,17 +794,17 @@ void CObjPlayer::Key_Input()
 		}
 	}
 
-	if (m_bGrab)
+	else if (m_bGrab)
 	{
 		// 오른쪽
 		if (bPressingA)
 		{
-			//m_fPendRad -= 0.01;
+			m_fPendRad -= 0.01;
 		}
 		//  왼쪽
 		else if (bPressingD)
 		{
-			//m_fPendRad += 0.01;
+			m_fPendRad += 0.01;
 
 		}
 
@@ -642,38 +812,21 @@ void CObjPlayer::Key_Input()
 		{
 			// 그랩 당기기
 			m_bGrabLoad = true;
-			//if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
-			//{
-			//	if (m_pGrab != nullptr)
-			//	{
-			//		CObjGrab* pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
-			//		if (pGrab != nullptr)
-			//		{
-			//			m_bGrabLoad = true;
-			//			float fGrabX = pGrab->Get_Info()->fX;
-			//			float fGrabY = pGrab->Get_Info()->fY;
-			//			m_fGrabLoadX = fGrabX;
-			//			m_fGrabLoadY = fGrabY;
-			//			m_tGrabRect = *pGrab->Get_Rect();
-			//			int x = 0;
-			//		}
-			//	}
-			//}
-			
-
 		}
 	}
 	else
 	{
 		if (bKeyDownA)
 		{
-			m_eCurState = FSI_SNB_R_RUNSTART;
+			//if (m_eCurState != FSI_SNB_R_JUMPING)
+				//m_eCurState = FSI_SNB_R_RUNSTART;
 			m_fMoveLeftDeltaSum = 0;
 		}
 
 		if (bKeyDownD)
 		{
-			m_eCurState = FSI_SNB_R_RUNSTART;
+			//if (m_eCurState != FSI_SNB_R_JUMPING)
+				//m_eCurState = FSI_SNB_R_RUNSTART;
 			m_fMoveRightDeltaSum = 0;
 		}
 		if (bKeyDownSpace)
@@ -686,14 +839,16 @@ void CObjPlayer::Key_Input()
 			if (m_bLWallClimb)
 			{
 				JumpStart(17.f, 110.f);
+				m_bJumpJustPressed = false;
 			}
 			else if (m_bRWallClimb)
 			{
 				JumpStart(17.f, 70.f);
+				m_bJumpJustPressed = false;
 			}
 			else
 			{
-				JumpStart(27.f, 90.f);
+				JumpStart(30.f, 90.f);
 			}
 
 		}
@@ -702,35 +857,36 @@ void CObjPlayer::Key_Input()
 			if (m_bLWallClimb || m_bRWallClimb)
 			{
 				Move(DIR_UP, -m_fSpeed);
+				m_eCurState = FSI_SNB_R_WALLCLIMBUP;
 			}
 
 		}
-
-		if (bKeyPressingS)
+		else if (bKeyPressingS)
 		{
 			if (m_bLWallClimb || m_bRWallClimb)
 			{
 				Move(DIR_DOWN, m_fSpeed);
+				m_eCurState = FSI_SNB_R_WALLCLIMBDOWN;
 			}
-
 		}
 
-		// 오른쪽 이동
+		
 		if (bPressingA)
 		{
-			int x = 0;
 			if (m_bLWallClimb)
 			{
 				// todo: timer
 				//JumpStart(30.f, 100.f);
 				//Move(DIR_LEFT, -m_fSpeed);
+				m_eCurState = FSI_SNB_R_WALLCLIMBUP;
 			}
 			else
 			{
 				Move(DIR_LEFT, -m_fSpeed);
+				if (!(m_eCurState == FSI_SNB_R_JUMPING || m_eCurState == FSI_SNB_R_FALLING || m_eCurState == FSI_SNB_R_FALLSTART))
+					m_eCurState = FSI_SNB_R_RUNSTART;
 			}
 		}
-		//  왼쪽 이동
 		else if (bPressingD)
 		{
 			if (m_bRWallClimb)
@@ -738,24 +894,26 @@ void CObjPlayer::Key_Input()
 				// todo: timer
 				//JumpStart(10.f, 75.f);
 				//Move(DIR_RIGHT, m_fSpeed);
+				m_eCurState = FSI_SNB_R_WALLCLIMBUP;
 			}
 			else
 			{
 				Move(DIR_RIGHT, m_fSpeed);
+				if (!(m_eCurState == FSI_SNB_R_JUMPING || m_eCurState == FSI_SNB_R_FALLING || m_eCurState == FSI_SNB_R_FALLSTART))
+					m_eCurState = FSI_SNB_R_RUNSTART;
 			}
 
 
 		}
 
-		if (bKeyUpA)
+		if (bKeyUpA || bKeyUpD)
 		{
-			m_eCurState = FSI_SNB_R_RUNSTOP;
+			if (m_eCurState == FSI_SNB_R_RUNNING)
+			{
+				m_eCurState = FSI_SNB_R_RUNSTOP;
+			}
 		}
 
-		if (bKeyUpD)
-		{
-			m_eCurState = FSI_SNB_R_RUNSTOP;
-		}
 	}
 
 
@@ -854,39 +1012,31 @@ void CObjPlayer::DeltaUpdate()
 {
 	DWORD dwNowTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 	float dwDelta = (float)(dwNowTime - m_dwTime) / 1000.f;
-	//dwDelta = 0.2;
-	//dwDelta /= 1000.f;
+
 	m_dwTime = dwNowTime;
 
-	//dwDelta *= 3.f;
-	//m_dwDeltaSum += dwDelta;
 	m_fGravityDeltaSum += dwDelta;
 	m_fJumpDeltaSum += dwDelta;
 	m_fMoveLeftDeltaSum += dwDelta;
 	m_fMoveRightDeltaSum += dwDelta;
 	m_fPendDeltaSum += dwDelta;
 
-
-
-	DWORD  dwGravityDeltaMax = 1000;
-	if (m_fGravityDeltaSum > dwGravityDeltaMax)
-	{
-		//m_dwGravityDeltaSum = dwGravityDeltaMax;
-	}
 	if (m_bGrab)
 	{
-		return ;
+		return;
 	}
+
+	DWORD  dwGravityDeltaMax = 1;
+	if (m_fGravityDeltaSum > dwGravityDeltaMax)
+	{
+		m_fGravityDeltaSum = dwGravityDeltaMax;
+	}
+
 	float tempG = 0;
 	if (true && m_bGravity)
 	{
 		float fTmpG = GRAVITY * (m_fGravityDeltaSum * m_fGravityDeltaSum) * 0.5f;
-		float fScaledTmpY = fTmpG * 10;
-		//float fMaxGravity = 100;
-		//if (fTmpG > fMaxGravity)
-		//{
-		//	fScaledTmpY = fMaxGravity;
-		//}
+		float fScaledTmpY = fTmpG * 13;
 		float maxGravity = 50;
 		if (fScaledTmpY > maxGravity)
 		{
@@ -899,10 +1049,10 @@ void CObjPlayer::DeltaUpdate()
 
 	if (true && m_bJump)
 	{
- 		DWORD  dwJumpDeltaMax = 1200;
+ 		DWORD  dwJumpDeltaMax = 1;
 		if (m_fJumpDeltaSum > dwJumpDeltaMax)
 		{
-			//m_dwJumpDeltaSum = dwJumpDeltaMax;
+			m_fJumpDeltaSum = dwJumpDeltaMax;
 		}
 
 
@@ -916,6 +1066,7 @@ void CObjPlayer::DeltaUpdate()
 		if (fDstY - tempG < 0)
 		{
 			int x = 0;
+			m_eCurState = FSI_SNB_R_FALLSTART;
 		}
 	}
 }
@@ -969,8 +1120,6 @@ void CObjPlayer::On_Mouse_Key_Down(CObj* pObj)
 		POINT ptCurr = pMouse->Get_Pt_Curr();
 		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-		//float fParentX = m_pParent->Get_Info()->fX + iScrollX;
-		//float fParentY = m_pParent->Get_Info()->fY + iScrollY;
 
 		
 
@@ -981,6 +1130,7 @@ void CObjPlayer::On_Mouse_Key_Down(CObj* pObj)
 				return;
 				m_pGrab->Set_Dead();
 				m_bGrab = false;
+				m_pGrab = nullptr;
 			}
 		}
 
@@ -1021,6 +1171,19 @@ void CObjPlayer::On_Mouse_Key_Up(CObj* pMouse)
 				m_fGravityDeltaSum = 0;
 				m_bJump = false;
 				m_fJumpDeltaSum = 0;
+
+
+				if (m_fPendStartX < m_tInfo.fX)
+				{
+					JumpStart(5.f, 45.f);
+				}
+				else
+				{
+					JumpStart(5.f, 135.f);
+				}
+				
+				
+				
 			}
 			
 		}
@@ -1029,6 +1192,22 @@ void CObjPlayer::On_Mouse_Key_Up(CObj* pMouse)
 
 void CObjPlayer::On_Mouse_Key_Pressing(CObj* pMouse)
 {
+}
+
+TCHAR* CObjPlayer::Dbg_Text()
+{
+	TCHAR szText[256]{};
+
+	const INFO* info = this->Get_Info();
+
+	
+
+	swprintf_s(szText, _T("m_fPendCurr: %f"), m_fPendCurr);
+
+	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
+	lstrcpy(pText, szText);
+	
+	return pText;
 }
 
 void CObjPlayer::ParabolaNoGravityEquation(float fVZero, float fAngle, float fDeltaSum, float* fDstX, float* fDstY)
