@@ -198,6 +198,8 @@
     <ClInclude Include="CMyBitmap.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjBg.h" />
+    <ClInclude Include="CObjBgBossBuilding.h" />
+    <ClInclude Include="CObjBgBossCloud.h" />
     <ClInclude Include="CObjBossFireBird.h" />
     <ClInclude Include="CObjBossFireBirdGun.h" />
     <ClInclude Include="CObjBossFireBirdWing.h" />
@@ -271,6 +273,8 @@
     <ClCompile Include="CMyBitmap.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjBg.cpp" />
+    <ClCompile Include="CObjBgBossBuilding.cpp" />
+    <ClCompile Include="CObjBgBossCloud.cpp" />
     <ClCompile Include="CObjBossFireBird.cpp" />
     <ClCompile Include="CObjBossFireBirdGun.cpp" />
     <ClCompile Include="CObjBossFireBirdWing.cpp" />

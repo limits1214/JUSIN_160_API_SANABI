@@ -1,5 +1,8 @@
 #pragma once
 #include "CScene.h"
+#include "CObjBgBossBuilding.h"
+#include "CObjBgBossCloud.h"
+
 class CSceneBoss: public CScene
 {
 public:
@@ -12,5 +15,11 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+
+
+private:
+	CObjBgBossBuilding* m_pBgBuilding1;
+	CObjBgBossBuilding* m_pBgBuilding2;
+	CObjBgBossCloud* m_pBgCloud[7];
 };
 

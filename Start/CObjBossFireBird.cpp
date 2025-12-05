@@ -35,7 +35,7 @@ void CObjBossFireBird::Initialize()
 
 	CObjBossFireBirdGun* pGun = new CObjBossFireBirdGun;
 	pGun->Initialize();
-	pGun->Set_Pos(0, 0);
+	pGun->Set_Pos(10, -10);
 	pGun->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pGun);
 }
@@ -47,7 +47,7 @@ int CObjBossFireBird::Update()
     __super::Update_Rect();
 	Move_Frame();
 
-	m_tInfo.fX += 0.1;
+	//m_tInfo.fX += 0.1;
 	
     return OBJ_NOEVENT;
 }

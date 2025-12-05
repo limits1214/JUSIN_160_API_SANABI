@@ -264,6 +264,12 @@
     <ClInclude Include="CObjMonsterFloatingBombSprite.h">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBgBossBuilding.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBgBossCloud.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -460,6 +466,12 @@
     </ClCompile>
     <ClCompile Include="CObjMonsterFloatingBombSprite.cpp">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBgBossBuilding.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBgBossCloud.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
