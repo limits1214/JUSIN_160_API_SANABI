@@ -43,6 +43,7 @@ void CObjBossFirebirdBody::Late_Update()
 void CObjBossFirebirdBody::Render(HDC hDC)
 {
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
+	//Rectangle(hDC, m_tRect.left , m_tRect.top , m_tRect.right , m_tRect.bottom );
 	BmpRender(
 		hDC,
 		m_tRect.left, m_tRect.top,
