@@ -23,10 +23,12 @@ void CObjBossFireBirdWing::Initialize()
 	//m_eFrameKey = FKI_Spr_BOSS_Firebird_Wing_DownLoop01_Sheet_tw1308_th134_sw5232_sh268_c8;
 
 
-	m_tInfo.fCX = 1316;
-	m_tInfo.fCY = 303;
+	m_tInfo.fCX = 1304;
+	m_tInfo.fCY = 234;
 	m_eFrameKey = FKI_Spr_BOSS_FirebirdWing_sheet;
-	m_eCurState = FSI_BOSS_FIREBIRD_WING_NORMAL_DOWNLOOP1;
+	/*m_eCurState = FSI_BOSS_FIREBIRD_WING_NORMAL_DOWNLOOP1;
+	m_eCurState = FSI_BOSS_FIREBIRD_WING_NORMAL_UPLOOP1;*/
+	m_eCurState = FSI_BOSS_FIREBIRD_WING_NORMAL_DOWNLOOP;
 	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 }
 

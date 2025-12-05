@@ -15,11 +15,13 @@ CObjBossFireBirdGun::~CObjBossFireBirdGun()
 void CObjBossFireBirdGun::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 425;
+	m_tInfo.fCX = 440;
 	m_tInfo.fCY = 78;
 
 	m_eFrameKey = FKI_Spr_BOSS_FirebirdGun_sheet;
-	m_eCurState = FSI_BOSS_FIREBIRD_GUN_SHOOTLOOP;
+	//m_eCurState = FSI_BOSS_FIREBIRD_GUN_SHOOTLOOP;
+	//m_eCurState = FSI_BOSS_FIREBIRD_GUN_SHOOTEND;
+	m_eCurState = FSI_BOSS_FIREBIRD_GUN_SHOOTREADYLOOP;
 	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 }
 

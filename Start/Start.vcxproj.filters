@@ -270,6 +270,12 @@
     <ClInclude Include="CObjUnstableKnockbackPlatformA.h">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBossFireBirdBomber.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossFirebirdBody.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -471,6 +477,12 @@
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
     <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFireBirdBomber.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFirebirdBody.cpp">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>

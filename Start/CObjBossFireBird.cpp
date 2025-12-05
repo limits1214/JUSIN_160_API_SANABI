@@ -5,6 +5,8 @@
 #include "CObjMgr.h"
 #include "CObjBossFireBirdWing.h"
 #include "CObjBossFireBirdGun.h"
+#include "CObjBossFireBirdBomber.h"
+#include "CObjBossFirebirdBody.h"
 
 CObjBossFireBird::CObjBossFireBird()
 {
@@ -22,20 +24,31 @@ void CObjBossFireBird::Initialize()
     m_tInfo.fCX = 688;
     m_tInfo.fCY = 352;
 
-	m_eFrameKey = FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8;
+	/*m_eFrameKey = FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8;
 	m_eCurState = FSI_BOSS_FIREBIRD_BODY_NORMAL_IDLE;
-	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());*/
 
+	CObjBossFireBirdBomber* pBomber = new CObjBossFireBirdBomber;
+	pBomber->Initialize();
+	pBomber->Set_Pos(0, 120);
+	pBomber->Set_Parent(this);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBomber);
 
 	CObjBossFireBirdWing* pWing = new CObjBossFireBirdWing;
 	pWing->Initialize();
-	pWing->Set_Pos(0, 0);
+	pWing->Set_Pos(0, -40);
 	pWing->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWing);
 
+	CObjBossFirebirdBody* pBody = new CObjBossFirebirdBody;
+	pBody->Initialize();
+	pBody->Set_Pos(0, 0);
+	pBody->Set_Parent(this);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBody);
+
 	CObjBossFireBirdGun* pGun = new CObjBossFireBirdGun;
 	pGun->Initialize();
-	pGun->Set_Pos(10, -10);
+	pGun->Set_Pos(-2, -30);
 	pGun->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pGun);
 }
@@ -60,6 +73,7 @@ void CObjBossFireBird::Late_Update()
 void CObjBossFireBird::Render(HDC hDC)
 {
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	BmpRender(
 		hDC,
 		m_tRect.left, m_tRect.top,

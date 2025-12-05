@@ -25,14 +25,9 @@ CSceneBoss::~CSceneBoss()
 void CSceneBoss::Initialize()
 {
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8);
-    /*CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Gun_ShootEnd_Sheet_tw408_th58_sw11016_sh58_c27.bmp", STR_FKI_Spr_BOSS_Firebird_Gun_ShootEnd_Sheet_tw408_th58_sw11016_sh58_c27);
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Gun_ShootLoop_Sheet_tw429_th82_sw1716_sh82_c4.bmp", STR_FKI_Spr_BOSS_Firebird_Gun_ShootLoop_Sheet_tw429_th82_sw1716_sh82_c4);
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Gun_ShootReadyLoop_Sheet_tw408_th57_sw1632_sh57_c4.bmp", STR_FKI_Spr_BOSS_Firebird_Gun_ShootReadyLoop_Sheet_tw408_th57_sw1632_sh57_c4);*/
-    /*CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Wing_DownLoop01_Sheet_tw1308_th134_sw5232_sh268_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Wing_DownLoop01_Sheet_tw1308_th134_sw5232_sh268_c8);
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Wing_NeuLoop_Sheet_tw1308_th156_sw5232_sh312_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Wing_NeuLoop_Sheet_tw1308_th156_sw5232_sh312_c8);
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Wing_UpLoop01_Sheet_tw1308_th169_sw_5232_sh338_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Wing_UpLoop01_Sheet_tw1308_th169_sw_5232_sh338_c8);*/
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdWing_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdWing_sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdGun_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdGun_sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBomber_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdBomber_sheet);
 
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);
@@ -86,7 +81,7 @@ void CSceneBoss::Initialize()
 
     CObjBossFireBird* pBoss = new CObjBossFireBird;
     pBoss->Initialize();
-    pBoss->Set_Pos(WINCX >> 1, WINCY >> 1);
+    pBoss->Set_Pos(WINCX >> 1, (WINCY >> 1) - 300);
     CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBoss);
 
     {
