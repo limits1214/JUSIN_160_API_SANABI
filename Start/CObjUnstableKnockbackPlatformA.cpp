@@ -24,9 +24,13 @@ CObjUnstableKnockbackPlatformA::~CObjUnstableKnockbackPlatformA()
 
 void CObjUnstableKnockbackPlatformA::Initialize()
 {
+	//CObjCollisionRect::Initialize();
+	Set_Option(ERI_CLIMABLE);
+
 	Set_UseMainScroll(true);
 	m_tInfo.fCX = 264;
 	m_tInfo.fCY = 112;
+
 
 	m_eFrameKey = FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET;
 	m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLE;
@@ -54,7 +58,7 @@ void CObjUnstableKnockbackPlatformA::Late_Update()
 void CObjUnstableKnockbackPlatformA::Render(HDC hDC)
 {
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	BmpRender(
 		hDC,
 		m_tRect.left, m_tRect.top,

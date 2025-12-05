@@ -6,12 +6,11 @@
 #include "CObjBossFireBirdWing.h"
 #include "CObjBg.h"
 #include "CObjMonsterFloatingBomb.h"
-
 #include "CObjUnstableKnockbackPlatformA.h"
-
 #include "CObjBgBossBuilding.h"
-
 #include "CObjBgBossCloud.h"
+#include "CObjPlayer.h"
+#include "CCollisionMgr.h"
 
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
@@ -43,6 +42,12 @@ void CSceneBoss::Initialize()
 
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatformA_Sheet.bmp", STR_FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Sprsht_Chap5_Heli_Cloud_Sheet.bmp", STR_FKI_Spr_Chap5_Heli_Cloud_Sheet);
+
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_ClusterBombExplode_Sheet.bmp", STR_FKI_Spr_BOSS_ClusterBombExplode_Sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_ClusterBulletExplode_Sheet.bmp", STR_FKI_Spr_BOSS_ClusterBulletExplode_Sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_Firebird_ShootExplode_Sheet.bmp", STR_FKI_Spr_BOSS_ShootExplode_Sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBullet_Sheet.bmp", STR_FKI_Spr_BOSS_Bullet_Sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdClusterAim_Sheet.bmp", STR_FKI_Spr_BOSS_Cluster_Aim_Sheet);
     
     CObjBg* pBg = new CObjBg;
     pBg->Initialize();
@@ -51,7 +56,7 @@ void CSceneBoss::Initialize()
     pBg->Set_CX(832);
     pBg->Set_CY(448);
     //pBg->Set_UseMainScroll(true);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBg);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBg);
 
     for (int i = 0; i < 7; ++i)
     {
@@ -59,7 +64,7 @@ void CSceneBoss::Initialize()
         pBgCloud->Initialize();
         pBgCloud->Set_Pos(rand() % WINCX, rand() % (WINCY / 2));
         pBgCloud->Set_Option(i);
-        CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBgCloud);
+        CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBgCloud);
         m_pBgCloud[i] = pBgCloud;
     }
 
@@ -68,48 +73,65 @@ void CSceneBoss::Initialize()
     pBsBuilding1->Set_Pos((1580 / 2), (WINCY >> 1) + 5);
     pBsBuilding1->Set_CX(1580);
     pBsBuilding1->Set_CY(1280);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBsBuilding1);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBsBuilding1);
     m_pBgBuilding1 = pBsBuilding1;
-
 
     CObjBgBossBuilding* pBsBuilding2 = new CObjBgBossBuilding;
     pBsBuilding2->Initialize();
     pBsBuilding2->Set_Pos((1580 / 2) + 1580, (WINCY >> 1) + 5);
     pBsBuilding2->Set_CX(1580);
     pBsBuilding2->Set_CY(1280);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBsBuilding2);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBsBuilding2);
     m_pBgBuilding2 = pBsBuilding2;
-
-
 
     CObjBossFireBird* pBoss = new CObjBossFireBird;
     pBoss->Initialize();
     pBoss->Set_Pos(WINCX >> 1, WINCY >> 1);
     CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBoss);
 
-    CObjMonsterFloatingBomb* pFltBomb = new CObjMonsterFloatingBomb;
-    pFltBomb->Initialize();
-    pFltBomb->Set_Pos(WINCX >> 1, WINCY >> 1);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFltBomb);
+    {
+        CObjUnstableKnockbackPlatformA* pPlatform1 = new CObjUnstableKnockbackPlatformA;
+        pPlatform1->Initialize();
+        pPlatform1->Set_Pos((WINCX >> 1) - 224 * 4, (WINCY >> 1));
+        //TODO: OBJ_PLATFORM
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform1);
 
-    CObjUnstableKnockbackPlatformA* pPlatform = new CObjUnstableKnockbackPlatformA;
-    pPlatform->Initialize();
-    pPlatform->Set_Pos(WINCX >> 1, (WINCY >> 1) + 200);
-    //TODO: OBJ_PLATFORM
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPlatform);
+        CObjUnstableKnockbackPlatformA* pPlatform2 = new CObjUnstableKnockbackPlatformA;
+        pPlatform2->Initialize();
+        pPlatform2->Set_Pos((WINCX >> 1) - 224 * 2, (WINCY >> 1) + 112 * 2);
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform2);
 
-    CObjUnstableKnockbackPlatformA* pPlatform2 = new CObjUnstableKnockbackPlatformA;
-    pPlatform2->Initialize();
-    pPlatform2->Set_Pos((WINCX >> 1) + 260, (WINCY >> 1) + 200);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPlatform2);
+        CObjUnstableKnockbackPlatformA* pPlatform3 = new CObjUnstableKnockbackPlatformA;
+        pPlatform3->Initialize();
+        pPlatform3->Set_Pos((WINCX >> 1) - 224 * 2, (WINCY >> 1) - 112 * 2);
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform3);
 
-    CObjUnstableKnockbackPlatformA* pPlatform3 = new CObjUnstableKnockbackPlatformA;
-    pPlatform3->Initialize();
-    pPlatform3->Set_Pos((WINCX >> 1) - 260, (WINCY >> 1) + 200);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPlatform3);
+        CObjUnstableKnockbackPlatformA* pPlatform4 = new CObjUnstableKnockbackPlatformA;
+        pPlatform4->Initialize();
+        pPlatform4->Set_Pos((WINCX >> 1) , (WINCY >> 1));
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform4);
+
+        CObjUnstableKnockbackPlatformA* pPlatform5 = new CObjUnstableKnockbackPlatformA;
+        pPlatform5->Initialize();
+        pPlatform5->Set_Pos((WINCX >> 1) + 224 * 2, (WINCY >> 1) + 112 * 2);
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform5);
+
+        CObjUnstableKnockbackPlatformA* pPlatform6 = new CObjUnstableKnockbackPlatformA;
+        pPlatform6->Initialize();
+        pPlatform6->Set_Pos((WINCX >> 1) + 224 * 2, (WINCY >> 1) - 112 * 2);
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform6);
+
+        CObjUnstableKnockbackPlatformA* pPlatform7 = new CObjUnstableKnockbackPlatformA;
+        pPlatform7->Initialize();
+        pPlatform7->Set_Pos((WINCX >> 1) + 224 * 4, (WINCY >> 1) );
+        CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pPlatform7);
+    }
 
 
-    
+    CObjPlayer* pPlayer = new CObjPlayer;
+    pPlayer->Initialize();
+    pPlayer->Set_Pos((WINCX >> 1) , (WINCY >> 1) - 100);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 }
 
 int CSceneBoss::Update()
@@ -145,6 +167,9 @@ int CSceneBoss::Update()
 
 void CSceneBoss::Late_Update()
 {
+    CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
+    CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
+
     CObjMgr::Get_Instance()->Late_Update();
 }
 

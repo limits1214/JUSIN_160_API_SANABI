@@ -15,6 +15,7 @@
 #include "CObjGrab.h"
 #include "CObjPlayerSprite.h"
 #include "CObjMonsterFloatingBomb.h"
+#include "CObjUnstableKnockbackPlatformA.h"
 
 
 CObjPlayer::CObjPlayer() :m_fHookMaxLength(0.f), m_pGrab(nullptr)
@@ -202,7 +203,6 @@ int CObjPlayer::Update()
 				}
 			}
 		}
-		
 	}
 
 	
@@ -422,7 +422,10 @@ void CObjPlayer::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 
 	CObjCollisionRect* pRect = dynamic_cast<CObjCollisionRect*>(pObj);
 	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
-	if (eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr)
+
+	if (
+		eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr
+	)
 	{
 		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
 		float fDistance = rectExCollEtc.fDistance;

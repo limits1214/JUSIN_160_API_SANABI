@@ -172,6 +172,12 @@ enum FRAME_KEY_ID
 
 	FKI_Spr_SNB_SHEET_2,
 
+	FKI_Spr_BOSS_ClusterBombExplode_Sheet,
+	FKI_Spr_BOSS_ClusterBulletExplode_Sheet,
+	FKI_Spr_BOSS_ShootExplode_Sheet,
+	FKI_Spr_BOSS_Bullet_Sheet,
+	FKI_Spr_BOSS_Cluster_Aim_Sheet,
+
 	FKI_TEST_BTN_START,
 	FKI_TEST_BTN_EDIT,
 	FKI_TEST_BTN_EXIT,
@@ -207,6 +213,11 @@ STR_MACRO2(FKI_Spr_Chap5_Chap4_Building, "Spr_Chap5_Chap4_Building");
 
 STR_MACRO2(FKI_Spr_Chap5_Heli_Cloud_Sheet, "Spr_Chap5_Heli_Cloud_Sheet");
 
+STR_MACRO2(FKI_Spr_BOSS_ClusterBombExplode_Sheet, "Spr_BOSS_ClusterBombExplode_Sheet");
+STR_MACRO2(FKI_Spr_BOSS_ClusterBulletExplode_Sheet, "Spr_BOSS_ClusterBulletExplode_Sheet");
+STR_MACRO2(FKI_Spr_BOSS_ShootExplode_Sheet, "Spr_BOSS_ShootExplode_Sheet");
+STR_MACRO2(FKI_Spr_BOSS_Bullet_Sheet, "Spr_BOSS_Bullet_Sheet");
+STR_MACRO2(FKI_Spr_BOSS_Cluster_Aim_Sheet, "Spr_BOSS_Cluster_Aim_Sheet");
 
 STR_MACRO2(FKI_Spr_SNB_SHEET_2, "Spr_SNB_SHEET_2");
 
@@ -263,6 +274,17 @@ inline const TCHAR* FrameKeyId_To_Text2(FRAME_KEY_ID eID)
 
 	case FKI_Spr_Chap5_Heli_Cloud_Sheet:
 		return STR_FKI_Spr_Chap5_Heli_Cloud_Sheet;
+
+	case FKI_Spr_BOSS_ClusterBombExplode_Sheet:
+		return STR_FKI_Spr_BOSS_ClusterBombExplode_Sheet;
+	case FKI_Spr_BOSS_ClusterBulletExplode_Sheet:
+		return STR_FKI_Spr_BOSS_ClusterBulletExplode_Sheet;
+	case FKI_Spr_BOSS_ShootExplode_Sheet:
+		return STR_FKI_Spr_BOSS_ShootExplode_Sheet;
+	case FKI_Spr_BOSS_Bullet_Sheet:
+		return STR_FKI_Spr_BOSS_Bullet_Sheet;
+	case FKI_Spr_BOSS_Cluster_Aim_Sheet:
+		return STR_FKI_Spr_BOSS_Cluster_Aim_Sheet;
 
 	case FKI_Spr_SNB_SHEET_2:
 		return STR_FKI_Spr_SNB_SHEET_2;
@@ -505,6 +527,8 @@ enum OBJID
 	OBJ_CLIMABLE_LINE,
 	OBJ_NO_CLIMABLE_LINE,
 
+	OBJ_BG,
+
 	OBJ_MONSTER,
 	OBJ_PLATFORM,
 	OBJ_PLAYER,
@@ -529,6 +553,7 @@ STR_MACRO(OBJ_NO_CLIMABLE_LINE);
 STR_MACRO(OBJ_LINE);
 STR_MACRO(OBJ_RECT);
 STR_MACRO(OBJ_MONSTER);
+STR_MACRO(OBJ_BG);
 STR_MACRO(OBJ_PLATFORM);
 STR_MACRO(OBJ_PLAYER);
 STR_MACRO(OBJ_INPUTCONTROLLER);
@@ -551,6 +576,7 @@ inline const TCHAR* ObjID_To_Text(OBJID eID)
 		STR_CASE_MACRO(OBJ_NO_CLIMABLE_LINE)
 		STR_CASE_MACRO(OBJ_LINE)
 		STR_CASE_MACRO(OBJ_RECT)
+		STR_CASE_MACRO(OBJ_BG)
 		STR_CASE_MACRO(OBJ_PLATFORM)
 		STR_CASE_MACRO(OBJ_MONSTER)
 		STR_CASE_MACRO(OBJ_PLAYER)

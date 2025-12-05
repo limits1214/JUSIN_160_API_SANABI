@@ -21,7 +21,7 @@ void CObjPlayerSprite::Initialize()
 	m_tInfo.fCX = 91;
 	m_tInfo.fCY = 64;
 	m_tInfo.fCX = 112.f;
-m_tInfo.fCY = 104.f;
+	m_tInfo.fCY = 104.f;
 
 	m_eFrameKey = FKI_Spr_SNB_SHEET_2;
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_Sheet2.bmp", FrameKeyId_To_Text2(m_eFrameKey));

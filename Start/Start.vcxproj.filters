@@ -237,9 +237,6 @@
     <ClInclude Include="CObjMonsterFloatingBomb.h">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClInclude>
-    <ClInclude Include="CObjUnstableKnockbackPlatformA.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
     <ClInclude Include="CObjBg.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
@@ -268,6 +265,9 @@
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClInclude>
     <ClInclude Include="CObjBgBossCloud.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjUnstableKnockbackPlatformA.h">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClInclude>
   </ItemGroup>
@@ -440,9 +440,6 @@
     <ClCompile Include="CObjMonsterFloatingBomb.cpp">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClCompile>
-    <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
     <ClCompile Include="CObjBg.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
@@ -471,6 +468,9 @@
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
     <ClCompile Include="CObjBgBossCloud.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>

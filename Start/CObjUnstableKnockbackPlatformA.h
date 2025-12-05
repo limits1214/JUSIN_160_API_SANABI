@@ -1,6 +1,7 @@
 #pragma once
 #include "CObj.h"
-class CObjUnstableKnockbackPlatformA: public CObj
+#include "CObjCollisionRect.h"
+class CObjUnstableKnockbackPlatformA: public CObjCollisionRect
 {
 public:
 	CObjUnstableKnockbackPlatformA();
