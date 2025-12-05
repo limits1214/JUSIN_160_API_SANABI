@@ -4,6 +4,10 @@
 #include "CBmpMgr.h"
 #include "CObjMonsterFloatingBombSprite.h"
 #include "CObjMgr.h"
+#include "CObjMouse.h"
+#include "CScrollMgr.h"
+#include "CObjPlayer.h"
+
 
 CObjMonsterFloatingBomb::CObjMonsterFloatingBomb()
 {
@@ -20,25 +24,14 @@ void CObjMonsterFloatingBomb::Initialize()
 	Set_UseMainScroll(true);
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
-	//m_eFrameKey = FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150;
-	//m_eCurState = FSI_MOB_FLTBOMB_IDLE;
-	//m_eCurState = FSI_MOB_FLTBOMB_EXCHOLDED_NEU;
-	//m_eCurState = FSI_MOB_FLTBOMB_IDLE;
-	//m_eCurState = FSI_MOB_FLTBOMB_IDLE;
-	//m_eCurState = FSI_MOB_FLTBOMB_IDLE;
-
-
-	//m_tInfo.fCX = 512;
-	//m_tInfo.fCY = 512;
-	//m_eFrameKey = FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512;
-	//m_eCurState = FSI_MOB_FLTBOMB_EXPLODEHUGE;
-	//m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 
 	CObjMonsterFloatingBombSprite* pPltSprite = new CObjMonsterFloatingBombSprite;
 	pPltSprite->Initialize();
 	pPltSprite->Set_Parent(this);
 	pPltSprite->Set_Pos(12, 5);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPltSprite);
+
+	m_bExecuted = false;
 }
 
 int CObjMonsterFloatingBomb::Update()
@@ -46,15 +39,19 @@ int CObjMonsterFloatingBomb::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
+	if (m_bExecuted)
+	{
+		m_tInfo.fX += cosf(m_fExcutedRad) * 3;
+		m_tInfo.fY += sinf(m_fExcutedRad) * 3;
+	}
+
 	__super::Update_Rect();
-	//Move_Frame();
-	
 	return OBJ_NOEVENT;
 }
 
 void CObjMonsterFloatingBomb::Late_Update()
 {
-	//Motion_Change();
+	
 }
 
 void CObjMonsterFloatingBomb::Render(HDC hDC)
@@ -66,6 +63,68 @@ void CObjMonsterFloatingBomb::Render(HDC hDC)
 void CObjMonsterFloatingBomb::Release()
 {
 }
+
+void CObjMonsterFloatingBomb::Excuted(CObj* pPlayer, float fRad)
+{
+	m_bExecuted = true;
+	m_fExcutedRad = fRad + PI;
+}
+
+void CObjMonsterFloatingBomb::On_Mouse_Key_Down(CObj* pObj)
+{
+	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
+	if (pMouse != nullptr)
+	{
+		if (pMouse->Get_Last_Key() == VK_RBUTTON)
+		{
+			POINT ptCurr = pMouse->Get_Pt_Curr();
+			int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+			int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+			ptCurr.x -= iScrollX;
+			ptCurr.y -= iScrollY;
+			if (PtInRect(&m_tRect, ptCurr))
+			{
+				list<CObj*>* playerList = CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER);
+
+				CObjPlayer* pPlayer = nullptr;
+				for (auto*& pObj : *playerList)
+				{
+					CObjPlayer* _pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+					if (_pPlayer != nullptr)
+					{
+						pPlayer = _pPlayer;
+						break;
+					}
+				}
+
+				if (pPlayer != nullptr)
+				{
+
+					float fWidth = pPlayer->Get_Info()->fX - m_tInfo.fX;
+					float fHeight = pPlayer->Get_Info()->fY - m_tInfo.fY;
+					float fLength = sqrtf(fWidth * fWidth + fHeight * fHeight);
+
+					if (fLength < 400)
+					{
+						pPlayer->MonsterExcStart(this);
+					}
+				}
+
+				pMouse->Mouse_PreventEvent();
+			}
+		}
+		
+	}
+}
+
+void CObjMonsterFloatingBomb::On_Mouse_Key_Up(CObj* pMouse)
+{
+}
+
+void CObjMonsterFloatingBomb::On_Mouse_Key_Pressing(CObj* pMouse)
+{
+}
+
 void CObjMonsterFloatingBomb::Motion_Change()
 {
 	DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();

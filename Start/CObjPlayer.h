@@ -44,6 +44,9 @@ public:
 	TCHAR* Dbg_Text() override;
 
 public:
+	void MonsterExcStart(CObj* pMonster);
+
+public:
 	void Grab(CObj* pObj);
 
 private:
@@ -56,6 +59,8 @@ private:
 	void JumpEnd();
 
 	void GrabLoad();
+
+	
 
 
 private:
@@ -100,6 +105,10 @@ private:
 	bool m_bDamagedDash;
 	DIRECTION m_eDamagedDashDir;
 	int m_iDamagedDashableTime;
+
+
+	bool m_bMonsterExcStart;
+	bool m_bMonsterExc;
 	
 
 

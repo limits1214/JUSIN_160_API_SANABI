@@ -44,6 +44,8 @@ void CSceneLab::Initialize()
 		}
 		});
 
+
+
 }
 
 int CSceneLab::Update()

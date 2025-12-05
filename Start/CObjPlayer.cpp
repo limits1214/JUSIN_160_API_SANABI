@@ -14,6 +14,7 @@
 #include "CObjMouse.h"
 #include "CObjGrab.h"
 #include "CObjPlayerSprite.h"
+#include "CObjMonsterFloatingBomb.h"
 
 
 CObjPlayer::CObjPlayer() :m_fHookMaxLength(0.f), m_pGrab(nullptr)
@@ -57,6 +58,9 @@ void CObjPlayer::Initialize()
 	m_bSwigDash = false;
 	m_bDamaged = false;
 	m_iDamagedInvicibleTime = 0;
+
+	m_bMonsterExcStart = false;
+	m_bMonsterExc = false;
 
 	//m_eFrameKey = FKI_SNB;
 	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_SHEET.bmp", FrameKeyId_To_Text2(m_eFrameKey));
@@ -146,7 +150,8 @@ int CObjPlayer::Update()
 				{
 					JumpStart(40.f, 90.f);
 					m_bDamagedDash = false;
-				}m_eCurState = FSI_SNB_R_DAMAGEDDASH;
+				}
+				m_eCurState = FSI_SNB_R_DAMAGEDDASH;
 				
 			}
 		}
@@ -174,6 +179,30 @@ int CObjPlayer::Update()
 		//m_bGravity = false;
 		//m_bJump = false;
 		//m_bGrab = false;
+	}
+
+	if (m_bMonsterExcStart)
+	{
+		if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pTarget))
+		{
+			if (m_pTarget != nullptr)
+			{
+				CObjMonsterFloatingBomb* pMonster = dynamic_cast<CObjMonsterFloatingBomb*>(m_pTarget);
+				if (pMonster != nullptr)
+				{
+					m_tInfo.fX = m_pTarget->Get_Info()->fX;
+					m_tInfo.fY = m_pTarget->Get_Info()->fY;
+
+					m_bGravity = false;
+					m_fGravityDeltaSum = 0;
+					m_bJump = false;
+					m_fJumpDeltaSum = 0;
+
+					m_bMonsterExc = true;
+				}
+			}
+		}
+		
 	}
 
 	
@@ -688,6 +717,15 @@ void CObjPlayer::GrabLoad()
 	
 }
 
+void CObjPlayer::MonsterExcStart(CObj* pMonster)
+{
+	Set_Target(pMonster);
+	m_bMonsterExcStart = true;
+
+	
+
+}
+
 void CObjPlayer::Key_Input()
 {
 	bool bKeyDownA = CKeyMgr::Get_Instance()->Key_Down('A');
@@ -965,7 +1003,46 @@ void CObjPlayer::Key_Input()
 			m_bGrabLoad = true;
 		}
 	}
+	
+	else if (m_bMonsterExc)
+	{
+		OBJID eTargetObjId = CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pTarget);
+		if (bKeyPressingW)
+		{
+			Move(DIR_UP, -m_fSpeed);
+			if (eTargetObjId != OBJ_END)
+			{
+				m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			}
+			
+		}
+		if (bPressingA)
+		{
+			Move(DIR_LEFT, -m_fSpeed);
+			if (eTargetObjId != OBJ_END)
+			{
+				m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			}
+		}
+		if (bKeyPressingS)
+		{
+			Move(DIR_DOWN, +m_fSpeed);
+			if (eTargetObjId != OBJ_END)
+			{
+				m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			}
+		}
+		if (bPressingD)
+		{
+			Move(DIR_RIGHT, +m_fSpeed);
+			if (eTargetObjId != OBJ_END)
+			{
+				m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			}
+		}
+	}
 	else
+
 	{
 		if (bKeyDownA)
 		{
@@ -1268,75 +1345,117 @@ void CObjPlayer::On_Mouse_Key_Down(CObj* pObj)
 	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
 	if (pMouse != nullptr)
 	{
-		POINT ptCurr = pMouse->Get_Pt_Curr();
-		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-
-		if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
+		if (pMouse->Get_Last_Key() == VK_LBUTTON)
 		{
-			if (m_pGrab != nullptr)
-			{
-				return;
-				m_pGrab->Set_Dead();
-				m_bGrab = false;
-				m_pGrab = nullptr;
-			}
-		}
+			POINT ptCurr = pMouse->Get_Pt_Curr();
+			int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+			int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
 
-		CObjGrab* pGrab = new CObjGrab;
-		pGrab->Initialize();
-		/*pGrab->Set_Pos(fParentX, fParentY);*/
-		pGrab->Set_Pos(m_tInfo.fX , m_tInfo.fY);
-		pGrab->Set_Angle(m_fHookAngle);
-		pGrab->Set_Target(this);
-		CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pGrab);
-		m_pGrab = pGrab;
+			if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
+			{
+				if (m_pGrab != nullptr)
+				{
+					return;
+					m_pGrab->Set_Dead();
+					m_bGrab = false;
+					m_pGrab = nullptr;
+				}
+			}
+
+			CObjGrab* pGrab = new CObjGrab;
+			pGrab->Initialize();
+			/*pGrab->Set_Pos(fParentX, fParentY);*/
+			pGrab->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			pGrab->Set_Angle(m_fHookAngle);
+			pGrab->Set_Target(this);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pGrab);
+			m_pGrab = pGrab;
+		}
+		
 
 	}
 }
 
-void CObjPlayer::On_Mouse_Key_Up(CObj* pMouse)
+void CObjPlayer::On_Mouse_Key_Up(CObj* pObj)
 {
-
-	if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
+	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
+	if (pMouse != nullptr)
 	{
-		if (m_pGrab != nullptr)
-		{
-			CObjGrab* pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
-			if (pGrab != nullptr)
+		POINT ptCurr = pMouse->Get_Pt_Curr();
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+		//ptCurr.x -= iScrollX;
+		//ptCurr.y -= iScrollY;
+			if (pMouse->Get_Last_Key() == VK_LBUTTON)
 			{
-				
-				if (m_bGrabCeilingMove)
+				if (OBJ_END != CObjMgr::Get_Instance()->Get_ObjID_By_Obj(m_pGrab))
 				{
-					if (pGrab->Get_Ceiling())
+					if (m_pGrab != nullptr)
 					{
-						return;
+						CObjGrab* pGrab = dynamic_cast<CObjGrab*>(m_pGrab);
+						if (pGrab != nullptr)
+						{
+
+							if (m_bGrabCeilingMove)
+							{
+								if (pGrab->Get_Ceiling())
+								{
+									return;
+								}
+							}
+							m_pGrab->Set_Dead();
+							m_pGrab = nullptr;
+							m_bGrab = false;
+							m_bGravity = true;
+							m_fGravityDeltaSum = 0;
+							m_bJump = false;
+							m_fJumpDeltaSum = 0;
+
+
+							if (m_fPendStartX < m_tInfo.fX)
+							{
+								JumpStart(5.f, 45.f);
+							}
+							else
+							{
+								JumpStart(5.f, 135.f);
+							}
+						}
 					}
 				}
-				m_pGrab->Set_Dead();
-				m_pGrab = nullptr;
-				m_bGrab = false;
-				m_bGravity = true;
-				m_fGravityDeltaSum = 0;
-				m_bJump = false;
-				m_fJumpDeltaSum = 0;
-
-
-				if (m_fPendStartX < m_tInfo.fX)
-				{
-					JumpStart(5.f, 45.f);
-				}
-				else
-				{
-					JumpStart(5.f, 135.f);
-				}
-				
-				
-				
 			}
-			
-		}
+			else if (pMouse->Get_Last_Key() == VK_RBUTTON)
+			{
+				if (m_bMonsterExc)
+				{
+					m_bMonsterExc = false;
+					m_bGravity = true;
+					m_fGravityDeltaSum = 0;
+
+
+					auto pltBomb = dynamic_cast<CObjMonsterFloatingBomb*>(m_pTarget);
+					if (pltBomb != nullptr)
+					{
+						
+						/*auto w = ptCurr.x - m_tInfo.fX  ;
+						auto h = ptCurr.y - m_tInfo.fY ;*/
+						auto w = (float)ptCurr.x - (m_tInfo.fX + iScrollX);
+						auto h = (float)ptCurr.y - (m_tInfo.fY + iScrollY);
+						auto rad = atan2f(h, w);
+						pltBomb->Excuted(this, rad);
+
+						auto ang = rad * 180.f / PI;
+						auto ang2 = ang * -1;
+						
+						JumpStart(30.f, ang2);
+					}
+
+					m_pTarget = nullptr;
+				}
+			}
+		
 	}
+	
 }
 
 void CObjPlayer::On_Mouse_Key_Pressing(CObj* pMouse)
