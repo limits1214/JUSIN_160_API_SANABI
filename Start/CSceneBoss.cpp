@@ -11,6 +11,12 @@
 #include "CObjBgBossCloud.h"
 #include "CObjPlayer.h"
 #include "CCollisionMgr.h"
+#include "CObjBossClusterAim.h"
+#include "CObjBossShootExplode.h"
+#include "CObjBossBullet.h"
+#include "CObjClusterBombExplode.h"
+#include "CObjBossBodySlap.h"
+#include "CObjBossBodySlapAlert.h"
 
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
@@ -55,9 +61,13 @@ void CSceneBoss::Initialize()
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBullet_Sheet.bmp", STR_FKI_Spr_BOSS_Bullet_Sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdClusterAim_Sheet.bmp", STR_FKI_Spr_BOSS_Cluster_Aim_Sheet);
     
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG.bmp", _T("PLG"));
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET.bmp", _T("RESET"));
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TMP.bmp", _T("TMP"));
+    
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_BodySlapLoop.bmp", STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_BodySlapAlert_sheet.bmp", STR_FKI_Spr_BOSS_BodySlapAlert_sheet);
+
+   // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG.bmp", _T("PLG"));
+    //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET.bmp", _T("RESET"));
+    //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TMP.bmp", _T("TMP"));
 
   /*  CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG_BOSS_BODY.bmp", _T("PLG"));
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET_BOSS_BODY.bmp", _T("RESET"));*/
@@ -102,7 +112,29 @@ void CSceneBoss::Initialize()
     pBoss->Set_Pos(WINCX >> 1, (WINCY >> 1) - 300);
     CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBoss);
 
+    //CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
+    //pBossClusterAim->Initialize();
+    //pBossClusterAim->Set_Pos(WINCX >> 1, (WINCY >> 1) - 200);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossClusterAim);
+
+
+
+    //CObjBossBullet* pBossBullet = new CObjBossBullet;
+    //pBossBullet->Set_Option(1);
+    //pBossBullet->Initialize();
+    //pBossBullet->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) - 200);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBossBullet);
+
+    //CObjBossBodySlap* pBossBodySlap = new CObjBossBodySlap;
+    //pBossBodySlap->Initialize();
+    //pBossBodySlap->Set_Pos(WINCX >> 1, (WINCY >> 1) - 200);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossBodySlap);
+
     {
+        // 맵의 좌우 끝과 끝은 (WINCX >> 1) - 224 * 6, (WINCX >> 1) + 224 * 6
+        // 으로 일단 생각
+
+
         CObjUnstableKnockbackPlatformA* pPlatform1 = new CObjUnstableKnockbackPlatformA;
         pPlatform1->Initialize();
         pPlatform1->Set_Pos((WINCX >> 1) - 224 * 4, (WINCY >> 1));
@@ -182,6 +214,7 @@ void CSceneBoss::Late_Update()
 {
     CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
     CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
+    CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
 
     CObjMgr::Get_Instance()->Late_Update();
 }

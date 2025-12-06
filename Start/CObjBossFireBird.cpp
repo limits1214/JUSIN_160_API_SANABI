@@ -8,6 +8,10 @@
 #include "CObjBossFireBirdBomber.h"
 #include "CObjBossFirebirdBody.h"
 #include "CKeyMgr.h"
+#include "CObjPlayer.h"
+#include "CObjBossBodySlapAlert.h"
+#include "CObjBossBullet.h"
+#include "CObjClusterBombExplode.h"
 
 CObjBossFireBird::CObjBossFireBird()
 {
@@ -208,6 +212,58 @@ void CObjBossFireBird::Test_Key_Input()
 		else if (m_eAniStateGun = GUNSHOOTLOOP_ING)
 		{
 			m_eAniStateGun = GUNSHOOTEND_START;
+		}
+	}
+
+	// ¹Ùµð½½·¦ ¾Ë·¯Æ®
+	if (CKeyMgr::Get_Instance()->Key_Down('V'))
+	{
+		for (auto*& pObj: *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			if (pPlayer != nullptr)
+			{
+				float playerY = pPlayer->Get_Info()->fY;
+				
+				auto xlen =  ((WINCX >> 1) + 224 * 6) - ((WINCX >> 1) - 224 * 6);
+				auto alertXSize = 35;
+				int total = xlen / alertXSize;
+
+				for (int i = 0; i < total; ++i)
+				{
+					auto offset = ((WINCX >> 1) - 224 * 6) + i * alertXSize;
+					CObjBossBodySlapAlert* pAlert = new CObjBossBodySlapAlert;
+					pAlert->Initialize();
+					pAlert->Set_Pos(offset, playerY);
+					CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pAlert);
+				}
+				
+			}
+		}
+	}
+
+	// 360µµ ÃÑ¾Ë
+	if (CKeyMgr::Get_Instance()->Key_Down('B'))
+	{
+
+		float targetX = (WINCX >> 1) + 100;
+		float targetY = (WINCY >> 1) + 100;
+		float bulletLen = 15;
+
+		CObjClusterBombExplode* pExplode = new CObjClusterBombExplode;
+		pExplode->Initialize();
+		pExplode->Set_Pos(targetX, targetY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pExplode);
+
+		for (int i = 0; i < bulletLen; ++i)
+		{
+			//CObjClusterBombExplode
+			CObjBossBullet* pBullet = new CObjBossBullet;
+			pBullet->Set_Option(0);
+			pBullet->Initialize();
+			pBullet->Set_Angle(rand());
+			pBullet->Set_Pos(targetX, targetY);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
 		}
 	}
 }

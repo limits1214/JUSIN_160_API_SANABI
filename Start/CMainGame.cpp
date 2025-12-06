@@ -31,6 +31,9 @@ void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
 
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
+
 	CSceneMgr::Get_Instance()->Scene_Change(SC_LOGO);
 
 	CObjMouse* pMouse = new CObjMouse;
@@ -150,6 +153,25 @@ void CMainGame::Render()
 			}
 		);
 	}
+
+
+	{
+		//HDC		hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
+
+		//CSceneMgr::Get_Instance()->Render(hBackDC);
+
+		//BitBlt(m_hDC,				// 복사 받을 DC
+		//	0,	// 복사 받을 공간의 LEFT	
+		//	0,	// 복사 받을 공간의 TOP
+		//	WINCX,			// 복사 받을 공간의 가로 
+		//	WINCY,			// 복사 받을 공간의 세로 
+		//	hBackDC,				// 복사 할 DC
+		//	0,					// 복사할 이미지의 LEFT, TOP
+		//	0,
+		//	SRCCOPY);
+	}
+
+
 	
 	{
 		HDC memDC = CreateCompatibleDC(m_hDC);

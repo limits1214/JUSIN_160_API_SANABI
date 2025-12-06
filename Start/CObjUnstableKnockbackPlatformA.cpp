@@ -74,6 +74,10 @@ void CObjUnstableKnockbackPlatformA::Release()
 {
 }
 
+void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+}
+
 
 void CObjUnstableKnockbackPlatformA::Motion_Change()
 {

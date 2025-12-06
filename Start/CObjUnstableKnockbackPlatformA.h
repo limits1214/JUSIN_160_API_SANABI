@@ -1,7 +1,8 @@
 #pragma once
 #include "CObj.h"
 #include "CObjCollisionRect.h"
-class CObjUnstableKnockbackPlatformA: public CObjCollisionRect
+#include "CCollisionEvent.h"
+class CObjUnstableKnockbackPlatformA: public CObjCollisionRect, public CCollisionEvent
 {
 public:
 	CObjUnstableKnockbackPlatformA();
@@ -19,6 +20,9 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+
+public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
 
 private:
 	void Motion_Change();

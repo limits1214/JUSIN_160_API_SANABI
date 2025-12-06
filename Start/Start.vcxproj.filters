@@ -276,6 +276,30 @@
     <ClInclude Include="CObjBossFirebirdBody.h">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBossClusterAim.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossShootExplode.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossBullet.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjClusterBombExplode.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossBulletSprite.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossBodySlap.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBossBodySlapAlert.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjClusterBombletExplode.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -483,6 +507,30 @@
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
     <ClCompile Include="CObjBossFirebirdBody.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossClusterAim.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossShootExplode.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossBullet.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjClusterBombExplode.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossBulletSprite.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossBodySlap.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossBodySlapAlert.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjClusterBombletExplode.cpp">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>
