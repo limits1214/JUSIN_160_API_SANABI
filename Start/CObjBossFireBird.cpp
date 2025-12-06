@@ -27,8 +27,12 @@ void CObjBossFireBird::Initialize()
 
 	m_fSpeed = 3.f;
 
+	m_fAngle = 0.f;
+
 	m_eAniStateBomber = ANI_STATE_BOMBER::IDLE;
 	m_eAniStateGun = ANI_STATE_GUN::GUN_IDLE;
+	m_eAniStateBroken = ANI_STATE_BROKEN::NORMAL;
+	m_eAniStateWing = ANI_STATE_WING::NEU;
 
 	CObjBossFireBirdBomber* pBomber = new CObjBossFireBirdBomber;
 	pBomber->Initialize();
@@ -78,17 +82,18 @@ void CObjBossFireBird::Late_Update()
 
 void CObjBossFireBird::Render(HDC hDC)
 {
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
-	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	BmpRender(
-		hDC,
-		m_tRect.left, m_tRect.top,
-		(int)m_tInfo.fCX, (int)m_tInfo.fCY,
+	//HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
+	//BmpRender(
+	//	hDC,
+	//	m_tRect.left, m_tRect.top,
+	//	(int)m_tInfo.fCX, (int)m_tInfo.fCY,
 
-		hMemDC,
-		m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,
-		(int)m_tInfo.fCX, (int)m_tInfo.fCY
-	);
+	//	hMemDC,
+	//	m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,
+	//	(int)m_tInfo.fCX, (int)m_tInfo.fCY
+	//);
+	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+
 }
 
 void CObjBossFireBird::Release()
@@ -108,28 +113,71 @@ void CObjBossFireBird::Motion_Change()
 
 void CObjBossFireBird::Test_Key_Input()
 {
+	//if (m_eAniStateWing == DOWN_KEEP )
+	//{
+	//	m_eAniStateWing = ANI_STATE_WING::DOWN_TO_NEU_START;
+	//}
+	//else if (m_eAniStateWing == UP_KEEP)
+	//{
+	//	m_eAniStateWing = ANI_STATE_WING::UP_TO_NEU_START;
+	//}
+ 
 	//»ó½Â
 	if (CKeyMgr::Get_Instance()->Key_Pressing('T'))
 	{
 		m_tInfo.fY -= m_fSpeed;
-	}
 
-	// ÁÂÃø
-	if (CKeyMgr::Get_Instance()->Key_Pressing('F'))
-	{
-		m_tInfo.fX -= m_fSpeed;
+		if (m_eAniStateWing == NEU)
+		{
+			m_eAniStateWing = ANI_STATE_WING::NEU_TO_UP_START;
+		}
+		else if (m_eAniStateWing == UP_KEEP)
+		{
+
+		}
+		else if (m_eAniStateWing == DOWN_KEEP)
+		{
+			m_eAniStateWing = ANI_STATE_WING::DOWN_TO_NEU_START;
+		}
 	}
 
 	// ÇÏ°­
 	if (CKeyMgr::Get_Instance()->Key_Pressing('G'))
 	{
 		m_tInfo.fY += m_fSpeed;
+
+		if (m_eAniStateWing == NEU)
+		{
+			m_eAniStateWing = ANI_STATE_WING::NEU_TO_DOWN_START;
+		}
+		else if (m_eAniStateWing == UP_KEEP)
+		{
+			m_eAniStateWing = ANI_STATE_WING::UP_TO_NEU_START;
+		}
+		else if (m_eAniStateWing == DOWN_KEEP)
+		{
+
+		}
+	}
+
+
+
+
+	// ÁÂÃø
+	if (CKeyMgr::Get_Instance()->Key_Pressing('F'))
+	{
+		m_tInfo.fX -= m_fSpeed;
+
+		if (m_fAngle < 5)
+			m_fAngle += 1.f;
 	}
 
 	// ¿ìÃø
 	if (CKeyMgr::Get_Instance()->Key_Pressing('H'))
 	{
 		m_tInfo.fX += m_fSpeed;
+		if (m_fAngle > -5)
+			m_fAngle -= 1.f;
 	}
 
 	// ÆøÅºÃ¢ ¿­±â

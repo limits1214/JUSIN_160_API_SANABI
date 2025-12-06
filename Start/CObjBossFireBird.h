@@ -12,6 +12,11 @@ public:
 		m_eCurState = eState;
 	}
 
+	float Get_Angle()
+	{
+		return m_fAngle;
+	}
+
 public:
 	void Initialize() override;
 	int Update() override;
@@ -26,6 +31,9 @@ private:
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
+
+private:
+	float m_fAngle;
 
 public:
 	
@@ -74,5 +82,32 @@ public:
 		GUNSHOOTEND_END,
 	};
 	ANI_STATE_GUN m_eAniStateGun;
+
+	enum ANI_STATE_BROKEN
+	{
+		NORMAL,
+		BROKEN
+	};
+	ANI_STATE_BROKEN m_eAniStateBroken;
+
+	enum ANI_STATE_WING
+	{
+		NEU,
+		NEU_TO_UP_START,
+		NEU_TO_UP_ING,
+		NEU_TO_UP_END,
+		UP_KEEP,
+		UP_TO_NEU_START,
+		UP_TO_NEU_ING,
+		UP_TO_NEU_END,
+		NEU_TO_DOWN_START,
+		NEU_TO_DOWN_ING,
+		NEU_TO_DOWN_END,
+		DOWN_KEEP,
+		DOWN_TO_NEU_START,
+		DOWN_TO_NEU_ING,
+		DOWN_TO_NEU_END,
+	};
+	ANI_STATE_WING m_eAniStateWing;
 };
 

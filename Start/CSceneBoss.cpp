@@ -24,9 +24,20 @@ CSceneBoss::~CSceneBoss()
 
 void CSceneBoss::Initialize()
 {
-    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8);
+    //BOSS_Firebird_Body_Test
+    // BOSS_Firebird_Body_Tes_Mask.bmp
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_Firebird_Body_Test.bmp", STR_FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_Firebird_Body_Tes_Mask.bmp", _T("BODY_MASK"));
+    //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8.bmp", STR_FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8);
+    
+    //BOSS_FirebirdWing3_Sheet.bmp
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdWing_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdWing_sheet);
+    //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdWing3_Sheet.bmp", STR_FKI_Spr_BOSS_FirebirdWing_sheet);
+    
+    //BOSS_FirebirdGun_TEST.bmp
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdGun_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdGun_sheet);
+    //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdGun_TEST.bmp", STR_FKI_Spr_BOSS_FirebirdGun_sheet);
+
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBomber_sheet.bmp", STR_FKI_Spr_BOSS_FirebirdBomber_sheet);
 
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
@@ -44,6 +55,13 @@ void CSceneBoss::Initialize()
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBullet_Sheet.bmp", STR_FKI_Spr_BOSS_Bullet_Sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdClusterAim_Sheet.bmp", STR_FKI_Spr_BOSS_Cluster_Aim_Sheet);
     
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG.bmp", _T("PLG"));
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET.bmp", _T("RESET"));
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TMP.bmp", _T("TMP"));
+
+  /*  CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG_BOSS_BODY.bmp", _T("PLG"));
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET_BOSS_BODY.bmp", _T("RESET"));*/
+
     CObjBg* pBg = new CObjBg;
     pBg->Initialize();
     pBg->Set_FrameKeyId(FKI_Spr_BG_Mat_Chap5_Heli_Sky);
