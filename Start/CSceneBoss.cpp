@@ -60,6 +60,8 @@ void CSceneBoss::Initialize()
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_Firebird_ShootExplode_Sheet.bmp", STR_FKI_Spr_BOSS_ShootExplode_Sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdBullet_Sheet.bmp", STR_FKI_Spr_BOSS_Bullet_Sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_FirebirdClusterAim_Sheet.bmp", STR_FKI_Spr_BOSS_Cluster_Aim_Sheet);
+
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatform_Booster_sheet.bmp", STR_FKI_Spr_UnstableKnockbackPlatform_Booster_sheet);
     
     
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_BodySlapLoop.bmp", STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop);

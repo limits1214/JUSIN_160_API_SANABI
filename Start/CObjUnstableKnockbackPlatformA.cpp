@@ -11,6 +11,8 @@
 #include "CObjMgr.h"
 #include "CObjBossFireBirdWing.h"
 #include "CObjBossFireBirdGun.h"
+#include "CObjUnstableKnockbackPlatformASprite.h"
+#include "CObjUnstableKnockbackPlatformABooster.h"
 
 CObjUnstableKnockbackPlatformA::CObjUnstableKnockbackPlatformA()
 {
@@ -31,11 +33,17 @@ void CObjUnstableKnockbackPlatformA::Initialize()
 	m_tInfo.fCX = 264;
 	m_tInfo.fCY = 112;
 
+	CObjUnstableKnockbackPlatformASprite* pSprite = new CObjUnstableKnockbackPlatformASprite;
+	pSprite->Initialize();
+	pSprite->Set_Pos(0, 0);
+	pSprite->Set_Parent(this);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pSprite);
 
-	m_eFrameKey = FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET;
-	m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLE;
-	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
-
+	CObjUnstableKnockbackPlatformABooster* pBooster = new CObjUnstableKnockbackPlatformABooster;
+	pBooster->Initialize();
+	pBooster->Set_Pos(0, 58);
+	pBooster->Set_Parent(this);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pBooster);
 }
 
 int CObjUnstableKnockbackPlatformA::Update()
@@ -43,31 +51,19 @@ int CObjUnstableKnockbackPlatformA::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 	__super::Update_Rect();
-	Move_Frame();
-
-	//m_tInfo.fX += 0.1;
+	
 
 	return OBJ_NOEVENT;
 }
 
 void CObjUnstableKnockbackPlatformA::Late_Update()
 {
-	Motion_Change();
+	
 }
 
 void CObjUnstableKnockbackPlatformA::Render(HDC hDC)
 {
-	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	BmpRender(
-		hDC,
-		m_tRect.left, m_tRect.top,
-		(int)m_tInfo.fCX, (int)m_tInfo.fCY,
-
-		hMemDC,
-		m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,
-		(int)m_tInfo.fCX, (int)m_tInfo.fCY
-	);
+	
 }
 
 void CObjUnstableKnockbackPlatformA::Release()

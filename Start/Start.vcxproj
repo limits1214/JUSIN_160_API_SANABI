@@ -240,6 +240,8 @@
     <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
     <ClInclude Include="CObjUnstableKnockbackPlatformA.h" />
+    <ClInclude Include="CObjUnstableKnockbackPlatformABooster.h" />
+    <ClInclude Include="CObjUnstableKnockbackPlatformASprite.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneBoss.h" />
     <ClInclude Include="CSceneLab.h" />
@@ -326,6 +328,8 @@
     <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
     <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp" />
+    <ClCompile Include="CObjUnstableKnockbackPlatformABooster.cpp" />
+    <ClCompile Include="CObjUnstableKnockbackPlatformASprite.cpp" />
     <ClCompile Include="CSceneBoss.cpp" />
     <ClCompile Include="CSceneLab.cpp" />
     <ClCompile Include="CSceneLap2.cpp" />
