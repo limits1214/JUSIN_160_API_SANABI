@@ -17,7 +17,7 @@
 #include "CObjClusterBombExplode.h"
 #include "CObjBossBodySlap.h"
 #include "CObjBossBodySlapAlert.h"
-
+#include "CObjMonsterFloatingBombHugeExplodeSprite.h"
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
 {
@@ -113,6 +113,16 @@ void CSceneBoss::Initialize()
     pBoss->Initialize();
     pBoss->Set_Pos(WINCX >> 1, (WINCY >> 1) - 300);
     CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBoss);
+
+    CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
+    pFloatingBomb->Initialize();
+    pFloatingBomb->Set_Pos((WINCX >> 1) + 150, (WINCY >> 1) - 150);
+    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
+
+    //CObjMonsterFloatingBombHugeExplodeSprite* pFloatingBombExplode = new CObjMonsterFloatingBombHugeExplodeSprite;
+    //pFloatingBombExplode->Initialize();
+    //pFloatingBombExplode->Set_Pos((WINCX >> 1) + 250, (WINCY >> 1) - 150);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBombExplode);
 
     //CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
     //pBossClusterAim->Initialize();
