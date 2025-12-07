@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CObjUnstableKnockbackPlatformABooster.h"
 
-
+#include "CObjUnstableKnockbackPlatformA.h"
 #include "pch.h"
 #include "CObjBossFireBird.h"
 #include "CBmpMgr.h"
@@ -55,6 +55,16 @@ void CObjUnstableKnockbackPlatformABooster::Late_Update()
 
 void CObjUnstableKnockbackPlatformABooster::Render(HDC hDC)
 {
+	{
+		CObjUnstableKnockbackPlatformA* parent = dynamic_cast<CObjUnstableKnockbackPlatformA*>(m_pParent);
+		if (parent != nullptr)
+		{
+			if (parent->m_eAniState == CObjUnstableKnockbackPlatformA::DESTROY_ING)
+			{
+				return;
+			}
+		}
+	}
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	BmpRender(

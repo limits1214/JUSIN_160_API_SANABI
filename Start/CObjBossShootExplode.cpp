@@ -60,3 +60,7 @@ void CObjBossShootExplode::Render(HDC hDC)
 void CObjBossShootExplode::Release()
 {
 }
+
+void CObjBossShootExplode::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+}

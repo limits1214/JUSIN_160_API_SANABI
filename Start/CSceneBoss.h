@@ -2,6 +2,7 @@
 #include "CScene.h"
 #include "CObjBgBossBuilding.h"
 #include "CObjBgBossCloud.h"
+#include "CObjUnstableKnockbackPlatformA.h"
 
 class CSceneBoss: public CScene
 {
@@ -21,5 +22,7 @@ private:
 	CObjBgBossBuilding* m_pBgBuilding1;
 	CObjBgBossBuilding* m_pBgBuilding2;
 	CObjBgBossCloud* m_pBgCloud[7];
+
+	CObjUnstableKnockbackPlatformA* m_pPlatform[7];
 };
 

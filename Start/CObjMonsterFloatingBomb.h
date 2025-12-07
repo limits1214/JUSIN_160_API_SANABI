@@ -1,8 +1,9 @@
 #pragma once
 #include "CObj.h"
 #include "CMouseEvent.h"
+#include "CCollisionEvent.h"
 class CObjMonsterFloatingBomb :
-    public CObj, public CMouseKeyEvent
+    public CObj, public CMouseKeyEvent, public CCollisionEvent
 {
 public:
 	CObjMonsterFloatingBomb();
@@ -22,7 +23,12 @@ public:
 	void Release() override;
 
 public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
+
+public:
 	void Excuted(CObj* pPlayer, float fRad);
+
+	void Explode();
 
 public:
 	void On_Mouse_Key_Down(CObj* pMouse) override;

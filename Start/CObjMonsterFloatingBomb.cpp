@@ -7,6 +7,8 @@
 #include "CObjMouse.h"
 #include "CScrollMgr.h"
 #include "CObjPlayer.h"
+#include "CObjMonsterFloatingBombHugeExplodeSprite.h"
+#include "CObjBossFireBird.h"
 
 
 CObjMonsterFloatingBomb::CObjMonsterFloatingBomb()
@@ -64,10 +66,33 @@ void CObjMonsterFloatingBomb::Release()
 {
 }
 
+void CObjMonsterFloatingBomb::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+	CObjBossFireBird* pBoss = dynamic_cast<CObjBossFireBird*>(pObj);
+	if (eCollID == COLL_RECT && pBoss != nullptr)
+	{
+		if (m_bExecuted)
+		{
+			Explode();
+			pBoss->m_eAniStateBroken = CObjBossFireBird::BROKEN;
+		}
+	}
+}
+
 void CObjMonsterFloatingBomb::Excuted(CObj* pPlayer, float fRad)
 {
 	m_bExecuted = true;
 	m_fExcutedRad = fRad + PI;
+}
+
+void CObjMonsterFloatingBomb::Explode()
+{
+	Set_Dead_Cascade();
+
+	CObjMonsterFloatingBombHugeExplodeSprite* pFloatingBombExplode = new CObjMonsterFloatingBombHugeExplodeSprite;
+	pFloatingBombExplode->Initialize();
+	pFloatingBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBombExplode);
 }
 
 void CObjMonsterFloatingBomb::On_Mouse_Key_Down(CObj* pObj)

@@ -112,6 +112,10 @@ void CObjBossFireBird::Release()
 {
 }
 
+void CObjBossFireBird::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+}
+
 
 void CObjBossFireBird::Motion_Change()
 {

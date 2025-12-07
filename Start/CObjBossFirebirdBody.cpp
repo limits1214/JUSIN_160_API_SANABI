@@ -31,8 +31,24 @@ int CObjBossFirebirdBody::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	__super::Update_Rect();
+
+	CObjBossFireBird* parent = dynamic_cast<CObjBossFireBird*>(m_pParent);
+	if (parent != nullptr)
+	{
+		DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		if (parent->m_eAniStateBroken == CObjBossFireBird::ANI_STATE_BROKEN::NORMAL)
+		{
+			m_eCurState = FSI_BOSS_FIREBIRD_BODY_NORMAL_IDLE;
+		}
+		else
+		{
+			m_eCurState = FSI_BOSS_FIREBIRD_BODY_BROKEN_IDLE;
+		}
+	}
+
 	Move_Frame();
+
+	__super::Update_Rect();
 
 	return OBJ_NOEVENT;
 }

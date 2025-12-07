@@ -9,9 +9,10 @@ public:
 	virtual ~CObjUnstableKnockbackPlatformA();
 
 public:
-	void Set_PlayerState(FRAME_STATE_ID eState)
+	void Set_Combackpos(float X, float Y)
 	{
-		m_eCurState = eState;
+		m_fComebackX = X;
+		m_fComebackY = Y;
 	}
 
 public:
@@ -30,5 +31,39 @@ private:
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
+
+	float m_fComebackX;
+	float m_fComebackY;
+	bool m_bComback;
+
+public:
+	enum ANI_STATE
+	{
+		IDLE_START,
+		IDLE_ING,
+		IDLE_END,
+
+		DAMAGED_START,
+		DAMAGED_ING,
+		DAMAGED_END,
+
+		IDLE_WARING_START,
+		IDLE_WARING_ING,
+		IDLE_WARING_END,
+
+		DAMAGED_WARNING_START,
+		DAMAGED_WARNING_ING,
+		DAMAGED_WARNING_END,
+
+		IDLE_DOUBLEWARNING_START,
+		IDLE_DOUBLEWARNING_ING,
+		IDLE_DOUBLEWARNING_END,
+
+		DESTROY_START,
+		DESTROY_ING,
+		DESTROY_END
+	};
+
+	ANI_STATE m_eAniState;
 };
 

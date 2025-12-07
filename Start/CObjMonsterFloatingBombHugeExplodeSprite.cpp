@@ -27,8 +27,16 @@ int CObjMonsterFloatingBombHugeExplodeSprite::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	__super::Update_Rect();
+	DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+	int end = FrameStateId_To_Frame(FSI_BOSS_CLUSTER_BOMBLET_EXPLODE, dwNow).iEnd;
+	if (m_tFrame.iStart == end)
+	{
+		Set_Dead();
+	}
+
 	Move_Frame();
+
+	__super::Update_Rect();
 
 	return OBJ_NOEVENT;
 }

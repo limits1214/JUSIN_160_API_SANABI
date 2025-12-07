@@ -6,13 +6,7 @@ class CObjUnstableKnockbackPlatformASprite :
 public:
 	CObjUnstableKnockbackPlatformASprite();
 	virtual ~CObjUnstableKnockbackPlatformASprite();
-
-public:
-	void Set_PlayerState(FRAME_STATE_ID eState)
-	{
-		m_eCurState = eState;
-	}
-
+	
 public:
 	void Initialize() override;
 	int Update() override;

@@ -1,7 +1,8 @@
 #pragma once
 #include "CObj.h"
 #include "CObjBossClusterAim.h"
-class CObjBossFireBird: public CObj
+#include "CCollisionEvent.h"
+class CObjBossFireBird: public CObj, public CCollisionEvent
 {
 public:
 	CObjBossFireBird();
@@ -24,6 +25,9 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+
+public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
 
 private:
 	void Motion_Change();

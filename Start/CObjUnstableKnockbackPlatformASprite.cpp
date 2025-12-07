@@ -1,16 +1,12 @@
 #include "pch.h"
 #include "CObjUnstableKnockbackPlatformASprite.h"
 #include "CTimeMgr.h"
-
-
-
-#include "pch.h"
 #include "CObjBossFireBird.h"
 #include "CBmpMgr.h"
-#include "CTimeMgr.h"
 #include "CObjMgr.h"
-#include "CObjBossFireBirdWing.h"
-#include "CObjBossFireBirdGun.h"
+
+
+#include "CObjUnstableKnockbackPlatformA.h"
 
 CObjUnstableKnockbackPlatformASprite::CObjUnstableKnockbackPlatformASprite()
 {
@@ -42,10 +38,136 @@ int CObjUnstableKnockbackPlatformASprite::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-	__super::Update_Rect();
-	Move_Frame();
 
-	//m_tInfo.fX += 0.1;
+	{
+		CObjUnstableKnockbackPlatformA* parent = dynamic_cast<CObjUnstableKnockbackPlatformA*>(m_pParent);
+		if (parent != nullptr)
+		{
+			DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+			switch (parent->m_eAniState)
+			{
+
+
+			case CObjUnstableKnockbackPlatformA::IDLE_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLE;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::IDLE_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_ING:
+			{
+				Move_Frame();
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_END:
+				break;
+
+
+
+			case CObjUnstableKnockbackPlatformA::DAMAGED_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_DAMAGED;
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::DAMAGED_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DAMAGED_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjUnstableKnockbackPlatformA::DAMAGED_END;
+				}
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DAMAGED_END:
+			{
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::IDLE_WARING_START;
+			}
+				break;
+
+
+
+			case CObjUnstableKnockbackPlatformA::IDLE_WARING_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLEWARNING;
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::IDLE_WARING_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_WARING_ING:
+			{
+				Move_Frame();
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_WARING_END:
+				break;
+
+				
+
+			case CObjUnstableKnockbackPlatformA::DAMAGED_WARNING_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_DAMAGEDWARNING;
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::DAMAGED_WARNING_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DAMAGED_WARNING_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjUnstableKnockbackPlatformA::DAMAGED_WARNING_END;
+				}
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DAMAGED_WARNING_END:
+			{
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::IDLE_DOUBLEWARNING_START;
+			}
+				break;
+
+
+
+
+			case CObjUnstableKnockbackPlatformA::IDLE_DOUBLEWARNING_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLEDOUBLEWARNING;
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::IDLE_DOUBLEWARNING_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_DOUBLEWARNING_ING:
+			{
+				Move_Frame();
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::IDLE_DOUBLEWARNING_END:
+				break;
+
+
+
+			case CObjUnstableKnockbackPlatformA::DESTROY_START:
+			{
+				m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_DESTROY;
+				parent->m_eAniState = CObjUnstableKnockbackPlatformA::DESTROY_ING;
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DESTROY_ING:
+			{
+				Move_Frame();
+			}
+				break;
+			case CObjUnstableKnockbackPlatformA::DESTROY_END:
+				break;
+			}
+		}
+
+	}
+
+	
+
+	__super::Update_Rect();
+
 
 	return OBJ_NOEVENT;
 }

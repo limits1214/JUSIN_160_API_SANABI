@@ -13,6 +13,8 @@
 #include "CObjBossFireBirdGun.h"
 #include "CObjUnstableKnockbackPlatformASprite.h"
 #include "CObjUnstableKnockbackPlatformABooster.h"
+#include "CObjBossBullet.h"
+#include "CObjBossShootExplode.h"
 
 CObjUnstableKnockbackPlatformA::CObjUnstableKnockbackPlatformA()
 {
@@ -26,6 +28,9 @@ CObjUnstableKnockbackPlatformA::~CObjUnstableKnockbackPlatformA()
 
 void CObjUnstableKnockbackPlatformA::Initialize()
 {
+	m_eAniState = IDLE_START;
+	m_bComback = false;
+
 	//CObjCollisionRect::Initialize();
 	Set_Option(ERI_CLIMABLE);
 
@@ -52,6 +57,35 @@ int CObjUnstableKnockbackPlatformA::Update()
 		return OBJ_DEAD;
 	__super::Update_Rect();
 	
+	if (m_eAniState == DESTROY_ING)
+	{
+		m_tInfo.fY += 5.f;
+
+		if (m_tInfo.fY > 1000)
+		{
+			m_eAniState = DESTROY_END;
+		}
+	}
+
+	if (m_eAniState == DESTROY_END)
+	{
+		m_eAniState = IDLE_START;
+		m_bComback = true;
+	}
+
+	if (m_bComback)
+	{
+		m_eAniState = IDLE_START;
+		m_tInfo.fY -= 5.f;
+		if (m_fComebackY > m_tInfo.fY - 5.f && m_fComebackY < m_tInfo.fY + 5.f)
+		{
+			m_tInfo.fY = m_fComebackY;
+			m_bComback = false;
+			Set_Option(ERI_CLIMABLE);
+		}
+	}
+	
+	
 
 	return OBJ_NOEVENT;
 }
@@ -72,6 +106,26 @@ void CObjUnstableKnockbackPlatformA::Release()
 
 void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 {
+	CObjBossShootExplode* pShootExplode = dynamic_cast<CObjBossShootExplode*>(pObj);
+	CObjBossBullet* pBossBullet = dynamic_cast<CObjBossBullet*>(pObj);
+	if (eCollID == COLL_RECT && pShootExplode != nullptr
+		||
+		eCollID == COLL_RECT && pBossBullet != nullptr)
+	{
+		if (m_eAniState == IDLE_ING)
+		{
+			m_eAniState = DAMAGED_START;
+		}
+		else if (m_eAniState == IDLE_WARING_ING)
+		{
+			m_eAniState = DAMAGED_WARNING_START;
+		}
+		else if (m_eAniState == IDLE_DOUBLEWARNING_ING)
+		{
+			m_eAniState = DESTROY_START;
+			Set_Option(ERI_NO_CLIMABLE);
+		}
+	}
 }
 
 

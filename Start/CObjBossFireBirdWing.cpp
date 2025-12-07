@@ -154,7 +154,115 @@ int CObjBossFireBirdWing::Update()
 			}
 			else if (parent->m_eAniStateBroken == CObjBossFireBird::ANI_STATE_BROKEN::BROKEN)
 			{
+				switch (parent->m_eAniStateWing)
+				{
+				case CObjBossFireBird::ANI_STATE_WING::NEU:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_NEU;
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_UP_START:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_NEUTOUP;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU_TO_UP_ING;
+					Move_Frame();
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_UP_ING:
+				{
+					Move_Frame();
+					int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+					if (m_tFrame.iStart == end)
+					{
+						parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU_TO_UP_END;
+					}
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_UP_END:
+				{
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::UP_KEEP;
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::UP_KEEP:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_UPKEEP;
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::UP_TO_NEU_START:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_UPTONEU;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::UP_TO_NEU_ING;
+					Move_Frame();
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::UP_TO_NEU_ING:
+				{
+					Move_Frame();
+					int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+					if (m_tFrame.iStart == end)
+					{
+						parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::UP_TO_NEU_END;
+					}
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::UP_TO_NEU_END:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_NEU;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU;
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_DOWN_START:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_NEUTODOWN;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU_TO_DOWN_ING;
+					Move_Frame();
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_DOWN_ING:
+				{
+					Move_Frame();
+					int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+					if (m_tFrame.iStart == end)
+					{
+						parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU_TO_DOWN_END;
+					}
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::NEU_TO_DOWN_END:
+				{
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::DOWN_KEEP;
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::DOWN_KEEP:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_DOWNKEEP;
+				}
+				break;
 
+				case CObjBossFireBird::ANI_STATE_WING::DOWN_TO_NEU_START:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_DOWNTONEU;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::DOWN_TO_NEU_ING;
+					Move_Frame();
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::DOWN_TO_NEU_ING:
+				{
+					Move_Frame();
+					int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+					if (m_tFrame.iStart == end)
+					{
+						parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::DOWN_TO_NEU_END;
+					}
+				}
+				break;
+				case CObjBossFireBird::ANI_STATE_WING::DOWN_TO_NEU_END:
+				{
+					m_eCurState = FSI_BOSS_FIREBIRD_WING_BROKEN_NEU;
+					parent->m_eAniStateWing = CObjBossFireBird::ANI_STATE_WING::NEU;
+				}
+				break;
+				}
 			}
 		}
 
