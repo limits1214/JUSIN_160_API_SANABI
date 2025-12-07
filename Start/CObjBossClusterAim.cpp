@@ -4,6 +4,9 @@
 #include "CTimeMgr.h"
 #include "CObjBossShootExplode.h"
 #include "CObjMgr.h"
+#include "CObjClusterBombExplode.h"
+#include "CObjBossBullet.h"
+
 CObjBossClusterAim::CObjBossClusterAim()
 {
 }
@@ -12,8 +15,32 @@ CObjBossClusterAim::~CObjBossClusterAim()
 {
 }
 
+void CObjBossClusterAim::Shoot360ClusterBomblet()
+{
+	float targetX = m_tInfo.fX;
+	float targetY = m_tInfo.fY;
+	float bulletLen = 15;
+
+	CObjClusterBombExplode* pExplode = new CObjClusterBombExplode;
+	pExplode->Initialize();
+	pExplode->Set_Pos(targetX, targetY);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pExplode);
+
+	for (int i = 0; i < bulletLen; ++i)
+	{
+		//CObjClusterBombExplode
+		CObjBossBullet* pBullet = new CObjBossBullet;
+		pBullet->Set_Option(0);
+		pBullet->Initialize();
+		pBullet->Set_Angle(rand());
+		pBullet->Set_Pos(targetX, targetY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+	}
+}
+
 void CObjBossClusterAim::Initialize()
 {
+	m_bShoot = false;
 	m_bUseMainScroll = true;
 	m_tInfo.fCX = 224.f;
 	m_tInfo.fCY = 122.f;
@@ -28,30 +55,20 @@ int CObjBossClusterAim::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-
-	//m_tInfo.fX += 1.f;
-
-	//m_tInfo.fX += cosf(CTimeMgr::Get_Instance()->Get_Tick_Count()) * 30;
-	//m_tInfo.fY += sinf(CTimeMgr::Get_Instance()->Get_Tick_Count()) * 30;
-	//m_tInfo.fX += 1.f;
-	//m_tInfo.fY += 1.f;
-
 	Move_Frame();
 
-
-
-	CTimeMgr::Delay(&m_dwShootTime, 200,
-		[&]() {
-			CObjBossShootExplode* pShootExplode = new CObjBossShootExplode;
-			pShootExplode->Initialize();
-			pShootExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
-			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pShootExplode);
-		}
-	);
+	if (m_bShoot)
+	{
+		CTimeMgr::Delay(&m_dwShootTime, 200,
+			[&]() {
+				CObjBossShootExplode* pShootExplode = new CObjBossShootExplode;
+				pShootExplode->Initialize();
+				pShootExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+				CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pShootExplode);
+			}
+		);
+	}
 	
-
-
-
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
 }

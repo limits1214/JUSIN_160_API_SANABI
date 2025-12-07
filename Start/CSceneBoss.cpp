@@ -18,6 +18,9 @@
 #include "CObjBossBodySlap.h"
 #include "CObjBossBodySlapAlert.h"
 #include "CObjMonsterFloatingBombHugeExplodeSprite.h"
+#include "CObjBossBackHeli.h"
+
+
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
 {
@@ -66,6 +69,7 @@ void CSceneBoss::Initialize()
     
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_BodySlapLoop.bmp", STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_BodySlapAlert_sheet.bmp", STR_FKI_Spr_BOSS_BodySlapAlert_sheet);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BackHeliMove_Loop.bmp", STR_FKI_Spr_BackHeliMove_Loop);
 
    // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG.bmp", _T("PLG"));
     //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET.bmp", _T("RESET"));
@@ -141,6 +145,16 @@ void CSceneBoss::Initialize()
     //pBossBodySlap->Initialize();
     //pBossBodySlap->Set_Pos(WINCX >> 1, (WINCY >> 1) - 200);
     //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossBodySlap);
+
+    //CObjBossBodySlapAlert* pAlert = new CObjBossBodySlapAlert;
+    //pAlert->Initialize();
+    //pAlert->Set_Pos(WINCX >> 1, WINCY >> 1);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pAlert);
+
+    //CObjBossBackHeli* pBackHeli = new CObjBossBackHeli;
+    //pBackHeli->Initialize();
+    //pBackHeli->Set_Pos((WINCX >> 1) + 200, (WINCY >> 1) + 200);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBackHeli);
 
     {
         // ¸ÊÀÇ ÁÂ¿ì ³¡°ú ³¡Àº (WINCX >> 1) - 224 * 6, (WINCX >> 1) + 224 * 6

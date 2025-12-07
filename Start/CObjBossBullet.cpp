@@ -51,33 +51,33 @@ int CObjBossBullet::Update()
 
 	if (m_iOption == 0)
 	{
-		m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * 1.f;
-		m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * 1.f;
+		m_tInfo.fX += cosf(m_fAngle * PI / 180.f) * 5.f;
+		m_tInfo.fY -= sinf(m_fAngle * PI / 180.f) * 5.f;
 	}
 	else if (m_iOption == 1)
 	{
-		m_tInfo.fY += 0.5f;
+		m_tInfo.fY += 5.f;
 	}
 	
-
+	if (
+		m_tInfo.fX < ((WINCX >> 1) - 224 * 6)
+		||
+		m_tInfo.fX >((WINCX >> 1) + 224 * 6)
+		||
+		m_tInfo.fY < ((WINCY >> 1) - 224 * 4)
+		||
+		m_tInfo.fY >((WINCY >> 1) + 224 * 4)
+		)
+	{
+		Set_Dead_Cascade();
+	}
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
 }
 
 void CObjBossBullet::Late_Update()
 {
-	if (
-		m_tInfo.fX < ((WINCX >> 1) - 224 * 6)
-		||
-		m_tInfo.fX > ((WINCX >> 1) + 224 * 6)
-		||
-		m_tInfo.fY < ((WINCY >> 1) - 224 * 6)
-		||
-		m_tInfo.fY > ((WINCY >> 1) + 224 * 6)
-		)
-	{
-		Set_Dead_Cascade();
-	}
+
 }
 
 void CObjBossBullet::Render(HDC hDC)

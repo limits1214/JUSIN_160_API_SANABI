@@ -309,6 +309,9 @@
     <ClInclude Include="CObjMonsterFloatingBombHugeExplodeSprite.h">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBossBackHeli.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -550,6 +553,9 @@
     </ClCompile>
     <ClCompile Include="CObjMonsterFloatingBombHugeExplodeSprite.cpp">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossBackHeli.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ public:
 // 아래 Set_Timer, Set_Interval은 브라우저를 모방해서 만든건데
 // 그냥 안쓸거같아서 접근제한자를 private으로 변경했다.
 // 딜레이가 필요하다면 아래 스태틱 템플릿함수인 Delay를 사용하자
-private:
+public:
 	int Set_Timer(function<void()> func, DWORD time);
 	void Clear_Timer(int iID);
 
@@ -46,6 +46,16 @@ public:
 			//TODO: 뭐로
 			//*dwRefTime += dwDelay;
 			*dwRefTime = dwNow;
+		}
+	}
+
+	template<typename F>
+	static void DelayOne(DWORD* dwRefTime, DWORD dwDelay, F func)
+	{
+		DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		if (*dwRefTime + dwDelay < dwNow)
+		{
+			func();
 		}
 	}
 	

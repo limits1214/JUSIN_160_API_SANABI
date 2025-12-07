@@ -18,8 +18,8 @@ void CTimeMgr::Update_Tick_Count()
 	m_dwTime = GetTickCount();
 
 	// 안쓸거 같아서 주석처리함
-	//Update_Timer();
-	//Update_Interval();
+	Update_Timer();
+	Update_Interval();
 }
 
 DWORD CTimeMgr::Get_Tick_Count()

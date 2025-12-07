@@ -28,12 +28,18 @@ int CObjBossBodySlap::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
+	m_tInfo.fX += 20.f;
+
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
 }
 
 void CObjBossBodySlap::Late_Update()
 {
+	if (m_tInfo.fX > 2000)
+	{
+		Set_Dead();
+	}
 }
 
 void CObjBossBodySlap::Render(HDC hDC)

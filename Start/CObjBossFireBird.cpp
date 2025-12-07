@@ -12,8 +12,12 @@
 #include "CObjBossBodySlapAlert.h"
 #include "CObjBossBullet.h"
 #include "CObjClusterBombExplode.h"
+#include "CObjBossClusterAim.h"
+#include "CObjBossBodySlap.h"
+#include "CObjBossBackHeli.h"
 
 CObjBossFireBird::CObjBossFireBird()
+	: m_pClusterAim(nullptr)
 {
     Set_DbgName(_T("CObjBossFireBird"));
 }
@@ -29,14 +33,26 @@ void CObjBossFireBird::Initialize()
     m_tInfo.fCX = 300;
     m_tInfo.fCY = 300;
 
-	m_fSpeed = 3.f;
+	m_fSpeed = 2.f;
 
 	m_fAngle = 0.f;
+	m_fPlayerFollowAngle = 0.f;
 
 	m_eAniStateBomber = ANI_STATE_BOMBER::IDLE;
 	m_eAniStateGun = ANI_STATE_GUN::GUN_IDLE;
 	m_eAniStateBroken = ANI_STATE_BROKEN::NORMAL;
 	m_eAniStateWing = ANI_STATE_WING::NEU;
+
+	m_eState = STATE::PLAYER_FOLLOW_START;
+
+	m_dwBombingIntervalDelay1 = CTimeMgr::Get_Instance()->Get_Tick_Count();
+	m_dwBombingEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+	m_dwBodySlapAlertDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+	m_dwBodySlapEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+	m_fClusterAimSpeed = 2.f;
+	m_pClusterAim = nullptr;
 
 	CObjBossFireBirdBomber* pBomber = new CObjBossFireBirdBomber;
 	pBomber->Initialize();
@@ -68,13 +84,16 @@ int CObjBossFireBird::Update()
     if (m_bDead)
         return OBJ_DEAD;
 
-	Test_Key_Input();
+	//Test_Key_Input();
+	m_fPlayerFollowAngle += 1.f;
+	State_Update();
 
-	Move_Frame();
+	//Move(45.f, 1.f);
+
+
+
 
     __super::Update_Rect();
-
-	//m_tInfo.fX += 0.1;
 	
     return OBJ_NOEVENT;
 }
@@ -86,18 +105,7 @@ void CObjBossFireBird::Late_Update()
 
 void CObjBossFireBird::Render(HDC hDC)
 {
-	//HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
-	//BmpRender(
-	//	hDC,
-	//	m_tRect.left, m_tRect.top,
-	//	(int)m_tInfo.fCX, (int)m_tInfo.fCY,
-
-	//	hMemDC,
-	//	m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,
-	//	(int)m_tInfo.fCX, (int)m_tInfo.fCY
-	//);
 	// Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-
 }
 
 void CObjBossFireBird::Release()
@@ -264,6 +272,452 @@ void CObjBossFireBird::Test_Key_Input()
 			pBullet->Set_Angle(rand());
 			pBullet->Set_Pos(targetX, targetY);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+		}
+	}
+}
+
+void CObjBossFireBird::State_Update()
+{
+	switch (m_eState)
+	{
+	case PLAYER_FOLLOW_START:
+	{
+		m_eState = PLAYER_FOLLOW_ING;
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_eState = PLAYER_FOLLOW_END;
+			}, 5000);
+	}
+	break;
+
+	case PLAYER_FOLLOW_ING:
+	{
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			if (pPlayer != nullptr)
+			{
+				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+				float playerX = pPlayer->Get_Info()->fX;
+				float playerY = pPlayer->Get_Info()->fY;
+
+
+				float newX = playerX + cosf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+				float newY = playerY - sinf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+
+				float width = m_tInfo.fX - newX;
+				float height = m_tInfo.fY - newY;
+
+				float rad = atan2f(height, width) + PI;
+				float ang = rad * 180.f / PI;
+				float ang2 = ang * -1;
+				Move(ang2, m_fSpeed);
+			}
+		}
+		
+
+	}
+	break;
+
+	case PLAYER_FOLLOW_END:
+	{
+		int a = rand() % 5;
+
+		if (a == 1)
+		{
+			m_eState = PATTERN1_BOMBING_START;
+		}
+		else if (a == 2)
+		{
+			m_eState = PATTERN2_SHOOTING_START;
+		}
+		else if (a == 3)
+		{
+			m_eState = PATTERN3_BODYSLAP_START;
+		}
+		else if (a == 4)
+		{
+			m_eState = PATTERN4_CLUSTERBOMB_START;
+		}
+		else
+		{
+			m_eState = PLAYER_FOLLOW_START;
+		}
+	}
+	break;
+
+	case PATTERN1_BOMBING_START:
+	{
+		m_eState = PATTERN1_BOMBING_ING;
+		m_eAniStateBomber = OPENSTART;
+		m_dwBombingEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		m_bBombingStart = false;
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bBombingStart = true;
+			}, 1000);
+	}
+	break;
+
+	case PATTERN1_BOMBING_ING:
+	{
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			if (pPlayer != nullptr)
+			{
+				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+				float playerX = pPlayer->Get_Info()->fX;
+				float playerY = pPlayer->Get_Info()->fY;
+
+
+				float newX = playerX + cosf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+				float newY = (playerY - 450.f) - sinf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+
+				float width = m_tInfo.fX - newX;
+				float height = m_tInfo.fY - newY;
+
+				float rad = atan2f(height, width) + PI;
+				float ang = rad * 180.f / PI;
+				float ang2 = ang * -1;
+				Move(ang2, m_fSpeed);
+
+				if (m_bBombingStart)
+				{
+					CTimeMgr::Delay(&m_dwBombingIntervalDelay1, (500), [&]() {
+						CObjBossBullet* pBossBullet = new CObjBossBullet;
+						pBossBullet->Set_Option(1);
+						pBossBullet->Initialize();
+						pBossBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY + 150);
+						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBossBullet);
+						});
+				}
+				
+
+				CTimeMgr::Delay(&m_dwBombingEndDelay, (8000), [&]() {
+					m_eState = PATTERN1_BOMBING_END;
+					});
+			}
+		}
+	}
+	break;
+
+	case PATTERN1_BOMBING_END:
+	{
+		m_eState = PLAYER_FOLLOW_START;
+		m_eAniStateBomber = CLOSESTART;
+	}
+	break;
+
+
+
+	case PATTERN2_SHOOTING_START:
+	{
+		m_eState = PATTERN2_SHOOTING_ING;
+		m_eAniStateGun = GUNSHOOTSTART_START;
+
+		m_dwShootingEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+
+		CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
+		pBossClusterAim->Initialize();
+		pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		pBossClusterAim->Set_Shoot(false);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossClusterAim);
+		m_pClusterAim = pBossClusterAim;
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_pClusterAim->Set_Shoot(true);
+			}, 3000);
+	}
+	break;
+
+	case PATTERN2_SHOOTING_ING:
+	{
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			if (pPlayer != nullptr)
+			{
+				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+				float playerX = pPlayer->Get_Info()->fX;
+				float playerY = pPlayer->Get_Info()->fY;
+
+
+				float newX = playerX + cosf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+				float newY = playerY - sinf(m_fPlayerFollowAngle * PI / 180.f) * 100;
+
+				float width = m_tInfo.fX - newX;
+				float height = m_tInfo.fY - newY;
+
+				float rad = atan2f(height, width) + PI;
+				float ang = rad * 180.f / PI;
+				float ang2 = ang * -1;
+				Move(ang2, m_fSpeed);
+
+
+
+
+				float aimX = m_pClusterAim->Get_Info()->fX;
+				float aimY = m_pClusterAim->Get_Info()->fY;
+				float aimWidth = aimX - playerX ;
+				float aimHeight = aimY - playerY ;
+				float aimRad = atan2f(aimHeight, aimWidth) + PI;
+				float aimAng = aimRad * 180.f / PI;
+				float aimAng2 = aimAng * -1;
+
+				float newClusterX = aimX + cosf(aimRad * -1) * m_fClusterAimSpeed;
+				float newClusterY = aimY - sinf(aimRad * -1) * m_fClusterAimSpeed;
+				m_pClusterAim->Set_Pos(newClusterX, newClusterY);
+
+			
+
+				CTimeMgr::Delay(&m_dwShootingEndDelay, (10000), [&]() {
+					m_eState = PATTERN2_SHOOTING_END;
+					});
+			}
+		}
+	}
+	break;
+
+	case PATTERN2_SHOOTING_END:
+	{
+		m_pClusterAim->Set_Dead();
+		m_eAniStateGun = GUNSHOOTEND_START;
+		//m_pClusterAim = nullptr;
+		m_eState = PLAYER_FOLLOW_START;
+	}
+	break;
+
+	case PATTERN3_BODYSLAP_START:
+	{
+		m_eState = PATTERN3_BODYSLAP_ING;
+		m_bShowBodySlapAlert = false;
+
+		m_bBossHideToDown = true;
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bBossHideToDown = false;
+
+			}, 1000);
+	
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+				{
+					CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+					if (pPlayer != nullptr)
+					{
+						m_fBodySlapPlayerX = pPlayer->Get_Info()->fX;
+						m_fBodySlapPlayerY = pPlayer->Get_Info()->fY;
+						auto xlen = (m_fBodySlapPlayerX + 224 * 3) - (m_fBodySlapPlayerY - 224 * 3);
+						auto alertXSize = 35;
+						int total = xlen / alertXSize;
+						for (int i = 0; i < total; ++i)
+						{
+							auto offset = (m_fBodySlapPlayerX - 224 * 3) + i * alertXSize;
+							CObjBossBodySlapAlert* pAlert = new CObjBossBodySlapAlert;
+							pAlert->Initialize();
+							pAlert->Set_Pos(offset, m_fBodySlapPlayerY);
+							pAlert->Set_DelayTime(20 * i);
+							CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pAlert);
+						}
+
+						
+					}
+				}
+			}, 3000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+				{
+					CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+					if (pPlayer != nullptr)
+					{
+						CObjBossBodySlap* pBossBodySlap = new CObjBossBodySlap;
+						pBossBodySlap->Initialize();
+						pBossBodySlap->Set_Pos(m_fBodySlapPlayerX - 224 * 3, m_fBodySlapPlayerY);
+						CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossBodySlap);
+					}
+				}
+			}, 5000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_eState = PATTERN3_BODYSLAP_END;
+			}, 8000);
+	}
+	break;
+
+	case PATTERN3_BODYSLAP_ING:
+	{
+		if (m_bBossHideToDown)
+		{
+			Move(270.f, 15.f);
+		}
+
+		
+	}
+	break;
+
+	case PATTERN3_BODYSLAP_END:
+	{
+		m_eState = PLAYER_FOLLOW_START;
+	}
+	break;
+
+	case PATTERN4_CLUSTERBOMB_START:
+	{
+		m_eState = PATTERN4_CLUSTERBOMB_ING;
+		m_dwClusterTraceOneDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		m_dwClusterBombShootOneDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		m_bClusterAimTrace = true;
+		m_bBossHideToDown = true;
+		
+		
+
+		CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
+		pBossClusterAim->Initialize();
+		pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		pBossClusterAim->Set_Shoot(false);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossClusterAim);
+		m_pClusterAim = pBossClusterAim;
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bBossHideToDown = false;
+
+				//Set_Active(false);
+
+				CObjBossBackHeli* pBackHeli = new CObjBossBackHeli;
+				pBackHeli->Initialize();
+				pBackHeli->Set_Pos(WINCX >> 1, WINCY);
+				pBackHeli->Set_MoveTarget(WINCX >> 1, WINCY >> 1);
+				CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBackHeli);
+
+				
+			}, 1000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bClusterAimTrace = false;
+			}, 4000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_pClusterAim->Shoot360ClusterBomblet();
+				m_pClusterAim->Set_Dead();
+
+				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
+				{
+					auto backHeli = dynamic_cast<CObjBossBackHeli*>(pObj);
+					if (backHeli != nullptr)
+					{
+						backHeli->Set_MoveTarget(WINCX >> 1, WINCY + 200);
+					}
+				}
+			}, 5000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
+				{
+					auto backHeli = dynamic_cast<CObjBossBackHeli*>(pObj);
+					if (backHeli != nullptr)
+					{
+						backHeli->Set_Dead();
+					}
+				}
+				m_eState = PATTERN4_CLUSTERBOMB_END;
+			}, 8000);
+	}
+	break;
+
+	case PATTERN4_CLUSTERBOMB_ING:
+	{
+		if (m_bBossHideToDown)
+		{
+			Move(270.f, 15.f);
+		}
+
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			if (pPlayer != nullptr)
+			{
+				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+				float playerX = pPlayer->Get_Info()->fX;
+				float playerY = pPlayer->Get_Info()->fY;
+
+				if (m_bClusterAimTrace)
+				{
+					float aimX = m_pClusterAim->Get_Info()->fX;
+					float aimY = m_pClusterAim->Get_Info()->fY;
+					float aimWidth = aimX - playerX;
+					float aimHeight = aimY - playerY;
+					float aimRad = atan2f(aimHeight, aimWidth) + PI;
+					float aimAng = aimRad * 180.f / PI;
+					float aimAng2 = aimAng * -1;
+
+					float newClusterX = aimX + cosf(aimRad * -1) * m_fClusterAimSpeed;
+					float newClusterY = aimY - sinf(aimRad * -1) * m_fClusterAimSpeed;
+					m_pClusterAim->Set_Pos(newClusterX, newClusterY);
+				}
+			}
+		}
+	}
+	break;
+
+	case PATTERN4_CLUSTERBOMB_END:
+	{
+		//m_pClusterAim->Set_Dead();
+		m_eState = PLAYER_FOLLOW_START;
+	}
+	break;
+
+	}
+
+}
+
+void CObjBossFireBird::Move(float fAngle, float fSpeed)
+{
+	m_tInfo.fX += cosf(fAngle * PI / 180.f) * fSpeed;
+	m_tInfo.fY -= sinf(fAngle * PI / 180.f) * fSpeed;
+
+	//»ó½Â
+	if (fAngle < -180 && fAngle > -360)
+	{
+		if (m_eAniStateWing == NEU)
+		{
+			m_eAniStateWing = ANI_STATE_WING::NEU_TO_UP_START;
+		}
+		else if (m_eAniStateWing == UP_KEEP)
+		{
+
+		}
+		else if (m_eAniStateWing == DOWN_KEEP)
+		{
+			m_eAniStateWing = ANI_STATE_WING::DOWN_TO_NEU_START;
+		}
+	}
+	// ÇÏ°­
+	else
+	{
+		if (m_eAniStateWing == NEU)
+		{
+			m_eAniStateWing = ANI_STATE_WING::NEU_TO_DOWN_START;
+		}
+		else if (m_eAniStateWing == UP_KEEP)
+		{
+			m_eAniStateWing = ANI_STATE_WING::UP_TO_NEU_START;
+		}
+		else if (m_eAniStateWing == DOWN_KEEP)
+		{
+
 		}
 	}
 }

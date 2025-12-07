@@ -154,6 +154,7 @@ enum FRAME_KEY_ID
 	FKI_Spr_BOSS_FirebirdGun_sheet,
 	FKI_Spr_BOSS_FirebirdBomber_sheet,
 
+	FKI_Spr_BackHeliMove_Loop,
 	/*FKI_Spr_BOSS_Firebird_Gun_ShootEnd_Sheet_tw408_th58_sw11016_sh58_c27,
 	FKI_Spr_BOSS_Firebird_Gun_ShootLoop_Sheet_tw429_th82_sw1716_sh82_c4,
 	FKI_Spr_BOSS_Firebird_Gun_ShootReadyLoop_Sheet_tw408_th57_sw1632_sh57_c4,*/
@@ -228,6 +229,7 @@ STR_MACRO2(FKI_Spr_BOSS_Cluster_Aim_Sheet, "Spr_BOSS_Cluster_Aim_Sheet");
 
 STR_MACRO2(FKI_Spr_BOSS_BodySlapAlert_sheet, "FKI_Spr_BOSS_BodySlapAlert_sheet");
 STR_MACRO2(FKI_Spr_BOSS_Firebird_Body_BodySlapLoop, "FKI_Spr_BOSS_Firebird_Body_BodySlapLoop");
+STR_MACRO2(FKI_Spr_BackHeliMove_Loop, "Spr_BackHeliMove_Loop");
 
 STR_MACRO2(FKI_Spr_SNB_SHEET_2, "Spr_SNB_SHEET_2");
 
@@ -304,6 +306,9 @@ inline const TCHAR* FrameKeyId_To_Text2(FRAME_KEY_ID eID)
 		return STR_FKI_Spr_BOSS_BodySlapAlert_sheet;
 	case FKI_Spr_BOSS_Firebird_Body_BodySlapLoop:
 		return STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop;
+
+	case FKI_Spr_BackHeliMove_Loop:
+		return STR_FKI_Spr_BackHeliMove_Loop;
 
 	case FKI_Spr_SNB_SHEET_2:
 		return STR_FKI_Spr_SNB_SHEET_2;
@@ -397,6 +402,8 @@ enum FRAME_STATE_ID
 
 	FSI_BOSS_BODY_SLAP,
 	FSI_BOSS_BODY_SLAP_ALERT,
+
+	FSI_BACK_HELI_MOVE_LOOP,
 
 		FSI_MOB_FLTBOMB_IDLE,
 		FSI_MOB_FLTBOMB_KNOCKBACK,
@@ -507,8 +514,9 @@ inline FRAME FrameStateId_To_Frame(FRAME_STATE_ID eID, DWORD dwNow)
 		FRAME_STATE_CASE_MACRO(FSI_BOSS_CLUSTER_BOMBLET_EXPLODE, 0, 10, 0, 100)
 
 		FRAME_STATE_CASE_MACRO(FSI_BOSS_BODY_SLAP, 0, 1, 0, 100)
-		FRAME_STATE_CASE_MACRO(FSI_BOSS_BODY_SLAP_ALERT, 0, 18, 0, 100)
-
+		FRAME_STATE_CASE_MACRO(FSI_BOSS_BODY_SLAP_ALERT, 0, 18, 0, 50)
+		FRAME_STATE_CASE_MACRO(FSI_BACK_HELI_MOVE_LOOP, 0, 0, 0, 100)
+		
 
 		FRAME_STATE_CASE_MACRO(FSI_MOB_FLTBOMB_IDLE,				0, 21, 5, 100)
 		FRAME_STATE_CASE_MACRO(FSI_MOB_FLTBOMB_KNOCKBACK,			0, 15, 4, 100)

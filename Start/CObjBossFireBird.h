@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "CObjBossClusterAim.h"
 class CObjBossFireBird: public CObj
 {
 public:
@@ -28,12 +29,39 @@ private:
 	void Motion_Change();
 	void Test_Key_Input();
 
+	void State_Update();
+	void Move(float fAngle, float fSpeed);
+
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
 
 private:
 	float m_fAngle;
+
+private:
+	float m_fPlayerFollowAngle;
+	DWORD m_dwBombingIntervalDelay1;
+	DWORD m_dwBombingEndDelay;
+	bool m_bBombingStart;
+
+	DWORD m_dwShootingEndDelay;
+
+	CObjBossClusterAim* m_pClusterAim;
+	float m_fClusterAimSpeed;
+
+	DWORD m_dwBodySlapAlertDelay;
+	bool m_bShowBodySlapAlert;
+	DWORD m_dwBodySlapEndDelay;
+	float m_fBodySlapPlayerX;
+	float m_fBodySlapPlayerY;
+
+	bool m_bClusterAimTrace;
+	DWORD m_dwClusterTraceOneDelay;
+	DWORD m_dwClusterBombShootOneDelay;
+	DWORD m_dwClusterShootEndDelay;
+
+	bool m_bBossHideToDown;
 
 public:
 	
@@ -109,5 +137,39 @@ public:
 		DOWN_TO_NEU_END,
 	};
 	ANI_STATE_WING m_eAniStateWing;
+
+
+	enum STATE
+	{
+		ENTER_START,
+		ENTER_ING,
+		ENTER_END,
+
+		PLAYER_FOLLOW_START,
+		PLAYER_FOLLOW_ING,
+		PLAYER_FOLLOW_END,
+
+		PATTERN1_BOMBING_START,
+		PATTERN1_BOMBING_ING,
+		PATTERN1_BOMBING_END,
+
+
+		PATTERN2_SHOOTING_START,
+		PATTERN2_SHOOTING_ING,
+		PATTERN2_SHOOTING_END,
+
+		PATTERN3_BODYSLAP_START,
+		PATTERN3_BODYSLAP_ING,
+		PATTERN3_BODYSLAP_END,
+
+		PATTERN4_CLUSTERBOMB_START,
+		PATTERN4_CLUSTERBOMB_ING,
+		PATTERN4_CLUSTERBOMB_END,
+
+		EXIT_START,
+		EXIT_ING,
+		EXIT_END,
+	};
+	STATE m_eState;
 };
 

@@ -200,6 +200,7 @@
     <ClInclude Include="CObjBg.h" />
     <ClInclude Include="CObjBgBossBuilding.h" />
     <ClInclude Include="CObjBgBossCloud.h" />
+    <ClInclude Include="CObjBossBackHeli.h" />
     <ClInclude Include="CObjBossBodySlap.h" />
     <ClInclude Include="CObjBossBodySlapAlert.h" />
     <ClInclude Include="CObjBossBullet.h" />
@@ -288,6 +289,7 @@
     <ClCompile Include="CObjBg.cpp" />
     <ClCompile Include="CObjBgBossBuilding.cpp" />
     <ClCompile Include="CObjBgBossCloud.cpp" />
+    <ClCompile Include="CObjBossBackHeli.cpp" />
     <ClCompile Include="CObjBossBodySlap.cpp" />
     <ClCompile Include="CObjBossBodySlapAlert.cpp" />
     <ClCompile Include="CObjBossBullet.cpp" />

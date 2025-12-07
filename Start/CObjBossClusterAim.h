@@ -7,6 +7,15 @@ public:
 	virtual ~CObjBossClusterAim();
 
 public:
+	void Set_Shoot(bool bShoot)
+	{
+		m_bShoot = bShoot;
+	}
+
+public:
+	void Shoot360ClusterBomblet();
+
+public:
 	void Initialize() override;
 	int Update() override;
 	void Late_Update() override;
@@ -15,5 +24,7 @@ public:
 
 private:
 	DWORD m_dwShootTime;
+
+	bool m_bShoot;
 };
 
