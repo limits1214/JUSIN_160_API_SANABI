@@ -10,6 +10,11 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
+#include "fmod.h"
+#include "fmod.hpp"
+#pragma comment(lib, "fmod_vc.lib")
+#include <io.h>
+
 #include <iostream>
 #include <array>
 #include <set>

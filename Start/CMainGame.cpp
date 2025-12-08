@@ -13,6 +13,7 @@
 #include "CEditMgr.h"
 #include "CUIObjScrollDbgPanel.h"
 #include "CUIObjTileEditDbgPanel.h"
+#include "CSoundMgr.h"
 
 CMainGame::CMainGame()
 	:m_dwFPSTime(GetTickCount())
@@ -40,7 +41,9 @@ void CMainGame::Initialize()
 	pMouse->Initialize();
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MOUSE, pMouse);
 
-
+	CSoundMgr::Get_Instance()->Initialize();
+	//CSoundMgr::Get_Instance()->PlaySound(L"Success.wav", SOUND_BGM, 1.f);
+	//CSoundMgr::Get_Instance()->PlayBGM(L"Success.wav", 1.f);
 
 #ifdef _DEBUG
 
@@ -218,6 +221,7 @@ void CMainGame::Release()
 	CKeyMgr::Destroy_Instance();
 	CEditMgr::Destroy_Instance();
 	CTimeMgr::Destroy_Instance();
+	CSoundMgr::Destroy_Instance();
 
 	ReleaseDC(g_hWnd, m_hDC);
 }

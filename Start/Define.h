@@ -23,6 +23,8 @@ extern HWND g_hWnd;
 
 #define GRAVITY 9.81f
 
+enum CHANNELID { SOUND_BGM, SOUND_EFFECT, MAXCHANNEL };
+
 template<typename T>
 void Safe_Delete(T& p)
 {

@@ -122,8 +122,8 @@ void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollI
 		}
 		else if (m_eAniState == IDLE_DOUBLEWARNING_ING)
 		{
-			m_eAniState = DESTROY_START;
-			Set_Option(ERI_NO_CLIMABLE);
+			//m_eAniState = DESTROY_START;
+			//Set_Option(ERI_NO_CLIMABLE);
 		}
 	}
 }
