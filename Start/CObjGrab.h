@@ -60,7 +60,5 @@ private:
 	bool m_bCollisionRight;
 
 	int m_iCollisionOption;
-
-
 };
 

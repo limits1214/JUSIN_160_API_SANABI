@@ -29,6 +29,10 @@ CObjBossFireBird::~CObjBossFireBird()
 
 void CObjBossFireBird::Initialize()
 {
+	m_bBossHideToDown = false;
+	m_bBossShowToUp = false;
+	m_iTestCnt = 0;
+
     Set_UseMainScroll(true);
     m_tInfo.fCX = 300;
     m_tInfo.fCY = 300;
@@ -326,28 +330,49 @@ void CObjBossFireBird::State_Update()
 
 	case PLAYER_FOLLOW_END:
 	{
-		int a = rand() % 5;
-
-		if (a == 1)
+		if (m_iTestCnt == 0)
 		{
 			m_eState = PATTERN1_BOMBING_START;
 		}
-		else if (a == 2)
+		else if (m_iTestCnt == 1)
 		{
 			m_eState = PATTERN2_SHOOTING_START;
 		}
-		else if (a == 3)
+		else if (m_iTestCnt == 2)
 		{
 			m_eState = PATTERN3_BODYSLAP_START;
 		}
-		else if (a == 4)
+		else if (m_iTestCnt == 3)
 		{
 			m_eState = PATTERN4_CLUSTERBOMB_START;
 		}
-		else
+		else if (m_iTestCnt >= 4)
 		{
 			m_eState = PLAYER_FOLLOW_START;
 		}
+		++m_iTestCnt;
+
+		//int a = rand() % 5;
+		//if (a == 1)
+		//{
+		//	m_eState = PATTERN1_BOMBING_START;
+		//}
+		//else if (a == 2)
+		//{
+		//	m_eState = PATTERN2_SHOOTING_START;
+		//}
+		//else if (a == 3)
+		//{
+		//	m_eState = PATTERN3_BODYSLAP_START;
+		//}
+		//else if (a == 4)
+		//{
+		//	m_eState = PATTERN4_CLUSTERBOMB_START;
+		//}
+		//else
+		//{
+		//	m_eState = PLAYER_FOLLOW_START;
+		//}
 	}
 	break;
 
@@ -552,7 +577,13 @@ void CObjBossFireBird::State_Update()
 
 		CTimeMgr::Get_Instance()->Set_Timer(
 			[&]() {
+				m_bBossShowToUp = true;
+			}, 7000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
 				m_eState = PATTERN3_BODYSLAP_END;
+				m_bBossShowToUp = false;
 			}, 8000);
 	}
 	break;
@@ -563,7 +594,10 @@ void CObjBossFireBird::State_Update()
 		{
 			Move(270.f, 15.f);
 		}
-
+		else if (m_bBossShowToUp)
+		{
+			Move(90.f, 15.f);
+		}
 		
 	}
 	break;

@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\OBJ\GAME_UI">
       <UniqueIdentifier>{ac3fa43a-2c86-4464-b334-469a64324c2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\OBJ\PLAYER2">
+      <UniqueIdentifier>{b3187c3b-7c6b-4dcb-9cb1-ddb8256d8585}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -312,6 +315,21 @@
     <ClInclude Include="CObjBossBackHeli.h">
       <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClInclude>
+    <ClInclude Include="CObjPlayer2.h">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayer2SNBSprite.h">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayer2SNBARMSprite.h">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayer2Grab.h">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjPlayer2GrabSprite.h">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -556,6 +574,21 @@
     </ClCompile>
     <ClCompile Include="CObjBossBackHeli.cpp">
       <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer2.cpp">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer2SNBSprite.cpp">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer2SNBARMSprite.cpp">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer2Grab.cpp">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjPlayer2GrabSprite.cpp">
+      <Filter>소스 파일\OBJ\PLAYER2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

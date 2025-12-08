@@ -235,6 +235,11 @@
     <ClInclude Include="CObjMonsterG.h" />
     <ClInclude Include="CObjMouse.h" />
     <ClInclude Include="CObjPlayer.h" />
+    <ClInclude Include="CObjPlayer2.h" />
+    <ClInclude Include="CObjPlayer2Grab.h" />
+    <ClInclude Include="CObjPlayer2GrabSprite.h" />
+    <ClInclude Include="CObjPlayer2SNBARMSprite.h" />
+    <ClInclude Include="CObjPlayer2SNBSprite.h" />
     <ClInclude Include="CObjPlayerArm.h" />
     <ClInclude Include="CObjPlayerSprite.h" />
     <ClInclude Include="CObjRect.h" />
@@ -325,6 +330,11 @@
     <ClCompile Include="CObjMonsterG.cpp" />
     <ClCompile Include="CObjMouse.cpp" />
     <ClCompile Include="CObjPlayer.cpp" />
+    <ClCompile Include="CObjPlayer2.cpp" />
+    <ClCompile Include="CObjPlayer2Grab.cpp" />
+    <ClCompile Include="CObjPlayer2GrabSprite.cpp" />
+    <ClCompile Include="CObjPlayer2SNBARMSprite.cpp" />
+    <ClCompile Include="CObjPlayer2SNBSprite.cpp" />
     <ClCompile Include="CObjPlayerArm.cpp" />
     <ClCompile Include="CObjPlayerSprite.cpp" />
     <ClCompile Include="CObjRect.cpp" />

@@ -6,6 +6,7 @@
 #include "CObjMouse.h"
 #include "CScrollMgr.h"
 #include "CObjPlayer.h"
+#include "CObjPlayer2.h"
 #include "CObjSprite.h"
 #include "CObjGameUiChapterBtn.h"
 #include "CObjMonsterFloatingBomb.h"
@@ -225,7 +226,7 @@ void CObjThings::ChangeReal()
 	{
 	case TGS_PLAYER_POS:
 	{
-		CObjPlayer* pPlayer = new CObjPlayer;
+		CObjPlayer2* pPlayer = new CObjPlayer2;
 		pPlayer->Initialize();
 		pPlayer->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);

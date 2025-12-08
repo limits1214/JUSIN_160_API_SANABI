@@ -43,6 +43,8 @@ private:
 private:
 	float m_fAngle;
 
+	int m_iTestCnt;
+
 private:
 	float m_fPlayerFollowAngle;
 	DWORD m_dwBombingIntervalDelay1;
@@ -66,6 +68,7 @@ private:
 	DWORD m_dwClusterShootEndDelay;
 
 	bool m_bBossHideToDown;
+	bool m_bBossShowToUp;
 
 public:
 	
