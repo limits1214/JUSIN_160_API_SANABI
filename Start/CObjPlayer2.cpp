@@ -11,6 +11,7 @@
 #include "CObjMgr.h"
 #include "CObjMouse.h"
 #include "CObjPlayer2Grab.h"
+#include "CKeyMgr2.h"
 
 CObjPlayer2::CObjPlayer2()
 {
@@ -288,11 +289,11 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
  				if (!m_bGround)  
 				{
 					m_bGround = true;
-					if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
+					if (CKeyMgr2::Get_Instance()->Key_Pressing('D'))
 					{
 						m_eAniStateSNB = AST_RIGHT_SNB_LAND2RUN_START;
 					}
-					else if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
+					else if (CKeyMgr2::Get_Instance()->Key_Pressing('A'))
 					{
 						m_eAniStateSNB = AST_LEFT_SNB_LAND2RUN_START;
 					}
@@ -376,7 +377,7 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 					if (!m_bRightWallClimb)
 					{
 						// 벽에 붙은상태에서 키입력이 들어오면
-						if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
+						if (CKeyMgr2::Get_Instance()->Key_Pressing('A'))
 						{
 							m_bRightWallClimb = true;
 							m_bGravity = false;
@@ -581,25 +582,25 @@ void CObjPlayer2::On_Mouse_Key_Pressing(CObj* pMouse)
 
 void CObjPlayer2::Key_Input()
 {
-	bool bKeyDownA = CKeyMgr::Get_Instance()->Key_Down('A');
-	bool bKeyPressingA = CKeyMgr::Get_Instance()->Key_Pressing('A');
-	bool bKeyUpA = CKeyMgr::Get_Instance()->Key_Up('A');
+	bool bKeyPressingA = CKeyMgr2::Get_Instance()->Key_Pressing('A');
+	bool bKeyDownA = CKeyMgr2::Get_Instance()->Key_Down('A');
+	bool bKeyUpA = CKeyMgr2::Get_Instance()->Key_Up('A');
 
-	bool bKeyDownD = CKeyMgr::Get_Instance()->Key_Down('D');
-	bool bKeyPressingD = CKeyMgr::Get_Instance()->Key_Pressing('D');
-	bool bKeyUpD = CKeyMgr::Get_Instance()->Key_Up('D');
+	bool bKeyPressingD = CKeyMgr2::Get_Instance()->Key_Pressing('D');
+	bool bKeyDownD = CKeyMgr2::Get_Instance()->Key_Down('D');
+	bool bKeyUpD = CKeyMgr2::Get_Instance()->Key_Up('D');
 
-	bool bKeyDownW = CKeyMgr::Get_Instance()->Key_Down('W');
-	bool bKeyPressingW = CKeyMgr::Get_Instance()->Key_Pressing('W');
-	bool bKeyUpW = CKeyMgr::Get_Instance()->Key_Up('W');
+	bool bKeyPressingW = CKeyMgr2::Get_Instance()->Key_Pressing('W');
+	bool bKeyDownW = CKeyMgr2::Get_Instance()->Key_Down('W');
+	bool bKeyUpW = CKeyMgr2::Get_Instance()->Key_Up('W');
 
-	bool bKeyDownS = CKeyMgr::Get_Instance()->Key_Down('S');
-	bool bKeyPressingS = CKeyMgr::Get_Instance()->Key_Pressing('S');
-	bool bKeyUpS = CKeyMgr::Get_Instance()->Key_Up('S');
+	bool bKeyPressingS = CKeyMgr2::Get_Instance()->Key_Pressing('S');
+	bool bKeyDownS = CKeyMgr2::Get_Instance()->Key_Down('S');
+	bool bKeyUpS = CKeyMgr2::Get_Instance()->Key_Up('S');
 
-	bool bKeyDownSpace = CKeyMgr::Get_Instance()->Key_Down(VK_SPACE);
-	bool bKeyPressingSpace = CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE);
-	bool bKeyUpSpace = CKeyMgr::Get_Instance()->Key_Pressing(VK_SPACE);
+	bool bKeyPressingSpace = CKeyMgr2::Get_Instance()->Key_Pressing(VK_SPACE);
+	bool bKeyDownSpace = CKeyMgr2::Get_Instance()->Key_Down(VK_SPACE);
+	bool bKeyUpSpace = CKeyMgr2::Get_Instance()->Key_Pressing(VK_SPACE);
 
 	if (
 		m_bLeftWallClimb

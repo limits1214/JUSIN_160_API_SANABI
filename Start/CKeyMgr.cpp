@@ -23,6 +23,7 @@ void CKeyMgr::Update()
 		if (!m_bKeyState[i] && (GetAsyncKeyState(i) & 0x8000))
 			m_bKeyState[i] = !m_bKeyState[i];
 	}
+
 }
 
 bool CKeyMgr::Key_Pressing(int _iKey)

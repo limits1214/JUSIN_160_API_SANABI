@@ -7,7 +7,7 @@
 #include "CObjSprite.h"
 #include "CBmpMgr.h"
 #include "CObjEditArea.h"
-#include "CKeyMgr.h"
+#include "CKeyMgr2.h"
 #include "CScrollMgr.h"
 
 CSceneTileEdit::CSceneTileEdit()
@@ -84,25 +84,25 @@ int CSceneTileEdit::Update()
 
 	{
 		// À§
-		if (CKeyMgr::Get_Instance()->Key_Pressing('I'))
+		if (CKeyMgr2::Get_Instance()->Key_Pressing('I'))
 		{
 			CScrollMgr::Get_Instance()->Set_ScrollY(TILECX);
 		}
 
 		// ¿Þ
-		if (CKeyMgr::Get_Instance()->Key_Pressing('J'))
+		if (CKeyMgr2::Get_Instance()->Key_Pressing('J'))
 		{
 			CScrollMgr::Get_Instance()->Set_ScrollX(TILECX);
 		}
 
 		// ¾Æ
-		if (CKeyMgr::Get_Instance()->Key_Pressing('K'))
+		if (CKeyMgr2::Get_Instance()->Key_Pressing('K'))
 		{
 			CScrollMgr::Get_Instance()->Set_ScrollY(-TILECX);
 		}
 
 		// ¿À
-		if (CKeyMgr::Get_Instance()->Key_Pressing('L'))
+		if (CKeyMgr2::Get_Instance()->Key_Pressing('L'))
 		{
 			CScrollMgr::Get_Instance()->Set_ScrollX(-TILECX);
 		}

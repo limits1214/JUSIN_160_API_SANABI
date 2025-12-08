@@ -15,6 +15,8 @@
 #include "CUIObjTileEditDbgPanel.h"
 #include "CSoundMgr.h"
 
+#include "CKeyMgr2.h"
+
 CMainGame::CMainGame()
 	:m_dwFPSTime(GetTickCount())
 {
@@ -68,11 +70,13 @@ void CMainGame::Initialize()
 void CMainGame::Update()
 {
 	CTimeMgr::Get_Instance()->Update_Tick_Count();
+
+	CKeyMgr2::Get_Instance()->Update();
 	
 	CSceneMgr::Get_Instance()->Update();
+	
 
-
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_F1))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_F1))
 	{
 		CUIObjDbgPanel* pDbgPanel = new CUIObjDbgPanel;
 		CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
@@ -83,7 +87,7 @@ void CMainGame::Update()
 		pDbgPanel->Set_Header_Text(_T("DBG_PANEL"));
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_F2))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_F2))
 	{
 		CUIObjSceneDbgPanel* pDbgPanel = new CUIObjSceneDbgPanel;
 		CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
@@ -94,7 +98,7 @@ void CMainGame::Update()
 		pDbgPanel->Set_Header_Text(_T("SCENE_PANEL"));
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_F3))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_F3))
 	{
 		CUIObjBmpDbgPannel* pDbgPanel = new CUIObjBmpDbgPannel;
 		CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
@@ -105,7 +109,7 @@ void CMainGame::Update()
 		pDbgPanel->Set_Header_Text(_T("BMP_PANEL"));
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_F4))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_F4))
 	{
 		CUIObjScrollDbgPanel* pDbgPanel = new CUIObjScrollDbgPanel;
 		CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pDbgPanel);
@@ -116,7 +120,7 @@ void CMainGame::Update()
 		pDbgPanel->Set_Header_Text(_T("SCROLL_PANEL"));
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_F5))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_F5))
 	{
 		CUIObjTileEditDbgPanel* tileEditDbgPandel = new CUIObjTileEditDbgPanel;
 		tileEditDbgPandel->Initialize();
@@ -135,7 +139,7 @@ void CMainGame::Late_Update()
 {
 	CSceneMgr::Get_Instance()->Late_Update();
 
-	CKeyMgr::Get_Instance()->Update();
+//	CKeyMgr::Get_Instance()->Update();
 }
 
 // ∑ª¥ı≈∏¿”
@@ -219,6 +223,7 @@ void CMainGame::Release()
 	CScrollMgr::Destroy_Instance();
 	CBmpMgr::Destroy_Instance();
 	CKeyMgr::Destroy_Instance();
+	CKeyMgr2::Destroy_Instance();
 	CEditMgr::Destroy_Instance();
 	CTimeMgr::Destroy_Instance();
 	CSoundMgr::Destroy_Instance();

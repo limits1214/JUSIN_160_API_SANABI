@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CObjButton.h"
-#include "CKeyMgr.h"
+#include "CKeyMgr2.h"
 #include "CBmpMgr.h"
 #include "CSceneMgr.h"
 
@@ -30,7 +30,7 @@ int CObjButton::Update()
 	ScreenToClient(g_hWnd, &pt);
 	if (PtInRect(&m_tRect, pt))
 	{
-		if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
+		if (CKeyMgr2::Get_Instance()->Key_Down(VK_LBUTTON))
 		{
 			if (m_eFrameKey == FKI_TEST_BTN_START)
 				CSceneMgr::Get_Instance()->Scene_Change(SC_LAB);

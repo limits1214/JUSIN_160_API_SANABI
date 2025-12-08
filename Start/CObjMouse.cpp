@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CObjMouse.h"
 #include "CObjMgr.h"
-#include "CKeyMgr.h"
+#include "CKeyMgr2.h"
 #include "CMouseEvent.h"
 
 CObjMouse::CObjMouse()
@@ -47,35 +47,35 @@ void CObjMouse::Late_Update()
 	PropagateMouseEvent<CMousePosEvent>([=](CMousePosEvent* pMouse) {pMouse->On_Mouse_Pos(this); });
 
 
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
+	if (CKeyMgr2::Get_Instance()->Key_Down(VK_LBUTTON))
 	{
 		m_sLastKey = VK_LBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Down(this); });
 	}
-	else if (CKeyMgr::Get_Instance()->Key_Down(VK_RBUTTON))
+	else if (CKeyMgr2::Get_Instance()->Key_Down(VK_RBUTTON))
 	{
 		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Down(this); });
 	}
 
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
+	if (CKeyMgr2::Get_Instance()->Key_Pressing(VK_LBUTTON))
 	{
 		m_sLastKey = VK_LBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Pressing(this); });
 	}
-	else if (CKeyMgr::Get_Instance()->Key_Pressing(VK_RBUTTON))
+	else if (CKeyMgr2::Get_Instance()->Key_Pressing(VK_RBUTTON))
 	{
 		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Pressing(this); });
 	}
 
 
-	if (CKeyMgr::Get_Instance()->Key_Up(VK_LBUTTON))
+	if (CKeyMgr2::Get_Instance()->Key_Up(VK_LBUTTON))
 	{
 		m_sLastKey = VK_LBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Up(this); });
 	}
-	else if (CKeyMgr::Get_Instance()->Key_Up(VK_RBUTTON))
+	else if (CKeyMgr2::Get_Instance()->Key_Up(VK_RBUTTON))
 	{
 		m_sLastKey = VK_RBUTTON;
 		PropagateMouseEvent<CMouseKeyEvent>([=](CMouseKeyEvent* pMouse) {pMouse->On_Mouse_Key_Up(this); });
