@@ -52,6 +52,11 @@ void CObjThings::Initialize()
 		m_tInfo.fCX = 300.f;
 		m_tInfo.fCY = 300.f;
 	}
+	else if (m_eThings == TGS_TUTOMAP)
+	{
+		m_tInfo.fCX = 2400.f;
+		m_tInfo.fCY = 1800.f;
+	}
 	else
 	{
 		m_tInfo.fCX = TILECX * 4;
@@ -287,6 +292,19 @@ void CObjThings::ChangeReal()
 		pBtn->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		
 		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pBtn);
+	}
+		break;
+
+	case TGS_TUTOMAP:
+	{
+		CObjSprite* pTutoMap = new CObjSprite;
+		pTutoMap->Initialize();
+		pTutoMap->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
+		pTutoMap->Set_CX(2400);
+		pTutoMap->Set_CY(600);
+		pTutoMap->Set_UseMainScroll(true);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
 	}
 		break;
 

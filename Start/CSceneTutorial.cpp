@@ -9,6 +9,13 @@
 #include "CObjGrp.h"
 #include "CObjInputController.h"
 #include "CScrollMgr.h"
+#include "CEditMgr.h"
+#include "CObjThings.h"
+#include "CObjBg.h"
+#include "CObjBgTutoCloud.h"
+#include "CObjBgTutoMountain.h"
+
+#include "CObjTutoAni.h"
 
 CSceneTutorial::CSceneTutorial()
 {
@@ -21,87 +28,87 @@ CSceneTutorial::~CSceneTutorial()
 
 void CSceneTutorial::Initialize()
 {
-    // TEST BG
-   // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Ground.bmp", L"Ground");
+	// Å¸ÀÏ
+	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
 
-    // IMG
-   // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Monster/Monster.bmp", L"Monster");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_NEW_Sheet.bmp", STR_FKI_Spr_SNB_SHEET_NEW);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_GRAB_SHEET.bmp", STR_FKI_Spr_SNB_GRAB_SHEET);
 
-    //CObjGrp* pGrp = new CObjGrp;
-    //pGrp->Initialize();
-    //pGrp->Set_Pos(WINCX >> 1, WINCY >> 1);
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_GRP, pGrp);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTOMAP.bmp", STR_FKI_TUTOMAP);
 
-    // PLAYER
-    CObjPlayer* pPlayer = new CObjPlayer;
-    CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
-    pPlayer->Initialize();
-    pPlayer->Set_Pos(WINCX >> 1, WINCY >> 1);
-    //pPlayer->Set_Parent(pGrp);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/Spr_PRLG_Forest_BG_Cloud_sheet.bmp", STR_FKI_Spr_BG_TUTO_CLOUD);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/ForestMountain.bmp", STR_FKI_Spr_BG_TUTO_MOUNTAIN);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/Spr_PRLG_Forest_BG_Sky800600.bmp", STR_FKI_Spr_BG_TUTO_SKY);
 
-    //CObjInputController* pInputController = new CObjInputController;
-    //pInputController->Initialize();
-    //pInputController->Set_Pos(0, 0);
-    //pInputController->Set_Parent(pGrp);
-    //CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pInputController);
-
-  
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTO_ANI-sheet.bmp", STR_FKI_Spr_TUTO_ANI_SHEET);
 
 
-    // LINE
-    CObjCollisionLine* pLine1 = new CObjCollisionLine;
-    pLine1->Initialize();
-    pLine1->Set_Line_Point({ 0,0 }, { 200, 200 });
-    pLine1->Set_Pos(WINCX >> 1, (WINCY >> 1) + 60);
-    pLine1->Set_Option(LCT_CLIMABLE);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine1);
+	CObjBg* pBg = new CObjBg;
+	pBg->Initialize();
+	pBg->Set_FrameKeyId(FKI_Spr_BG_TUTO_SKY);
+	pBg->Set_Pos(WINCX >> 1, WINCY >> 1);
+	pBg->Set_CX(800);
+	pBg->Set_CY(600);
+	//pBg->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBg);
 
-    CObjCollisionLine* pLine2 = new CObjCollisionLine;
-    pLine2->Initialize();
-    pLine2->Set_Line_Point({ 0,0 }, { 200, 0 });
-    pLine2->Set_Pos((WINCX >> 1) - 200, (WINCY >> 1) - 40);
-    pLine2->Set_Option(LCT_CLIMABLE);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine2);
+	CObjBgTutoMountain* pMountain = new CObjBgTutoMountain;
+	pMountain->Initialize();
+	pMountain->Set_Pos(WINCX >> 1, WINCY >> 1);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMountain);
 
-    CObjCollisionLine* pLine3 = new CObjCollisionLine;
-    pLine3->Initialize();
-    pLine3->Set_Line_Point({ 0,0 }, { 200, 0 });
-    pLine3->Set_Pos((WINCX >> 1) + 200, (WINCY >> 1) + 160);
-    pLine3->Set_Option(LCT_CLIMABLE);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine3);
-
-
-    CObjCollisionLine* pLine4 = new CObjCollisionLine;
-    pLine4->Initialize();
-    pLine4->Set_Line_Point({ 0,0 }, { 0, 200 });
-    pLine4->Set_Pos((WINCX >> 1) - 300, (WINCY >> 1) - 140);
-    pLine4->Set_Option(LCT_CLIMABLE);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine4);
+	CObjBgTutoCloud* pCloud = new CObjBgTutoCloud;
+	pCloud->Initialize();
+	pCloud->Set_Pos(WINCX >> 1, WINCY >> 1);
+	
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud);
+	
 
 
+	int cx = 2400;
+	int cy = 1800;
+	CObjSprite* pTutoMap = new CObjSprite;
+	pTutoMap->Initialize();
+	pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
+	pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
+	pTutoMap->Set_CX(cx);
+	pTutoMap->Set_CY(cy);
+	pTutoMap->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoMap);
 
-    CObjCollisionLine* pLine5 = new CObjCollisionLine;
-    pLine5->Initialize();
-    pLine5->Set_Line_Point({ 0,0 }, { 0, 200 });
-    pLine5->Set_Pos((WINCX >> 1) + 300, (WINCY >> 1) + 60);
-    pLine5->Set_Option(LCT_NOCLIMABLE);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_LINE, pLine5);
-    
+
+	CObjTutoAni* pTutoAni = new CObjTutoAni;
+	pTutoAni->Set_Option(0);
+	pTutoAni->Initialize();
+	pTutoAni->Set_Pos(WINCX >> 1, WINCY >> 1);
+	pTutoAni->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
+	
+	CEditMgr::Get_Instance()->Load_File(FNI_TUTORIAL, false, []() {
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
+		{
+			CObjThings* pTgs = dynamic_cast<CObjThings*>(pObj);
+			if (pTgs != nullptr)
+			{
+				pTgs->ChangeReal();
+			}
+		}
+		});
 }
 
 int CSceneTutorial::Update()
 {
-    auto a = CObjMgr::Get_Instance();
     CObjMgr::Get_Instance()->Update();
     return OBJ_NOEVENT;
 }
 
 void CSceneTutorial::Late_Update()
 {
+	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
+
     CObjMgr::Get_Instance()->Late_Update();
-    
-    CCollisionMgr::Collision_Line(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_LINE));
-}
+
+  }
 
 void CSceneTutorial::Render(HDC hDC)
 {
@@ -110,5 +117,5 @@ void CSceneTutorial::Render(HDC hDC)
 
 void CSceneTutorial::Release()
 {
-    //CBmpMgr::Get_Instance()->Delete_Bmp(L"Ground");
+   
 }

@@ -255,7 +255,7 @@ void CObjPlayer2::Late_Update()
 
 void CObjPlayer2::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 
 
 

@@ -35,8 +35,9 @@ void CMainGame::Initialize()
 	m_hDC = GetDC(g_hWnd);
 
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
-
+	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/WHITE800600.bmp", L"WHITE800600");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/WHITE800600.bmp", L"WHITE800600_2");
 	CSceneMgr::Get_Instance()->Scene_Change(SC_LOGO);
 
 	CObjMouse* pMouse = new CObjMouse;
@@ -163,47 +164,57 @@ void CMainGame::Render()
 
 
 	{
-		//HDC		hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"Back");
+		HDC		hBackDC = CBmpMgr::Get_Instance()->Find_Image(L"WHITE800600");
+		HDC		hResetDC = CBmpMgr::Get_Instance()->Find_Image(L"WHITE800600_2");
 
-		//CSceneMgr::Get_Instance()->Render(hBackDC);
+		CSceneMgr::Get_Instance()->Render(hBackDC);
 
-		//BitBlt(m_hDC,				// 복사 받을 DC
-		//	0,	// 복사 받을 공간의 LEFT	
-		//	0,	// 복사 받을 공간의 TOP
-		//	WINCX,			// 복사 받을 공간의 가로 
-		//	WINCY,			// 복사 받을 공간의 세로 
-		//	hBackDC,				// 복사 할 DC
-		//	0,					// 복사할 이미지의 LEFT, TOP
-		//	0,
-		//	SRCCOPY);
+		BitBlt(m_hDC,				// 복사 받을 DC
+			0,	// 복사 받을 공간의 LEFT	
+			0,	// 복사 받을 공간의 TOP
+			WINCX,			// 복사 받을 공간의 가로 
+			WINCY,			// 복사 받을 공간의 세로 
+			hBackDC,				// 복사 할 DC
+			0,					// 복사할 이미지의 LEFT, TOP
+			0,
+			SRCCOPY);
+		BitBlt(hBackDC,				// 복사 받을 DC
+			0,	// 복사 받을 공간의 LEFT	
+			0,	// 복사 받을 공간의 TOP
+			WINCX,			// 복사 받을 공간의 가로 
+			WINCY,			// 복사 받을 공간의 세로 
+			hResetDC,				// 복사 할 DC
+			0,					// 복사할 이미지의 LEFT, TOP
+			0,
+			SRCCOPY);
 	}
 
 
 	
 	{
-		HDC memDC = CreateCompatibleDC(m_hDC);
-		HBITMAP bmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
-		HBITMAP oldBmp = (HBITMAP)SelectObject(memDC, bmp);
+		//HDC memDC = CreateCompatibleDC(m_hDC);
+		//HBITMAP bmp = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
+		//HBITMAP oldBmp = (HBITMAP)SelectObject(memDC, bmp);
 
-		Rectangle(memDC, 0, 0, WINCX, WINCY);
+		//Rectangle(memDC, 0, 0, WINCX, WINCY);
 
-		CSceneMgr::Get_Instance()->Render(memDC);
+		//CSceneMgr::Get_Instance()->Render(memDC);
 
-		BitBlt(
-			m_hDC,
-			0, 0,
-			WINCX, WINCY,
+		//BitBlt(
+		//	m_hDC,
+		//	0, 0,
+		//	WINCX, WINCY,
 
-			memDC,
-			0, 0,
-			SRCCOPY
-		);
+		//	memDC,
+		//	0, 0,
+		//	SRCCOPY
+		//);
 
-		HBITMAP oldBmp2 = (HBITMAP)SelectObject(memDC, oldBmp);
+		//HBITMAP oldBmp2 = (HBITMAP)SelectObject(memDC, oldBmp);
 
-		DeleteObject(oldBmp);
-		DeleteObject(oldBmp2);
-		DeleteObject(memDC);
+		//DeleteObject(oldBmp);
+		//DeleteObject(oldBmp2);
+		//DeleteObject(memDC);
 	}
 }
 

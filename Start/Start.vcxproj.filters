@@ -55,6 +55,9 @@
     <Filter Include="소스 파일\OBJ\PLAYER2">
       <UniqueIdentifier>{b3187c3b-7c6b-4dcb-9cb1-ddb8256d8585}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\OBJ\TUTO">
+      <UniqueIdentifier>{c6812e5b-9ab7-42ac-a2f5-92d9a12e2579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -342,6 +345,15 @@
     <ClInclude Include="CKeyMgr2.h">
       <Filter>소스 파일\MGR</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBgTutoCloud.h">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBgTutoMountain.h">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjTutoAni.h">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -607,6 +619,15 @@
     </ClCompile>
     <ClCompile Include="CKeyMgr2.cpp">
       <Filter>소스 파일\MGR</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBgTutoCloud.cpp">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBgTutoMountain.cpp">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjTutoAni.cpp">
+      <Filter>소스 파일\OBJ\TUTO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

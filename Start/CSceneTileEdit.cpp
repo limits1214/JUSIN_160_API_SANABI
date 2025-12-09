@@ -33,7 +33,19 @@ void CSceneTileEdit::Initialize()
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatformA_Sheet.bmp", STR_FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET);
 	
-	
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTOMAP.bmp", STR_FKI_TUTOMAP);
+
+	int cx = 2400;
+	int cy = 1800;
+	CObjSprite* pTutoMap = new CObjSprite;
+	pTutoMap->Initialize();
+	pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
+	pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
+	pTutoMap->Set_CX(cx);
+	pTutoMap->Set_CY(cy);
+	pTutoMap->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
+
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();
 	pPanelOpenBtn->Set_CX(100);
