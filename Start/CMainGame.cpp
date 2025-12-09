@@ -47,6 +47,10 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 	//CSoundMgr::Get_Instance()->PlaySound(L"Success.wav", SOUND_BGM, 1.f);
 	//CSoundMgr::Get_Instance()->PlayBGM(L"Success.wav", 1.f);
+	//CSoundMgr::Get_Instance()->PlayBGM(L"Success.wav", 1.f);
+	//CTimeMgr::Get_Instance()->Set_Timer([](){
+	//	CSoundMgr::Get_Instance()->PlayBGM(L"Success.wav", 1.f);
+	//}, 1000);
 
 #ifdef _DEBUG
 

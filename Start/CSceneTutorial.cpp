@@ -14,10 +14,11 @@
 #include "CObjBg.h"
 #include "CObjBgTutoCloud.h"
 #include "CObjBgTutoMountain.h"
-
+#include "CSoundMgr.h"
 #include "CObjTutoAni.h"
 
 CSceneTutorial::CSceneTutorial()
+	:m_pCloud1(nullptr), m_pCloud2(nullptr)
 {
 }
 
@@ -52,19 +53,28 @@ void CSceneTutorial::Initialize()
 	//pBg->Set_UseMainScroll(true);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBg);
 
+	//cw: 1426, cy:528
 	CObjBgTutoMountain* pMountain = new CObjBgTutoMountain;
 	pMountain->Initialize();
-	pMountain->Set_Pos(WINCX >> 1, WINCY >> 1);
+	pMountain->Set_Pos(WINCX >> 1, (WINCY >> 1) + 40);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMountain);
 
-	CObjBgTutoCloud* pCloud = new CObjBgTutoCloud;
-	pCloud->Initialize();
-	pCloud->Set_Pos(WINCX >> 1, WINCY >> 1);
-	
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud);
+	// cw: 1171, cy: 369
+	CObjBgTutoCloud* pCloud1 = new CObjBgTutoCloud;
+	pCloud1->Initialize();
+	pCloud1->Set_Pos(1171 * 0.5f, WINCY >> 1);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud1);
+	m_pCloud1 = pCloud1;
+
+	CObjBgTutoCloud* pCloud2 = new CObjBgTutoCloud;
+	pCloud2->Initialize();
+	pCloud2->Set_Pos((1171 * 0.5f) - 1171, WINCY >> 1);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud2);
+	m_pCloud2 = pCloud2;
 	
 
 
+	// map image
 	int cx = 2400;
 	int cy = 1800;
 	CObjSprite* pTutoMap = new CObjSprite;
@@ -78,12 +88,14 @@ void CSceneTutorial::Initialize()
 
 
 	CObjTutoAni* pTutoAni = new CObjTutoAni;
-	pTutoAni->Set_Option(0);
+	pTutoAni->Set_Option(1);
 	pTutoAni->Initialize();
 	pTutoAni->Set_Pos(WINCX >> 1, WINCY >> 1);
 	pTutoAni->Set_UseMainScroll(true);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
-	
+
+
+	// 
 	CEditMgr::Get_Instance()->Load_File(FNI_TUTORIAL, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
 		{
@@ -94,11 +106,37 @@ void CSceneTutorial::Initialize()
 			}
 		}
 		});
+
+
+
+	//CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_PRLG1_ForestDaughter01.wav"), 1.f);
 }
 
 int CSceneTutorial::Update()
 {
     CObjMgr::Get_Instance()->Update();
+
+	//if (m_pCloud != nullptr)
+	//{
+	//	m_pCloud->Set_PosX(0.1f);
+	//}
+	if (m_pCloud1 != nullptr && m_pCloud2 != nullptr)
+	{
+		m_pCloud1->Set_PosX(+0.1f);
+		m_pCloud2->Set_PosX(+0.1f);
+
+		auto cloud1Rect = m_pCloud1->Get_Rect();
+		auto cloud2Rect = m_pCloud2->Get_Rect();
+
+		if (cloud1Rect->left >= 1171)
+		{
+			m_pCloud1->Set_PosX(-(1171 + 1171));
+			auto tmp = m_pCloud1;
+			m_pCloud1 = m_pCloud2;
+			m_pCloud2 = tmp;
+		}
+	}
+	
     return OBJ_NOEVENT;
 }
 
@@ -117,5 +155,5 @@ void CSceneTutorial::Render(HDC hDC)
 
 void CSceneTutorial::Release()
 {
-   
+	//CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 }
