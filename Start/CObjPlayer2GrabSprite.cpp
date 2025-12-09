@@ -2,6 +2,7 @@
 #include "CObjPlayer2GrabSprite.h"
 #include "CTimeMgr.h"
 #include "CBmpMgr.h"
+#include "CObjPlayer2Grab.h"
 
 CObjPlayer2GrabSprite::CObjPlayer2GrabSprite()
 {
@@ -16,11 +17,11 @@ CObjPlayer2GrabSprite::~CObjPlayer2GrabSprite()
 void CObjPlayer2GrabSprite::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 264;
-	m_tInfo.fCY = 112;
+	m_tInfo.fCX = 46;
+	m_tInfo.fCY = 44;
 
-	m_eFrameKey = FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET;
-	m_eCurState = FSI_UNSTABLE_KNOCKBACK_PLATFORM_A_IDLE;
+	m_eFrameKey = FKI_Spr_SNB_GRAB_SHEET;
+	m_eCurState = FSI_GRAB_TOP;
 	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 }
 
@@ -29,8 +30,40 @@ int CObjPlayer2GrabSprite::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	AniStateUpdate();
+
+	CObjPlayer2Grab* parent = dynamic_cast<CObjPlayer2Grab*>(m_pParent);
+	if (parent != nullptr)
+	{
+		switch (parent->Get_GrabDir())
+		{
+		case DIR_LEFT:
+			m_eCurState = FSI_GRAB_LEFT;
+			break;
+		case DIR_UP:
+			m_eCurState = FSI_GRAB_TOP;
+			break;
+		case DIR_RIGHT:
+			m_eCurState = FSI_GRAB_RIGHT;
+			break;
+		case DIR_DOWN:
+			m_eCurState = FSI_GRAB_BOTTOM;
+			break;
+		}
+	}
+
+	DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
 	
+	bool bMove = true;
+	int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+	if (m_tFrame.iStart == end)
+	{
+		bMove = false;
+	}
+
+	if (bMove)
+	{
+		Move_Frame();
+	}
 
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
@@ -38,10 +71,16 @@ int CObjPlayer2GrabSprite::Update()
 
 void CObjPlayer2GrabSprite::Late_Update()
 {
+	Motion_Change();
+
 }
 
 void CObjPlayer2GrabSprite::Render(HDC hDC)
 {
+	// юс╫ц
+	if (m_tRect.left == 0)
+		return;
+
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 	BmpRender(
 		hDC,

@@ -605,8 +605,239 @@ void CObjPlayer2SNBSprite::AniStateUpdate()
 		break;
 
 
+		case CObjPlayer2::AST_RIGHT_SNB_SWING_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_SWING;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_SWING_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWING_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWING_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWING_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_SWING;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_SWING_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWING_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWING_END:
+		{
+
+		}
+		break;
 
 
+
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMP_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_SWING_JUMP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_SWINGJUMP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMP_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMP_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_SWING_JUMP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_SWINGJUMP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMP_END:
+		{
+
+		}
+		break;
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMPUP_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_SWING_JUMP_UP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_SWINGJUMPUP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMPUP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_SWINGJUMPUP_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMPUP_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_SWING_JUMP_UP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_SWINGJUMPUP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMPUP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_SWINGJUMPUP_END:
+		{
+
+		}
+		break;
+
+
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKSTART_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_CEILING_STICK_START;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKSTART_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKSTART_ING:
+		{
+			Move_Frame();
+			int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+			if (m_tFrame.iStart == end)
+			{
+				parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKSTART_END;
+			}
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKSTART_END:
+		{
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKIDLE_START;
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKSTART_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_CEILING_STICK_START;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKSTART_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKSTART_ING:
+		{
+			Move_Frame();
+			int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+			if (m_tFrame.iStart == end)
+			{
+				parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKSTART_END;
+			}
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKSTART_END:
+		{
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKIDLE_START;
+		}
+		break;
+
+
+
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKIDLE_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_CEILING_STICK_IDLE;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKIDLE_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKIDLE_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKIDLE_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKIDLE_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_CEILING_STICK_IDLE;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKIDLE_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKIDLE_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKIDLE_END:
+		{
+
+		}
+		break;
+
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKJUMP_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_CEILING_STICK_JUMP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKJUMP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKJUMP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_CEILINGSTICKJUMP_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKJUMP_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_CEILING_STICK_JUMP;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKJUMP_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKJUMP_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_CEILINGSTICKJUMP_END:
+		{
+
+		}
+		break;
 		}
 	}
 }

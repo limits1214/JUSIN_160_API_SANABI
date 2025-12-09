@@ -14,7 +14,6 @@ public:
 	void Render(HDC hDC) override;
 	void Release() override;
 
-
 private:
 	void Motion_Change();
 
@@ -23,5 +22,6 @@ private:
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
+
 };
 

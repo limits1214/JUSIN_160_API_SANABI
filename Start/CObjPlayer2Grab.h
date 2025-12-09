@@ -14,9 +14,9 @@ public:
 	}
 
 public:
-	void Set_Angle(float fAngle)
+	void Set_Radian(float fRadian)
 	{
-		m_fAngle = fAngle;
+		m_fRadian = fRadian;
 	}
 
 	INFO Get_CollisionRectInfo()
@@ -39,6 +39,14 @@ public:
 		return m_iCollisionOption;
 	}
 
+	void Set_GrabDir(DIRECTION eGrabDir)
+	{
+		m_eGrabDir = eGrabDir;
+	}
+	DIRECTION Get_GrabDir()
+	{
+		return m_eGrabDir;
+	}
 public:
 	void Initialize() override;
 	int Update() override;
@@ -51,7 +59,7 @@ public:
 
 
 private:
-	float m_fAngle;
+	float m_fRadian;
 	bool m_bCeiling;
 
 	INFO m_tCollisionRectInfo;
@@ -62,5 +70,7 @@ private:
 
 	int m_iCollisionOption;
 
+
+	DIRECTION m_eGrabDir;
 };
 

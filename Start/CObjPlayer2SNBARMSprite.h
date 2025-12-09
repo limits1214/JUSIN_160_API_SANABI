@@ -18,6 +18,7 @@ public:
 private:
 	void Motion_Change();
 
+	void AniStateUpdate();
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;

@@ -5,6 +5,8 @@
 #include "CObjPlayer2.h"
 #include "CCollisionMgr.h"
 #include "CObjCollisionRect.h"
+#include "CObjMgr.h"
+#include "CObjPlayer2GrabSprite.h"
 
 CObjPlayer2Grab::CObjPlayer2Grab()
 {
@@ -26,6 +28,15 @@ void CObjPlayer2Grab::Initialize()
 	m_bUseMainScroll = true;
 	m_bCeiling = false;
 	m_GrabSend = false;
+
+
+	CObjPlayer2GrabSprite* pSprite = new CObjPlayer2GrabSprite;
+	pSprite->Initialize();
+	pSprite->Set_Pos(0, 0);
+	pSprite->Set_Parent(this);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pSprite);
+
+	m_eGrabDir = DIR_RIGHT;
 }
 
 int CObjPlayer2Grab::Update()
@@ -33,8 +44,8 @@ int CObjPlayer2Grab::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	m_tInfo.fX += cosf(m_fAngle) * m_fSpeed;
-	m_tInfo.fY += sinf(m_fAngle) * m_fSpeed;
+	m_tInfo.fX += cosf(m_fRadian) * m_fSpeed;
+	m_tInfo.fY += sinf(m_fRadian) * m_fSpeed;
 
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
@@ -46,7 +57,7 @@ void CObjPlayer2Grab::Late_Update()
 
 void CObjPlayer2Grab::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CObjPlayer2Grab::Release()
@@ -77,12 +88,14 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		case DIR_UP:
 		{
 			m_tInfo.fY -= fDistance;
+			m_eGrabDir = DIR_DOWN; 
 		}
 		break;
 		case DIR_DOWN:
 		{
 			m_tInfo.fY += fDistance;
 			m_bCeiling = true;
+			m_eGrabDir = DIR_UP;
 		}
 		break;
 		case DIR_LEFT:
@@ -90,7 +103,7 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			m_tInfo.fX -= fDistance;
 			m_bCollisionLeft = true;
 			m_bCollisionRight = false;
-
+			m_eGrabDir = DIR_RIGHT;
 		}
 		break;
 		case DIR_RIGHT:
@@ -98,6 +111,7 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			m_tInfo.fX += fDistance;
 			m_bCollisionRight = true;
 			m_bCollisionLeft = false;
+			m_eGrabDir = DIR_LEFT; 
 		}
 		break;
 		}
