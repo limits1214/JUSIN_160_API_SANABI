@@ -16,6 +16,7 @@ CObjPlayer2GrabSprite::~CObjPlayer2GrabSprite()
 
 void CObjPlayer2GrabSprite::Initialize()
 {
+	m_bSkipFirstRender = true;
 	Set_UseMainScroll(true);
 	m_tInfo.fCX = 46;
 	m_tInfo.fCY = 44;
@@ -23,6 +24,8 @@ void CObjPlayer2GrabSprite::Initialize()
 	m_eFrameKey = FKI_Spr_SNB_GRAB_SHEET;
 	m_eCurState = FSI_GRAB_TOP;
 	m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+
+	//__super::Update_Rect();
 }
 
 int CObjPlayer2GrabSprite::Update()
@@ -72,15 +75,27 @@ int CObjPlayer2GrabSprite::Update()
 void CObjPlayer2GrabSprite::Late_Update()
 {
 	Motion_Change();
-
 }
 
 void CObjPlayer2GrabSprite::Render(HDC hDC)
 {
 	// юс╫ц
+	if (m_tRect.left == -23)
+		return;
+
+	if (m_tRect.left == 76)
+		return;
 	if (m_tRect.left == 0)
 		return;
 
+	if (m_bSkipFirstRender)
+	{
+		m_bSkipFirstRender = false;
+		return;
+	}
+
+
+	cout << "mtrectleft" << m_tRect.left << endl;
 	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
 	BmpRender(
 		hDC,

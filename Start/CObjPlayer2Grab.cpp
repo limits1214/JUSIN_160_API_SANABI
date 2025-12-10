@@ -21,9 +21,9 @@ CObjPlayer2Grab::~CObjPlayer2Grab()
 
 void CObjPlayer2Grab::Initialize()
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
-	m_fSpeed = 50.f;
+	m_tInfo.fCX = 20.f;
+	m_tInfo.fCY = 20.f;
+	m_fSpeed = 45.f;
 
 	m_bUseMainScroll = true;
 	m_bCeiling = false;
@@ -37,13 +37,15 @@ void CObjPlayer2Grab::Initialize()
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pSprite);
 
 	m_eGrabDir = DIR_RIGHT;
+
+	//__super::Update_Rect();
 }
 
 int CObjPlayer2Grab::Update()
 {
 	if (m_bDead)
 		return OBJ_DEAD;
-
+	
 	m_tInfo.fX += cosf(m_fRadian) * m_fSpeed;
 	m_tInfo.fY += sinf(m_fRadian) * m_fSpeed;
 
@@ -57,6 +59,11 @@ void CObjPlayer2Grab::Late_Update()
 
 void CObjPlayer2Grab::Render(HDC hDC)
 {
+	if (m_tRect.left == -10)
+	{
+		return;
+	}
+	
 	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 

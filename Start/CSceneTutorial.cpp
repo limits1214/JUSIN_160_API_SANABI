@@ -108,7 +108,7 @@ void CSceneTutorial::Initialize()
 
 
 
-	//CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_PRLG1_ForestDaughter01.wav"), 1.f);
+	CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_PRLG1_ForestDaughter01.wav"), 1.f);
 }
 
 int CSceneTutorial::Update()

@@ -173,6 +173,10 @@ void CEditMgr::EditAreaRectMLKeyDown(POINT ptMouse)
 	if (m_bFirstRect)
 	{
 		m_bFirstRect = false;
+		int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+		int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+		ptMouse.x -= iScrollX;
+		ptMouse.y -= iScrollY;
 		m_ptLastRect = ptMouse;
 	}
 	else
@@ -183,8 +187,8 @@ void CEditMgr::EditAreaRectMLKeyDown(POINT ptMouse)
 		ptMouse.x -= iScrollX;
 		ptMouse.y -= iScrollY;
 
-		m_ptLastRect.x -= iScrollX;
-		m_ptLastRect.y -= iScrollY;
+		//m_ptLastRect.x -= iScrollX;
+		//m_ptLastRect.y -= iScrollY;
 
 		LONG lWidth = ptMouse.x - m_ptLastRect.x;
 		LONG lHeight = ptMouse.y - m_ptLastRect.y;

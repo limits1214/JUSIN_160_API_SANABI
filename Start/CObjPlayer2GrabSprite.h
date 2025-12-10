@@ -23,5 +23,8 @@ private:
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
+
+private:
+	bool m_bSkipFirstRender;
 };
 
