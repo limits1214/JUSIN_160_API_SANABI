@@ -44,55 +44,54 @@ void CSceneTutorial::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTO_ANI-sheet.bmp", STR_FKI_Spr_TUTO_ANI_SHEET);
 
 
-	CObjBg* pBg = new CObjBg;
-	pBg->Initialize();
-	pBg->Set_FrameKeyId(FKI_Spr_BG_TUTO_SKY);
-	pBg->Set_Pos(WINCX >> 1, WINCY >> 1);
-	pBg->Set_CX(800);
-	pBg->Set_CY(600);
-	//pBg->Set_UseMainScroll(true);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBg);
+	//CObjBg* pBg = new CObjBg;
+	//pBg->Initialize();
+	//pBg->Set_FrameKeyId(FKI_Spr_BG_TUTO_SKY);
+	//pBg->Set_Pos(WINCX >> 1, WINCY >> 1);
+	//pBg->Set_CX(800);
+	//pBg->Set_CY(600);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBg);
 
 	//cw: 1426, cy:528
-	CObjBgTutoMountain* pMountain = new CObjBgTutoMountain;
-	pMountain->Initialize();
-	pMountain->Set_Pos(WINCX >> 1, (WINCY >> 1) + 40);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMountain);
+	//CObjBgTutoMountain* pMountain = new CObjBgTutoMountain;
+	//pMountain->Initialize();
+	//pMountain->Set_Pos(WINCX >> 1, (WINCY >> 1) + 40);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMountain);
 
 	// cw: 1171, cy: 369
-	CObjBgTutoCloud* pCloud1 = new CObjBgTutoCloud;
-	pCloud1->Initialize();
-	pCloud1->Set_Pos(1171 * 0.5f, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud1);
-	m_pCloud1 = pCloud1;
+	//CObjBgTutoCloud* pCloud1 = new CObjBgTutoCloud;
+	//pCloud1->Initialize();
+	//pCloud1->Set_Pos(1171 * 0.5f, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud1);
+	//m_pCloud1 = pCloud1;
 
-	CObjBgTutoCloud* pCloud2 = new CObjBgTutoCloud;
-	pCloud2->Initialize();
-	pCloud2->Set_Pos((1171 * 0.5f) - 1171, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud2);
-	m_pCloud2 = pCloud2;
+	//CObjBgTutoCloud* pCloud2 = new CObjBgTutoCloud;
+	//pCloud2->Initialize();
+	//pCloud2->Set_Pos((1171 * 0.5f) - 1171, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pCloud2);
+	//m_pCloud2 = pCloud2;
 	
 
 
 	// map image
-	int cx = 2400;
-	int cy = 1800;
-	CObjSprite* pTutoMap = new CObjSprite;
-	pTutoMap->Initialize();
-	pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
-	pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
-	pTutoMap->Set_CX(cx);
-	pTutoMap->Set_CY(cy);
-	pTutoMap->Set_UseMainScroll(true);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoMap);
+	//int cx = 2400;
+	//int cy = 1800;
+	//CObjSprite* pTutoMap = new CObjSprite;
+	//pTutoMap->Initialize();
+	//pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
+	//pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
+	//pTutoMap->Set_CX(cx);
+	//pTutoMap->Set_CY(cy);
+	//pTutoMap->Set_UseMainScroll(true);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoMap);
 
 
-	CObjTutoAni* pTutoAni = new CObjTutoAni;
-	pTutoAni->Set_Option(1);
-	pTutoAni->Initialize();
-	pTutoAni->Set_Pos(WINCX >> 1, WINCY >> 1);
-	pTutoAni->Set_UseMainScroll(true);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
+	//CObjTutoAni* pTutoAni = new CObjTutoAni;
+	//pTutoAni->Set_Option(1);
+	//pTutoAni->Initialize();
+	//pTutoAni->Set_Pos(WINCX >> 1, WINCY >> 1);
+	//pTutoAni->Set_UseMainScroll(true);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
 
 
 	// 
@@ -120,6 +119,7 @@ int CSceneTutorial::Update()
 	//{
 	//	m_pCloud->Set_PosX(0.1f);
 	//}
+
 	if (m_pCloud1 != nullptr && m_pCloud2 != nullptr)
 	{
 		m_pCloud1->Set_PosX(+0.1f);

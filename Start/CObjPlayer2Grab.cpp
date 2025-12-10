@@ -21,8 +21,8 @@ CObjPlayer2Grab::~CObjPlayer2Grab()
 
 void CObjPlayer2Grab::Initialize()
 {
-	m_tInfo.fCX = 20.f;
-	m_tInfo.fCY = 20.f;
+	m_tInfo.fCX = 30.f;
+	m_tInfo.fCY = 30.f;
 	m_fSpeed = 50.f;
 
 	m_bUseMainScroll = true;
@@ -77,8 +77,9 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		m_iCollisionOption = pRect->Get_Option();
 		m_tCollisionRectInfo = *pRect->Get_Info();
 
-
-
+		m_bCeiling = false;
+		m_bCollisionRight = false;
+		m_bCollisionLeft = false;
 
 		// TODO: 들어간만큼 나오게
 		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
@@ -102,7 +103,6 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		{
 			m_tInfo.fX -= fDistance;
 			m_bCollisionLeft = true;
-			m_bCollisionRight = false;
 			m_eGrabDir = DIR_RIGHT;
 		}
 		break;
@@ -110,7 +110,6 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		{
 			m_tInfo.fX += fDistance;
 			m_bCollisionRight = true;
-			m_bCollisionLeft = false;
 			m_eGrabDir = DIR_LEFT; 
 		}
 		break;

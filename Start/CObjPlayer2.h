@@ -39,13 +39,15 @@ private:
 	void Apply_Gravity();
 	void Apply_Jump();
 
-	//void Jumping(float fAngle, float fSpeed);
+	void JumpRoutine(float fAngle, float fSpeed);
 
 	void Apply_Pend();
 	void Move(float fAngle, float fLength);
 	void Offset();
 
 	void GrabLoad();
+
+	void GrabHookResize();
 private:
 	DWORD m_dwTime;
 
@@ -69,17 +71,27 @@ private:
 	bool m_bWallLeftEscape;
 	bool m_bWallRightEscape;
 
+
+
+	bool m_bExc;
+
+	bool m_bCeilStick;
+	INFO m_tCeilStickCollisionRectInfo;
+
+	DIRECTION m_eLastLRDir;
+	
+
 	bool m_bGrabShoot;
 	bool m_bGrabbing;
 	bool m_bGrabRelease;
 	bool m_bGrabLoad;
+	bool m_bGrabHookResize;
+	float m_fGrabHookResizeTargetX;
+	float m_fGrabHookResizeTargetY;
 
-	bool m_bExc;
-	bool m_bCeilStick;
-	DIRECTION m_eLastLRDir;
-	
 
 	LINE m_tHookLine;
+	float m_fHookGuideLength;
 	float m_fHookMaxLength;
 	float m_fHookMinLength;
 	float m_fHookRadian;
