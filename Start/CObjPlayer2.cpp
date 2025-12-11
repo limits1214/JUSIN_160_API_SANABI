@@ -12,6 +12,7 @@
 #include "CObjMouse.h"
 #include "CObjPlayer2Grab.h"
 #include "CKeyMgr2.h"
+#include "CObjMonsterFloatingBomb.h"
 #include "CSoundMgr.h"
 
 CObjPlayer2::CObjPlayer2()
@@ -68,6 +69,7 @@ void CObjPlayer2::Initialize()
 	m_bCeilStick = false;
 
 	m_bExc = false;
+	m_bExcGrabLoad = false;
 
 	m_bGround = false;
 
@@ -124,6 +126,16 @@ int CObjPlayer2::Update()
 
 
 	Key_Input();
+
+	if (m_bExcGrabLoad)
+	{
+		ExcGrabLoad();
+	}
+
+	if (m_bExc)
+	{
+		ExcStart();
+	}
 
 	if (m_bGrabLoad)
 	{
@@ -646,9 +658,48 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 		//ptCurr.y -= iScrollY;
 		if (pMouse->Get_Last_Key() == VK_LBUTTON)
 		{
+			if (m_bExc)
+			{
+				
+
+
+
+				auto pltBomb = dynamic_cast<CObjMonsterFloatingBomb*>(m_pTarget);
+				if (pltBomb != nullptr)
+				{
+
+					/*auto w = ptCurr.x - m_tInfo.fX  ;
+					auto h = ptCurr.y - m_tInfo.fY ;*/
+					auto w = (float)ptCurr.x - (m_tInfo.fX + iScrollX);
+					auto h = (float)ptCurr.y - (m_tInfo.fY + iScrollY);
+					auto rad = atan2f(h, w);
+					pltBomb->Excuted(this, rad);
+
+					auto ang = rad * 180.f / PI;
+					auto ang2 = ang * -1;
+
+					//JumpStart(30.f, ang2);
+
+					JumpRoutine(ang2, 30.f);
+				}
+
+				m_bExc = false;
+
+				m_pTarget = nullptr;
+
+
+				m_bGravity = true;
+				m_fGravityDeltaSum = 0;
+
+				//m_bJump = false;
+				//m_fJumpDeltaSum = 0;
+
+				return;
+			}
 			// 그랩 풀고 제거
 			if (m_pGrab != nullptr)
 			{
+				
 				// 그랩 풀었는데 천장상태라면 그랩은 살려줘야한다.
 				// 천장 내려올때 그랩을 죽인다
 				if (m_bCeilStick)
@@ -1102,7 +1153,30 @@ void CObjPlayer2::Key_Input()
 			m_fGravityDeltaSum = 0;
 		}
 	}
+	else if (m_bExc)
+	{
+		if (bKeyPressingW)
+		{
+			Move(90.f, m_fSpeed);
+		}
+		if (bKeyPressingA)
+		{
+			Move(180.f, m_fSpeed);
+		}
+		if (bKeyPressingS)
+		{
+			Move(270.f, m_fSpeed);
+		}
+		if (bKeyPressingD)
+		{
+			Move(0.f, m_fSpeed);
+		}
 
+		if (m_pTarget != nullptr)
+		{
+			m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		}
+	}
 	// 모든 상태가 아닌경우
 	else
 	{
@@ -1307,6 +1381,50 @@ void CObjPlayer2::Grab(CObjPlayer2Grab* pObj)
 
 		CSoundMgr::Get_Instance()->StopSound(SOUND_GRAB);
 		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Grab_SNB_Wood.wav", SOUND_GRAB, 1.f);
+	}
+}
+
+void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObj* pTarget)
+{
+	
+	if (m_pGrab != nullptr)
+	{
+		/*m_bGrabHookResize = false;
+		m_bGrabLoad = false;*/
+		if (m_pGrab->Get_Dead())
+		{
+			return;
+		}
+
+
+
+
+
+		//그랩 시작
+		//m_bGrabbing = true;
+
+
+
+		m_fGravityDeltaSum = 0;
+		m_fJumpDeltaSum = 0;
+
+
+
+
+		/*if (m_tInfo.fX > m_pGrab->Get_Info()->fX)
+		{
+			m_eAniStateSNB = AST_LEFT_SNB_SWING_START;
+			m_eAniStateSNBARM = AST_LEFT_ARM_SWING_START;
+		}
+		else
+		{
+			m_eAniStateSNB = AST_RIGHT_SNB_SWING_START;
+			m_eAniStateSNBARM = AST_RIGHT_ARM_SWING_START;
+		}*/
+
+		m_bExcGrabLoad = true;
+		m_pTarget = pTarget;
+
 	}
 }
 
@@ -1522,6 +1640,49 @@ void CObjPlayer2::GrabLoad()
 			
 	}
 	
+}
+
+void CObjPlayer2::ExcGrabLoad()
+{// 그랩을 땡기고난후에는 그랩은 사라진다.
+	if (m_pGrab != nullptr)
+	{
+		float width = m_pGrab->Get_Info()->fX - m_tInfo.fX;
+		float height = m_pGrab->Get_Info()->fY - m_tInfo.fY;
+		float fRad = atan2f(height, width);
+		float x = cosf(fRad) * 30.f;
+		float y = sinf(fRad) * 30.f;
+		m_tInfo.fX += x;
+		m_tInfo.fY += y;
+
+		m_fGravityDeltaSum = 0;
+		m_fJumpDeltaSum = 0;
+
+		// 플레이어가 그랩으로 당겨져셔 닿았을때
+		RECT rc;
+		if (IntersectRect(&rc, m_pGrab->Get_Rect(), this->Get_Rect()))
+		{
+			m_bExcGrabLoad = false;
+
+			m_tInfo.fX = m_pGrab->Get_Info()->fX;
+			m_tInfo.fY = m_pGrab->Get_Info()->fY;
+
+
+			m_bExc = true;
+
+			// 땡긴 이후에는 그랩 제거
+			m_pGrab->Set_Dead_Cascade();
+			m_pGrab = nullptr;
+		}
+
+	}
+}
+
+void CObjPlayer2::ExcStart()
+{
+	m_bGravity = false;
+	m_fGravityDeltaSum = 0;
+	m_bJump = false;
+	m_fJumpDeltaSum = 0;
 }
 
 void CObjPlayer2::GrabHookResize()

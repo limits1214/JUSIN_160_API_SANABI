@@ -8,7 +8,7 @@
 #include "CObjBossFireBirdBomber.h"
 #include "CObjBossFirebirdBody.h"
 #include "CKeyMgr.h"
-#include "CObjPlayer.h"
+#include "CObjPlayer2.h"
 #include "CObjBossBodySlapAlert.h"
 #include "CObjBossBullet.h"
 #include "CObjClusterBombExplode.h"
@@ -236,7 +236,7 @@ void CObjBossFireBird::Test_Key_Input()
 	{
 		for (auto*& pObj: *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 		{
-			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 			if (pPlayer != nullptr)
 			{
 				float playerY = pPlayer->Get_Info()->fY;
@@ -303,7 +303,7 @@ void CObjBossFireBird::State_Update()
 	{
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 		{
-			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 			if (pPlayer != nullptr)
 			{
 				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
@@ -393,7 +393,7 @@ void CObjBossFireBird::State_Update()
 	{
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 		{
-			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 			if (pPlayer != nullptr)
 			{
 				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
@@ -467,7 +467,7 @@ void CObjBossFireBird::State_Update()
 	{
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 		{
-			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 			if (pPlayer != nullptr)
 			{
 				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
@@ -537,7 +537,7 @@ void CObjBossFireBird::State_Update()
 			[&]() {
 				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 				{
-					CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+					CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 					if (pPlayer != nullptr)
 					{
 						m_fBodySlapPlayerX = pPlayer->Get_Info()->fX;
@@ -564,7 +564,7 @@ void CObjBossFireBird::State_Update()
 			[&]() {
 				for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 				{
-					CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+					CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 					if (pPlayer != nullptr)
 					{
 						CObjBossBodySlap* pBossBodySlap = new CObjBossBodySlap;
@@ -684,7 +684,7 @@ void CObjBossFireBird::State_Update()
 
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
 		{
-			CObjPlayer* pPlayer = dynamic_cast<CObjPlayer*>(pObj);
+			CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
 			if (pPlayer != nullptr)
 			{
 				DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();

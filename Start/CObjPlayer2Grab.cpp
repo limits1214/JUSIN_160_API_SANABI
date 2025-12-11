@@ -8,6 +8,8 @@
 #include "CObjMgr.h"
 #include "CObjPlayer2GrabSprite.h"
 
+#include "CObjMonsterFloatingBomb.h"
+
 CObjPlayer2Grab::CObjPlayer2Grab()
 {
 	Set_DbgName(_T("CObjPlayer2GrabSprite"));
@@ -28,6 +30,8 @@ void CObjPlayer2Grab::Initialize()
 	m_bUseMainScroll = true;
 	m_bCeiling = false;
 	m_GrabSend = false;
+
+	m_bMonsterExcSend = false;
 
 
 	CObjPlayer2GrabSprite* pSprite = new CObjPlayer2GrabSprite;
@@ -130,6 +134,24 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			{
 				m_GrabSend = true;
 				pPlayer->Grab(this);
+			}
+		}
+	}
+
+	CObjMonsterFloatingBomb* pFltBomb = dynamic_cast<CObjMonsterFloatingBomb*>(pObj);
+	//COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
+	if (eCollID == COLL_RECT && pFltBomb != nullptr)
+	{
+		m_fSpeed = 0.f;
+		m_tInfo.fX = pFltBomb->Get_Info()->fX;
+		m_tInfo.fY = pFltBomb->Get_Info()->fY;
+		if (!m_bMonsterExcSend)
+		{
+			auto pPlayer = dynamic_cast<CObjPlayer2*>(m_pTarget);
+			if (pPlayer != nullptr)
+			{
+				m_bMonsterExcSend = true;
+				pPlayer->ExcGrab(this, pFltBomb);
 			}
 		}
 	}

@@ -32,6 +32,7 @@ public:
 
 public:
 	void Grab(CObjPlayer2Grab* pObj);
+	void ExcGrab(CObjPlayer2Grab* pObj, CObj* pTarget);
 
 private:
 	void DeltaUpdate();
@@ -46,6 +47,9 @@ private:
 	void Offset();
 
 	void GrabLoad();
+	void ExcGrabLoad();
+
+	void ExcStart();
 
 	void GrabHookResize();
 private:
@@ -74,6 +78,7 @@ private:
 
 
 	bool m_bExc;
+	bool m_bExcGrabLoad;
 
 	bool m_bCeilStick;
 	INFO m_tCeilStickCollisionRectInfo;
@@ -81,9 +86,7 @@ private:
 	DIRECTION m_eLastLRDir;
 	
 
-	bool m_bGrabShoot;
 	bool m_bGrabbing;
-	bool m_bGrabRelease;
 	bool m_bGrabLoad;
 	bool m_bGrabHookResize;
 	float m_fGrabHookResizeTargetX;

@@ -70,6 +70,8 @@ private:
 
 	int m_iCollisionOption;
 
+	bool m_bMonsterExcSend;
+
 
 	DIRECTION m_eGrabDir;
 };

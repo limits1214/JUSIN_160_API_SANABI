@@ -35,7 +35,7 @@ void CSceneTileEdit::Initialize()
 	
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTOMAP.bmp", STR_FKI_TUTOMAP);
 
-	int cx = 8000;
+	int cx = 4800;
 	int cy = 3600;
 	CObjSprite* pTutoMap = new CObjSprite;
 	pTutoMap->Initialize();

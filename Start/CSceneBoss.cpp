@@ -9,7 +9,7 @@
 #include "CObjUnstableKnockbackPlatformA.h"
 #include "CObjBgBossBuilding.h"
 #include "CObjBgBossCloud.h"
-#include "CObjPlayer.h"
+#include "CObjPlayer2.h"
 #include "CCollisionMgr.h"
 #include "CObjBossClusterAim.h"
 #include "CObjBossShootExplode.h"
@@ -70,6 +70,13 @@ void CSceneBoss::Initialize()
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_BodySlapLoop.bmp", STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_BodySlapAlert_sheet.bmp", STR_FKI_Spr_BOSS_BodySlapAlert_sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BackHeliMove_Loop.bmp", STR_FKI_Spr_BackHeliMove_Loop);
+
+
+
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_NEW_Sheet.bmp", STR_FKI_Spr_SNB_SHEET_NEW);
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_GRAB_SHEET.bmp", STR_FKI_Spr_SNB_GRAB_SHEET);
+
+
 
    // CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/PLG.bmp", _T("PLG"));
     //CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/RESET.bmp", _T("RESET"));
@@ -213,7 +220,7 @@ void CSceneBoss::Initialize()
     }
 
 
-    CObjPlayer* pPlayer = new CObjPlayer;
+    CObjPlayer2* pPlayer = new CObjPlayer2;
     pPlayer->Initialize();
     pPlayer->Set_Pos((WINCX >> 1) , (WINCY >> 1) - 100);
     CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
@@ -260,6 +267,9 @@ void CSceneBoss::Late_Update()
    
     // TODO OBJ_BOSS만들어서 대체
     CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
+
+    CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
+
 
     CObjMgr::Get_Instance()->Late_Update();
 }
