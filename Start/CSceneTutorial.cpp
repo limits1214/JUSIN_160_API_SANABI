@@ -89,12 +89,12 @@ void CSceneTutorial::Initialize()
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoMap);
 
 
-	//CObjTutoAni* pTutoAni = new CObjTutoAni;
-	//pTutoAni->Set_Option(1);
-	//pTutoAni->Initialize();
-	//pTutoAni->Set_Pos(WINCX >> 1, WINCY >> 1);
-	//pTutoAni->Set_UseMainScroll(true);
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
+	CObjTutoAni* pTutoAni = new CObjTutoAni;
+	pTutoAni->Set_Option(1);
+	pTutoAni->Initialize();
+	pTutoAni->Set_Pos(WINCX + 120, (WINCY >> 1) - 50);
+	pTutoAni->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoAni);
 
 
 	// 
