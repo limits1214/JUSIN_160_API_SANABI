@@ -1,7 +1,7 @@
 #pragma once
 #include "CObj.h"
 #include "CObjDbgText.h"
-class CUIObjText: public CObj, public CObjDbgText
+class CUIObjText: public CObj/*, public CObjDbgText*/
 {
 public:
 	CUIObjText();
@@ -36,7 +36,7 @@ public:
 	void Release() override;
 
 public:
-	TCHAR* Dbg_Text() override;
+	//TCHAR* Dbg_Text() override;
 
 private:
 	TCHAR* m_pText;

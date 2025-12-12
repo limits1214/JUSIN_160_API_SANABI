@@ -174,7 +174,7 @@ protected:
 	RENDER_ORDERID m_eRdo;
 	RENDER_ORDERID m_eRdo2;
 
-	TCHAR m_szDbgName[256];
+	TCHAR m_szDbgName[512];
 
 	bool m_bUseMainScroll;
 

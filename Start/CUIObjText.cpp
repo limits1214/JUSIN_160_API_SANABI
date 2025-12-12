@@ -103,19 +103,19 @@ void CUIObjText::Render(HDC hDC)
 
 void CUIObjText::Release()
 {
-	Safe_Delete(m_pText);
+	Safe_DeleteArr(m_pText);
 }
 
-TCHAR* CUIObjText::Dbg_Text()
-{
-	TCHAR szText[256]{};
-	
-	const INFO* info = this->Get_Info();
-
-	swprintf_s(szText, _T("INFO\nfX: %f\nfY: %f\nfCX: %f\nfCY: %f\n\n"), info->fX, info->fY, info->fCX, info->fCY);
-
-	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
-	lstrcpy(pText, szText);
-
-	return pText;
-}
+//TCHAR* CUIObjText::Dbg_Text()
+//{
+//	TCHAR szText[256]{};
+//	
+//	const INFO* info = this->Get_Info();
+//
+//	swprintf_s(szText, _T("INFO\nfX: %f\nfY: %f\nfCX: %f\nfCY: %f\n\n"), info->fX, info->fY, info->fCX, info->fCY);
+//
+//	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
+//	lstrcpy(pText, szText);
+//
+//	return pText;
+//}

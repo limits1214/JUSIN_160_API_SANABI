@@ -29,6 +29,7 @@ CSceneBoss::CSceneBoss()
 
 CSceneBoss::~CSceneBoss()
 {
+    Release();
 }
 
 void CSceneBoss::Initialize()

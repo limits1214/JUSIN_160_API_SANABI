@@ -35,6 +35,16 @@ void Safe_Delete(T& p)
 	}
 }
 
+template<typename T>
+void Safe_DeleteArr(T& p)
+{
+	if (p)
+	{
+		delete[] p;
+		p = nullptr;
+	}
+}
+
 typedef struct tagInfo
 {
 	float fX, fY;

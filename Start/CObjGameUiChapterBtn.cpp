@@ -92,12 +92,12 @@ void CObjGameUiChapterBtn::On_Mouse_Key_Down(CObj* pObj)
             if (m_iOption == 0)
             {
                 //CSceneMgr::Get_Instance()->Scene_Change(SC_LAB);
-                //CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
-                CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
+                CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
+                //CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
             }
             else if (m_iOption == 1)
             {
-                CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
+                CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
             }
             else if (m_iOption == 2)
             {
