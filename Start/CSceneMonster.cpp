@@ -11,6 +11,9 @@
 #include "CObjMonsterDummyRobot.h"
 #include "CObjMonsterDefender.h"
 #include "CObjMonsterWarrior.h"
+#include "CObjMonsterTrooper.h"
+#include "CObjMonsterSurveyDrone.h"
+#include "CObjMonsterDaughter.h"
 
 
 
@@ -36,6 +39,9 @@ void CSceneMonster::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_DummyRobot-Sheet.bmp", STR_FKI_Spr_MONSTER_DUMMYROBOT_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_Defender-Sheet.bmp", STR_FKI_Spr_MONSTER_DEFENDER_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_WARRIOR-Sheet.bmp", STR_FKI_Spr_MONSTER_WARRIOR_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_Trooper-Sheet.bmp", STR_FKI_Spr_MONSTER_TROOPER_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_SurveyorDrone-Sheet.bmp", STR_FKI_Spr_MONSTER_SURVEYDRONE_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/DAUGHTER-Sheet.bmp", STR_FKI_Spr_MONSTER_DAUGHTER_SHEET);
 
 
 	CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
@@ -65,6 +71,21 @@ void CSceneMonster::Initialize()
 	pWarrior->Set_Pos((WINCX >> 1) + 400, WINCY >> 1);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior);
 
+	CObjMonsterTrooper* pTrooper = new CObjMonsterTrooper;
+	pTrooper->Initialize();
+	pTrooper->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + - 100);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
+
+	CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
+	pSurveyDrone->Initialize();
+	pSurveyDrone->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) + -100);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
+
+
+	CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
+	pDaughter->Initialize();
+	pDaughter->Set_Pos((WINCX >> 1) -100, (WINCY >> 1) + 0);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDaughter);
 
 	CEditMgr::Get_Instance()->Load_File(FNI_MONSTER, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))

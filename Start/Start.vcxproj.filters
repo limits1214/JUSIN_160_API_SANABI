@@ -378,6 +378,24 @@
     <ClInclude Include="CObjMonsterWarriorSprite.h">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClInclude>
+    <ClInclude Include="CObjMonsterTrooper.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterTrooperSprite.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterSurveyDrone.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterSurveyDroneSprite.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterDaughterSprite.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMonsterDaughter.h">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -672,6 +690,24 @@
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClCompile>
     <ClCompile Include="CObjMonsterWarrior.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterTrooper.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterTrooperSprite.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterSurveyDrone.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterSurveyDroneSprite.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterDaughterSprite.cpp">
+      <Filter>소스 파일\OBJ\MONSTER</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterDaughter.cpp">
       <Filter>소스 파일\OBJ\MONSTER</Filter>
     </ClCompile>
   </ItemGroup>
