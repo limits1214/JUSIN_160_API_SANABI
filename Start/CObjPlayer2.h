@@ -3,6 +3,7 @@
 #include "CCollisionEvent.h"
 #include "CMouseEvent.h"
 #include "CObjPlayer2Grab.h"
+#include "CObjMonster.h"
 
 class CObjPlayer2 :
     public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent
@@ -32,7 +33,7 @@ public:
 
 public:
 	void Grab(CObjPlayer2Grab* pObj);
-	void ExcGrab(CObjPlayer2Grab* pObj, CObj* pTarget);
+	void ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget);
 
 private:
 	void DeltaUpdate();

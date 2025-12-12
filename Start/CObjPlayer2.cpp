@@ -14,6 +14,7 @@
 #include "CKeyMgr2.h"
 #include "CObjMonsterFloatingBomb.h"
 #include "CSoundMgr.h"
+#include "CObjMonster.h"
 
 CObjPlayer2::CObjPlayer2()
 {
@@ -664,7 +665,7 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 
 
 
-				auto pltBomb = dynamic_cast<CObjMonsterFloatingBomb*>(m_pTarget);
+				auto pltBomb = dynamic_cast<CObjMonster*>(m_pTarget);
 				if (pltBomb != nullptr)
 				{
 
@@ -1384,7 +1385,7 @@ void CObjPlayer2::Grab(CObjPlayer2Grab* pObj)
 	}
 }
 
-void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObj* pTarget)
+void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget)
 {
 	
 	if (m_pGrab != nullptr)

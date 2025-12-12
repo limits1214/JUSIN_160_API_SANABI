@@ -9,6 +9,7 @@
 #include "CSceneLab.h"
 #include "CSceneBoss.h"
 #include "CSceneLap2.h"
+#include "CSceneMonster.h"
 
 
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
@@ -60,6 +61,12 @@ void CSceneMgr::Scene_Change(SCENEID eID)
 		case SC_BOSS:
 			m_pScene = new CSceneBoss;
 			break;
+		case SC_MONSTER:
+			m_pScene = new CSceneMonster;
+			break;
+
+		default:
+			m_pScene = new CSceneMenu;
 		}
 
 

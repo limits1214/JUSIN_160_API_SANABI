@@ -2,8 +2,9 @@
 #include "CObj.h"
 #include "CMouseEvent.h"
 #include "CCollisionEvent.h"
+#include "CObjMonster.h"
 class CObjMonsterFloatingBomb :
-    public CObj, public CMouseKeyEvent, public CCollisionEvent
+    public CObjMonster, public CMouseKeyEvent, public CCollisionEvent
 {
 public:
 	CObjMonsterFloatingBomb();
@@ -26,7 +27,7 @@ public:
 	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
 
 public:
-	void Excuted(CObj* pPlayer, float fRad);
+	void Excuted(CObj* pPlayer, float fRad) override;
 
 	void Explode();
 

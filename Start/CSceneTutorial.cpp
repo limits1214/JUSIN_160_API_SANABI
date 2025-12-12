@@ -155,5 +155,5 @@ void CSceneTutorial::Render(HDC hDC)
 
 void CSceneTutorial::Release()
 {
-	//CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 }

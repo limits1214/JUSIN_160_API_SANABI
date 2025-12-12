@@ -8,7 +8,7 @@
 #include "CObjMgr.h"
 #include "CObjPlayer2GrabSprite.h"
 
-#include "CObjMonsterFloatingBomb.h"
+#include "CObjMonster.h"
 
 CObjPlayer2Grab::CObjPlayer2Grab()
 {
@@ -138,20 +138,20 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		}
 	}
 
-	CObjMonsterFloatingBomb* pFltBomb = dynamic_cast<CObjMonsterFloatingBomb*>(pObj);
+	CObjMonster* pMonster = dynamic_cast<CObjMonster*>(pObj);
 	//COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
-	if (eCollID == COLL_RECT && pFltBomb != nullptr)
+	if (eCollID == COLL_RECT && pMonster != nullptr)
 	{
 		m_fSpeed = 0.f;
-		m_tInfo.fX = pFltBomb->Get_Info()->fX;
-		m_tInfo.fY = pFltBomb->Get_Info()->fY;
+		m_tInfo.fX = pMonster->Get_Info()->fX;
+		m_tInfo.fY = pMonster->Get_Info()->fY;
 		if (!m_bMonsterExcSend)
 		{
 			auto pPlayer = dynamic_cast<CObjPlayer2*>(m_pTarget);
 			if (pPlayer != nullptr)
 			{
 				m_bMonsterExcSend = true;
-				pPlayer->ExcGrab(this, pFltBomb);
+				pPlayer->ExcGrab(this, pMonster);
 			}
 		}
 	}

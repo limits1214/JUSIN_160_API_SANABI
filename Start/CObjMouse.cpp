@@ -92,19 +92,19 @@ void CObjMouse::Release()
 {
 }
 
-TCHAR* CObjMouse::Dbg_Text()
-{
-	TCHAR szText[256];
-
-	const INFO* info = this->Get_Info();
-
-	swprintf_s(szText, _T("INFO\nfX: %f\nfY: %f\nfCX: %f\nfCY: %f\n\n"), info->fX, info->fY, info->fCX, info->fCY);
-
-	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
-	lstrcpy(pText, szText);
-
-	return pText;
-}
+//TCHAR* CObjMouse::Dbg_Text()
+//{
+//	TCHAR szText[256];
+//
+//	const INFO* info = this->Get_Info();
+//
+//	swprintf_s(szText, _T("INFO\nfX: %f\nfY: %f\nfCX: %f\nfCY: %f\n\n"), info->fX, info->fY, info->fCX, info->fCY);
+//
+//	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
+//	lstrcpy(pText, szText);
+//
+//	return pText;
+//}
 
 
 template<typename T, typename F>

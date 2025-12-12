@@ -35,16 +35,16 @@ void CSceneTileEdit::Initialize()
 	
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTOMAP.bmp", STR_FKI_TUTOMAP);
 
-	int cx = 4800;
-	int cy = 3600;
-	CObjSprite* pTutoMap = new CObjSprite;
-	pTutoMap->Initialize();
-	pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
-	pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
-	pTutoMap->Set_CX(cx);
-	pTutoMap->Set_CY(cy);
-	pTutoMap->Set_UseMainScroll(true);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
+	//int cx = 4800;
+	//int cy = 3600;
+	//CObjSprite* pTutoMap = new CObjSprite;
+	//pTutoMap->Initialize();
+	//pTutoMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
+	//pTutoMap->Set_FrameKeyId(FKI_TUTOMAP);
+	//pTutoMap->Set_CX(cx);
+	//pTutoMap->Set_CY(cy);
+	//pTutoMap->Set_UseMainScroll(true);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();

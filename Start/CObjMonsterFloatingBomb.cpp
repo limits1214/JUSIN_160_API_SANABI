@@ -34,6 +34,8 @@ void CObjMonsterFloatingBomb::Initialize()
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPltSprite);
 
 	m_bExecuted = false;
+
+	m_bAirMonster = true;
 }
 
 int CObjMonsterFloatingBomb::Update()

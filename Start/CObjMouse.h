@@ -3,7 +3,7 @@
 #include "CObj.h"
 #include "CObjDbgText.h"
 
-class CObjMouse: public CObj, public CObjDbgText
+class CObjMouse: public CObj
 {
 public:
 	CObjMouse();
@@ -41,8 +41,8 @@ public:
 	void Render(HDC hDC) override;
 	void Release() override;
 
-public:
-	TCHAR* Dbg_Text() override;
+//public:
+//	TCHAR* Dbg_Text() override;
 
 private:
 

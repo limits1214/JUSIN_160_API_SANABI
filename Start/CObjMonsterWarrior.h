@@ -1,0 +1,110 @@
+#pragma once
+#include "CObjMonster.h"
+#include "CCollisionEvent.h"
+class CObjMonsterWarrior :
+    public CObjMonster, public CCollisionEvent
+{
+public:
+	CObjMonsterWarrior();
+	virtual ~CObjMonsterWarrior();
+
+public:
+	void Initialize() override;
+	int Update() override;
+	void Late_Update() override;
+	void Render(HDC hDC) override;
+	void Release() override;
+
+public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
+
+public:
+	void Excuted(CObj* pPlayer, float fRad) override;
+
+private:
+	void Motion_Change();
+
+private:
+	FRAME_STATE_ID m_ePreState;
+	FRAME_STATE_ID m_eCurState;
+
+private:
+	bool m_bExecuted;
+	float m_fExcutedRad;
+
+public:
+	enum ANI_STATE
+	{
+		AST_RIGHT_SPAWN_START,
+		AST_RIGHT_SPAWN_ING,
+		AST_RIGHT_SPAWN_END,
+
+
+		AST_LEFT_SPAWN_START,
+		AST_LEFT_SPAWN_ING,
+		AST_LEFT_SPAWN_END,
+
+		AST_RIGHT_IDLE_START,
+		AST_RIGHT_IDLE_ING,
+		AST_RIGHT_IDLE_END,
+
+		AST_LEFT_IDLE_START,
+		AST_LEFT_IDLE_ING,
+		AST_LEFT_IDLE_END,
+
+		AST_RIGHT_DEAD_START,
+		AST_RIGHT_DEAD_ING,
+		AST_RIGHT_DEAD_END,
+
+		AST_LEFT_DEAD_START,
+		AST_LEFT_DEAD_ING,
+		AST_LEFT_DEAD_END,
+
+		AST_RIGHT_EXCHOLDSTART_START,
+		AST_RIGHT_EXCHOLDSTART_ING,
+		AST_RIGHT_EXCHOLDSTART_END,
+
+
+		AST_LEFT_EXCHOLDSTART_START,
+		AST_LEFT_EXCHOLDSTART_ING,
+		AST_LEFT_EXCHOLDSTART_END,
+
+		AST_RIGHT_EXCHOLDBACK_START,
+		AST_RIGHT_EXCHOLDBACK_ING,
+		AST_RIGHT_EXCHOLDBACK_END,
+
+
+		AST_LEFT_EXCHOLDBACK_START,
+		AST_LEFT_EXCHOLDBACK_ING,
+		AST_LEFT_EXCHOLDBACK_END,
+
+		AST_RIGHT_COMASTART_START,
+		AST_RIGHT_COMASTART_ING,
+		AST_RIGHT_COMASTART_END,
+
+		AST_LEFT_COMASTART_START,
+		AST_LEFT_COMASTART_ING,
+		AST_LEFT_COMASTART_END,
+
+		AST_RIGHT_COMALOOP_START,
+		AST_RIGHT_COMALOOP_ING,
+		AST_RIGHT_COMALOOP_END,
+
+		AST_LEFT_COMALOOP_START,
+		AST_LEFT_COMALOOP_ING,
+		AST_LEFT_COMALOOP_END,
+
+		AST_RIGHT_COMAEND_START,
+		AST_RIGHT_COMAEND_ING,
+		AST_RIGHT_COMAEND_END,
+
+		AST_LEFT_COMAEND_START,
+		AST_LEFT_COMAEND_ING,
+		AST_LEFT_COMAEND_END,
+		
+		
+		
+	};
+	ANI_STATE m_eAniState;
+};
+
