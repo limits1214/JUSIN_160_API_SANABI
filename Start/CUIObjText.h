@@ -12,7 +12,7 @@ public:
 	{
 		if (m_pText != nullptr)
 		{
-			Safe_Delete(m_pText);
+			Safe_DeleteArr(m_pText);
 		}
 		auto len = lstrlen(pText);
 		m_pText = new TCHAR[len+1];

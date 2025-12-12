@@ -1465,21 +1465,21 @@ void CObjPlayer::On_Mouse_Key_Pressing(CObj* pMouse)
 {
 }
 
-TCHAR* CObjPlayer::Dbg_Text()
-{
-	TCHAR szText[256]{};
-
-	const INFO* info = this->Get_Info();
-
-	
-
-	swprintf_s(szText, _T("m_fPendCurr: %f"), m_fPendCurr);
-
-	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
-	lstrcpy(pText, szText);
-	
-	return pText;
-}
+//TCHAR* CObjPlayer::Dbg_Text()
+//{
+//	TCHAR szText[256]{};
+//
+//	const INFO* info = this->Get_Info();
+//
+//	
+//
+//	swprintf_s(szText, _T("m_fPendCurr: %f"), m_fPendCurr);
+//
+//	TCHAR* pText = new TCHAR[lstrlen(szText) + 1];
+//	lstrcpy(pText, szText);
+//	
+//	return pText;
+//}
 
 void CObjPlayer::ParabolaNoGravityEquation(float fVZero, float fAngle, float fDeltaSum, float* fDstX, float* fDstY)
 {

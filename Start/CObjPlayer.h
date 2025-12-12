@@ -6,7 +6,7 @@
 
 #include "CObjDbgText.h"
 
-class CObjPlayer: public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent, public CObjDbgText
+class CObjPlayer: public CObj, public CCollisionEvent, public CMousePosEvent, public CMouseKeyEvent
 {
 public:
 	CObjPlayer();
@@ -41,7 +41,7 @@ public:
 	void On_Mouse_Key_Pressing(CObj* pMouse) override;
 
 public:
-	TCHAR* Dbg_Text() override;
+	//TCHAR* Dbg_Text() override;
 
 public:
 	void MonsterExcStart(CObj* pMonster);
