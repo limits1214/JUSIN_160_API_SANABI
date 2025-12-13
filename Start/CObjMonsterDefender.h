@@ -21,8 +21,11 @@ public:
 public:
 	void Excuted(CObj* pPlayer, float fRad) override;
 	void Grabbed(CObj* pPlayer) override;
+
 private:
-	void Motion_Change();
+	void DeltaUpdate();
+	void Apply_Gravity();
+	void Move(float fAngle, float fLength);
 
 private:
 	FRAME_STATE_ID m_ePreState;
@@ -31,6 +34,22 @@ private:
 private:
 	bool m_bExecuted;
 	float m_fExcutedRad;
+	bool m_bGrabbed;
+
+private:
+	DWORD m_dwTime;
+
+	bool m_bGravity;
+	float m_fGravityDeltaSum;
+
+	DWORD m_dwShootInterval;
+	DWORD m_dwFireRateInterval;
+
+	bool m_bFire;
+	int m_iFireCnt;
+
+	bool m_bPlayerFound;
+	DIRECTION m_eMoveDir;
 
 public:
 	enum ANI_STATE

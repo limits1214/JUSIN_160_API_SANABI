@@ -49,48 +49,53 @@ void CSceneMonster::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Snb_Obj_Bullet_boom.bmp", STR_FKI_Spr_BULLET_BOOM_SHEET);
 
 
-	CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
-	pMobDummyFloater->Initialize();
-	pMobDummyFloater->Set_Pos(WINCX >> 1, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DefenderBulletPLG.bmp", _T("DefenderBulletPLG"));
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DefenderBulletRESET.bmp", _T("DefenderBulletRESET"));
 
-	CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
-	pFloatingBomb->Initialize();
-	pFloatingBomb->Set_Pos((WINCX >> 1) + 100, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE_DefenderBullet.bmp", STR_FKI_Spr_DEFENDER_BULLET_SHEET);
 
-	CObjMonsterDummyRobot* pDummyRobot = new CObjMonsterDummyRobot;
-	pDummyRobot->Initialize();
-	pDummyRobot->Set_Pos((WINCX >> 1) + 200, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDummyRobot);
+	//CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
+	//pMobDummyFloater->Initialize();
+	//pMobDummyFloater->Set_Pos(WINCX >> 1, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater);
+
+	//CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
+	//pFloatingBomb->Initialize();
+	//pFloatingBomb->Set_Pos((WINCX >> 1) + 100, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
+
+	//CObjMonsterDummyRobot* pDummyRobot = new CObjMonsterDummyRobot;
+	//pDummyRobot->Initialize();
+	//pDummyRobot->Set_Pos((WINCX >> 1) + 200, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDummyRobot);
 
 
 	//
 	CObjMonsterDefender* pDefender = new CObjMonsterDefender;
 	pDefender->Initialize();
-	pDefender->Set_Pos((WINCX >> 1) + 300, WINCY >> 1);
+	pDefender->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender);
 
-	CObjMonsterWarrior* pWarrior = new CObjMonsterWarrior;
-	pWarrior->Initialize();
-	pWarrior->Set_Pos((WINCX >> 1) + 400, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior);
+	//CObjMonsterWarrior* pWarrior = new CObjMonsterWarrior;
+	//pWarrior->Initialize();
+	//pWarrior->Set_Pos((WINCX >> 1) + 400, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior);
 
-	CObjMonsterTrooper* pTrooper = new CObjMonsterTrooper;
-	pTrooper->Initialize();
-	pTrooper->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + - 100);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
+	//CObjMonsterTrooper* pTrooper = new CObjMonsterTrooper;
+	//pTrooper->Initialize();
+	//pTrooper->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + - 100);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
 
-	CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
-	pSurveyDrone->Initialize();
-	pSurveyDrone->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) + -100);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
+	//CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
+	//pSurveyDrone->Initialize();
+	//pSurveyDrone->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) + -100);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
 
 
-	CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
-	pDaughter->Initialize();
-	pDaughter->Set_Pos((WINCX >> 1) -100, (WINCY >> 1) + 0);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDaughter);
+	//CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
+	//pDaughter->Initialize();
+	//pDaughter->Set_Pos((WINCX >> 1) -100, (WINCY >> 1) + 0);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDaughter);
 
 	CEditMgr::Get_Instance()->Load_File(FNI_MONSTER, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))

@@ -73,6 +73,7 @@ void CObjMonsterBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 	CObjCollisionRect* pRect = dynamic_cast<CObjCollisionRect*>(pObj);
 	if (eCollID == COLL_RECT && pRect != nullptr)
 	{
+		CTimeMgr::Get_Instance()->Clear_Timer(m_iDeadTimer);
 		Set_Dead_Cascade();
 		CObjMonsterBulletBoomSprite* pBoom = new CObjMonsterBulletBoomSprite;
 		pBoom->Initialize();

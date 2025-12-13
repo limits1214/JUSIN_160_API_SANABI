@@ -89,6 +89,11 @@ int CObjMonsterDefenderSprite::Update()
 			case CObjMonsterDefender::AST_RIGHT_DEAD_ING:
 			{
 				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterDefender::AST_RIGHT_DEAD_END;
+				}
 
 			}
 			break;
@@ -240,6 +245,11 @@ int CObjMonsterDefenderSprite::Update()
 			case CObjMonsterDefender::AST_LEFT_DEAD_ING:
 			{
 				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterDefender::AST_LEFT_DEAD_END;
+				}
 			}
 			break;
 			case CObjMonsterDefender::AST_LEFT_DEAD_END:
