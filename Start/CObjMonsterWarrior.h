@@ -28,9 +28,25 @@ private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
 
+
+private:
+	void DeltaUpdate();
+
 private:
 	bool m_bExecuted;
 	float m_fExcutedRad;
+	bool m_bGrabbed;
+
+private:
+	DWORD m_dwTime;
+	float m_fLemnisDeltaSum;
+
+	bool m_bOriginSet;
+	float m_fOriginX;
+	float m_fOriginY;
+
+	bool m_bTracing;
+	bool m_bHovering;
 
 public:
 	enum ANI_STATE

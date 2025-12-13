@@ -21,6 +21,7 @@ public:
 public:
 	void Excuted(CObj* pPlayer, float fRad) override;
 	void Grabbed(CObj* pPlayer) override;
+
 private:
 	void DeltaUpdate();
 
@@ -31,6 +32,7 @@ private:
 private:
 	bool m_bExecuted;
 	float m_fExcutedRad;
+	bool m_bGrabbed;
 
 private:
 	DWORD m_dwTime;
@@ -43,7 +45,7 @@ private:
 	bool m_bTracing;
 	bool m_bHovering;
 	DWORD m_dwPhotoTime;
-	bool m_bGrabbed;
+	
 
 
 public:

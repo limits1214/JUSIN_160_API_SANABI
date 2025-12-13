@@ -21,6 +21,10 @@ public:
 public:
 	void Excuted(CObj* pPlayer, float fRad) override;
 	void Grabbed(CObj* pPlayer) override;
+
+private:
+	void DeltaUpdate();
+
 private:
 	void Motion_Change();
 
@@ -31,6 +35,15 @@ private:
 private:
 	bool m_bExecuted;
 	float m_fExcutedRad;
+	bool m_bGrabbed;
+
+private:
+	DWORD m_dwTime;
+	float m_fLemnisDeltaSum;
+
+	bool m_bOriginSet;
+	float m_fOriginX;
+	float m_fOriginY;
 
 public:
 	enum ANI_STATE

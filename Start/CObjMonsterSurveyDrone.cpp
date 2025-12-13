@@ -51,6 +51,19 @@ int CObjMonsterSurveyDrone::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
+
+	if (m_eAniState == AST_RIGHT_RESPAWN_START
+		|| m_eAniState == AST_RIGHT_RESPAWN_ING
+		|| m_eAniState == AST_RIGHT_RESPAWN_END
+		||
+		m_eAniState == AST_LEFT_RESPAWN_START
+		|| m_eAniState == AST_LEFT_RESPAWN_ING
+		|| m_eAniState == AST_LEFT_RESPAWN_END
+		)
+	{
+		return OBJ_NOEVENT;
+	}
+
 	if (!m_bOriginSet)
 	{
 		m_bOriginSet = true;
@@ -122,16 +135,6 @@ int CObjMonsterSurveyDrone::Update()
 				m_bTracing = false;
 				m_bHovering = true;
 			}
-		}
-
-		if ( m_fOriginY > playerY - 30)
-		{
-			//traceY -= 1.f;
-		}
-
-		if (m_fOriginY > playerY + 30)
-		{
-			//traceY += 1.f;
 		}
 
 		
@@ -216,13 +219,11 @@ int CObjMonsterSurveyDrone::Update()
 	float lemnisX = 0;
 	float lemnisY = 0;
 
-		float a = 10;
-		float t = m_fLemnisDeltaSum;
-		lemnisX = a * cosf(t) / (1.0f + sinf(t) * sinf(t));
-		lemnisY = a * sinf(t) * cosf(t) / (1.0f + sinf(t) * sinf(t));
-		if (m_bHovering)
-		{
-		}
+	float a = 20;
+	float t = m_fLemnisDeltaSum;
+	lemnisX = a * cosf(t) / (1.0f + sinf(t) * sinf(t));
+	lemnisY = a * sinf(t) * cosf(t) / (1.0f + sinf(t) * sinf(t));
+
 
 	m_fOriginX += traceX;
 	m_fOriginY += traceY;

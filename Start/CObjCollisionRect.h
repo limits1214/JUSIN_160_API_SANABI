@@ -1,6 +1,7 @@
 #pragma once
 #include "CObjRect.h"
-class CObjCollisionRect: public CObjRect
+#include "CCollisionEvent.h"
+class CObjCollisionRect: public CObjRect, public CCollisionEvent
 {
 public:
 	CObjCollisionRect();
@@ -9,6 +10,10 @@ public:
 public:
 	int Get_Option() { return m_iOption; }
 	void Set_Option(int iOption) { m_iOption = iOption; }
+
+public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
+
 
 public:
 	void Initialize() override;

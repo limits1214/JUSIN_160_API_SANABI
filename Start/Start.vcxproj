@@ -230,6 +230,9 @@
     <ClInclude Include="CObjGrab.h" />
     <ClInclude Include="CObjHookGuide.h" />
     <ClInclude Include="CObjMonster.h" />
+    <ClInclude Include="CObjMonsterBullet.h" />
+    <ClInclude Include="CObjMonsterBulletBoomSprite.h" />
+    <ClInclude Include="CObjMonsterBulletSprite.h" />
     <ClInclude Include="CObjMonsterDaughter.h" />
     <ClInclude Include="CObjMonsterDaughterSprite.h" />
     <ClInclude Include="CObjMonsterDefender.h" />
@@ -346,6 +349,9 @@
     <ClCompile Include="CObjGrab.cpp" />
     <ClCompile Include="CObjHookGuide.cpp" />
     <ClCompile Include="CObjMonster.cpp" />
+    <ClCompile Include="CObjMonsterBullet.cpp" />
+    <ClCompile Include="CObjMonsterBulletBoomSprite.cpp" />
+    <ClCompile Include="CObjMonsterBulletSprite.cpp" />
     <ClCompile Include="CObjMonsterDaughter.cpp" />
     <ClCompile Include="CObjMonsterDaughterSprite.cpp" />
     <ClCompile Include="CObjMonsterDefender.cpp" />

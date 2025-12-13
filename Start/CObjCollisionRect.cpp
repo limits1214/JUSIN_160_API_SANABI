@@ -11,6 +11,10 @@ CObjCollisionRect::~CObjCollisionRect()
 	Release();
 }
 
+void CObjCollisionRect::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+}
+
 void CObjCollisionRect::Initialize()
 {
 	CObjRect::Initialize();

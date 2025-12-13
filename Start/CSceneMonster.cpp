@@ -43,6 +43,10 @@ void CSceneMonster::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_SurveyorDrone-Sheet.bmp", STR_FKI_Spr_MONSTER_SURVEYDRONE_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/DAUGHTER-Sheet.bmp", STR_FKI_Spr_MONSTER_DAUGHTER_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/VFX_EXPLOSION-Sheet.bmp", STR_FKI_Spr_EXPLOSION_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Sprsht_Bullet-sheet.bmp", STR_FKI_Spr_MONSTER_BULLET_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BulletPLG.bmp", _T("BulletPLG"));
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BulletRESET.bmp", _T("BulletRESET"));
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Snb_Obj_Bullet_boom.bmp", STR_FKI_Spr_BULLET_BOOM_SHEET);
 
 
 	CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
@@ -124,6 +128,11 @@ void CSceneMonster::Late_Update()
 {
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
+
+	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
+
+	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
+
 
 	CObjMgr::Get_Instance()->Late_Update();
 }

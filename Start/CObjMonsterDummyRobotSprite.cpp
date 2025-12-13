@@ -102,7 +102,7 @@ int CObjMonsterDummyRobotSprite::Update()
 
 			case CObjMonsterDummyRobot::AST_LEFT_RUNNING_START:
 			{
-				m_eCurState = FSI_MONSTER_DUMMYROBOT_LEFT_IDLE;
+				m_eCurState = FSI_MONSTER_DUMMYROBOT_LEFT_RUNNING;
 				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 				parent->m_eAniState = CObjMonsterDummyRobot::AST_LEFT_RUNNING_ING;
 			}
@@ -121,7 +121,7 @@ int CObjMonsterDummyRobotSprite::Update()
 
 			case CObjMonsterDummyRobot::AST_RIGHT_RUNNING_START:
 			{
-				m_eCurState = FSI_MONSTER_DUMMYROBOT_RIGHT_IDLE;
+				m_eCurState = FSI_MONSTER_DUMMYROBOT_RIGHT_RUNNING;
 				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
 				parent->m_eAniState = CObjMonsterDummyRobot::AST_RIGHT_RUNNING_ING;
 			}
