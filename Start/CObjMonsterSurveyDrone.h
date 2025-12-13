@@ -20,9 +20,9 @@ public:
 
 public:
 	void Excuted(CObj* pPlayer, float fRad) override;
-
+	void Grabbed(CObj* pPlayer) override;
 private:
-	void Motion_Change();
+	void DeltaUpdate();
 
 private:
 	FRAME_STATE_ID m_ePreState;
@@ -31,6 +31,20 @@ private:
 private:
 	bool m_bExecuted;
 	float m_fExcutedRad;
+
+private:
+	DWORD m_dwTime;
+	float m_fLemnisDeltaSum;
+
+	bool m_bOriginSet;
+	float m_fOriginX;
+	float m_fOriginY;
+
+	bool m_bTracing;
+	bool m_bHovering;
+	DWORD m_dwPhotoTime;
+	bool m_bGrabbed;
+
 
 public:
 	enum ANI_STATE

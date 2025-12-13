@@ -62,4 +62,5 @@ void CSceneLogo::Render(HDC hDC)
 void CSceneLogo::Release()
 {
 	CBmpMgr::Get_Instance()->Delete_Bmp(_T("Logo"));
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 }

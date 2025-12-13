@@ -7,7 +7,7 @@
 CObjMouse::CObjMouse()
 	:m_bTargetBringToTop(false), m_bPreventEvent(false), m_pBringToTopObj(nullptr)
 {
-	Set_DbgName(_T("Mouse"));
+	//Set_DbgName(_T("Mouse"));
 	Set_RDO(RDO_9);
 }
 

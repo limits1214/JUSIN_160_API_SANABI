@@ -87,6 +87,10 @@ void CObjMonsterFloatingBomb::Excuted(CObj* pPlayer, float fRad)
 	m_fExcutedRad = fRad + PI;
 }
 
+void CObjMonsterFloatingBomb::Grabbed(CObj* pPlayer)
+{
+}
+
 void CObjMonsterFloatingBomb::Explode()
 {
 	Set_Dead_Cascade();

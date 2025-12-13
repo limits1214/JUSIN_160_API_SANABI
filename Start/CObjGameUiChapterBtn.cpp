@@ -8,7 +8,7 @@
 CObjGameUiChapterBtn::CObjGameUiChapterBtn()
     : m_iOption(0), m_ePreState(FSI_END), m_eCurState(FSI_END)
 {
-    Set_DbgName(_T("CObjGameUiChapterBtn"));
+  //  Set_DbgName(_T("CObjGameUiChapterBtn"));
 }
 
 CObjGameUiChapterBtn::~CObjGameUiChapterBtn()

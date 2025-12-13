@@ -109,6 +109,17 @@ private:
 	float m_fPendStartX;
 	float m_fPendStartY;
 
+	bool m_bDamaged;
+	int m_iDamagedCnt;
+
+	int m_iDamagedDashCnt;
+
+	int m_iExcDashCnt;
+
+	bool m_bDash;
+	float m_fDashAngle;
+	int m_iDashFrameCnt;
+
 public:
 	enum STATE
 	{

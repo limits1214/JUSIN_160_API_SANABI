@@ -59,3 +59,7 @@ void CObjMonsterWarrior::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 void CObjMonsterWarrior::Excuted(CObj* pPlayer, float fRad)
 {
 }
+
+void CObjMonsterWarrior::Grabbed(CObj* pPlayer)
+{
+}

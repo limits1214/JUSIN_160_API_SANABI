@@ -9,6 +9,7 @@ public:
 	virtual ~CObjMonster() = default;
 public:
 	virtual void Excuted(CObj* pPlayer, float fRad) PURE;
+	virtual void Grabbed(CObj* pPlayer) PURE;
 
 protected:
 	bool m_bAirMonster;

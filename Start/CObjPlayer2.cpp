@@ -18,7 +18,7 @@
 
 CObjPlayer2::CObjPlayer2()
 {
-	Set_DbgName(_T("CObjPlayer2"));
+	//Set_DbgName(_T("CObjPlayer2"));
 	ZeroMemory(&m_tHookLine, sizeof(LINE));
 }
 
@@ -74,6 +74,12 @@ void CObjPlayer2::Initialize()
 
 	m_bGround = false;
 
+	m_bDamaged = false;
+
+	m_bDash = false;
+	//m_fDashTargetX = 0.f;
+	//m_fDashTargetX = 0.f;
+
 	CObjPlayer2SNBSprite* pSNB = new CObjPlayer2SNBSprite;
 	pSNB->Initialize();
 	pSNB->Set_Pos(-5, -10);
@@ -101,6 +107,43 @@ int CObjPlayer2::Update()
 	DeltaUpdate();
 	Apply_Jump();
 	Apply_Gravity();
+
+	if (m_bDamaged)
+	{
+		--m_iDamagedCnt;
+
+		if (m_iDamagedCnt < 1)
+		{
+			m_bDamaged = false;
+		}
+
+	}
+
+	if (m_iDamagedDashCnt > 0)
+	{
+		--m_iDamagedDashCnt;
+	}
+
+	if (m_bDash)
+	{
+		if (m_iDashFrameCnt > 0)
+		{
+			m_fGravityDeltaSum = 0;
+			m_fJumpDeltaSum = 0;
+			--m_iDashFrameCnt;
+			float x = cosf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
+			float y = sinf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
+			m_tInfo.fX += x;
+			m_tInfo.fY += y;
+		}
+
+		if (m_iDashFrameCnt < 1)
+		{
+			m_bDash = false;
+			m_fGravityDeltaSum = 0;
+			m_fJumpDeltaSum = 0;
+		}
+	}
 
 
 	// 최소길이 보다 길어지면 제거 
@@ -538,6 +581,40 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			break;
 			}
 		}
+		else if (iRectOpt == ERI_DAMAGE)
+		{
+			if (!m_bDamaged)
+			{
+				m_bDamaged = true;
+				m_iDamagedCnt = 30;
+				m_iDamagedDashCnt = 30;
+
+				auto tmpWidth = m_tBeforeInfo.fX - m_tInfo.fX;
+				auto tmpHeight = m_tBeforeInfo.fY - m_tInfo.fY;
+				auto tmpLen = sqrtf(tmpWidth * tmpWidth + tmpHeight * tmpHeight);
+				auto rad = atan2f(tmpHeight, tmpWidth);
+				// TODO 왼쪽 오른쪽 특정각도일경우 그냥 입사각의 반대로말고 고정 튕기기
+				//JumpRoutine(rad * 180.f / PI * -1.f, 20.f);
+
+				if (m_eLastLRDir == DIR_LEFT) 
+				{
+					JumpRoutine(45, 20.f);
+				}
+				else
+				{
+					JumpRoutine(135, 20.f);
+				}
+			/*	if (m_tInfo.fX > m_tBeforeInfo.fX)
+				{
+					JumpRoutine(135, 20.f);
+				}
+				else
+				{
+					JumpRoutine(45, 20.f); 
+				}*/
+
+			}
+		}
 	}
 }
 
@@ -661,10 +738,6 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 		{
 			if (m_bExc)
 			{
-				
-
-
-
 				auto pltBomb = dynamic_cast<CObjMonster*>(m_pTarget);
 				if (pltBomb != nullptr)
 				{
@@ -681,7 +754,13 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 
 					//JumpStart(30.f, ang2);
 
-					JumpRoutine(ang2, 30.f);
+					//JumpRoutine(ang2, 30.f);
+
+					//m_iDamagedDashCnt = 30;
+
+					m_bDash = true;
+					m_fDashAngle = ang2;
+					m_iDashFrameCnt = 4;
 				}
 
 				m_bExc = false;
@@ -827,6 +906,13 @@ void CObjPlayer2::Key_Input()
 	bool bKeyPressingSpace = CKeyMgr2::Get_Instance()->Key_Pressing(VK_SPACE);
 	bool bKeyDownSpace = CKeyMgr2::Get_Instance()->Key_Down(VK_SPACE);
 	bool bKeyUpSpace = CKeyMgr2::Get_Instance()->Key_Pressing(VK_SPACE);
+
+	if (CKeyMgr2::Get_Instance()->Key_Down('V'))
+	{
+		m_bDash = true;
+		m_fDashAngle = 45.f;
+		m_iDashFrameCnt = 2;
+	}
 
 	// 벽타기 경우
 	if (m_bLeftWallClimb
@@ -1178,6 +1264,78 @@ void CObjPlayer2::Key_Input()
 			m_pTarget->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		}
 	}
+	else if (m_bDamaged)
+	{
+		if (m_iDamagedDashCnt > 0)
+		{
+			if (bKeyPressingSpace)
+			{
+
+				if(bKeyPressingW && bKeyPressingA)
+				{
+					m_bDash = true;
+					m_fDashAngle = 135.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingW && bKeyPressingD)
+				{
+					m_bDash = true;
+					m_fDashAngle = 45.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingS && bKeyPressingD)
+				{
+					m_bDash = true;
+					m_fDashAngle = 315.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingS && bKeyPressingA)
+				{
+					m_bDash = true;
+					m_fDashAngle = 225.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+
+
+
+				else if (bKeyPressingA)
+				{
+					m_bDash = true;
+					m_fDashAngle = 180.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingS)
+				{
+					
+					m_bDash = true;
+					m_fDashAngle = 270.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingD)
+				{
+					
+					m_bDash = true;
+					m_fDashAngle = 0.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+				else if (bKeyPressingW)
+				{
+					
+					m_bDash = true;
+					m_fDashAngle = 90.f;
+					m_iDashFrameCnt = 3;
+					m_iDamagedDashCnt = 0;
+				}
+			}
+		}
+	}
 	// 모든 상태가 아닌경우
 	else
 	{
@@ -1424,6 +1582,8 @@ void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget)
 		}*/
 
 		m_bExcGrabLoad = true;
+
+		pTarget->Grabbed(this);
 		m_pTarget = pTarget;
 
 	}

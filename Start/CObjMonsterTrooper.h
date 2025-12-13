@@ -20,7 +20,7 @@ public:
 
 public:
 	void Excuted(CObj* pPlayer, float fRad) override;
-
+	void Grabbed(CObj* pPlayer) override;
 private:
 	void Motion_Change();
 

@@ -15,7 +15,7 @@
 CObjThings::CObjThings()
 	:m_bMouseTrack(false)
 {
-	Set_DbgName(_T("CObjThings"));
+	//Set_DbgName(_T("CObjThings"));
 }
 
 CObjThings::~CObjThings()

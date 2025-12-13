@@ -14,7 +14,7 @@
 #include "CObjMonsterTrooper.h"
 #include "CObjMonsterSurveyDrone.h"
 #include "CObjMonsterDaughter.h"
-
+#include "CObjPlayer2.h"
 
 
 CSceneMonster::CSceneMonster()
@@ -42,6 +42,7 @@ void CSceneMonster::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_Trooper-Sheet.bmp", STR_FKI_Spr_MONSTER_TROOPER_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_SurveyorDrone-Sheet.bmp", STR_FKI_Spr_MONSTER_SURVEYDRONE_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/DAUGHTER-Sheet.bmp", STR_FKI_Spr_MONSTER_DAUGHTER_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/VFX_EXPLOSION-Sheet.bmp", STR_FKI_Spr_EXPLOSION_SHEET);
 
 
 	CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
@@ -97,6 +98,19 @@ void CSceneMonster::Initialize()
 			}
 		}
 		});
+
+
+	for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+	{
+		CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+		if (pPlayer != nullptr)
+		{
+			for (auto*& pMonsterObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
+			{
+				pMonsterObj->Set_Target(pPlayer);
+			}
+		}
+	}
 
 }
 

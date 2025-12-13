@@ -59,3 +59,7 @@ void CObjMonsterDummyRobot::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 void CObjMonsterDummyRobot::Excuted(CObj* pPlayer, float fRad)
 {
 }
+
+void CObjMonsterDummyRobot::Grabbed(CObj* pPlayer)
+{
+}

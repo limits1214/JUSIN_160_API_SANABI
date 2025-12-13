@@ -135,6 +135,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <UseDynamicDebugging>true</UseDynamicDebugging>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -222,6 +225,7 @@
     <ClInclude Include="CObjCollisionLine.h" />
     <ClInclude Include="CObjCollisionRect.h" />
     <ClInclude Include="CObjEditArea.h" />
+    <ClInclude Include="CObjExplosionSprite.h" />
     <ClInclude Include="CObjGameUiChapterBtn.h" />
     <ClInclude Include="CObjGrab.h" />
     <ClInclude Include="CObjHookGuide.h" />
@@ -337,6 +341,7 @@
     <ClCompile Include="CObjCollisionRect.cpp" />
     <ClCompile Include="CObjDbgText.h" />
     <ClCompile Include="CObjEditArea.cpp" />
+    <ClCompile Include="CObjExplosionSprite.cpp" />
     <ClCompile Include="CObjGameUiChapterBtn.cpp" />
     <ClCompile Include="CObjGrab.cpp" />
     <ClCompile Include="CObjHookGuide.cpp" />
