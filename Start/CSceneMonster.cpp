@@ -15,6 +15,9 @@
 #include "CObjMonsterSurveyDrone.h"
 #include "CObjMonsterDaughter.h"
 #include "CObjPlayer2.h"
+#include "CObjSprite.h"
+#include "CTimeMgr.h"
+#include "CObjMonsterMapBG.h"
 
 
 CSceneMonster::CSceneMonster()
@@ -54,6 +57,11 @@ void CSceneMonster::Initialize()
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE_DefenderBullet.bmp", STR_FKI_Spr_DEFENDER_BULLET_SHEET);
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMap.bmp", STR_FKI_MONSTER_MAP);
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMapBgNeon.bmp", STR_FKI_MONSTER_MAP_BGNEON);
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMapBoardGirl-Sheet.bmp", STR_FKI_MONSTER_MAP_BOARDSIGN);
 	//CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
 	//pMobDummyFloater->Initialize();
 	//pMobDummyFloater->Set_Pos(WINCX >> 1, WINCY >> 1);
@@ -71,10 +79,10 @@ void CSceneMonster::Initialize()
 
 
 	//
-	CObjMonsterDefender* pDefender = new CObjMonsterDefender;
-	pDefender->Initialize();
-	pDefender->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender);
+	//CObjMonsterDefender* pDefender = new CObjMonsterDefender;
+	//pDefender->Initialize();
+	//pDefender->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender);
 
 	//CObjMonsterWarrior* pWarrior = new CObjMonsterWarrior;
 	//pWarrior->Initialize();
@@ -96,6 +104,66 @@ void CSceneMonster::Initialize()
 	//pDaughter->Initialize();
 	//pDaughter->Set_Pos((WINCX >> 1) -100, (WINCY >> 1) + 0);
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDaughter);
+
+	int bgcx = 1600;
+	int bgcy = 1200;
+	CObjMonsterMapBG* pMonBg = new CObjMonsterMapBG;
+	pMonBg->Initialize();
+	pMonBg->Set_Pos(bgcx >> 1, -(bgcy >> 1) + WINCY);
+	pMonBg->Set_FrameKeyId(FKI_MONSTER_MAP_BGNEON);
+	pMonBg->Set_Frame(FrameStateId_To_Frame(FSI_MONSTER_BG_NEON, CTimeMgr::Get_Instance()->Get_Tick_Count()));
+	pMonBg->Set_CX(bgcx);
+	pMonBg->Set_CY(bgcy);
+	pMonBg->Set_UseMainScroll(false);
+	pMonBg->Set_MoveFrame(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMonBg);
+
+
+
+
+
+	// map image
+	int cx = 5600;
+	int cy = 4200;
+	CObjSprite* pMonMap = new CObjSprite;
+	pMonMap->Initialize();
+	pMonMap->Set_Pos(cx >> 1, -(cy >> 1) + WINCY);
+	pMonMap->Set_FrameKeyId(FKI_MONSTER_MAP);
+	pMonMap->Set_CX(cx);
+	pMonMap->Set_CY(cy);
+	pMonMap->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMonMap);
+
+	// 4200 - 600
+	// -(4200 - WINCY)
+	CObjSprite* pBoardSignBoy = new CObjSprite;
+	pBoardSignBoy->Initialize();
+	pBoardSignBoy->Set_Pos(2360, -(4200 - WINCY) + 2586);
+	pBoardSignBoy->Set_FrameKeyId(FKI_MONSTER_MAP_BOARDSIGN);
+	pBoardSignBoy->Set_Frame(FrameStateId_To_Frame(FSI_MONSTER_BOARDSIGN_BOY, CTimeMgr::Get_Instance()->Get_Tick_Count()));
+	pBoardSignBoy->Set_CX(210);
+	pBoardSignBoy->Set_CY(459);
+	pBoardSignBoy->Set_UseMainScroll(true);
+	pBoardSignBoy->Set_MoveFrame(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBoardSignBoy);
+
+	
+	CObjSprite* pBoardSignGirl = new CObjSprite;
+	pBoardSignGirl->Initialize();
+	pBoardSignGirl->Set_Pos(4000, -(4200 - WINCY) + 1000);
+	pBoardSignGirl->Set_FrameKeyId(FKI_MONSTER_MAP_BOARDSIGN);
+	pBoardSignGirl->Set_Frame(FrameStateId_To_Frame(FSI_MONSTER_BOARDSIGN_GIRL, CTimeMgr::Get_Instance()->Get_Tick_Count()));
+	pBoardSignGirl->Set_CX(210);
+	pBoardSignGirl->Set_CY(459);
+	pBoardSignGirl->Set_UseMainScroll(true);
+	pBoardSignGirl->Set_MoveFrame(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBoardSignGirl);
+
+
+	CObjPlayer2* pPlayer = new CObjPlayer2;
+	pPlayer->Initialize();
+	pPlayer->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 
 	CEditMgr::Get_Instance()->Load_File(FNI_MONSTER, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))

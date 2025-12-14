@@ -246,6 +246,7 @@
     <ClInclude Include="CObjMonsterFloatingBomb.h" />
     <ClInclude Include="CObjMonsterFloatingBombHugeExplodeSprite.h" />
     <ClInclude Include="CObjMonsterFloatingBombSprite.h" />
+    <ClInclude Include="CObjMonsterMapBG.h" />
     <ClInclude Include="CObjMonsterSurveyDrone.h" />
     <ClInclude Include="CObjMonsterSurveyDroneSprite.h" />
     <ClInclude Include="CObjMonsterTrooper.h" />
@@ -367,6 +368,7 @@
     <ClCompile Include="CObjMonsterFloatingBomb.cpp" />
     <ClCompile Include="CObjMonsterFloatingBombHugeExplodeSprite.cpp" />
     <ClCompile Include="CObjMonsterFloatingBombSprite.cpp" />
+    <ClCompile Include="CObjMonsterMapBG.cpp" />
     <ClCompile Include="CObjMonsterSurveyDrone.cpp" />
     <ClCompile Include="CObjMonsterSurveyDroneSprite.cpp" />
     <ClCompile Include="CObjMonsterTrooper.cpp" />

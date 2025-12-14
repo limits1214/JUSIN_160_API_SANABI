@@ -438,6 +438,9 @@
     <ClInclude Include="CObjMonsterWarrior.h">
       <Filter>소스 파일\OBJ\MONSTER\Warrior</Filter>
     </ClInclude>
+    <ClInclude Include="CObjMonsterMapBG.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -769,6 +772,9 @@
     </ClCompile>
     <ClCompile Include="CObjMonsterWarriorSprite.cpp">
       <Filter>소스 파일\OBJ\MONSTER\Warrior</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMonsterMapBG.cpp">
+      <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

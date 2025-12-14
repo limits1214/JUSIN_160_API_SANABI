@@ -34,6 +34,7 @@ void CSceneTileEdit::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/UnstableKnockbackPlatformA_Sheet.bmp", STR_FKI_Spr_UNSTABLE_KNOCKBACK_PLATFORM_A_SHEET);
 	
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTOMAP.bmp", STR_FKI_TUTOMAP);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMap.bmp", STR_FKI_MONSTER_MAP);
 
 	//int cx = 4800;
 	//int cy = 3600;
@@ -45,6 +46,17 @@ void CSceneTileEdit::Initialize()
 	//pTutoMap->Set_CY(cy);
 	//pTutoMap->Set_UseMainScroll(true);
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
+
+	int moncx = 5600;
+	int moncy = 4200;
+	CObjSprite* pMonMap = new CObjSprite;
+	pMonMap->Initialize();
+	pMonMap->Set_Pos(moncx >> 1, -(moncy >> 1) + WINCY);
+	pMonMap->Set_FrameKeyId(FKI_MONSTER_MAP);
+	pMonMap->Set_CX(moncx);
+	pMonMap->Set_CY(moncy);
+	pMonMap->Set_UseMainScroll(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pMonMap);
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();

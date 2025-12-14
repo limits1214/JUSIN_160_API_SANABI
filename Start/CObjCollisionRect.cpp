@@ -42,7 +42,7 @@ void CObjCollisionRect::Render(HDC hDC)
 {
 	if (m_iOption == ERI_CLIMABLE)
 	{
-		HPEN hNewPen = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
+		HPEN hNewPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 255));
 		HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
 
 		CObjRect::Render(hDC);
@@ -53,7 +53,7 @@ void CObjCollisionRect::Render(HDC hDC)
 	}
 	else if (m_iOption == ERI_NO_CLIMABLE)
 	{
-		HPEN hNewPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+		HPEN hNewPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 0));
 		HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
 
 		CObjRect::Render(hDC);
@@ -66,7 +66,7 @@ void CObjCollisionRect::Render(HDC hDC)
 	}
 	else if (m_iOption == ERI_DAMAGE)
 	{
-		HPEN hNewPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 255));
+		HPEN hNewPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 255));
 		HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
 
 		CObjRect::Render(hDC);
