@@ -271,6 +271,7 @@
     <ClInclude Include="CObjSprite.h" />
     <ClInclude Include="CObjThings.h" />
     <ClInclude Include="CObjTile.h" />
+    <ClInclude Include="CObjTrigger.h" />
     <ClInclude Include="CObjTutoAni.h" />
     <ClInclude Include="CObjUnstableKnockbackPlatformA.h" />
     <ClInclude Include="CObjUnstableKnockbackPlatformABooster.h" />
@@ -393,6 +394,7 @@
     <ClCompile Include="CObjSprite.cpp" />
     <ClCompile Include="CObjThings.cpp" />
     <ClCompile Include="CObjTile.cpp" />
+    <ClCompile Include="CObjTrigger.cpp" />
     <ClCompile Include="CObjTutoAni.cpp" />
     <ClCompile Include="CObjUnstableKnockbackPlatformA.cpp" />
     <ClCompile Include="CObjUnstableKnockbackPlatformABooster.cpp" />

@@ -92,7 +92,7 @@ int CObjMonsterSurveyDrone::Update()
 		auto playerX = pPlayer->Get_Info()->fX;
 		auto playerY = pPlayer->Get_Info()->fY;
 
-		auto len = 1.f;
+		auto len = 2.f;
 
 		auto tmpWidth = playerX - m_fOriginX;
 		auto tmpHeight = (playerY - 40) - m_fOriginY;

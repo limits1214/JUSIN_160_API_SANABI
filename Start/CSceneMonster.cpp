@@ -19,6 +19,7 @@
 #include "CTimeMgr.h"
 #include "CObjMonsterMapBG.h"
 
+#include "CObjTrigger.h"
 
 CSceneMonster::CSceneMonster()
 {
@@ -31,6 +32,14 @@ CSceneMonster::~CSceneMonster()
 
 void CSceneMonster::Initialize()
 {
+	m_dwSurveyDronIntervalTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+	m_bRoom1Enter = false;
+	m_bRoom2Enter = false;
+	m_bRoom3Enter = false;
+
+
+
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_NEW_Sheet.bmp", STR_FKI_Spr_SNB_SHEET_NEW);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_GRAB_SHEET.bmp", STR_FKI_Spr_SNB_GRAB_SHEET);
 
@@ -50,22 +59,29 @@ void CSceneMonster::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BulletPLG.bmp", _T("BulletPLG"));
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BulletRESET.bmp", _T("BulletRESET"));
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Snb_Obj_Bullet_boom.bmp", STR_FKI_Spr_BULLET_BOOM_SHEET);
-
-
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DefenderBulletPLG.bmp", _T("DefenderBulletPLG"));
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DefenderBulletRESET.bmp", _T("DefenderBulletRESET"));
-
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE_DefenderBullet.bmp", STR_FKI_Spr_DEFENDER_BULLET_SHEET);
-
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMap.bmp", STR_FKI_MONSTER_MAP);
-
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMapBgNeon.bmp", STR_FKI_MONSTER_MAP_BGNEON);
-
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MonsterMapBoardGirl-Sheet.bmp", STR_FKI_MONSTER_MAP_BOARDSIGN);
-	//CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
-	//pMobDummyFloater->Initialize();
-	//pMobDummyFloater->Set_Pos(WINCX >> 1, WINCY >> 1);
-	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater);
+
+
+
+	CObjMonsterDummyFloater* pMobDummyFloater1 = new CObjMonsterDummyFloater;
+	pMobDummyFloater1->Initialize();
+	pMobDummyFloater1->Set_Pos(4300, -(4200 - WINCY) + 1200);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater1);
+
+	CObjMonsterDummyFloater* pMobDummyFloater2 = new CObjMonsterDummyFloater;
+	pMobDummyFloater2->Initialize();
+	pMobDummyFloater2->Set_Pos(4500, -(4200 - WINCY) + 1000);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater2);
+
+	CObjMonsterDummyFloater* pMobDummyFloater3 = new CObjMonsterDummyFloater;
+	pMobDummyFloater3->Initialize();
+	pMobDummyFloater3->Set_Pos(4700, -(4200 - WINCY) + 800);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater3);
 
 	//CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
 	//pFloatingBomb->Initialize();
@@ -119,9 +135,6 @@ void CSceneMonster::Initialize()
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMonBg);
 
 
-
-
-
 	// map image
 	int cx = 5600;
 	int cy = 4200;
@@ -165,6 +178,75 @@ void CSceneMonster::Initialize()
 	pPlayer->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 
+
+	CObjMonsterDummyRobot* pDummyRobot = new CObjMonsterDummyRobot;
+	pDummyRobot->Initialize();
+	pDummyRobot->Set_Pos(1776, -(4200 - WINCY) + 2850);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDummyRobot);
+
+
+	CObjTrigger* pTrigger1 = new CObjTrigger;
+	pTrigger1->Initialize();
+	pTrigger1->Set_Target(pPlayer);
+	pTrigger1->Set_Pos(2540, -(4200 - WINCY) + 2740);
+	pTrigger1->Set_CX(300);
+	pTrigger1->Set_CY(300);
+	pTrigger1->Set_TriggerLoopCallback([=]() {
+		if (!m_bRoom1Enter)
+		{
+			m_bRoom1Enter = true;
+
+			CObjMonsterTrooper* pTrooper = new CObjMonsterTrooper;
+			pTrooper->Initialize();
+			pTrooper->Set_Target(pPlayer);
+			pTrooper->Set_Pos(2775, -(4200 - WINCY) + 2985);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
+		}
+		});
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger1);
+
+	CObjTrigger* pTrigger2 = new CObjTrigger;
+	pTrigger2->Initialize();
+	pTrigger2->Set_Target(pPlayer);
+	pTrigger2->Set_Pos(3660, -(4200 - WINCY) + 2740);
+	pTrigger2->Set_CX(300);
+	pTrigger2->Set_CY(300);
+	pTrigger2->Set_TriggerLoopCallback([=]() {
+		if (!m_bRoom2Enter)
+		{
+			m_bRoom2Enter = true;
+
+			CObjMonsterDefender* pDefender1 = new CObjMonsterDefender;
+			pDefender1->Initialize();
+			pDefender1->Set_Target(pPlayer);
+			pDefender1->Set_Pos(4035, -(4200 - WINCY) + 2645);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender1);
+		}
+		});
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger2);
+
+
+	CObjTrigger* pTrigger3 = new CObjTrigger;
+	pTrigger3->Initialize();
+	pTrigger3->Set_Target(pPlayer);
+	pTrigger3->Set_Pos(4165, -(4200 - WINCY) + 2125);
+	pTrigger3->Set_CX(300);
+	pTrigger3->Set_CY(300);
+	pTrigger3->Set_TriggerLoopCallback([=]() {
+		if (!m_bRoom3Enter)
+		{
+			m_bRoom3Enter = true;
+
+			CObjMonsterWarrior* pWarrior1 = new CObjMonsterWarrior;
+			pWarrior1->Initialize();
+			pWarrior1->Set_Target(pPlayer);
+			pWarrior1->Set_Pos(4370, -(4200 - WINCY) + 1925);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior1);
+		}
+		});
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger3);
+
+
 	CEditMgr::Get_Instance()->Load_File(FNI_MONSTER, false, []() {
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_THINGS))
 		{
@@ -194,6 +276,50 @@ void CSceneMonster::Initialize()
 int CSceneMonster::Update()
 {
 	CObjMgr::Get_Instance()->Update();
+
+
+	CTimeMgr::Delay(&m_dwSurveyDronIntervalTime, 8000, []() {
+		
+		CObjPlayer2* pPlayer = nullptr;
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			auto player = dynamic_cast<CObjPlayer2*>(pObj);
+			if (player != nullptr)
+			{
+				pPlayer = player;
+				break;
+			}
+		}
+
+		if (pPlayer != nullptr)
+		{
+			int droneCnt = 0;
+			for (auto*& pMon : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
+			{
+				auto drone = dynamic_cast<CObjMonsterSurveyDrone*>(pMon);
+				if (drone != nullptr)
+				{
+					++droneCnt;
+				}
+			}
+
+			if (droneCnt < 3)
+			{
+
+				auto padX = (rand() % 200) - 100 ;
+				auto padY = rand() % 100;
+				CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
+				pSurveyDrone->Initialize();
+				pSurveyDrone->Set_Pos(pPlayer->Get_Info()->fX + padX, pPlayer->Get_Info()->fY - padY);
+				pSurveyDrone->Set_Target(pPlayer);
+				CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
+			}
+		}
+		
+		});
+
+
+
     return 0;
 }
 
