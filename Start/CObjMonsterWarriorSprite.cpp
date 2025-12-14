@@ -14,8 +14,8 @@ CObjMonsterWarriorSprite::~CObjMonsterWarriorSprite()
 void CObjMonsterWarriorSprite::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 133;
-	m_tInfo.fCY = 198;
+	m_tInfo.fCX = 225;
+	m_tInfo.fCY = 210;
 
 
 	m_eFrameKey = FKI_Spr_MONSTER_WARRIOR_SHEET;
@@ -365,6 +365,317 @@ int CObjMonsterWarriorSprite::Update()
 			case CObjMonsterWarrior::AST_LEFT_COMAEND_END:
 			{
 				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_IDLE_START;
+			}
+			break;
+
+
+
+
+			case CObjMonsterWarrior::AST_RIGHT_MOVESTART_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_MOVESTART;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVESTART_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVESTART_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVESTART_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVESTART_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVING_START;
+			}
+			break;
+
+
+			case CObjMonsterWarrior::AST_RIGHT_MOVING_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_MOVING;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVING_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVING_ING:
+			{
+				Move_Frame();
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVING_END:
+			{
+			}
+			break;
+
+
+
+			case CObjMonsterWarrior::AST_RIGHT_MOVEEND_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_MOVEEND;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVEEND_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVEEND_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVEEND_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_MOVEEND_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_IDLE_START;
+			}
+			break;
+
+
+
+
+
+
+
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKREADY_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_ATTACKREADY;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACKREADY_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKREADY_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACKREADY_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKREADY_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACK_START;
+			}
+			break;
+
+
+
+
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKEND_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_ATTACKEND;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACKEND_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKEND_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACKEND_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACKEND_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_MOVING_START;
+			}
+			break;
+
+
+
+
+			case CObjMonsterWarrior::AST_RIGHT_ATTACK_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_RIGHT_ATTACK;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACK_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACK_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACK_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_RIGHT_ATTACK_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_RIGHT_ATTACKEND_START;
+			}
+			break;
+
+
+
+
+
+			
+
+
+
+
+
+
+
+
+
+			case CObjMonsterWarrior::AST_LEFT_MOVESTART_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_MOVESTART;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVESTART_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVESTART_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVESTART_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVESTART_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVING_START;
+			}
+			break;
+
+
+			case CObjMonsterWarrior::AST_LEFT_MOVING_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_MOVING;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVING_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVING_ING:
+			{
+				Move_Frame();
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVING_END:
+			{
+			}
+			break;
+
+
+
+			case CObjMonsterWarrior::AST_LEFT_MOVEEND_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_MOVEEND;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVEEND_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVEEND_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVEEND_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_MOVEEND_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_IDLE_START;
+			}
+			break;
+
+
+
+
+
+
+
+			case CObjMonsterWarrior::AST_LEFT_ATTACKREADY_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_ATTACKREADY;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACKREADY_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACKREADY_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACKREADY_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACKREADY_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACK_START;
+			}
+			break;
+
+
+
+
+			case CObjMonsterWarrior::AST_LEFT_ATTACKEND_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_ATTACKEND;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACKEND_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACKEND_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACKEND_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACKEND_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_MOVING_START;
+			}
+			break;
+
+
+
+
+			case CObjMonsterWarrior::AST_LEFT_ATTACK_START:
+			{
+				m_eCurState = FSI_MONSTER_WARRIOR_LEFT_ATTACK;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACK_ING;
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACK_ING:
+			{
+				Move_Frame();
+				int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+				if (m_tFrame.iStart == end)
+				{
+					parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACK_END;
+				}
+			}
+			break;
+			case CObjMonsterWarrior::AST_LEFT_ATTACK_END:
+			{
+				parent->m_eAniState = CObjMonsterWarrior::AST_LEFT_ATTACKEND_START;
 			}
 			break;
 

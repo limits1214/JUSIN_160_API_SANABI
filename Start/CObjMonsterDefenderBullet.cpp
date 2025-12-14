@@ -24,7 +24,7 @@ void CObjMonsterDefenderBullet::Initialize()
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
-	m_fSpeed = 1.f;
+	m_fSpeed = 2.f;
 	m_fAngle = 90.f;
 
 	CObjMonsterDefenderBulletSprite* pSprite = new CObjMonsterDefenderBulletSprite;

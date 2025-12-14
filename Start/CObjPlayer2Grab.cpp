@@ -80,6 +80,33 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 	if (m_bDead)
 		return;
 
+
+	CObjMonster* pMonster = dynamic_cast<CObjMonster*>(pObj);
+	//COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
+	if (eCollID == COLL_RECT && pMonster != nullptr)
+	{
+		if (!pMonster->Get_Excuted())
+		{
+			m_fSpeed = 0.f;
+			m_tInfo.fX = pMonster->Get_Info()->fX;
+			m_tInfo.fY = pMonster->Get_Info()->fY;
+			if (!m_bMonsterExcSend)
+			{
+				auto pPlayer = dynamic_cast<CObjPlayer2*>(m_pTarget);
+				if (pPlayer != nullptr)
+				{
+					m_bMonsterExcSend = true;
+					pPlayer->ExcGrab(this, pMonster);
+				}
+			}
+
+			// 몬스터 충돌을 우선
+			return;
+		}
+	}
+
+
+
 	CObjCollisionRect* pRect = dynamic_cast<CObjCollisionRect*>(pObj);
 	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
 	if (eCollID == COLL_RECT_EX && pRect != nullptr && pRectExCollEtc != nullptr)
@@ -138,21 +165,5 @@ void CObjPlayer2Grab::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		}
 	}
 
-	CObjMonster* pMonster = dynamic_cast<CObjMonster*>(pObj);
-	//COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
-	if (eCollID == COLL_RECT && pMonster != nullptr)
-	{
-		m_fSpeed = 0.f;
-		m_tInfo.fX = pMonster->Get_Info()->fX;
-		m_tInfo.fY = pMonster->Get_Info()->fY;
-		if (!m_bMonsterExcSend)
-		{
-			auto pPlayer = dynamic_cast<CObjPlayer2*>(m_pTarget);
-			if (pPlayer != nullptr)
-			{
-				m_bMonsterExcSend = true;
-				pPlayer->ExcGrab(this, pMonster);
-			}
-		}
-	}
+	
 }

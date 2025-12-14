@@ -32,11 +32,6 @@ private:
 	FRAME_STATE_ID m_eCurState;
 
 private:
-	bool m_bExecuted;
-	float m_fExcutedRad;
-	bool m_bGrabbed;
-
-private:
 	DWORD m_dwTime;
 
 	bool m_bGravity;

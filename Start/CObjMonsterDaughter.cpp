@@ -17,7 +17,7 @@ void CObjMonsterDaughter::Initialize()
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 	m_bAirMonster = true;
 
 	m_eAniState = AST_RIGHT_IDLE_START;

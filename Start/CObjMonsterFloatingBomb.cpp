@@ -33,7 +33,7 @@ void CObjMonsterFloatingBomb::Initialize()
 	pPltSprite->Set_Pos(12, 5);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pPltSprite);
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 
 	m_bAirMonster = true;
 }
@@ -43,7 +43,7 @@ int CObjMonsterFloatingBomb::Update()
 	if (m_bDead)
 		return OBJ_DEAD;
 
-	if (m_bExecuted)
+	if (m_bExcuted)
 	{
 		m_tInfo.fX += cosf(m_fExcutedRad) * 3;
 		m_tInfo.fY += sinf(m_fExcutedRad) * 3;
@@ -73,7 +73,7 @@ void CObjMonsterFloatingBomb::On_Collision(CObj* pObj, COLLISIONID eCollID, void
 	CObjBossFireBird* pBoss = dynamic_cast<CObjBossFireBird*>(pObj);
 	if (eCollID == COLL_RECT && pBoss != nullptr)
 	{
-		if (m_bExecuted)
+		if (m_bExcuted)
 		{
 			Explode();
 			pBoss->m_eAniStateBroken = CObjBossFireBird::BROKEN;
@@ -83,7 +83,7 @@ void CObjMonsterFloatingBomb::On_Collision(CObj* pObj, COLLISIONID eCollID, void
 
 void CObjMonsterFloatingBomb::Excuted(CObj* pPlayer, float fRad)
 {
-	m_bExecuted = true;
+	m_bExcuted = true;
 	m_fExcutedRad = fRad + PI;
 }
 

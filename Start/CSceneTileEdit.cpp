@@ -47,16 +47,16 @@ void CSceneTileEdit::Initialize()
 	//pTutoMap->Set_UseMainScroll(true);
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pTutoMap);
 
-	int moncx = 5600;
-	int moncy = 4200;
-	CObjSprite* pMonMap = new CObjSprite;
-	pMonMap->Initialize();
-	pMonMap->Set_Pos(moncx >> 1, -(moncy >> 1) + WINCY);
-	pMonMap->Set_FrameKeyId(FKI_MONSTER_MAP);
-	pMonMap->Set_CX(moncx);
-	pMonMap->Set_CY(moncy);
-	pMonMap->Set_UseMainScroll(true);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pMonMap);
+	//int moncx = 5600;
+	//int moncy = 4200;
+	//CObjSprite* pMonMap = new CObjSprite;
+	//pMonMap->Initialize();
+	//pMonMap->Set_Pos(moncx >> 1, -(moncy >> 1) + WINCY);
+	//pMonMap->Set_FrameKeyId(FKI_MONSTER_MAP);
+	//pMonMap->Set_CX(moncx);
+	//pMonMap->Set_CY(moncy);
+	//pMonMap->Set_UseMainScroll(true);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pMonMap);
 
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();

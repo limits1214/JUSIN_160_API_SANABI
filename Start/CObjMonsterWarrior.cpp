@@ -21,7 +21,7 @@ void CObjMonsterWarrior::Initialize()
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 	m_bAirMonster = true;
 
 	m_eAniState = AST_RIGHT_SPAWN_START;
@@ -61,6 +61,25 @@ int CObjMonsterWarrior::Update()
 		m_eAniState == AST_LEFT_SPAWN_START
 		|| m_eAniState == AST_LEFT_SPAWN_ING
 		|| m_eAniState == AST_LEFT_SPAWN_END
+		||
+		m_eAniState == AST_RIGHT_DEAD_START
+		|| m_eAniState == AST_RIGHT_DEAD_ING
+		||
+		m_eAniState == AST_RIGHT_EXCHOLDSTART_START
+		|| m_eAniState == AST_RIGHT_EXCHOLDSTART_ING
+		|| m_eAniState == AST_RIGHT_EXCHOLDSTART_END
+		||
+		m_eAniState == AST_LEFT_EXCHOLDSTART_START
+		|| m_eAniState == AST_LEFT_EXCHOLDSTART_ING
+		|| m_eAniState == AST_LEFT_EXCHOLDSTART_END
+		||
+		m_eAniState == AST_RIGHT_EXCHOLDBACK_START
+		|| m_eAniState == AST_RIGHT_EXCHOLDBACK_ING
+		|| m_eAniState == AST_RIGHT_EXCHOLDBACK_END
+		||
+		m_eAniState == AST_LEFT_EXCHOLDBACK_START
+		|| m_eAniState == AST_LEFT_EXCHOLDBACK_ING
+		|| m_eAniState == AST_LEFT_EXCHOLDBACK_END
 		)
 	{
 		return OBJ_NOEVENT;
@@ -136,65 +155,116 @@ int CObjMonsterWarrior::Update()
 			}
 		}
 
+		auto isRight = tmpWidth > 0;
 
-
-
-
-		if (
-			!(
-				
-				m_eAniState == AST_RIGHT_EXCHOLDSTART_START
-				|| m_eAniState == AST_RIGHT_EXCHOLDSTART_ING
-				|| m_eAniState == AST_RIGHT_EXCHOLDSTART_END
-				||
-				m_eAniState == AST_LEFT_EXCHOLDSTART_START
-				|| m_eAniState == AST_LEFT_EXCHOLDSTART_ING
-				|| m_eAniState == AST_LEFT_EXCHOLDSTART_END
-				||
-				m_eAniState == AST_RIGHT_EXCHOLDBACK_START
-				|| m_eAniState == AST_RIGHT_EXCHOLDBACK_ING
-				|| m_eAniState == AST_RIGHT_EXCHOLDBACK_END
-				||
-				m_eAniState == AST_LEFT_EXCHOLDBACK_START
-				|| m_eAniState == AST_LEFT_EXCHOLDBACK_ING
-				|| m_eAniState == AST_LEFT_EXCHOLDBACK_END
-				)
-			)
+		if (m_bTracing)
 		{
-			if (tmpWidth > 0)
+			if (isRight)
 			{
-
-				if (m_bHovering)
+				if (m_eAniState == AST_LEFT_MOVING_ING)
 				{
-					
+					m_eAniState = AST_RIGHT_MOVING_START;
 				}
-				else
+				else if (
+					!(m_eAniState == AST_RIGHT_MOVESTART_START
+						|| m_eAniState == AST_RIGHT_MOVESTART_ING
+						|| m_eAniState == AST_RIGHT_MOVESTART_END
+						||
+						m_eAniState == AST_RIGHT_MOVING_START
+						|| m_eAniState == AST_RIGHT_MOVING_ING
+						|| m_eAniState == AST_RIGHT_MOVING_END)
+					)
 				{
-					if (m_eAniState != AST_RIGHT_IDLE_ING)
-					{
-						m_eAniState = AST_RIGHT_IDLE_START;
-
-					}
+					m_eAniState = AST_RIGHT_MOVESTART_START;
 				}
-
 			}
 			else
 			{
-
-				if (m_bHovering)
+				if (m_eAniState == AST_RIGHT_MOVING_ING)
 				{
-					
+					m_eAniState = AST_LEFT_MOVING_START;
 				}
-				else
+				else if (
+					!(m_eAniState == AST_LEFT_MOVESTART_START
+						|| m_eAniState == AST_LEFT_MOVESTART_ING
+						|| m_eAniState == AST_LEFT_MOVESTART_END
+						||
+						m_eAniState == AST_LEFT_MOVING_START
+						|| m_eAniState == AST_LEFT_MOVING_ING
+						|| m_eAniState == AST_LEFT_MOVING_END)
+					)
 				{
-					if (m_eAniState != AST_LEFT_IDLE_ING)
-					{
-						m_eAniState = AST_LEFT_IDLE_START;
-
-					}
+					m_eAniState = AST_LEFT_MOVESTART_START;
 				}
-
 			}
+		}
+		else if (m_bHovering)
+		{
+			if (isRight)
+			{
+				if (
+					!(m_eAniState == AST_RIGHT_ATTACKREADY_START
+						|| m_eAniState == AST_RIGHT_ATTACKREADY_ING
+						|| m_eAniState == AST_RIGHT_ATTACKREADY_END
+						||
+						m_eAniState == AST_RIGHT_ATTACK_START
+						|| m_eAniState == AST_RIGHT_ATTACK_ING
+						|| m_eAniState == AST_RIGHT_ATTACK_END)
+					)
+				{
+					m_eAniState = AST_RIGHT_ATTACKREADY_START;
+				}
+			}
+			else
+			{
+				
+				if (
+					!(m_eAniState == AST_LEFT_ATTACKREADY_START
+						|| m_eAniState == AST_LEFT_ATTACKREADY_ING
+						|| m_eAniState == AST_LEFT_ATTACKREADY_END
+						||
+						m_eAniState == AST_LEFT_ATTACK_START
+						|| m_eAniState == AST_LEFT_ATTACK_ING
+						|| m_eAniState == AST_LEFT_ATTACK_END)
+					)
+				{
+					m_eAniState = AST_LEFT_ATTACKREADY_START;
+				}
+			}
+		}
+
+
+		// аб©Л
+		if (isRight)
+		{
+			if (m_bHovering)
+			{
+					
+			}
+			else
+			{
+				if (m_eAniState != AST_RIGHT_MOVING_ING)
+				{
+					//m_eAniState = AST_RIGHT_MOVESTART_START;
+				}
+			}
+
+		}
+		else
+		{
+
+			if (m_bHovering)
+			{
+					
+			}
+			else
+			{
+				if (m_eAniState != AST_LEFT_MOVING_ING)
+				{
+					//m_eAniState = AST_LEFT_MOVESTART_START;
+				}
+			}
+
 		}
 	}
 
@@ -241,7 +311,7 @@ void CObjMonsterWarrior::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 
 void CObjMonsterWarrior::Excuted(CObj* pPlayer, float fRad)
 {
-	m_bExecuted = true;
+	m_bExcuted = true;
 	m_eAniState = AST_RIGHT_DEAD_START;
 	//CObjExplosionSprite* pExplosionSprite = new CObjExplosionSprite;
 	//pExplosionSprite->Set_Option(0);

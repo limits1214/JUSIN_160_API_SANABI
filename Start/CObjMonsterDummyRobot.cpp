@@ -21,7 +21,7 @@ void CObjMonsterDummyRobot::Initialize()
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 	m_bAirMonster = true;
 
 	m_eAniState = AST_RESPAWN_START;
@@ -66,9 +66,31 @@ int CObjMonsterDummyRobot::Update()
 	{
 		Set_Dead_Cascade();
 	}
-
 	DeltaUpdate();
 	Apply_Gravity();
+
+	if (m_eAniState == AST_RESPAWN_START
+		|| m_eAniState == AST_RESPAWN_ING
+		|| m_eAniState == AST_RESPAWN_END
+		||
+		m_eAniState == AST_DEAD_START
+		|| m_eAniState == AST_DEAD_ING
+		||
+		m_eAniState == AST_EXCSTART_START
+		|| m_eAniState == AST_EXCSTART_ING
+		|| m_eAniState == AST_EXCSTART_END
+		||
+		m_eAniState == AST_EXCHOLDBACK_START
+		|| m_eAniState == AST_EXCHOLDBACK_ING
+		|| m_eAniState == AST_EXCHOLDBACK_END
+		)
+	{
+		return OBJ_NOEVENT;
+	}
+
+
+
+	
 
 	
 	if (m_pTarget != nullptr)

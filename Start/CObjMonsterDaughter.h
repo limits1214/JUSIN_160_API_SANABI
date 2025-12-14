@@ -29,8 +29,6 @@ private:
 	FRAME_STATE_ID m_eCurState;
 
 private:
-	bool m_bExecuted;
-	float m_fExcutedRad;
 
 public:
 	enum ANI_STATE

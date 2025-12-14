@@ -15,7 +15,7 @@ void CObjMonsterTrooperSprite::Initialize()
 {
 	Set_UseMainScroll(true);
 	m_tInfo.fCX = 79;
-	m_tInfo.fCY = 85;
+	m_tInfo.fCY = 92;
 
 
 	m_eFrameKey = FKI_Spr_MONSTER_TROOPER_SHEET;

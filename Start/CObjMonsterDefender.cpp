@@ -23,7 +23,7 @@ void CObjMonsterDefender::Initialize()
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 	m_bAirMonster = true;
 
 	m_eAniState = AST_RIGHT_SET_START;
@@ -33,7 +33,7 @@ void CObjMonsterDefender::Initialize()
 	CObjMonsterDefenderSprite* pSprite = new CObjMonsterDefenderSprite;
 	pSprite->Initialize();
 	pSprite->Set_Parent(this);
-	pSprite->Set_Pos(0, 0);
+	pSprite->Set_Pos(0, -10);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSprite);
 
 	m_bGravity = true;
@@ -129,7 +129,7 @@ int CObjMonsterDefender::Update()
 
 	if (m_bPlayerFound)
 	{
-		CTimeMgr::Delay(&m_dwShootInterval, 5000,
+		CTimeMgr::Delay(&m_dwShootInterval, 1000,
 			[&]()
 			{
 				m_bFire = true;
@@ -277,6 +277,7 @@ void CObjMonsterDefender::On_Collision(CObj* pObj, COLLISIONID eCollID, void* et
 
 void CObjMonsterDefender::Excuted(CObj* pPlayer, float fRad)
 {
+	m_bExcuted = true;
 	m_eAniState = AST_RIGHT_DEAD_START;
 }
 

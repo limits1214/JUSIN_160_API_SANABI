@@ -19,7 +19,7 @@ void CObjMonsterDummyFloater::Initialize()
 	m_tInfo.fCX = 50;
 	m_tInfo.fCY = 50;
 
-	m_bExecuted = false;
+	m_bExcuted = false;
 	m_bAirMonster = true;
 
 	m_eAniState = AST_RESPAWN_START;
@@ -96,7 +96,7 @@ void CObjMonsterDummyFloater::On_Collision(CObj* pObj, COLLISIONID eCollID, void
 
 void CObjMonsterDummyFloater::Excuted(CObj* pPlayer, float fRad)
 {
-	m_bExecuted = true;
+	m_bExcuted = true;
 	Set_Dead_Cascade();
 	CObjExplosionSprite* pExplosionSprite = new CObjExplosionSprite;
 	pExplosionSprite->Set_Option(0);
