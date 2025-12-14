@@ -5,7 +5,7 @@
 #include "CTimeMgr.h"
 #include "CObjMonsterBulletBoomSprite.h"
 #include "CObjCollisionRect.h"
-
+#include "CObjPlayer2.h"
 CObjMonsterBullet::CObjMonsterBullet()
 {
 }
@@ -19,8 +19,8 @@ void CObjMonsterBullet::Initialize()
 {
 	Set_UseMainScroll(true);
 
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 10.f;
+	m_tInfo.fCY = 10.f;
 
 	m_fSpeed = 5.f;
 
@@ -79,5 +79,20 @@ void CObjMonsterBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 		pBoom->Initialize();
 		pBoom->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBoom);
+		return;
+	}
+
+	CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2 * >(pObj);
+	if (eCollID == COLL_RECT && pPlayer != nullptr)
+	{
+		pPlayer->Damage();
+
+		CTimeMgr::Get_Instance()->Clear_Timer(m_iDeadTimer);
+		Set_Dead_Cascade();
+		CObjMonsterBulletBoomSprite* pBoom = new CObjMonsterBulletBoomSprite;
+		pBoom->Initialize();
+		pBoom->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBoom);
+		return;
 	}
 }

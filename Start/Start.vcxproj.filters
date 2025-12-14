@@ -138,9 +138,6 @@
     <ClInclude Include="CSceneLogo.h">
       <Filter>소스 파일\SCENE</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneMenu.h">
-      <Filter>소스 파일\SCENE</Filter>
-    </ClInclude>
     <ClInclude Include="Mgrs.h">
       <Filter>소스 파일\MGR</Filter>
     </ClInclude>
@@ -444,6 +441,9 @@
     <ClInclude Include="CObjTrigger.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneMenu.h">
+      <Filter>소스 파일\SCENE\INGAME</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -477,9 +477,6 @@
       <Filter>소스 파일\MGR</Filter>
     </ClCompile>
     <ClCompile Include="CSceneLogo.cpp">
-      <Filter>소스 파일\SCENE</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneMenu.cpp">
       <Filter>소스 파일\SCENE</Filter>
     </ClCompile>
     <ClCompile Include="CObjButton.cpp">
@@ -781,6 +778,9 @@
     </ClCompile>
     <ClCompile Include="CObjTrigger.cpp">
       <Filter>소스 파일\OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMenu.cpp">
+      <Filter>소스 파일\SCENE\INGAME</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

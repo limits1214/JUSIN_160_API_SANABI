@@ -108,15 +108,18 @@ int CObjPlayer2::Update()
 	Apply_Jump();
 	Apply_Gravity();
 
+	
+	--m_iDamagedCnt;
+
+	if (m_iDamagedCnt < 1)
+	{
+		m_iDamagedCnt = 0;
+		m_bDamaged = false;
+	}
+
+
 	if (m_bDamaged)
 	{
-		--m_iDamagedCnt;
-
-		if (m_iDamagedCnt < 1)
-		{
-			m_bDamaged = false;
-		}
-
 	}
 
 	if (m_iDamagedDashCnt > 0)
@@ -124,27 +127,7 @@ int CObjPlayer2::Update()
 		--m_iDamagedDashCnt;
 	}
 
-	if (m_bDash)
-	{
-		if (m_iDashFrameCnt > 0)
-		{
-			m_fGravityDeltaSum = 0;
-			m_fJumpDeltaSum = 0;
-			--m_iDashFrameCnt;
-			float x = cosf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
-			float y = sinf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
-			m_tInfo.fX += x;
-			m_tInfo.fY += y;
-		}
-
-		if (m_iDashFrameCnt < 1)
-		{
-			m_bDash = false;
-			m_fGravityDeltaSum = 0;
-			m_fJumpDeltaSum = 0;
-		}
-	}
-
+	
 
 	// 최소길이 보다 길어지면 제거 
 	if (m_pGrab != nullptr)
@@ -170,6 +153,32 @@ int CObjPlayer2::Update()
 
 
 	Key_Input();
+
+
+	if (m_bDash)
+	{
+		if (m_iDashFrameCnt > 0)
+		{
+			m_fGravityDeltaSum = 0;
+			m_fJumpDeltaSum = 0;
+			--m_iDashFrameCnt;
+			float x = cosf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
+			float y = sinf(m_fDashAngle * PI / 180.f * -1.f) * 30.f;
+			m_tInfo.fX += x;
+			m_tInfo.fY += y;
+		}
+
+		if (m_iDashFrameCnt < 1)
+		{
+			m_bDash = false;
+			m_fGravityDeltaSum = 0;
+			m_fJumpDeltaSum = 0;
+			m_bJump = false;
+
+
+		}
+	}
+
 
 	if (m_bExcGrabLoad)
 	{
@@ -583,37 +592,7 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 		}
 		else if (iRectOpt == ERI_DAMAGE)
 		{
-			if (!m_bDamaged)
-			{
-				m_bDamaged = true;
-				m_iDamagedCnt = 30;
-				m_iDamagedDashCnt = 30;
-
-				auto tmpWidth = m_tBeforeInfo.fX - m_tInfo.fX;
-				auto tmpHeight = m_tBeforeInfo.fY - m_tInfo.fY;
-				auto tmpLen = sqrtf(tmpWidth * tmpWidth + tmpHeight * tmpHeight);
-				auto rad = atan2f(tmpHeight, tmpWidth);
-				// TODO 왼쪽 오른쪽 특정각도일경우 그냥 입사각의 반대로말고 고정 튕기기
-				//JumpRoutine(rad * 180.f / PI * -1.f, 20.f);
-
-				if (m_eLastLRDir == DIR_LEFT) 
-				{
-					JumpRoutine(45, 20.f);
-				}
-				else
-				{
-					JumpRoutine(135, 20.f);
-				}
-			/*	if (m_tInfo.fX > m_tBeforeInfo.fX)
-				{
-					JumpRoutine(135, 20.f);
-				}
-				else
-				{
-					JumpRoutine(45, 20.f); 
-				}*/
-
-			}
+			Damage();
 		}
 	}
 }
@@ -1277,6 +1256,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 135.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingW && bKeyPressingD)
 				{
@@ -1284,6 +1264,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 45.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingS && bKeyPressingD)
 				{
@@ -1291,6 +1272,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 315.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingS && bKeyPressingA)
 				{
@@ -1298,6 +1280,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 225.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 
 
@@ -1308,6 +1291,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 180.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingS)
 				{
@@ -1316,6 +1300,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 270.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingD)
 				{
@@ -1324,6 +1309,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 0.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 				else if (bKeyPressingW)
 				{
@@ -1332,6 +1318,7 @@ void CObjPlayer2::Key_Input()
 					m_fDashAngle = 90.f;
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
+					m_bDamaged = false;
 				}
 			}
 		}
@@ -1589,6 +1576,54 @@ void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget)
 	}
 }
 
+void CObjPlayer2::Damage()
+{
+	if (m_iDamagedCnt <= 0)
+	{
+		m_bDamaged = true;
+		m_iDamagedCnt = 60;
+		m_iDamagedDashCnt = 60;
+
+		auto tmpWidth = m_tBeforeInfo.fX - m_tInfo.fX;
+		auto tmpHeight = m_tBeforeInfo.fY - m_tInfo.fY;
+		auto tmpLen = sqrtf(tmpWidth * tmpWidth + tmpHeight * tmpHeight);
+		auto rad = atan2f(tmpHeight, tmpWidth);
+		// TODO 왼쪽 오른쪽 특정각도일경우 그냥 입사각의 반대로말고 고정 튕기기
+		//JumpRoutine(rad * 180.f / PI * -1.f, 20.f);
+
+		if (m_eLastLRDir == DIR_LEFT)
+		{
+			JumpRoutine(75, 15.f);
+		}
+		else
+		{
+			JumpRoutine(105, 15.f);
+		}
+	}
+	//if (!m_bDamaged)
+	//{
+	//	m_bDamaged = true;
+	//	m_iDamagedCnt = 60;
+	//	m_iDamagedDashCnt = 60;
+
+	//	auto tmpWidth = m_tBeforeInfo.fX - m_tInfo.fX;
+	//	auto tmpHeight = m_tBeforeInfo.fY - m_tInfo.fY;
+	//	auto tmpLen = sqrtf(tmpWidth * tmpWidth + tmpHeight * tmpHeight);
+	//	auto rad = atan2f(tmpHeight, tmpWidth);
+	//	// TODO 왼쪽 오른쪽 특정각도일경우 그냥 입사각의 반대로말고 고정 튕기기
+	//	//JumpRoutine(rad * 180.f / PI * -1.f, 20.f);
+
+	//	if (m_eLastLRDir == DIR_LEFT)
+	//	{
+	//		JumpRoutine(75, 15.f);
+	//	}
+	//	else
+	//	{
+	//		JumpRoutine(105, 15.f);
+	//	}
+	//}
+}
+
 void CObjPlayer2::DeltaUpdate()
 {
 	DWORD dwNowTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
@@ -1672,11 +1707,11 @@ void CObjPlayer2::Move(float fAngle, float fLength)
 
 void CObjPlayer2::Offset()
 {
-	int	iOffsetminX = 100;
-	int	iOffsetmaxX = 700;
+	int	iOffsetminX = 300;
+	int	iOffsetmaxX = 500;
 
-	int	iOffsetminY = 100;
-	int	iOffsetmaxY = 500;
+	int	iOffsetminY = 200;
+	int	iOffsetmaxY = 400;
 
 	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
 	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();

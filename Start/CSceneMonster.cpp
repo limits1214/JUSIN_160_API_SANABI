@@ -196,11 +196,35 @@ void CSceneMonster::Initialize()
 		{
 			m_bRoom1Enter = true;
 
-			CObjMonsterTrooper* pTrooper = new CObjMonsterTrooper;
-			pTrooper->Initialize();
-			pTrooper->Set_Target(pPlayer);
-			pTrooper->Set_Pos(2775, -(4200 - WINCY) + 2985);
-			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
+			CObjMonsterTrooper* pTrooper1 = new CObjMonsterTrooper;
+			pTrooper1->Initialize();
+			pTrooper1->Set_Target(pPlayer);
+			pTrooper1->Set_Pos(2800, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper1);
+
+			CObjMonsterTrooper* pTrooper2 = new CObjMonsterTrooper;
+			pTrooper2->Initialize();
+			pTrooper2->Set_Target(pPlayer);
+			pTrooper2->Set_Pos(2950, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper2);
+
+			CObjMonsterTrooper* pTrooper3 = new CObjMonsterTrooper;
+			pTrooper3->Initialize();
+			pTrooper3->Set_Target(pPlayer);
+			pTrooper3->Set_Pos(3150, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper3);
+
+			CObjMonsterTrooper* pTrooper4 = new CObjMonsterTrooper;
+			pTrooper4->Initialize();
+			pTrooper4->Set_Target(pPlayer);
+			pTrooper4->Set_Pos(3300, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper4);
+
+			CObjMonsterDefender* pDefender1 = new CObjMonsterDefender;
+			pDefender1->Initialize();
+			pDefender1->Set_Target(pPlayer);
+			pDefender1->Set_Pos(3000, -(4200 - WINCY) + 2600);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender1);
 		}
 		});
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger1);
@@ -219,8 +243,65 @@ void CSceneMonster::Initialize()
 			CObjMonsterDefender* pDefender1 = new CObjMonsterDefender;
 			pDefender1->Initialize();
 			pDefender1->Set_Target(pPlayer);
-			pDefender1->Set_Pos(4035, -(4200 - WINCY) + 2645);
+			pDefender1->Set_Pos(4180, -(4200 - WINCY) + 2600);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender1);
+
+			CObjMonsterTrooper* pTrooper1 = new CObjMonsterTrooper;
+			pTrooper1->Initialize();
+			pTrooper1->Set_Target(pPlayer);
+			pTrooper1->Set_Pos(4100, -(4200 - WINCY) + 2600);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper1);
+
+			CObjMonsterTrooper* pTrooper2 = new CObjMonsterTrooper;
+			pTrooper2->Initialize();
+			pTrooper2->Set_Target(pPlayer);
+			pTrooper2->Set_Pos(4260, -(4200 - WINCY) + 2600);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper2);
+
+
+
+
+
+
+			CObjMonsterDefender* pDefender2 = new CObjMonsterDefender;
+			pDefender2->Initialize();
+			pDefender2->Set_Target(pPlayer);
+			pDefender2->Set_Pos(3970, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender2);
+
+			CObjMonsterTrooper* pTrooper3 = new CObjMonsterTrooper;
+			pTrooper3->Initialize();
+			pTrooper3->Set_Target(pPlayer);
+			pTrooper3->Set_Pos(3890, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper3);
+
+			CObjMonsterTrooper* pTrooper4 = new CObjMonsterTrooper;
+			pTrooper4->Initialize();
+			pTrooper4->Set_Target(pPlayer);
+			pTrooper4->Set_Pos(4050, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper4);
+
+
+
+
+
+			CObjMonsterDefender* pDefender3 = new CObjMonsterDefender;
+			pDefender3->Initialize();
+			pDefender3->Set_Target(pPlayer);
+			pDefender3->Set_Pos(4350, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender3);
+
+			CObjMonsterTrooper* pTrooper5 = new CObjMonsterTrooper;
+			pTrooper5->Initialize();
+			pTrooper5->Set_Target(pPlayer);
+			pTrooper5->Set_Pos(4270, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper5);
+
+			CObjMonsterTrooper* pTrooper6 = new CObjMonsterTrooper;
+			pTrooper6->Initialize();
+			pTrooper6->Set_Target(pPlayer);
+			pTrooper6->Set_Pos(4430, -(4200 - WINCY) + 2950);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper6);
 		}
 		});
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger2);
@@ -237,11 +318,89 @@ void CSceneMonster::Initialize()
 		{
 			m_bRoom3Enter = true;
 
+			
+			CObjMonsterTrooper* pTrooper1 = new CObjMonsterTrooper;
+			pTrooper1->Initialize();
+			pTrooper1->Set_Target(pPlayer);
+			pTrooper1->Set_Pos(4180, -(4200 - WINCY) + 1700);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper1);
+
+			CObjMonsterTrooper* pTrooper2 = new CObjMonsterTrooper;
+			pTrooper2->Initialize();
+			pTrooper2->Set_Target(pPlayer);
+			pTrooper2->Set_Pos(4100, -(4200 - WINCY) + 1700);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper2);
+
+			CObjMonsterTrooper* pTrooper3 = new CObjMonsterTrooper;
+			pTrooper3->Initialize();
+			pTrooper3->Set_Target(pPlayer);
+			pTrooper3->Set_Pos(4260, -(4200 - WINCY) + 1700);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper3);
+
+
 			CObjMonsterWarrior* pWarrior1 = new CObjMonsterWarrior;
 			pWarrior1->Initialize();
 			pWarrior1->Set_Target(pPlayer);
-			pWarrior1->Set_Pos(4370, -(4200 - WINCY) + 1925);
+			pWarrior1->Set_Pos(3900, -(4200 - WINCY) + 1700);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior1);
+
+			CObjMonsterWarrior* pWarrior2 = new CObjMonsterWarrior;
+			pWarrior2->Initialize();
+			pWarrior2->Set_Target(pPlayer);
+			pWarrior2->Set_Pos(3900, -(4200 - WINCY) + 1800);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior2);
+
+			CObjMonsterWarrior* pWarrior3 = new CObjMonsterWarrior;
+			pWarrior3->Initialize();
+			pWarrior3->Set_Target(pPlayer);
+			pWarrior3->Set_Pos(3900, -(4200 - WINCY) + 1900);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior3);
+
+			CObjMonsterWarrior* pWarrior4 = new CObjMonsterWarrior;
+			pWarrior4->Initialize();
+			pWarrior4->Set_Target(pPlayer);
+			pWarrior4->Set_Pos(4450, -(4200 - WINCY) + 1700);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior4);
+
+			CObjMonsterWarrior* pWarrior5 = new CObjMonsterWarrior;
+			pWarrior5->Initialize();
+			pWarrior5->Set_Target(pPlayer);
+			pWarrior5->Set_Pos(4450, -(4200 - WINCY) + 1800);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior5);
+
+			CObjMonsterWarrior* pWarrior6 = new CObjMonsterWarrior;
+			pWarrior6->Initialize();
+			pWarrior6->Set_Target(pPlayer);
+			pWarrior6->Set_Pos(4450, -(4200 - WINCY) + 1900);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pWarrior6);
+
+
+
+			CObjMonsterDefender* pDefender1 = new CObjMonsterDefender;
+			pDefender1->Initialize();
+			pDefender1->Set_Target(pPlayer);
+			pDefender1->Set_Pos(3820, -(4200 - WINCY) + 2000);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender1);
+
+			//CObjMonsterDefender* pDefender2 = new CObjMonsterDefender;
+			//pDefender2->Initialize();
+			//pDefender2->Set_Target(pPlayer);
+			//pDefender2->Set_Pos(3950, -(4200 - WINCY) + 2000);
+			//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender2);
+
+			//CObjMonsterDefender* pDefender3 = new CObjMonsterDefender;
+			//pDefender3->Initialize();
+			//pDefender3->Set_Target(pPlayer);
+			//pDefender3->Set_Pos(4350, -(4200 - WINCY) + 2000);
+			//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender3);
+
+			CObjMonsterDefender* pDefender4 = new CObjMonsterDefender;
+			pDefender4->Initialize();
+			pDefender4->Set_Target(pPlayer);
+			pDefender4->Set_Pos(4500, -(4200 - WINCY) + 2000);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDefender4);
+
+
 		}
 		});
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTrigger3);
@@ -278,7 +437,7 @@ int CSceneMonster::Update()
 	CObjMgr::Get_Instance()->Update();
 
 
-	CTimeMgr::Delay(&m_dwSurveyDronIntervalTime, 8000, []() {
+	CTimeMgr::Delay(&m_dwSurveyDronIntervalTime, 10000, []() {
 		
 		CObjPlayer2* pPlayer = nullptr;
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
@@ -327,7 +486,8 @@ void CSceneMonster::Late_Update()
 {
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
-
+	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET));
+	
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 
 	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));

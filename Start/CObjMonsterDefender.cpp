@@ -72,11 +72,17 @@ int CObjMonsterDefender::Update()
 		m_eAniState == AST_LEFT_SET_START
 		|| m_eAniState == AST_LEFT_SET_ING
 		|| m_eAniState == AST_LEFT_SET_END
+		||
+		m_eAniState == AST_RIGHT_EXCHOLDBACK_START
+		|| m_eAniState == AST_RIGHT_EXCHOLDBACK_ING
+		|| m_eAniState == AST_RIGHT_EXCHOLDBACK_END
+		||
+		m_eAniState == AST_RIGHT_DEAD_START
+		|| m_eAniState == AST_RIGHT_DEAD_ING
 		)
 	{
 		return OBJ_NOEVENT;
 	}
-
 	
 
 	if (m_pTarget != nullptr)
@@ -100,7 +106,6 @@ int CObjMonsterDefender::Update()
 			{
 				m_bPlayerFound = false;
 			}
-
 
 
 			if (!m_bGrabbed)
@@ -277,8 +282,8 @@ void CObjMonsterDefender::On_Collision(CObj* pObj, COLLISIONID eCollID, void* et
 
 void CObjMonsterDefender::Excuted(CObj* pPlayer, float fRad)
 {
-	m_bExcuted = true;
 	m_eAniState = AST_RIGHT_DEAD_START;
+	m_bExcuted = true;
 }
 
 void CObjMonsterDefender::Grabbed(CObj* pPlayer)

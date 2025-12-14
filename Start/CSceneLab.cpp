@@ -106,10 +106,10 @@ void CSceneLab::Initialize()
 	pTrooper->Set_Pos((WINCX >> 1) + 0, (WINCY >> 1) + - 100);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pTrooper);
 
-	CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
-	pSurveyDrone->Initialize();
-	pSurveyDrone->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) + -100);
-	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
+	//CObjMonsterSurveyDrone* pSurveyDrone = new CObjMonsterSurveyDrone;
+	//pSurveyDrone->Initialize();
+	//pSurveyDrone->Set_Pos((WINCX >> 1) + 100, (WINCY >> 1) + -100);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pSurveyDrone);
 
 
 	//CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
@@ -155,6 +155,7 @@ void CSceneLab::Late_Update()
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
+	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET));
 	CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 	CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
 

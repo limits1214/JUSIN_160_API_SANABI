@@ -111,5 +111,21 @@ void CObjMonsterDefenderBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, vo
 		pExplosionSprite->Initialize();
 		pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+		return;
+	}
+
+	CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+	if (eCollID == COLL_RECT && pPlayer != nullptr)
+	{
+		pPlayer->Damage();
+
+		CTimeMgr::Get_Instance()->Clear_Timer(m_iDeadTimer);
+		Set_Dead_Cascade();
+		CObjExplosionSprite* pExplosionSprite = new CObjExplosionSprite;
+		pExplosionSprite->Set_Option(1);
+		pExplosionSprite->Initialize();
+		pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+		return;
 	}
 }

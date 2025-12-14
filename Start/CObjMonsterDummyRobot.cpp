@@ -313,6 +313,7 @@ void CObjMonsterDummyRobot::On_Collision(CObj* pObj, COLLISIONID eCollID, void* 
 void CObjMonsterDummyRobot::Excuted(CObj* pPlayer, float fRad)
 {
 	m_eAniState = AST_DEAD_START;
+	m_bExcuted = true;
 }
 
 void CObjMonsterDummyRobot::Grabbed(CObj* pPlayer)

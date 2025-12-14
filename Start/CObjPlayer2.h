@@ -34,6 +34,7 @@ public:
 public:
 	void Grab(CObjPlayer2Grab* pObj);
 	void ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget);
+	void Damage();
 
 private:
 	void DeltaUpdate();

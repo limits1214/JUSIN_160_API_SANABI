@@ -266,6 +266,17 @@ int CObjMonsterWarrior::Update()
 			}
 
 		}
+
+
+
+
+		if (m_eAniState == AST_LEFT_ATTACK_ING || m_eAniState == AST_RIGHT_ATTACK_ING)
+		{
+			if (distance < 150)
+			{
+				pPlayer->Damage();
+			}
+		}
 	}
 
 	float lemnisX = 0;
