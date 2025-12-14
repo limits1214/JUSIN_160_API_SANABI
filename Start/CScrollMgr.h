@@ -15,6 +15,12 @@ public:
 
 	void Scroll_Lock();
 
+	void Scroll_Reset()
+	{
+		m_fScrollX = 0;
+		m_fScrollY = 0;
+	}
+
 private:
 	float		m_fScrollX;
 	float		m_fScrollY;

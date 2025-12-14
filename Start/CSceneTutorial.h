@@ -19,5 +19,8 @@ public:
 private:
 	CObjBgTutoCloud* m_pCloud1;
 	CObjBgTutoCloud* m_pCloud2;
+	bool m_bTriggerEnter;
+
+	bool m_bTutoClear;
 };
 

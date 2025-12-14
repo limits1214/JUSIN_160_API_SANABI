@@ -26,7 +26,8 @@ public:
 
 public:
 	void On_Mouse_Pos(CObj* pMouse) override;
-
+private:
+	void Motion_Change();
 private:
 	int m_iOption;
 

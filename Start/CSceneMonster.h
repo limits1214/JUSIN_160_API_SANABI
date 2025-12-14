@@ -22,5 +22,9 @@ private:
 	bool m_bRoom2Enter;
 
 	bool m_bRoom3Enter;
+
+
+	bool m_bClearTriggerEnter;
+	bool m_bMonsterClear;
 };
 

@@ -4,6 +4,7 @@
 #include "CTimeMgr.h"
 #include "CObjMouse.h"
 #include "CSceneMgr.h"
+#include "CGameStorageMgr.h"
 
 CObjGameUiChapterBtn::CObjGameUiChapterBtn()
     : m_iOption(0), m_ePreState(FSI_END), m_eCurState(FSI_END)
@@ -19,8 +20,10 @@ CObjGameUiChapterBtn::~CObjGameUiChapterBtn()
 void CObjGameUiChapterBtn::Initialize()
 {
     //CBmpMgr::Get_Instance()->Insert_Bmp(_T(""), )
-    m_tInfo.fCX = 186;
-    m_tInfo.fCY = 243;
+    m_tInfo.fCX = 182;
+    m_tInfo.fCY = 239;
+    DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+    m_tFrame = FrameStateId_To_Frame(FSI_UIBUTTON_LOCKED, dwNow);
 
 }
 
@@ -34,26 +37,32 @@ int CObjGameUiChapterBtn::Update()
     {
         DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
       
-        if (m_iOption == 0)
+        //if (m_iOption == 0)
+        //{
+        //    m_ePreState = m_eCurState;
+        //    m_eCurState = FSI_UIBUTTON_C1_NOSELECT;
+        //    m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+        //}
+        //else if (m_iOption == 1)
+        //{
+        //    m_ePreState = m_eCurState;
+        //    m_eCurState = FSI_UIBUTTON_C2_NOSELECT;
+        //    m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+        //}
+        //else if (m_iOption == 2)
+        //{
+        //    m_ePreState = m_eCurState;
+        //    m_eCurState = FSI_UIBUTTON_C3_NOSELECT;
+        //    m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+        //}
+        if (m_iOption == 3)
         {
-            m_ePreState = m_eCurState;
-            m_eCurState = FSI_UI_CHAPTER1_BTN_UN_SELECT;
-            m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
-        }
-        else if (m_iOption == 1)
-        {
-            m_ePreState = m_eCurState;
-            m_eCurState = FSI_UI_CHAPTER2_BTN_UN_SELECT;
-            m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
-        }
-        else if (m_iOption == 2)
-        {
-            m_ePreState = m_eCurState;
-            m_eCurState = FSI_UI_CHAPTER3_BTN_UN_SELECT;
-            m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+            
         }
 
     }
+    Move_Frame();
+
     __super::Update_Rect();
 
     return OBJ_NOEVENT;
@@ -61,11 +70,12 @@ int CObjGameUiChapterBtn::Update()
 
 void CObjGameUiChapterBtn::Late_Update()
 {
+    Motion_Change();
 }
 
 void CObjGameUiChapterBtn::Render(HDC hDC)
 {
-    HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(STR_FKI_UI_ChapterSelect_Sheet_tw186_th243_sw1116_sh243_c6);
+    HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(STR_FKI_UIBUTTON_SHEET);
     BmpRender(
         hDC,
         m_tRect.left, m_tRect.top,
@@ -86,23 +96,29 @@ void CObjGameUiChapterBtn::On_Mouse_Key_Down(CObj* pObj)
     CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
     if (pMouse != nullptr)
     {
+        if (m_eCurState == FSI_UIBUTTON_LOCKED)
+        {
+            return;
+        }
         POINT ptCurr = pMouse->Get_Pt_Curr();
         if (PtInRect(&m_tRect, ptCurr))
         {
             if (m_iOption == 0)
             {
                 //CSceneMgr::Get_Instance()->Scene_Change(SC_LAB);
-                //CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
-                CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
+                CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
+                //CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
             }
             else if (m_iOption == 1)
             {
-                CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
+                //CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
+                CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
             }
             else if (m_iOption == 2)
             {
                 CSceneMgr::Get_Instance()->Scene_Change(SC_BOSS);
             }
+           
             pMouse->Mouse_PreventEvent();
         }
     }
@@ -122,49 +138,98 @@ void CObjGameUiChapterBtn::On_Mouse_Pos(CObj* pObj)
     if (pMouse != nullptr)
     {
         POINT ptCurr = pMouse->Get_Pt_Curr();
+        DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+        bool bC1Clear = CGameStorageMgr::Get_Instance()->IsChap1Clear();
+        bool bC2Clear = CGameStorageMgr::Get_Instance()->IsChap2Clear();
         if (PtInRect(&m_tRect, ptCurr))
         {
-            DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
             if (m_iOption == 0)
             {
                 m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER1_BTN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                m_eCurState = FSI_UIBUTTON_C1_SELECT;
+                //m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
             }
             else if (m_iOption == 1)
             {
-                m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER2_BTN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                if (bC1Clear)
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_C2_SELECT;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
+                else
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_LOCKED;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
             }
             else if (m_iOption == 2)
             {
-                m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER3_BTN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                if (bC2Clear)
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_C3_SELECT;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
+                else
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_LOCKED;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
             }
+
+           
         }
         else
         {
-            DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+           
             if (m_iOption == 0)
             {
                 m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER1_BTN_UN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                m_eCurState = FSI_UIBUTTON_C1_NOSELECT;
+                //m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
             }
             else if (m_iOption == 1)
             {
-                m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER2_BTN_UN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                if (bC1Clear)
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_C2_NOSELECT;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
+                else
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_LOCKED;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
             }
             else if (m_iOption == 2)
             {
-                m_ePreState = m_eCurState;
-                m_eCurState = FSI_UI_CHAPTER3_BTN_UN_SELECT;
-                m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                if (bC2Clear)
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_C3_NOSELECT;
+                    //m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
+                else
+                {
+                    m_ePreState = m_eCurState;
+                    m_eCurState = FSI_UIBUTTON_LOCKED;
+                   // m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+                }
             }
         }
+    }
+}
+void CObjGameUiChapterBtn::Motion_Change()
+{
+    DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
+    if (m_ePreState != m_eCurState)
+    {
+        m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
+        m_ePreState = m_eCurState;
     }
 }

@@ -19,6 +19,14 @@ void CSceneLogo::Initialize()
 {
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Logo/Logo.bmp", L"Logo");
 	m_dwNextSceneTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+
+
+
+
+
+
+
 }
 
 int CSceneLogo::Update()

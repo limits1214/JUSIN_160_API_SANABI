@@ -196,6 +196,7 @@
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CEditMgr.h" />
+    <ClInclude Include="CGameStorageMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CKeyMgr2.h" />
     <ClInclude Include="CMainGame.h" />
@@ -317,6 +318,7 @@
     <ClCompile Include="CCollisionEvent.h" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CEditMgr.cpp" />
+    <ClCompile Include="CGameStorageMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CKeyMgr2.cpp" />
     <ClCompile Include="CMainGame.cpp" />

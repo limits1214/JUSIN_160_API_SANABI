@@ -14,7 +14,7 @@
 #include "CUIObjScrollDbgPanel.h"
 #include "CUIObjTileEditDbgPanel.h"
 #include "CSoundMgr.h"
-
+#include "CGameStorageMgr.h"
 #include "CKeyMgr2.h"
 
 CMainGame::CMainGame()
@@ -242,6 +242,7 @@ void CMainGame::Release()
 	CEditMgr::Destroy_Instance();
 	CTimeMgr::Destroy_Instance();
 	CSoundMgr::Destroy_Instance();
+	CGameStorageMgr::Destroy_Instance();
 
 	ReleaseDC(g_hWnd, m_hDC);
 }

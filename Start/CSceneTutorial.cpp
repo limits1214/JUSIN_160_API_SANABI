@@ -16,6 +16,12 @@
 #include "CObjBgTutoMountain.h"
 #include "CSoundMgr.h"
 #include "CObjTutoAni.h"
+#include "CObjMonsterDaughter.h"
+#include "CTimeMgr.h"
+#include "CObjPlayer2.h"
+#include "CObjTrigger.h"
+#include "CSceneMgr.h"
+#include "CGameStorageMgr.h"
 
 CSceneTutorial::CSceneTutorial()
 	:m_pCloud1(nullptr), m_pCloud2(nullptr)
@@ -29,6 +35,8 @@ CSceneTutorial::~CSceneTutorial()
 
 void CSceneTutorial::Initialize()
 {
+	m_bTriggerEnter = false;
+	m_bTutoClear = false;
 	// Å¸ÀÏ
 	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_Prologue_Tileset.bmp", L"Spr_Prologue_Tileset");
 
@@ -46,6 +54,8 @@ void CSceneTutorial::Initialize()
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);
 
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/Birthdayballon.bmp", STR_FKI_BIRTHDAYBALLON_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/DAUGHTER-Sheet.bmp", STR_FKI_Spr_MONSTER_DAUGHTER_SHEET);
 
 	CObjBg* pBg = new CObjBg;
 	pBg->Initialize();
@@ -89,6 +99,24 @@ void CSceneTutorial::Initialize()
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoMap);
 
 
+	CObjSprite* pBirthBallon = new CObjSprite;
+	pBirthBallon->Initialize();
+	pBirthBallon->Set_Pos(350, -(3600 - WINCY) + 460);
+	pBirthBallon->Set_FrameKeyId(FKI_BIRTHDAYBALLON_SHEET);
+	pBirthBallon->Set_Frame(FrameStateId_To_Frame(FSI_BIRTHDAYBALLON, CTimeMgr::Get_Instance()->Get_Tick_Count()));
+	pBirthBallon->Set_CX(256);
+	pBirthBallon->Set_CY(59);
+	pBirthBallon->Set_UseMainScroll(true);
+	pBirthBallon->Set_MoveFrame(true);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBirthBallon);
+
+
+	CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
+	pDaughter->Initialize();
+	pDaughter->Set_Pos(350, -(3600 - WINCY) + 475);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pDaughter);
+
+
 	CObjTutoAni* pTutoAni = new CObjTutoAni;
 	pTutoAni->Set_Option(1);
 	pTutoAni->Initialize();
@@ -108,6 +136,29 @@ void CSceneTutorial::Initialize()
 			}
 		}
 		});
+
+
+	CObjPlayer2* pPlayer = new CObjPlayer2;
+	pPlayer->Initialize();
+	pPlayer->Set_Pos(400, -(3600 - WINCY) + 3300);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
+
+	CObjTrigger* pTutoClearTrigger = new CObjTrigger;
+	pTutoClearTrigger->Initialize();
+	pTutoClearTrigger->Set_Target(pPlayer);
+	pTutoClearTrigger->Set_Pos(350, -(3600 - WINCY) + 475);
+	//pTutoClearTrigger->Set_Pos(850, -(3600 - WINCY) + 3330);
+	pTutoClearTrigger->Set_CX(100);
+	pTutoClearTrigger->Set_CY(100);
+	pTutoClearTrigger->Set_TriggerLoopCallback([=]() {
+		if (!m_bTriggerEnter)
+		{
+			m_bTriggerEnter = true;
+
+			m_bTutoClear = true;
+		}
+	});
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pTutoClearTrigger);
 
 
 
@@ -134,6 +185,13 @@ int CSceneTutorial::Update()
 			m_pCloud2 = tmp;
 		}
 	}
+
+
+	if (m_bTutoClear)
+	{
+		CGameStorageMgr::Get_Instance()->Set_Chap1Clear(true);
+		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+	}
 	
     return OBJ_NOEVENT;
 }
@@ -156,4 +214,5 @@ void CSceneTutorial::Render(HDC hDC)
 void CSceneTutorial::Release()
 {
 	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CScrollMgr::Get_Instance()->Scroll_Reset();
 }

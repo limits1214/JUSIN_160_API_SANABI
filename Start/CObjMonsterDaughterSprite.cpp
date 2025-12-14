@@ -105,6 +105,42 @@ int CObjMonsterDaughterSprite::Update()
 			}
 			break;
 
+
+
+			case CObjMonsterDaughter::AST_RIGHT_BOUNCING_START:
+			{
+				m_eCurState = FSI_MONSTER_DAUGHTER_RIGHT_BOUNCING;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterDaughter::AST_RIGHT_BOUNCING_ING;
+			}
+			break;
+			case CObjMonsterDaughter::AST_RIGHT_BOUNCING_ING:
+			{
+				Move_Frame();
+			}
+			break;
+			case CObjMonsterDaughter::AST_RIGHT_BOUNCING_END:
+			{
+			}
+			break;
+
+			case CObjMonsterDaughter::AST_LEFT_BOUNCING_START:
+			{
+				m_eCurState = FSI_MONSTER_DAUGHTER_RIGHT_BOUNCING;
+				m_tFrame = FrameStateId_To_Frame(m_eCurState, CTimeMgr::Get_Instance()->Get_Tick_Count());
+				parent->m_eAniState = CObjMonsterDaughter::AST_LEFT_BOUNCING_ING;
+			}
+			break;
+			case CObjMonsterDaughter::AST_LEFT_BOUNCING_ING:
+			{
+				Move_Frame();
+			}
+			break;
+			case CObjMonsterDaughter::AST_LEFT_BOUNCING_END:
+			{
+			}
+			break;
+
 			}
 		}
 	}

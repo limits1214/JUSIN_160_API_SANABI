@@ -18,8 +18,10 @@
 #include "CObjSprite.h"
 #include "CTimeMgr.h"
 #include "CObjMonsterMapBG.h"
-
+#include "CScrollMgr.h"
 #include "CObjTrigger.h"
+#include "CGameStorageMgr.h"
+#include "CSceneMgr.h"
 
 CSceneMonster::CSceneMonster()
 {
@@ -37,6 +39,10 @@ void CSceneMonster::Initialize()
 	m_bRoom1Enter = false;
 	m_bRoom2Enter = false;
 	m_bRoom3Enter = false;
+
+	m_bClearTriggerEnter = false;
+	m_bMonsterClear = false;
+
 
 
 
@@ -175,7 +181,7 @@ void CSceneMonster::Initialize()
 
 	CObjPlayer2* pPlayer = new CObjPlayer2;
 	pPlayer->Initialize();
-	pPlayer->Set_Pos((WINCX >> 1) - 200, WINCY >> 1);
+	pPlayer->Set_Pos(320, -(4200 - WINCY) + 4000);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 
 
@@ -430,6 +436,25 @@ void CSceneMonster::Initialize()
 		}
 	}
 
+
+
+	CObjTrigger* pMonsterClearTrigger = new CObjTrigger;
+	pMonsterClearTrigger->Initialize();
+	pMonsterClearTrigger->Set_Target(pPlayer);
+	pMonsterClearTrigger->Set_Pos(5060, -(4200 - WINCY) + 600);
+	//pMonsterClearTrigger->Set_Pos(600, -(4200 - WINCY) + 4000);
+	pMonsterClearTrigger->Set_CX(100);
+	pMonsterClearTrigger->Set_CY(100);
+	pMonsterClearTrigger->Set_TriggerLoopCallback([=]() {
+		if (!m_bClearTriggerEnter)
+		{
+			m_bClearTriggerEnter = true;
+
+			m_bMonsterClear = true;
+		}
+		});
+	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMonsterClearTrigger);
+
 }
 
 int CSceneMonster::Update()
@@ -478,7 +503,11 @@ int CSceneMonster::Update()
 		});
 
 
-
+	if (m_bMonsterClear)
+	{
+		CGameStorageMgr::Get_Instance()->Set_Chap2Clear(true);
+		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+	}
     return 0;
 }
 
@@ -504,4 +533,5 @@ void CSceneMonster::Render(HDC hDC)
 void CSceneMonster::Release()
 {
 	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CScrollMgr::Get_Instance()->Scroll_Reset();
 }

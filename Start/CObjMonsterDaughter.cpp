@@ -20,7 +20,7 @@ void CObjMonsterDaughter::Initialize()
 	m_bExcuted = false;
 	m_bAirMonster = true;
 
-	m_eAniState = AST_RIGHT_IDLE_START;
+	m_eAniState = AST_RIGHT_BOUNCING_START;
 
 	CObjMonsterDaughterSprite* pSprite = new CObjMonsterDaughterSprite;
 	pSprite->Initialize();
@@ -45,7 +45,7 @@ void CObjMonsterDaughter::Late_Update()
 
 void CObjMonsterDaughter::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CObjMonsterDaughter::Release()

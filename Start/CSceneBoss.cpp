@@ -19,6 +19,7 @@
 #include "CObjBossBodySlapAlert.h"
 #include "CObjMonsterFloatingBombHugeExplodeSprite.h"
 #include "CObjBossBackHeli.h"
+#include "CScrollMgr.h"
 
 
 CSceneBoss::CSceneBoss()
@@ -223,7 +224,7 @@ void CSceneBoss::Initialize()
 
     CObjPlayer2* pPlayer = new CObjPlayer2;
     pPlayer->Initialize();
-    pPlayer->Set_Pos((WINCX >> 1) , (WINCY >> 1) - 100);
+    pPlayer->Set_Pos((WINCX >> 1) , (WINCY >> 1) - 250);
     CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
 }
 
@@ -283,4 +284,5 @@ void CSceneBoss::Render(HDC hDC)
 void CSceneBoss::Release()
 {
     CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+    CScrollMgr::Get_Instance()->Scroll_Reset();
 }

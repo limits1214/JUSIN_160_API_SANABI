@@ -58,6 +58,17 @@ void CSceneTileEdit::Initialize()
 	//pMonMap->Set_UseMainScroll(true);
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_UI, pMonMap);
 
+	//int uicx = 800;
+	//int uicy = 600;
+	//CObjSprite* pUiBg = new CObjSprite;
+	//pUiBg->Initialize();
+	//pUiBg->Set_Pos(uicx >> 1, -(uicy >> 1) + WINCY);
+	//pUiBg->Set_FrameKeyId(FKI_UIBUTTON_BG_SHEET);
+	//pUiBg->Set_CX(uicx);
+	//pUiBg->Set_CY(uicy);
+	//pUiBg->Set_UseMainScroll(true);
+	//CObjMgr::Get_Instance()->Add_Object(OBJ_DBG_UI, pUiBg);
+
 	CUIObjRectButton* pPanelOpenBtn = new CUIObjRectButton;
 	pPanelOpenBtn->Initialize();
 	pPanelOpenBtn->Set_CX(100);
