@@ -24,6 +24,7 @@
 #include "CGameStorageMgr.h"
 #include "CSceneMgr.h"
 #include "CSoundMgr.h"
+#include "CObjGateSprite.h"
 
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
@@ -277,7 +278,18 @@ int CSceneBoss::Update()
     if (CGameStorageMgr::Get_Instance()->Get_BossDeadEnd())
     {
         CGameStorageMgr::Get_Instance()->Set_Chap3Clear(true);
-        CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+
+
+
+        dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+        CTimeMgr::Get_Instance()->Set_Timer([=]() {
+            CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+            }, 1000);
+
+        CTimeMgr::Get_Instance()->Set_Timer([=]() {
+            dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+            }, 1500);
     }
     
     return 0;
@@ -312,6 +324,6 @@ void CSceneBoss::Render(HDC hDC)
 void CSceneBoss::Release()
 {
     CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-    CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+    CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
     CScrollMgr::Get_Instance()->Scroll_Reset();
 }

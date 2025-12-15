@@ -3,7 +3,7 @@
 CGameStorageMgr* CGameStorageMgr::m_pInstance = nullptr;
 
 CGameStorageMgr::CGameStorageMgr()
-	:m_bChap1Clear(false), m_bChap2Clear(false), m_bChap3Clear(false), m_bBossDeadEnd(false)
+	:m_bChap1Clear(true), m_bChap2Clear(true), m_bChap3Clear(false), m_bBossDeadEnd(false)
 {
 
 }

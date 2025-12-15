@@ -108,6 +108,7 @@ void CSceneMgr::Render(HDC hDC)
 		// TODO: 스킵이 마지막 단계라 씬전환 이니셜라이즈 넣었지만
 		//			프레임 끝에서 한다는게 이상한거 같다. 나중에 프레임 시작때 넣도록 해보자
 		m_bSkip = false;
+		m_pScene->Render(hDC);
 		m_pScene->Initialize();
 	}
 }

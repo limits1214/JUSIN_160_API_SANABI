@@ -22,6 +22,7 @@
 #include "CObjTrigger.h"
 #include "CGameStorageMgr.h"
 #include "CSceneMgr.h"
+#include "CObjGateSprite.h"
 
 CSceneMonster::CSceneMonster()
 {
@@ -508,7 +509,17 @@ int CSceneMonster::Update()
 	if (m_bMonsterClear)
 	{
 		CGameStorageMgr::Get_Instance()->Set_Chap2Clear(true);
-		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+
+
+		dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+		CTimeMgr::Get_Instance()->Set_Timer([=]() {
+			CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+			}, 1000);
+
+		CTimeMgr::Get_Instance()->Set_Timer([=]() {
+			dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+			}, 1500);
 	}
     return 0;
 }
@@ -535,6 +546,6 @@ void CSceneMonster::Render(HDC hDC)
 void CSceneMonster::Release()
 {
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
 	CScrollMgr::Get_Instance()->Scroll_Reset();
 }

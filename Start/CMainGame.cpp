@@ -16,6 +16,7 @@
 #include "CSoundMgr.h"
 #include "CGameStorageMgr.h"
 #include "CKeyMgr2.h"
+#include "CObjGateSprite.h"
 
 CMainGame::CMainGame()
 	:m_dwFPSTime(GetTickCount())
@@ -38,7 +39,11 @@ void CMainGame::Initialize()
 	//CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Back.bmp", L"Back");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/WHITE800600.bmp", L"WHITE800600");
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/WHITE800600.bmp", L"WHITE800600_2");
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Gate.bmp", STR_FKI_GATE_SHEET);
+
 	CSceneMgr::Get_Instance()->Scene_Change(SC_LOGO);
+
+
 
 	CObjMouse* pMouse = new CObjMouse;
 	pMouse->Initialize();
@@ -54,14 +59,14 @@ void CMainGame::Initialize()
 
 #ifdef _DEBUG
 
-	if (::AllocConsole() == TRUE)
-	{
-		FILE* nfp[3];
-		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
-		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
-		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
-		std::ios::sync_with_stdio();
-	}
+	//if (::AllocConsole() == TRUE)
+	//{
+	//	FILE* nfp[3];
+	//	freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+	//	freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+	//	freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+	//	std::ios::sync_with_stdio();
+	//}
 
 #endif // _DEBUG
 }
@@ -226,7 +231,7 @@ void CMainGame::Release()
 {
 #ifdef _DEBUG
 
-	FreeConsole();
+	//FreeConsole();
 
 #endif // _DEBUG
 

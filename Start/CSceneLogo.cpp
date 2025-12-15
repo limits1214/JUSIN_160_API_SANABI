@@ -5,6 +5,7 @@
 #include "CSceneMgr.h"
 #include "CTimeMgr.h"
 #include "CObjMgr.h"
+#include "CObjGateSprite.h"
 
 CSceneLogo::CSceneLogo()
 {
@@ -21,8 +22,7 @@ void CSceneLogo::Initialize()
 	m_dwNextSceneTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
 
-
-
+	
 
 
 
@@ -31,13 +31,22 @@ void CSceneLogo::Initialize()
 
 int CSceneLogo::Update()
 {
-	if (CKeyMgr::Get_Instance()->Key_Down(VK_RETURN))
-	{
-		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
-		return 0;
-	}
+	//if (CKeyMgr::Get_Instance()->Key_Down(VK_RETURN))
+	//{
+	//	CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+	//	return 0;
+	//}
 
-	CTimeMgr::Delay(&m_dwNextSceneTime, 100, []() {
+	CTimeMgr::Delay(&m_dwNextSceneTime, 1000, []() {
+
+		CObjGateSprite* pGate = new CObjGateSprite;
+		pGate->Initialize();
+		CObjMgr::Get_Instance()->Add_Object(OBJ_GATE, pGate);
+
+		CTimeMgr::Get_Instance()->Set_Timer([=]() {
+			pGate->GateOpen();
+			}, 1500);
+
 		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
 		});
 
@@ -70,5 +79,5 @@ void CSceneLogo::Render(HDC hDC)
 void CSceneLogo::Release()
 {
 	CBmpMgr::Get_Instance()->Delete_Bmp(_T("Logo"));
-	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
 }

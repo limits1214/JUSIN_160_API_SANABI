@@ -229,6 +229,7 @@
     <ClInclude Include="CObjEditArea.h" />
     <ClInclude Include="CObjExplosionSprite.h" />
     <ClInclude Include="CObjGameUiChapterBtn.h" />
+    <ClInclude Include="CObjGateSprite.h" />
     <ClInclude Include="CObjGrab.h" />
     <ClInclude Include="CObjHookGuide.h" />
     <ClInclude Include="CObjMonster.h" />
@@ -354,6 +355,7 @@
     <ClCompile Include="CObjEditArea.cpp" />
     <ClCompile Include="CObjExplosionSprite.cpp" />
     <ClCompile Include="CObjGameUiChapterBtn.cpp" />
+    <ClCompile Include="CObjGateSprite.cpp" />
     <ClCompile Include="CObjGrab.cpp" />
     <ClCompile Include="CObjHookGuide.cpp" />
     <ClCompile Include="CObjMonster.cpp" />

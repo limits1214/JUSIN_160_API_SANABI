@@ -5,7 +5,8 @@
 #include "CObjMouse.h"
 #include "CSceneMgr.h"
 #include "CGameStorageMgr.h"
-
+#include "CObjGateSprite.h"
+#include "CObjMgr.h"
 CObjGameUiChapterBtn::CObjGameUiChapterBtn()
     : m_iOption(0), m_ePreState(FSI_END), m_eCurState(FSI_END)
 {
@@ -105,18 +106,47 @@ void CObjGameUiChapterBtn::On_Mouse_Key_Down(CObj* pObj)
         {
             if (m_iOption == 0)
             {
-                //CSceneMgr::Get_Instance()->Scene_Change(SC_LAB);
-                CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
+                
+                dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    CSceneMgr::Get_Instance()->Scene_Change(SC_TUTORIAL);
+                    }, 1000);
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+                    }, 1500);
+               
                 //CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
             }
             else if (m_iOption == 1)
             {
                 //CSceneMgr::Get_Instance()->Scene_Change(SC_TILEEIDT);
-                CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
+                //CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
+
+                dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    CSceneMgr::Get_Instance()->Scene_Change(SC_MONSTER);
+                    }, 1000);
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+                    }, 1500);
             }
             else if (m_iOption == 2)
             {
-                CSceneMgr::Get_Instance()->Scene_Change(SC_BOSS);
+                //CSceneMgr::Get_Instance()->Scene_Change(SC_BOSS);
+
+                dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    CSceneMgr::Get_Instance()->Scene_Change(SC_BOSS);
+                    }, 1000);
+
+                CTimeMgr::Get_Instance()->Set_Timer([=]() {
+                    dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+                    }, 1500);
             }
            
             pMouse->Mouse_PreventEvent();

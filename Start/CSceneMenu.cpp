@@ -62,5 +62,5 @@ void CSceneMenu::Render(HDC hDC)
 
 void CSceneMenu::Release()
 {
-	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
 }

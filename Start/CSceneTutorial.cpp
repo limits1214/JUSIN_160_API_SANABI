@@ -23,7 +23,7 @@
 #include "CSceneMgr.h"
 #include "CGameStorageMgr.h"
 #include "CObjMonsterDummyFloater.h"
-
+#include "CObjGateSprite.h"
 CSceneTutorial::CSceneTutorial()
 	:m_pCloud1(nullptr), m_pCloud2(nullptr)
 {
@@ -200,7 +200,15 @@ int CSceneTutorial::Update()
 	if (m_bTutoClear)
 	{
 		CGameStorageMgr::Get_Instance()->Set_Chap1Clear(true);
-		CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+		dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
+
+		CTimeMgr::Get_Instance()->Set_Timer([=]() {
+			CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+			}, 1000);
+
+		CTimeMgr::Get_Instance()->Set_Timer([=]() {
+			dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateOpen();
+			}, 1500);
 	}
 	
     return OBJ_NOEVENT;
@@ -224,6 +232,6 @@ void CSceneTutorial::Render(HDC hDC)
 void CSceneTutorial::Release()
 {
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
+	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
 	CScrollMgr::Get_Instance()->Scroll_Reset();
 }
