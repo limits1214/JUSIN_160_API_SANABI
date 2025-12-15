@@ -223,7 +223,7 @@ int CObjPlayer2::Update()
 				m_fGravityDeltaSum = 0;
 				m_fJumpDeltaSum = 0;
 
-				float w = sqrtf(/*GRAVITY*/ 500 / m_fPendLength);
+				float w = sqrtf(/*GRAVITY*/ 1200 / m_fPendLength);
 				float l = m_fPendLength;
 
 				auto ang0 = m_fPendRad;

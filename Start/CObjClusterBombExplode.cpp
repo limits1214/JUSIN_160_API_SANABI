@@ -17,6 +17,7 @@ void CObjClusterBombExplode::Initialize()
 	m_tInfo.fCY = 122.f;
 	Set_FrameKeyId(FKI_Spr_BOSS_ClusterBombExplode_Sheet);
 	m_tFrame = FrameStateId_To_Frame(FSI_BOSS_CLUSTER_BOMB_EXPLODE, CTimeMgr::Get_Instance()->Get_Tick_Count());
+
 }
 
 int CObjClusterBombExplode::Update()

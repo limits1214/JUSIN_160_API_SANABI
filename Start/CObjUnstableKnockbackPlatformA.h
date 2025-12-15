@@ -2,7 +2,7 @@
 #include "CObj.h"
 #include "CObjCollisionRect.h"
 #include "CCollisionEvent.h"
-class CObjUnstableKnockbackPlatformA: public CObjCollisionRect, public CCollisionEvent
+class CObjUnstableKnockbackPlatformA: public CObjCollisionRect
 {
 public:
 	CObjUnstableKnockbackPlatformA();
@@ -35,6 +35,9 @@ private:
 	float m_fComebackX;
 	float m_fComebackY;
 	bool m_bComback;
+
+
+	bool m_bDestroyed;
 
 public:
 	enum ANI_STATE

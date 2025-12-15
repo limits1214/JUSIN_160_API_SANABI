@@ -15,6 +15,8 @@
 #include "CObjUnstableKnockbackPlatformABooster.h"
 #include "CObjBossBullet.h"
 #include "CObjBossShootExplode.h"
+#include "CObjMonsterFloatingBomb.h"
+#include "CObjBossBodySlap.h"
 
 CObjUnstableKnockbackPlatformA::CObjUnstableKnockbackPlatformA()
 {
@@ -49,6 +51,9 @@ void CObjUnstableKnockbackPlatformA::Initialize()
 	pBooster->Set_Pos(0, 58);
 	pBooster->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLATFORM, pBooster);
+
+
+	m_bDestroyed = false;
 }
 
 int CObjUnstableKnockbackPlatformA::Update()
@@ -60,6 +65,7 @@ int CObjUnstableKnockbackPlatformA::Update()
 	if (m_eAniState == DESTROY_ING)
 	{
 		m_tInfo.fY += 5.f;
+	
 
 		if (m_tInfo.fY > 1000)
 		{
@@ -82,6 +88,7 @@ int CObjUnstableKnockbackPlatformA::Update()
 			m_tInfo.fY = m_fComebackY;
 			m_bComback = false;
 			Set_Option(ERI_CLIMABLE);
+			m_bDestroyed = false;
 		}
 	}
 	
@@ -104,13 +111,24 @@ void CObjUnstableKnockbackPlatformA::Release()
 {
 }
 
-void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 {
+	if (m_bDestroyed)
+	{
+		return;
+	}
+
+	CObjCollisionRect::On_Collision(pObj, eCollID, etc);
 	CObjBossShootExplode* pShootExplode = dynamic_cast<CObjBossShootExplode*>(pObj);
 	CObjBossBullet* pBossBullet = dynamic_cast<CObjBossBullet*>(pObj);
+	CObjBossBodySlap* pBossBodySlap = dynamic_cast<CObjBossBodySlap*>(pObj);
 	if (eCollID == COLL_RECT && pShootExplode != nullptr
 		||
-		eCollID == COLL_RECT && pBossBullet != nullptr)
+		eCollID == COLL_RECT && pBossBullet != nullptr
+		||
+		eCollID == COLL_RECT && pBossBodySlap != nullptr
+		
+		)
 	{
 		if (m_eAniState == IDLE_ING)
 		{
@@ -122,8 +140,27 @@ void CObjUnstableKnockbackPlatformA::On_Collision(CObj* pObj, COLLISIONID eCollI
 		}
 		else if (m_eAniState == IDLE_DOUBLEWARNING_ING)
 		{
-			//m_eAniState = DESTROY_START;
-			//Set_Option(ERI_NO_CLIMABLE);
+			m_eAniState = DESTROY_START;
+			Set_Option(ERI_NO_CLIMABLE);
+
+			bool bCanSpawn = true;
+			for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER))
+			{
+				auto pFloatingBomb = dynamic_cast<CObjMonsterFloatingBomb*>(pObj);
+				if (pFloatingBomb != nullptr)
+				{
+					bCanSpawn = false;
+					break;
+				}
+			}
+			m_bDestroyed = true;
+			if (bCanSpawn)
+			{
+				CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
+				pFloatingBomb->Initialize();
+				pFloatingBomb->Set_Pos(m_tInfo.fX ,m_tInfo.fY);
+				CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
+			}
 		}
 	}
 }

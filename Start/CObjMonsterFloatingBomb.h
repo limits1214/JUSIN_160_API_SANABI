@@ -4,17 +4,11 @@
 #include "CCollisionEvent.h"
 #include "CObjMonster.h"
 class CObjMonsterFloatingBomb :
-    public CObjMonster, public CMouseKeyEvent, public CCollisionEvent
+    public CObjMonster,public CCollisionEvent
 {
 public:
 	CObjMonsterFloatingBomb();
 	virtual ~CObjMonsterFloatingBomb();
-
-public:
-	void Set_PlayerState(FRAME_STATE_ID eState)
-	{
-		m_eCurState = eState;
-	}
 
 public:
 	void Initialize() override;
@@ -31,16 +25,13 @@ public:
 	void Grabbed(CObj* pPlayer) override;
 	void Explode();
 
-public:
-	void On_Mouse_Key_Down(CObj* pMouse) override;
-	void On_Mouse_Key_Up(CObj* pMouse) override;
-	void On_Mouse_Key_Pressing(CObj* pMouse) override;
-
-private:
-	void Motion_Change();
-
 private:
 	FRAME_STATE_ID m_ePreState;
 	FRAME_STATE_ID m_eCurState;
+
+
+private:
+	int m_iAngle;
+	bool m_bExploded;
 };
 

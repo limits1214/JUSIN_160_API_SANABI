@@ -216,6 +216,7 @@
     <ClInclude Include="CObjBossFireBird.h" />
     <ClInclude Include="CObjBossFirebirdBody.h" />
     <ClInclude Include="CObjBossFireBirdBomber.h" />
+    <ClInclude Include="CObjBossFirebirdEndSprite.h" />
     <ClInclude Include="CObjBossFireBirdGun.h" />
     <ClInclude Include="CObjBossFireBirdWing.h" />
     <ClInclude Include="CObjBossShootExplode.h" />
@@ -339,6 +340,7 @@
     <ClCompile Include="CObjBossFireBird.cpp" />
     <ClCompile Include="CObjBossFirebirdBody.cpp" />
     <ClCompile Include="CObjBossFireBirdBomber.cpp" />
+    <ClCompile Include="CObjBossFirebirdEndSprite.cpp" />
     <ClCompile Include="CObjBossFireBirdGun.cpp" />
     <ClCompile Include="CObjBossFireBirdWing.cpp" />
     <ClCompile Include="CObjBossShootExplode.cpp" />

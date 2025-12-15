@@ -2,6 +2,7 @@
 #include "CObj.h"
 #include "CObjBossClusterAim.h"
 #include "CCollisionEvent.h"
+#include "CTimeMgr.h"
 class CObjBossFireBird: public CObj, public CCollisionEvent
 {
 public:
@@ -17,6 +18,39 @@ public:
 	float Get_Angle()
 	{
 		return m_fAngle;
+	}
+
+	void Set_RetreatAngle(float fAngle)
+	{
+		m_fRetreatAngle = fAngle;
+	}
+	void Set_Retreat(bool bRetreat)
+	{
+		m_dwRetreatDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+		m_bRetreat = bRetreat;
+	}
+
+	void Set_Knockback(float bKnockback)
+	{
+		cout << "KNOCKbACK" << endl;
+		++m_iKnockbackedCnt;
+		m_iKnockBackFrameCnt = 30;
+		m_bKnockBack = bKnockback;
+
+		if (m_iKnockbackedCnt >= 2)
+		{
+			m_eAniStateBroken = BROKEN;
+		}
+
+		if (m_iKnockbackedCnt >= 3)
+		{
+			m_iKnockBackFrameCnt = 200;
+			m_bEndStart = true;
+		}
+	}
+	void Set_KnockbackAngle(float fAngle)
+	{
+		m_fKnockBackAngle = fAngle;
 	}
 
 public:
@@ -45,6 +79,7 @@ private:
 
 	int m_iTestCnt;
 
+
 private:
 	float m_fPlayerFollowAngle;
 	DWORD m_dwBombingIntervalDelay1;
@@ -69,6 +104,20 @@ private:
 
 	bool m_bBossHideToDown;
 	bool m_bBossShowToUp;
+
+	bool m_bKnockBack;
+	int m_iKnockBackFrameCnt;
+	float m_fKnockBackAngle;
+	int m_iKnockbackedCnt;
+
+	bool m_bRetreat;
+	float m_fRetreatAngle;
+	DWORD m_dwRetreatDelay;
+
+	bool m_bEndStart;
+	bool m_bEnd;
+
+	int m_iDamagedCnt;
 
 public:
 	
@@ -172,6 +221,14 @@ public:
 		PATTERN4_CLUSTERBOMB_START,
 		PATTERN4_CLUSTERBOMB_ING,
 		PATTERN4_CLUSTERBOMB_END,
+
+		BROKEN_START,
+		BROKEN_ING,
+		BROKEN_END,
+
+		DESTROY_START,
+		DESTROY_ING,
+		DESTROY_END,
 
 		EXIT_START,
 		EXIT_ING,

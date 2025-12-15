@@ -15,6 +15,7 @@
 #include "CObjBossClusterAim.h"
 #include "CObjBossBodySlap.h"
 #include "CObjBossBackHeli.h"
+#include "CObjBossFirebirdEndSprite.h"
 
 CObjBossFireBird::CObjBossFireBird()
 	: m_pClusterAim(nullptr)
@@ -55,8 +56,22 @@ void CObjBossFireBird::Initialize()
 	m_dwBodySlapAlertDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
 	m_dwBodySlapEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
-	m_fClusterAimSpeed = 2.f;
+	m_fClusterAimSpeed = 3.f;
 	m_pClusterAim = nullptr;
+
+
+	m_bRetreat = false;
+	m_dwRetreatDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+	m_iKnockbackedCnt = 0;
+	m_iKnockBackFrameCnt = 0;
+	m_bKnockBack = false;
+	m_fKnockBackAngle = 0.f;
+
+	m_iDamagedCnt = 0;
+
+	m_bEndStart = false;
+	m_bEnd = false;
 
 	CObjBossFireBirdBomber* pBomber = new CObjBossFireBirdBomber;
 	pBomber->Initialize();
@@ -88,13 +103,36 @@ int CObjBossFireBird::Update()
     if (m_bDead)
         return OBJ_DEAD;
 
-	//Test_Key_Input();
-	m_fPlayerFollowAngle += 1.f;
-	State_Update();
+	if (!m_bEnd)
+	{
+		if (m_bKnockBack)
+		{
+			--m_iKnockBackFrameCnt;
+			m_tInfo.fX += cosf(m_fKnockBackAngle * PI / 180.f) * 10.f;
+			m_tInfo.fY -= sinf(m_fKnockBackAngle * PI / 180.f) * 10.f;
+			if (m_iKnockBackFrameCnt < 0)
+			{
+				m_bKnockBack = false;
 
-	//Move(45.f, 1.f);
+				if (m_bEndStart)
+				{
+					m_bEnd = true;
+					CObjBossFirebirdEndSprite* pFireBirdEnd = new CObjBossFirebirdEndSprite;
+					pFireBirdEnd->Initialize();
+					CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pFireBirdEnd);
+				}
+			}
+		}
+		else
+		{
+			m_fPlayerFollowAngle += 1.f;
+			State_Update();
+		}
+	
+	}
+	
 
-
+	
 
 
     __super::Update_Rect();
@@ -330,19 +368,19 @@ void CObjBossFireBird::State_Update()
 
 	case PLAYER_FOLLOW_END:
 	{
-		if (m_iTestCnt == 0)
+		if (m_iTestCnt % 4 == 0)
 		{
 			m_eState = PATTERN1_BOMBING_START;
 		}
-		else if (m_iTestCnt == 1)
+		else if (m_iTestCnt % 4 == 1)
 		{
 			m_eState = PATTERN2_SHOOTING_START;
 		}
-		else if (m_iTestCnt == 2)
+		else if (m_iTestCnt % 4 == 2)
 		{
 			m_eState = PATTERN3_BODYSLAP_START;
 		}
-		else if (m_iTestCnt == 3)
+		else if (m_iTestCnt % 4 == 3)
 		{
 			m_eState = PATTERN4_CLUSTERBOMB_START;
 		}
@@ -352,27 +390,6 @@ void CObjBossFireBird::State_Update()
 		}
 		++m_iTestCnt;
 
-		//int a = rand() % 5;
-		//if (a == 1)
-		//{
-		//	m_eState = PATTERN1_BOMBING_START;
-		//}
-		//else if (a == 2)
-		//{
-		//	m_eState = PATTERN2_SHOOTING_START;
-		//}
-		//else if (a == 3)
-		//{
-		//	m_eState = PATTERN3_BODYSLAP_START;
-		//}
-		//else if (a == 4)
-		//{
-		//	m_eState = PATTERN4_CLUSTERBOMB_START;
-		//}
-		//else
-		//{
-		//	m_eState = PLAYER_FOLLOW_START;
-		//}
 	}
 	break;
 
@@ -400,7 +417,6 @@ void CObjBossFireBird::State_Update()
 				float playerX = pPlayer->Get_Info()->fX;
 				float playerY = pPlayer->Get_Info()->fY;
 
-
 				float newX = playerX + cosf(m_fPlayerFollowAngle * PI / 180.f) * 100;
 				float newY = (playerY - 450.f) - sinf(m_fPlayerFollowAngle * PI / 180.f) * 100;
 
@@ -410,6 +426,7 @@ void CObjBossFireBird::State_Update()
 				float rad = atan2f(height, width) + PI;
 				float ang = rad * 180.f / PI;
 				float ang2 = ang * -1;
+
 				Move(ang2, m_fSpeed);
 
 				if (m_bBombingStart)
@@ -530,7 +547,6 @@ void CObjBossFireBird::State_Update()
 		CTimeMgr::Get_Instance()->Set_Timer(
 			[&]() {
 				m_bBossHideToDown = false;
-
 			}, 1000);
 	
 		CTimeMgr::Get_Instance()->Set_Timer(
@@ -552,7 +568,7 @@ void CObjBossFireBird::State_Update()
 							pAlert->Initialize();
 							pAlert->Set_Pos(offset, m_fBodySlapPlayerY);
 							pAlert->Set_DelayTime(20 * i);
-							CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pAlert);
+							CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pAlert);
 						}
 
 						
@@ -570,7 +586,7 @@ void CObjBossFireBird::State_Update()
 						CObjBossBodySlap* pBossBodySlap = new CObjBossBodySlap;
 						pBossBodySlap->Initialize();
 						pBossBodySlap->Set_Pos(m_fBodySlapPlayerX - 224 * 3, m_fBodySlapPlayerY);
-						CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossBodySlap);
+						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBossBodySlap);
 					}
 				}
 			}, 5000);
@@ -717,6 +733,36 @@ void CObjBossFireBird::State_Update()
 	}
 	break;
 
+
+	case BROKEN_START:
+	{
+		//m_fDamagedAngle
+		m_bRetreat = true;
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bRetreat = false;
+				m_eState = BROKEN_END;
+			}, 1000);
+
+		m_eState = BROKEN_ING;
+		++m_iDamagedCnt;
+		m_eAniStateBroken = BROKEN;
+	}
+	break;
+	case BROKEN_ING:
+	{
+		if (m_bRetreat)
+		{
+			m_tInfo.fX += cosf(m_fRetreatAngle * PI / 180.f) * 15.f;
+			m_tInfo.fY -= sinf(m_fRetreatAngle * PI / 180.f) * 15.f;
+		}
+	}
+	break;
+	case BROKEN_END:
+	{
+		m_eState = PLAYER_FOLLOW_START;
+	}
+	break;
 	}
 
 }

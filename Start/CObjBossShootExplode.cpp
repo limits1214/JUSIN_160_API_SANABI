@@ -2,6 +2,7 @@
 #include "CObjBossShootExplode.h"
 #include "CBmpMgr.h"
 #include "CTimeMgr.h"
+#include "CObjPlayer2.h"
 CObjBossShootExplode::CObjBossShootExplode()
 {
 }
@@ -63,4 +64,12 @@ void CObjBossShootExplode::Release()
 
 void CObjBossShootExplode::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
 {
+	CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+	if (eCollID == COLL_RECT && pPlayer != nullptr)
+	{
+		pPlayer->Damage();
+
+		//Set_Dead_Cascade();
+		return;
+	}
 }

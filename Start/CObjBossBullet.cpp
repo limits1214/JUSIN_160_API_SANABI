@@ -7,6 +7,7 @@
 #include "CObjUnstableKnockbackPlatformA.h"
 #include "CObjClusterBombExplode.h"
 #include "CObjClusterBombletExplode.h"
+#include "CObjPlayer2.h"
 
 CObjBossBullet::CObjBossBullet()
 	:m_iOption(0)
@@ -109,5 +110,31 @@ void CObjBossBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombExplode);
 		}
 		Set_Dead_Cascade();
+
+		return;
+	}
+
+	CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+	if (eCollID == COLL_RECT && pPlayer != nullptr)
+	{
+		pPlayer->Damage();
+
+		
+		Set_Dead_Cascade();
+		if (m_iOption == 0)
+		{
+			CObjClusterBombletExplode* pBombletExplode = new CObjClusterBombletExplode;
+			pBombletExplode->Initialize();
+			pBombletExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombletExplode);
+		}
+		else if (m_iOption == 1)
+		{
+			CObjClusterBombExplode* pBombExplode = new CObjClusterBombExplode;
+			pBombExplode->Initialize();
+			pBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombExplode);
+		}
+		return;
 	}
 }

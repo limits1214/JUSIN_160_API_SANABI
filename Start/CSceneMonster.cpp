@@ -455,6 +455,8 @@ void CSceneMonster::Initialize()
 		});
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pMonsterClearTrigger);
 
+
+	CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_Chap2_Main_Intro.wav"), 1.f);
 }
 
 int CSceneMonster::Update()
@@ -532,6 +534,7 @@ void CSceneMonster::Render(HDC hDC)
 
 void CSceneMonster::Release()
 {
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 	CScrollMgr::Get_Instance()->Scroll_Reset();
 }

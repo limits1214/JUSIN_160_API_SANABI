@@ -18,8 +18,8 @@ CObjMonsterWarrior::~CObjMonsterWarrior()
 void CObjMonsterWarrior::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 50;
-	m_tInfo.fCY = 50;
+	m_tInfo.fCX = 80;
+	m_tInfo.fCY = 80;
 
 	m_bExcuted = false;
 	m_bAirMonster = true;
@@ -309,7 +309,7 @@ void CObjMonsterWarrior::Late_Update()
 
 void CObjMonsterWarrior::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 }
 
 void CObjMonsterWarrior::Release()

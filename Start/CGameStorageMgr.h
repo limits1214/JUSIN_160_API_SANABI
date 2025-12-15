@@ -22,6 +22,18 @@ public:
 	{
 		m_bChap2Clear = bClear;
 	}
+	void Set_Chap3Clear(bool bClear)
+	{
+		m_bChap3Clear = bClear;
+	}
+	void Set_BossDeadEnd(bool bBossDead)
+	{
+		m_bBossDeadEnd = bBossDead;
+	}
+	bool Get_BossDeadEnd()
+	{
+		return m_bBossDeadEnd;
+	}
 
 public:
 	void Release();
@@ -29,6 +41,8 @@ private:
 	bool m_bChap1Clear;
 	bool m_bChap2Clear;
 	bool m_bChap3Clear;
+
+	bool m_bBossDeadEnd;
 
 
 	// SINGLETON

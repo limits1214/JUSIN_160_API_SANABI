@@ -9,7 +9,8 @@
 #include "CObjPlayer.h"
 #include "CObjMonsterFloatingBombHugeExplodeSprite.h"
 #include "CObjBossFireBird.h"
-
+#include "CCollisionMgr.h"
+#include "CObjUnstableKnockbackPlatformA.h"
 
 CObjMonsterFloatingBomb::CObjMonsterFloatingBomb()
 {
@@ -36,6 +37,9 @@ void CObjMonsterFloatingBomb::Initialize()
 	m_bExcuted = false;
 
 	m_bAirMonster = true;
+	m_iAngle = 45;
+
+	m_bExploded = false;
 }
 
 int CObjMonsterFloatingBomb::Update()
@@ -48,6 +52,13 @@ int CObjMonsterFloatingBomb::Update()
 		m_tInfo.fX += cosf(m_fExcutedRad) * 3;
 		m_tInfo.fY += sinf(m_fExcutedRad) * 3;
 	}
+	else
+	{
+		m_tInfo.fX += cosf((float)m_iAngle * PI / 180.f) * 3;
+		m_tInfo.fY -= sinf((float)m_iAngle * PI / 180.f) * 3;
+	}
+
+
 
 	__super::Update_Rect();
 	return OBJ_NOEVENT;
@@ -55,7 +66,58 @@ int CObjMonsterFloatingBomb::Update()
 
 void CObjMonsterFloatingBomb::Late_Update()
 {
-	
+	int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
+	int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
+
+
+	if (m_tRect.top + iScrollY < 0)
+	{
+		// 바닥 충돌
+		if (m_iAngle == 45)
+		{
+			m_iAngle = 315;
+		}
+		else if (m_iAngle == 135)
+		{
+			m_iAngle = 225;
+		}
+	}
+	else if (m_tRect.bottom + iScrollY > WINCY)
+	{
+		// 위 충돌
+		if (m_iAngle == 315)
+		{
+			m_iAngle = 45;
+		}
+		else if (m_iAngle == 225)
+		{
+			m_iAngle = 135;
+		}
+	}
+	else if (m_tRect.left + iScrollX < 0)
+	{
+		// 오른쪽 충돌
+		if (m_iAngle == 225)
+		{
+			m_iAngle = 315;
+		}
+		else if (m_iAngle == 135)
+		{
+			m_iAngle = 45;
+		}
+	}
+	else if (m_tRect.right + iScrollX > WINCX)
+	{
+		// 왼쪽 충돌
+		if (m_iAngle == 45)
+		{
+			m_iAngle = 135;
+		}
+		else if (m_iAngle == 315)
+		{
+			m_iAngle = 225;
+		}
+	}
 }
 
 void CObjMonsterFloatingBomb::Render(HDC hDC)
@@ -68,16 +130,93 @@ void CObjMonsterFloatingBomb::Release()
 {
 }
 
-void CObjMonsterFloatingBomb::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+void CObjMonsterFloatingBomb::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 {
 	CObjBossFireBird* pBoss = dynamic_cast<CObjBossFireBird*>(pObj);
 	if (eCollID == COLL_RECT && pBoss != nullptr)
 	{
-		if (m_bExcuted)
+		if (m_bExcuted && !m_bExploded)
 		{
 			Explode();
-			pBoss->m_eAniStateBroken = CObjBossFireBird::BROKEN;
+			pBoss->Set_Knockback(true);
+			pBoss->Set_KnockbackAngle(m_fExcutedRad * 180.f / PI * -1.f);
+			
+			return;
 		}
+
+	}
+
+	CObjUnstableKnockbackPlatformA* pPlatform = dynamic_cast<CObjUnstableKnockbackPlatformA*>(pObj);
+	COLL_ETC_RECT_EX* pRectExCollEtc = static_cast<COLL_ETC_RECT_EX*>(etc);
+	if (eCollID == COLL_RECT_EX && pPlatform != nullptr)
+	{
+		COLL_ETC_RECT_EX rectExCollEtc = *pRectExCollEtc;
+		float fDistance = rectExCollEtc.fDistance;
+		
+		switch (rectExCollEtc.eDir)
+		{
+		case DIR_UP:
+		{
+			// 플레이어가 바닥에 닿은 경우 밀어준다.
+			//Move(90.f, fDistance);
+			if (m_iAngle == 315)
+			{
+				m_iAngle = 45;
+			}
+			else if (m_iAngle == 225)
+			{
+				m_iAngle = 135;
+			}
+		}
+		break;
+		case DIR_DOWN:
+		{
+			// 플레이어가 위에 닿은 경우 밀어준다.
+			//Move(270.f, fDistance);
+
+			if (m_iAngle == 45)
+			{
+				m_iAngle = 315;
+			}
+			else if (m_iAngle == 135)
+			{
+				m_iAngle = 225;
+			}
+
+		}
+		break;
+		case DIR_LEFT:
+		{
+			// 플레이어가 왼쪽에 닿은 경우밀어준다.
+			//Move(180.f, fDistance);
+
+			if (m_iAngle == 45)
+			{
+				m_iAngle = 135;
+			}
+			else if (m_iAngle == 315)
+			{
+				m_iAngle = 225;
+			}
+		}
+		break;
+		case DIR_RIGHT:
+		{
+			// 플레이어가 오른쪽에 닿은 경우 밀어준다.
+			//Move(0.f, fDistance);
+
+			if (m_iAngle == 225)
+			{
+				m_iAngle = 315;
+			}
+			else if (m_iAngle == 135)
+			{
+				m_iAngle = 45;
+			}
+		}
+		break;
+		}
+		
 	}
 }
 
@@ -93,75 +232,11 @@ void CObjMonsterFloatingBomb::Grabbed(CObj* pPlayer)
 
 void CObjMonsterFloatingBomb::Explode()
 {
+	m_bExploded = true;
 	Set_Dead_Cascade();
 
 	CObjMonsterFloatingBombHugeExplodeSprite* pFloatingBombExplode = new CObjMonsterFloatingBombHugeExplodeSprite;
 	pFloatingBombExplode->Initialize();
 	pFloatingBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBombExplode);
-}
-
-void CObjMonsterFloatingBomb::On_Mouse_Key_Down(CObj* pObj)
-{
-	CObjMouse* pMouse = dynamic_cast<CObjMouse*>(pObj);
-	if (pMouse != nullptr)
-	{
-		if (pMouse->Get_Last_Key() == VK_RBUTTON)
-		{
-			POINT ptCurr = pMouse->Get_Pt_Curr();
-			int		iScrollX = (int)CScrollMgr::Get_Instance()->Get_ScrollX();
-			int		iScrollY = (int)CScrollMgr::Get_Instance()->Get_ScrollY();
-			ptCurr.x -= iScrollX;
-			ptCurr.y -= iScrollY;
-			if (PtInRect(&m_tRect, ptCurr))
-			{
-				list<CObj*>* playerList = CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER);
-
-				CObjPlayer* pPlayer = nullptr;
-				for (auto*& pObj : *playerList)
-				{
-					CObjPlayer* _pPlayer = dynamic_cast<CObjPlayer*>(pObj);
-					if (_pPlayer != nullptr)
-					{
-						pPlayer = _pPlayer;
-						break;
-					}
-				}
-
-				if (pPlayer != nullptr)
-				{
-
-					float fWidth = pPlayer->Get_Info()->fX - m_tInfo.fX;
-					float fHeight = pPlayer->Get_Info()->fY - m_tInfo.fY;
-					float fLength = sqrtf(fWidth * fWidth + fHeight * fHeight);
-
-					if (fLength < 400)
-					{
-						pPlayer->MonsterExcStart(this);
-					}
-				}
-
-				pMouse->Mouse_PreventEvent();
-			}
-		}
-		
-	}
-}
-
-void CObjMonsterFloatingBomb::On_Mouse_Key_Up(CObj* pMouse)
-{
-}
-
-void CObjMonsterFloatingBomb::On_Mouse_Key_Pressing(CObj* pMouse)
-{
-}
-
-void CObjMonsterFloatingBomb::Motion_Change()
-{
-	DWORD dwNow = CTimeMgr::Get_Instance()->Get_Tick_Count();
-	if (m_ePreState != m_eCurState)
-	{
-		m_tFrame = FrameStateId_To_Frame(m_eCurState, dwNow);
-		m_ePreState = m_eCurState;
-	}
 }

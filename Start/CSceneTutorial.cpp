@@ -22,6 +22,7 @@
 #include "CObjTrigger.h"
 #include "CSceneMgr.h"
 #include "CGameStorageMgr.h"
+#include "CObjMonsterDummyFloater.h"
 
 CSceneTutorial::CSceneTutorial()
 	:m_pCloud1(nullptr), m_pCloud2(nullptr)
@@ -51,11 +52,15 @@ void CSceneTutorial::Initialize()
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/TUTO/TUTO_ANI-sheet.bmp", STR_FKI_Spr_TUTO_ANI_SHEET);
 
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
-	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);
+	/*CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FloatingBombExplodeHude_Sheet_tw512_th512.bmp", STR_FKI_Spr_MOB_FLTBOMB_FloatingBombExplodeHude_Sheet_tw512_th512);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_FloatingBombSheet_th150_tw150.bmp", STR_FKI_Spr_MOB_FLTBOMB_SHEET_th150_tw150);*/
 
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/Birthdayballon.bmp", STR_FKI_BIRTHDAYBALLON_SHEET);
 	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/DAUGHTER/DAUGHTER-Sheet.bmp", STR_FKI_Spr_MONSTER_DAUGHTER_SHEET);
+
+
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/ENE/ENE_DummyFloater-Sheet.bmp", STR_FKI_Spr_MONSTER_DUMMYFLOATER_SHEET);
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/VFX_EXPLOSION-Sheet.bmp", STR_FKI_Spr_EXPLOSION_SHEET);
 
 	CObjBg* pBg = new CObjBg;
 	pBg->Initialize();
@@ -109,6 +114,11 @@ void CSceneTutorial::Initialize()
 	pBirthBallon->Set_UseMainScroll(true);
 	pBirthBallon->Set_MoveFrame(true);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBirthBallon);
+
+	CObjMonsterDummyFloater* pMobDummyFloater = new CObjMonsterDummyFloater;
+	pMobDummyFloater->Initialize();
+	pMobDummyFloater->Set_Pos(1250, -(3600 - WINCY) + 750);
+	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pMobDummyFloater);
 
 
 	CObjMonsterDaughter* pDaughter = new CObjMonsterDaughter;
@@ -213,6 +223,7 @@ void CSceneTutorial::Render(HDC hDC)
 
 void CSceneTutorial::Release()
 {
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
 	CScrollMgr::Get_Instance()->Scroll_Reset();
 }

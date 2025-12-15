@@ -20,7 +20,10 @@
 #include "CObjMonsterFloatingBombHugeExplodeSprite.h"
 #include "CObjBossBackHeli.h"
 #include "CScrollMgr.h"
-
+#include "CObjSprite.h"
+#include "CGameStorageMgr.h"
+#include "CSceneMgr.h"
+#include "CSoundMgr.h"
 
 CSceneBoss::CSceneBoss()
     :m_pBgBuilding1(nullptr), m_pBgBuilding2(nullptr)
@@ -35,6 +38,7 @@ CSceneBoss::~CSceneBoss()
 
 void CSceneBoss::Initialize()
 {
+    CGameStorageMgr::Get_Instance()->Set_BossDeadEnd(false);
     //BOSS_Firebird_Body_Test
     // BOSS_Firebird_Body_Tes_Mask.bmp
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_Firebird_Body_Test.bmp", STR_FKI_Spr_BOSS_Firebird_Body_Idle_Sheet_tw688_th352_sw2752_sh704_c8);
@@ -72,7 +76,8 @@ void CSceneBoss::Initialize()
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BOSS_Firebird_Body_BodySlapLoop.bmp", STR_FKI_Spr_BOSS_Firebird_Body_BodySlapLoop);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/BOSS_BodySlapAlert_sheet.bmp", STR_FKI_Spr_BOSS_BodySlapAlert_sheet);
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/Spr_BackHeliMove_Loop.bmp", STR_FKI_Spr_BackHeliMove_Loop);
-
+    
+    CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/FireBirdEnd_SHEET.bmp", STR_FKI_FIREBIRD_END_SHEET);
 
 
     CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/SNB_NEW_Sheet.bmp", STR_FKI_Spr_SNB_SHEET_NEW);
@@ -122,15 +127,21 @@ void CSceneBoss::Initialize()
     CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pBsBuilding2);
     m_pBgBuilding2 = pBsBuilding2;
 
+
+
+
     CObjBossFireBird* pBoss = new CObjBossFireBird;
     pBoss->Initialize();
     pBoss->Set_Pos(WINCX >> 1, (WINCY >> 1) - 300);
     CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBoss);
 
-    CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
-    pFloatingBomb->Initialize();
-    pFloatingBomb->Set_Pos((WINCX >> 1) + 150, (WINCY >> 1) - 150);
-    CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
+
+    
+
+    //CObjMonsterFloatingBomb* pFloatingBomb = new CObjMonsterFloatingBomb;
+    //pFloatingBomb->Initialize();
+    //pFloatingBomb->Set_Pos((WINCX >> 1) + 150, (WINCY >> 1) - 150);
+    //CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBomb);
 
     //CObjMonsterFloatingBombHugeExplodeSprite* pFloatingBombExplode = new CObjMonsterFloatingBombHugeExplodeSprite;
     //pFloatingBombExplode->Initialize();
@@ -226,6 +237,12 @@ void CSceneBoss::Initialize()
     pPlayer->Initialize();
     pPlayer->Set_Pos((WINCX >> 1) , (WINCY >> 1) - 250);
     CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pPlayer);
+
+
+
+    //BGM_Chap4_Main_Intro.wav
+
+    CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_Chap4_Main_Intro.wav"), 1.f);
 }
 
 int CSceneBoss::Update()
@@ -257,6 +274,11 @@ int CSceneBoss::Update()
     }
 
   
+    if (CGameStorageMgr::Get_Instance()->Get_BossDeadEnd())
+    {
+        CGameStorageMgr::Get_Instance()->Set_Chap3Clear(true);
+        CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+    }
     
     return 0;
 }
@@ -265,6 +287,8 @@ void CSceneBoss::Late_Update()
 {
     CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_RECT));
     CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
+    
+    
     CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
    
     // TODO OBJ_BOSS만들어서 대체
@@ -272,7 +296,11 @@ void CSceneBoss::Late_Update()
 
     CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER));
 
+    //  플로팅밤 튕기기
+    CCollisionMgr::Collision_RectEx(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_MONSTER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLATFORM));
 
+
+    CCollisionMgr::Collision_Rect(*CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER), *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_BULLET));
     CObjMgr::Get_Instance()->Late_Update();
 }
 
@@ -283,6 +311,7 @@ void CSceneBoss::Render(HDC hDC)
 
 void CSceneBoss::Release()
 {
+    CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
     CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE });
     CScrollMgr::Get_Instance()->Scroll_Reset();
 }

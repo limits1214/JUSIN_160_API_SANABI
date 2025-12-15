@@ -1,6 +1,7 @@
 #pragma once
 #include "CObj.h"
-class CObjBossBodySlap: public CObj
+#include "CCollisionEvent.h"
+class CObjBossBodySlap: public CObj, public CCollisionEvent
 {
 public:
 	CObjBossBodySlap();
@@ -12,5 +13,10 @@ public:
 	void Late_Update() override;
 	void Render(HDC hDC) override;
 	void Release() override;
+
+
+public:
+	void On_Collision(CObj* pObj, COLLISIONID eCollID, void* = nullptr) override;
+
 };
 

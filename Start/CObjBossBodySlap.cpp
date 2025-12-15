@@ -2,7 +2,7 @@
 #include "CObjBossBodySlap.h"
 #include "CTimeMgr.h"
 #include "CBmpMgr.h"
-
+#include "CObjPlayer2.h"
 CObjBossBodySlap::CObjBossBodySlap()
 
 {
@@ -58,4 +58,14 @@ void CObjBossBodySlap::Render(HDC hDC)
 
 void CObjBossBodySlap::Release()
 {
+}
+
+void CObjBossBodySlap::On_Collision(CObj* pObj, COLLISIONID eCollID, void*)
+{
+	CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+	if (eCollID == COLL_RECT && pPlayer != nullptr)
+	{
+		pPlayer->Damage();
+		return;
+	}
 }

@@ -447,6 +447,9 @@
     <ClInclude Include="CSceneLogo.h">
       <Filter>소스 파일\SCENE\INGAME</Filter>
     </ClInclude>
+    <ClInclude Include="CObjBossFirebirdEndSprite.h">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Start.cpp">
@@ -787,6 +790,9 @@
     </ClCompile>
     <ClCompile Include="CSceneLogo.cpp">
       <Filter>소스 파일\SCENE\INGAME</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBossFirebirdEndSprite.cpp">
+      <Filter>소스 파일\OBJ\BOSS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
