@@ -132,7 +132,7 @@ void CSceneMonster::Initialize()
 	int bgcy = 1200;
 	CObjMonsterMapBG* pMonBg = new CObjMonsterMapBG;
 	pMonBg->Initialize();
-	pMonBg->Set_Pos(bgcx >> 1, -(bgcy >> 1) + WINCY);
+	pMonBg->Set_Pos(bgcx >> 1, -(bgcy >> 1) + WINCY + 20 );
 	pMonBg->Set_FrameKeyId(FKI_MONSTER_MAP_BGNEON);
 	pMonBg->Set_Frame(FrameStateId_To_Frame(FSI_MONSTER_BG_NEON, CTimeMgr::Get_Instance()->Get_Tick_Count()));
 	pMonBg->Set_CX(bgcx);

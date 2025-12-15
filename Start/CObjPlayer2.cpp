@@ -82,19 +82,21 @@ void CObjPlayer2::Initialize()
 
 	CObjPlayer2SNBSprite* pSNB = new CObjPlayer2SNBSprite;
 	pSNB->Initialize();
-	pSNB->Set_Pos(-5, -10);
+	pSNB->Set_Pos(-5, -7);
 	pSNB->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pSNB);
 
 
 	CObjPlayer2SNBARMSprite* pSNBARM = new CObjPlayer2SNBARMSprite;
 	pSNBARM->Initialize();
-	pSNBARM->Set_Pos(-5, -10);
+	pSNBARM->Set_Pos(-5, -7);
 	pSNBARM->Set_Parent(this);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pSNBARM);
 
 
 	m_dwFootStepSoundTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
+	m_dwWallClimbUpSoundTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
+	m_dwCeilingMoveSoundTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
 	m_tBeforeInfo = m_tInfo;
 }
@@ -223,7 +225,7 @@ int CObjPlayer2::Update()
 				m_fGravityDeltaSum = 0;
 				m_fJumpDeltaSum = 0;
 
-				float w = sqrtf(/*GRAVITY*/ 1200 / m_fPendLength);
+				float w = sqrtf(/*GRAVITY*/ 1100 / m_fPendLength);
 				float l = m_fPendLength;
 
 				auto ang0 = m_fPendRad;
@@ -320,10 +322,24 @@ void CObjPlayer2::Render(HDC hDC)
 			LineTo(hDC, m_tInfo.fX + iScrollX, m_tInfo.fY + iScrollY);
 		}
 	}
+	else if (m_bExc)
+	{
+
+	}
 	else
 	{
+		SetBkMode(hDC, TRANSPARENT);
+		HPEN hNewPen = CreatePen(PS_DASH, 1, RGB(0, 255, 248));
+		HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
+
 		MoveToEx(hDC, m_tHookLine.tLeft.fX, m_tHookLine.tLeft.fY, nullptr);
 		LineTo(hDC, m_tHookLine.tRight.fX, m_tHookLine.tRight.fY);
+
+		HPEN hOldPen2 = (HPEN)SelectObject(hDC, hOldPen);
+		DeleteObject(hOldPen2);
+		DeleteObject(hNewPen);
+
+		
 	}
 }
 
@@ -484,7 +500,12 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 
 							m_eAniStateSNB = AST_RIGHT_SNB_WALL_SLIDE_START_START;
 							m_eAniStateSNBARM = AST_RIGHT_ARM_WALL_SLIDE_START_START;
+
+							//CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WALL_STICK);
+							CSoundMgr::Get_Instance()->PlaySound(_T("SFX_SNB_WallStick.wav"), SOUND_SFX_WALL_STICK, 1.f);
 						}
+
+
 					}
 
 					// 충돌 업데이트
@@ -561,6 +582,9 @@ void CObjPlayer2::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 
 							m_eAniStateSNB = AST_LEFT_SNB_WALL_SLIDE_START_START;
 							m_eAniStateSNBARM = AST_LEFT_ARM_WALL_SLIDE_START_START;
+
+							//CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WALL_STICK);
+							CSoundMgr::Get_Instance()->PlaySound(_T("SFX_SNB_WallStick.wav"), SOUND_SFX_WALL_STICK, 1.f);
 						}
 					}
 
@@ -717,8 +741,8 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 		{
 			if (m_bExc)
 			{
-				auto pltBomb = dynamic_cast<CObjMonster*>(m_pTarget);
-				if (pltBomb != nullptr)
+				auto pMon = dynamic_cast<CObjMonster*>(m_pTarget);
+				if (pMon != nullptr)
 				{
 
 					/*auto w = ptCurr.x - m_tInfo.fX  ;
@@ -726,32 +750,38 @@ void CObjPlayer2::On_Mouse_Key_Up(CObj* pObj)
 					auto w = (float)ptCurr.x - (m_tInfo.fX + iScrollX);
 					auto h = (float)ptCurr.y - (m_tInfo.fY + iScrollY);
 					auto rad = atan2f(h, w);
-					pltBomb->Excuted(this, rad);
+					pMon->Excuted(this, rad);
 
 					auto ang = rad * 180.f / PI;
 					auto ang2 = ang * -1;
 
-					//JumpStart(30.f, ang2);
-
-					//JumpRoutine(ang2, 30.f);
-
-					//m_iDamagedDashCnt = 30;
-
+					// excDash
 					m_bDash = true;
 					m_fDashAngle = ang2;
 					m_iDashFrameCnt = 4;
+
+					if (w > 0)
+					{
+						m_eAniStateSNB = AST_RIGHT_SNB_EXCDASH_START;
+						m_eAniStateSNBARM = AST_RIGHT_ARM_EXCDASH_START;
+					}
+					else
+					{
+						m_eAniStateSNB = AST_LEFT_SNB_EXCDASH_START;
+						m_eAniStateSNBARM = AST_LEFT_ARM_EXCDASH_START;
+					}
+
+					//SFX_SNB_Execute01.wav
+					CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_EXC);
+					CSoundMgr::Get_Instance()->PlaySound(_T("SFX_SNB_Execute01.wav"), SOUND_SFX_EXC, 1.f);
+
 				}
 
 				m_bExc = false;
-
 				m_pTarget = nullptr;
-
 
 				m_bGravity = true;
 				m_fGravityDeltaSum = 0;
-
-				//m_bJump = false;
-				//m_fJumpDeltaSum = 0;
 
 				return;
 			}
@@ -928,10 +958,18 @@ void CObjPlayer2::Key_Input()
 		if (bKeyPressingW)
 		{
 			Move(90.f, m_fSpeed);
+			CTimeMgr::Delay(&m_dwWallClimbUpSoundTime, 300, []() {
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WALLCLIMBUP);
+				CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_WallClimbUp (1) 1.wav", SOUND_SFX_WALLCLIMBUP, 1.f);
+				});
 		}
 		else if (bKeyPressingS)
 		{
 			Move(270.f, m_fSpeed);
+			CTimeMgr::Delay(&m_dwWallClimbUpSoundTime, 300, []() {
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WALLCLIMBUP);
+				CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_WallClimbUp (1) 1.wav", SOUND_SFX_WALLCLIMBUP, 1.f);
+				});
 		}
 
 		if (bKeyUpW)
@@ -1007,11 +1045,18 @@ void CObjPlayer2::Key_Input()
 		if (bKeyPressingA)
 		{
 			Move(180.f, m_fSpeed);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_CeilingStickMove.wav", SOUND_SFX_CEILINGMOVE, 1.f);
+			//CTimeMgr::Delay(&m_dwCeilingMoveSoundTime, 300, []() {
+			//	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CEILINGMOVE);
+			//	CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_CeilingStickMove.wav", SOUND_SFX_CEILINGMOVE, 1.f);
+			//	});
+			//
+			
 
 			if (m_tInfo.fX < m_tCeilStickCollisionRectInfo.fX - m_tCeilStickCollisionRectInfo.fCX * 0.5)
 			{
 				m_bCeilStick = false;
-
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CEILINGMOVE);
 
 				m_bGrabbing = false;
 				m_bGravity = true;
@@ -1044,11 +1089,16 @@ void CObjPlayer2::Key_Input()
 		{
 			
 			Move(0.f, m_fSpeed);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_CeilingStickMove.wav", SOUND_SFX_CEILINGMOVE, 1.f);
+			//CTimeMgr::Delay(&m_dwCeilingMoveSoundTime, 300, []() {
+			//	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CEILINGMOVE);
+			//	CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_CeilingStickMove.wav", SOUND_SFX_CEILINGMOVE, 1.f);
+			//	});
 
 			if (m_tInfo.fX > m_tCeilStickCollisionRectInfo.fX + m_tCeilStickCollisionRectInfo.fCX * 0.5)
 			{
 				m_bCeilStick = false;
-
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CEILINGMOVE);
 
 				m_bGrabbing = false;
 				m_bGravity = true;
@@ -1257,6 +1307,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_LEFT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_LEFT_ARM_DASH_START;
 				}
 				else if (bKeyPressingW && bKeyPressingD)
 				{
@@ -1265,6 +1318,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_RIGHT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_RIGHT_ARM_DASH_START;
 				}
 				else if (bKeyPressingS && bKeyPressingD)
 				{
@@ -1273,6 +1329,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_RIGHT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_RIGHT_ARM_DASH_START;
 				}
 				else if (bKeyPressingS && bKeyPressingA)
 				{
@@ -1281,6 +1340,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_LEFT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_LEFT_ARM_DASH_START;
 				}
 
 
@@ -1292,6 +1354,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_LEFT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_LEFT_ARM_DASH_START;
 				}
 				else if (bKeyPressingS)
 				{
@@ -1301,6 +1366,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_LEFT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_LEFT_ARM_DASH_START;
 				}
 				else if (bKeyPressingD)
 				{
@@ -1310,6 +1378,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_RIGHT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_RIGHT_ARM_DASH_START;
 				}
 				else if (bKeyPressingW)
 				{
@@ -1319,6 +1390,9 @@ void CObjPlayer2::Key_Input()
 					m_iDashFrameCnt = 3;
 					m_iDamagedDashCnt = 0;
 					m_bDamaged = false;
+
+					m_eAniStateSNB = AST_RIGHT_SNB_DASH_START;
+					m_eAniStateSNBARM = AST_RIGHT_ARM_DASH_START;
 				}
 			}
 		}
@@ -1353,10 +1427,10 @@ void CObjPlayer2::Key_Input()
 				m_eAniStateSNB = AST_RIGHT_SNB_RUNSTART_START;
 				m_eAniStateSNBARM = AST_RIGHT_ARM_RUNSTART_START;
 			}
-			CTimeMgr::Delay(&m_dwFootStepSoundTime, 300, []() {
+	/*		CTimeMgr::Delay(&m_dwFootStepSoundTime, 300, []() {
 				CSoundMgr::Get_Instance()->StopSound(SOUND_FOOTSTEP);
 				CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_Footstep_B.wav", SOUND_FOOTSTEP, 1.f);
-				});
+				});*/
 
 			/*m_iSound = CTimeMgr::Get_Instance()->Set_Interval([]() {
 				CSoundMgr::Get_Instance()->StopSound(SOUND_FOOTSTEP);
@@ -1425,6 +1499,9 @@ void CObjPlayer2::Key_Input()
 			if (!m_bJump)
 			{
 				JumpRoutine(90.f, 21.f);
+
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_JUMP);
+				CSoundMgr::Get_Instance()->PlaySound(_T("SFX_SNB_Jump.wav"), SOUND_SFX_JUMP, 1.f);
 			}
 		}
 	}
@@ -1573,6 +1650,19 @@ void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget)
 		pTarget->Grabbed(this);
 		m_pTarget = pTarget;
 
+
+		if (m_tInfo.fX > pTarget->Get_Info()->fX)
+		{
+			m_eAniStateSNB = AST_LEFT_SNB_EXCWINDING_START;
+		}
+		else
+		{
+			m_eAniStateSNB = AST_RIGHT_SNB_EXCWINDING_START;
+		}
+
+		//Sfx_SNB_ExecuteGrab.wav
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_EXCGRAB);
+		CSoundMgr::Get_Instance()->PlaySound(_T("Sfx_SNB_ExecuteGrab.wav"), SOUND_SFX_EXCGRAB, 1.f);
 	}
 }
 
@@ -1594,11 +1684,19 @@ void CObjPlayer2::Damage()
 		if (m_eLastLRDir == DIR_LEFT)
 		{
 			JumpRoutine(75, 15.f);
+			m_eAniStateSNB = AST_LEFT_SNB_DAMAGED_START;
+			m_eAniStateSNBARM = AST_LEFT_ARM_DAMAGED_START;
 		}
 		else
 		{
 			JumpRoutine(105, 15.f);
+			m_eAniStateSNB = AST_RIGHT_SNB_DAMAGED_START;
+			m_eAniStateSNBARM = AST_RIGHT_ARM_DAMAGED_START;
 		}
+
+		//
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_DAMAGED);
+		CSoundMgr::Get_Instance()->PlaySound(_T("SFX_SNB_Damaged.wav"), SOUND_SFX_DAMAGED, 1.f);
 	}
 	//if (!m_bDamaged)
 	//{
@@ -1782,7 +1880,7 @@ void CObjPlayer2::GrabLoad()
 				
 				// 들어가지 않게 체인 아래 위치시키기
 				m_tInfo.fX = m_pGrab->Get_Info()->fX;
-				m_tInfo.fY = (m_tCeilStickCollisionRectInfo.fY + m_tCeilStickCollisionRectInfo.fCY * 0.5f) + (m_tInfo.fCY * 0.5f);
+				m_tInfo.fY = (m_tCeilStickCollisionRectInfo.fY + m_tCeilStickCollisionRectInfo.fCY * 0.5f) + (m_tInfo.fCY * 0.5f) + 10; // 10 은 그랩 FCY / 2 임
 			}
 			else if (m_pGrab->Get_CollisionLeft())
 			{
@@ -1868,6 +1966,10 @@ void CObjPlayer2::ExcGrabLoad()
 			// 땡긴 이후에는 그랩 제거
 			m_pGrab->Set_Dead_Cascade();
 			m_pGrab = nullptr;
+
+			m_eAniStateSNB = AST_RIGHT_SNB_EXCHOLDBACK_START;
+			m_eAniStateSNBARM = AST_RIGHT_ARM_EXCHOLDBACK_START;
+
 		}
 
 	}

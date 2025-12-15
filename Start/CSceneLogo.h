@@ -14,5 +14,7 @@ public:
 	void Release() override;
 private:
 	DWORD m_dwNextSceneTime;
+
+	bool m_bStart;
 };
 

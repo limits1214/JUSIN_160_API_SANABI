@@ -69,7 +69,7 @@ int CObjBossClusterAim::Update()
 
 	if (m_bShoot)
 	{
-		CTimeMgr::Delay(&m_dwShootTime, 150,
+		CTimeMgr::Delay(&m_dwShootTime, 100,
 			[&]() {
 				CObjBossShootExplode* pShootExplode = new CObjBossShootExplode;
 				pShootExplode->Initialize();
@@ -77,7 +77,9 @@ int CObjBossClusterAim::Update()
 				CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pShootExplode);
 				//gun_machinegun_auto_heavy_shot_01.wav
 				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_MACHINEGUN_SHOOT);
-				CSoundMgr::Get_Instance()->PlaySound(L"gun_machinegun_auto_heavy_shot_01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 1.f);
+				// SFX_ENE_Minigun_Shoot01.wav
+				CSoundMgr::Get_Instance()->PlaySound(L"SFX_ENE_Minigun_Shoot01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 1.f);
+				//CSoundMgr::Get_Instance()->PlaySound(L"gun_machinegun_auto_heavy_shot_01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 1.f);
 			}
 		);
 	}

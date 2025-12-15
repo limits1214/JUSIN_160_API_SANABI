@@ -7,6 +7,7 @@
 #include "CGameStorageMgr.h"
 #include "CObjGateSprite.h"
 #include "CObjMgr.h"
+#include "CSoundMgr.h"
 CObjGameUiChapterBtn::CObjGameUiChapterBtn()
     : m_iOption(0), m_ePreState(FSI_END), m_eCurState(FSI_END)
 {
@@ -150,7 +151,12 @@ void CObjGameUiChapterBtn::On_Mouse_Key_Down(CObj* pObj)
             }
            
             pMouse->Mouse_PreventEvent();
+
+            CSoundMgr::Get_Instance()->PlaySound(_T("SFX_UI_Select.wav"), SOUND_SFX_UISELECT, 1.f);
         }
+
+        //
+        CSoundMgr::Get_Instance()->PlaySound(_T("SFX_UI_Click.wav"), SOUND_SFX_UICLICK, 1.f);
     }
 }
 

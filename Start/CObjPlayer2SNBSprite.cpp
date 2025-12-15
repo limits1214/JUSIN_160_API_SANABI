@@ -17,7 +17,7 @@ CObjPlayer2SNBSprite::~CObjPlayer2SNBSprite()
 void CObjPlayer2SNBSprite::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 60;
+	m_tInfo.fCX = 120;
 	m_tInfo.fCY = 61;
 
 	m_eFrameKey = FKI_Spr_SNB_SHEET_NEW;
@@ -838,6 +838,227 @@ void CObjPlayer2SNBSprite::AniStateUpdate()
 
 		}
 		break;
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_DAMAGED_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_DAMAGED;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_DAMAGED_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_DAMAGED_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_DAMAGED_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DAMAGED_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_DAMAGED;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_DAMAGED_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DAMAGED_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DAMAGED_END:
+		{
+
+		}
+		break;
+		
+
+		case CObjPlayer2::AST_RIGHT_SNB_DASH_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_DASH;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_DASH_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_DASH_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DASH_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_DASH;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DASH_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_DASH_END:
+		{
+
+		}
+		break;
+
+
+
+
+		
+		case CObjPlayer2::AST_RIGHT_SNB_EXCWINDING_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_EXCWINDING;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCWINDING_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCWINDING_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCWINDING_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_EXCWINDING;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCWINDING_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCWINDING_END:
+		{
+
+		}
+		break;
+
+
+		/*
+		
+		,
+		,
+		,
+		,
+		,
+		,
+		
+		*/
+
+
+
+		case CObjPlayer2::AST_RIGHT_SNB_EXCHOLDBACK_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_EXCHOLDBACK;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCHOLDBACK_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCHOLDBACK_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCHOLDBACK_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_EXCHOLDBACK;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_DASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCHOLDBACK_ING:
+		{
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCHOLDBACK_END:
+		{
+
+		}
+		break;
+
+
+
+
+		/*
+		
+		AST_RIGHT_SNB_EXCDASH_START,
+		AST_RIGHT_SNB_EXCDASH_ING,
+		AST_RIGHT_SNB_EXCDASH_END,
+		AST_LEFT_SNB_EXCDASH_START,
+		AST_LEFT_SNB_EXCDASH_ING,
+		AST_LEFT_SNB_EXCDASH_END,
+		*/
+		
+
+		case CObjPlayer2::AST_RIGHT_SNB_EXCDASH_START:
+		{
+			m_eCurState = FSI_NEW_R_SNB_EXCDASH;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_EXCDASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCDASH_ING:
+		{
+			Move_Frame();
+			int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+			if (m_tFrame.iStart == end)
+			{
+				parent->m_eAniStateSNB = CObjPlayer2::AST_RIGHT_SNB_EXCDASH_END;
+			}
+		}
+		break;
+		case CObjPlayer2::AST_RIGHT_SNB_EXCDASH_END:
+		{
+
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCDASH_START:
+		{
+			m_eCurState = FSI_NEW_L_SNB_EXCDASH;
+			parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_EXCDASH_ING;
+			Move_Frame();
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCDASH_ING:
+		{
+			Move_Frame();
+			int end = FrameStateId_To_Frame(m_eCurState, dwNow).iEnd;
+			if (m_tFrame.iStart == end)
+			{
+				parent->m_eAniStateSNB = CObjPlayer2::AST_LEFT_SNB_EXCDASH_END;
+			}
+		}
+		break;
+		case CObjPlayer2::AST_LEFT_SNB_EXCDASH_END:
+		{
+
+		}
+		break;
+
+
 		}
 	}
 }

@@ -7,7 +7,10 @@ public:
 	virtual ~CObjSprite();
 
 public:
-
+	void Do_UpdateRect()
+	{
+		__super::Update_Rect();
+	}
 
 	void Set_MoveFrame(bool bMoveFrame)
 	{
