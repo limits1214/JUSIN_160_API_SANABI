@@ -6,7 +6,7 @@
 #include "CTimeMgr.h"
 #include "CObjCollisionRect.h"
 #include "CObjPlayer2.h"
-
+#include "CSoundMgr.h"
 #include "CObjExplosionSprite.h"
 CObjMonsterDefenderBullet::CObjMonsterDefenderBullet()
 {
@@ -42,6 +42,9 @@ void CObjMonsterDefenderBullet::Initialize()
 		pExplosionSprite->Initialize();
 		pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_EXPLOSION);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingBombExplosion.wav", SOUND_SFX_BOMBING_EXPLOSION, 1.f);
 		}, 10000);
 }
 
@@ -111,6 +114,9 @@ void CObjMonsterDefenderBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, vo
 		pExplosionSprite->Initialize();
 		pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_EXPLOSION);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingBombExplosion.wav", SOUND_SFX_BOMBING_EXPLOSION, 1.f);
 		return;
 	}
 
@@ -126,6 +132,9 @@ void CObjMonsterDefenderBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, vo
 		pExplosionSprite->Initialize();
 		pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_EXPLOSION);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingBombExplosion.wav", SOUND_SFX_BOMBING_EXPLOSION, 1.f);
 		return;
 	}
 }

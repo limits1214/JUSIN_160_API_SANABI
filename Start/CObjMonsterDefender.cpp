@@ -7,6 +7,7 @@
 #include "CObjMonsterDefenderBullet.h"
 #include "CObjCollisionRect.h"
 #include "CCollisionMgr.h"
+#include "CSoundMgr.h"
 
 
 CObjMonsterDefender::CObjMonsterDefender()
@@ -202,6 +203,9 @@ int CObjMonsterDefender::Update()
 						pBullet->Initialize();
 						pBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+					
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_DEFENDER_SHOOT);
+						CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap1_Defender_Shoot.wav", SOUND_SFX_DEFENDER_SHOOT, 1.f);
 					}
 				}
 				--m_iFireCnt;
@@ -284,6 +288,10 @@ void CObjMonsterDefender::Excuted(CObj* pPlayer, float fRad)
 {
 	m_eAniState = AST_RIGHT_DEAD_START;
 	m_bExcuted = true;
+
+	//SFX_Ene_Explosion.wav
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Ene_Explosion.wav", SOUND_SFX_ENE_EXPLOSION, 1.f);
 }
 
 void CObjMonsterDefender::Grabbed(CObj* pPlayer)

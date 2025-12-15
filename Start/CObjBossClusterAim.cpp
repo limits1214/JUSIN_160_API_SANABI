@@ -6,6 +6,7 @@
 #include "CObjMgr.h"
 #include "CObjClusterBombExplode.h"
 #include "CObjBossBullet.h"
+#include "CSoundMgr.h"
 
 CObjBossClusterAim::CObjBossClusterAim()
 {
@@ -36,6 +37,10 @@ void CObjBossClusterAim::Shoot360ClusterBomblet()
 		pBullet->Set_Pos(targetX, targetY);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
 	}
+	//SFX_Chap4_Firebird_ClusterShoot.wav
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CLUSTERSHOOT);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_ClusterBombExplosion.wav", SOUND_SFX_CLUSTERSHOOT, 1.f);
+
 }
 
 void CObjBossClusterAim::Initialize()
@@ -48,6 +53,11 @@ void CObjBossClusterAim::Initialize()
 	m_tFrame = FrameStateId_To_Frame(FSI_BOSS_CLUSTER_AIM, CTimeMgr::Get_Instance()->Get_Tick_Count());
 
 	m_dwShootTime = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+//SFX_Chap4_Firebird_ClusterWarning.wav
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CLUSTERAIM_WARNING);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_ClusterWarning.wav", SOUND_SFX_CLUSTERAIM_WARNING, 1.f);
 }
 
 int CObjBossClusterAim::Update()
@@ -59,12 +69,15 @@ int CObjBossClusterAim::Update()
 
 	if (m_bShoot)
 	{
-		CTimeMgr::Delay(&m_dwShootTime, 200,
+		CTimeMgr::Delay(&m_dwShootTime, 150,
 			[&]() {
 				CObjBossShootExplode* pShootExplode = new CObjBossShootExplode;
 				pShootExplode->Initialize();
 				pShootExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 				CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pShootExplode);
+				//gun_machinegun_auto_heavy_shot_01.wav
+				CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_MACHINEGUN_SHOOT);
+				CSoundMgr::Get_Instance()->PlaySound(L"gun_machinegun_auto_heavy_shot_01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 1.f);
 			}
 		);
 	}

@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 #include "CTimeMgr.h"
 #include "CObjExplosionSprite.h"
-
+#include "CSoundMgr.h"
 CObjMonsterDummyFloater::CObjMonsterDummyFloater()
 {
 }
@@ -103,6 +103,9 @@ void CObjMonsterDummyFloater::Excuted(CObj* pPlayer, float fRad)
 	pExplosionSprite->Initialize();
 	pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Ene_Explosion.wav", SOUND_SFX_ENE_EXPLOSION, 1.f);
 }
 
 void CObjMonsterDummyFloater::Grabbed(CObj* pPlayer)

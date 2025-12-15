@@ -11,6 +11,7 @@
 #include "CObjBossFireBird.h"
 #include "CCollisionMgr.h"
 #include "CObjUnstableKnockbackPlatformA.h"
+#include "CSoundMgr.h"
 
 CObjMonsterFloatingBomb::CObjMonsterFloatingBomb()
 {
@@ -239,4 +240,8 @@ void CObjMonsterFloatingBomb::Explode()
 	pFloatingBombExplode->Initialize();
 	pFloatingBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pFloatingBombExplode);
+
+	//SFX_Chap4_Miniboss_FloatingBomb_Explosion.wav
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_FLTBOMB_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Miniboss_FloatingBomb_Explosion.wav", SOUND_SFX_FLTBOMB_EXPLOSION, 1.f);
 }

@@ -3,6 +3,7 @@
 #include "CBmpMgr.h"
 #include "CScrollMgr.h"
 #include "CTimeMgr.h"
+#include "CSoundMgr.h"
 CObjGateSprite::CObjGateSprite()
 {
 	Set_DbgName(_T("CObjGateSprite"));
@@ -83,16 +84,27 @@ void CObjGateSprite::Release()
 
 void CObjGateSprite::GateOpen()
 {
-	m_bOpening = true;
-	m_bIdle = false;
-	m_eCurState = FSI_GATE_OPEN;
+	if (!m_bOpening)
+	{
+		cout << "GATEOPEN" << endl;
+		m_bOpening = true;
+		m_bIdle = false;
+		m_eCurState = FSI_GATE_OPEN;
+		//CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_GATE_OPEN);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_BattleGate_Open.wav", SOUND_SFX_GATE_OPEN, 1.f);
+	}
 }
 
 void CObjGateSprite::GateClose()
 {
-	m_bClosing = true;
-	m_bIdle = false;
-	m_eCurState = FSI_GATE_CLOSE;
+	if (!m_bClosing)
+	{
+		m_bClosing = true;
+		m_bIdle = false;
+		m_eCurState = FSI_GATE_CLOSE;
+		//CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_GATE_CLOSE);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_BattleGate_Close.wav", SOUND_SFX_GATE_CLOSE, 1.f);
+	}
 }
 
 void CObjGateSprite::Motion_Change()

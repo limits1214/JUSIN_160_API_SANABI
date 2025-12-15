@@ -7,6 +7,7 @@
 #include "CTimeMgr.h"
 #include "CObjPlayer2.h"
 #include "CObjMonsterBullet.h"
+#include "CSoundMgr.h"
 CObjMonsterDummyRobot::CObjMonsterDummyRobot()
 {
 }
@@ -231,6 +232,9 @@ int CObjMonsterDummyRobot::Update()
 						pBullet->Initialize();
 						pBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_MACHINEGUN_SHOOT);
+						CSoundMgr::Get_Instance()->PlaySound(L"gun_machinegun_auto_heavy_shot_01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 0.3f);
 					}
 				}
 				--m_iFireCnt;
@@ -314,6 +318,9 @@ void CObjMonsterDummyRobot::Excuted(CObj* pPlayer, float fRad)
 {
 	m_eAniState = AST_DEAD_START;
 	m_bExcuted = true;
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Ene_Explosion.wav", SOUND_SFX_ENE_EXPLOSION, 1.f);
 }
 
 void CObjMonsterDummyRobot::Grabbed(CObj* pPlayer)

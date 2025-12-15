@@ -8,6 +8,7 @@
 #include "CObjClusterBombExplode.h"
 #include "CObjClusterBombletExplode.h"
 #include "CObjPlayer2.h"
+#include "CSoundMgr.h"
 
 CObjBossBullet::CObjBossBullet()
 	:m_iOption(0)
@@ -101,6 +102,9 @@ void CObjBossBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			pBombletExplode->Initialize();
 			pBombletExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombletExplode);
+			CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CLUSTERBOMBLETEXPLOSION);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_ClusterBombletExplosion.wav", SOUND_SFX_CLUSTERBOMBLETEXPLOSION, 1.f);
+			
 		}
 		else if (m_iOption == 1)
 		{
@@ -108,6 +112,8 @@ void CObjBossBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			pBombExplode->Initialize();
 			pBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombExplode);
+			CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_EXPLOSION);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingBombExplosion.wav", SOUND_SFX_BOMBING_EXPLOSION, 1.f);
 		}
 		Set_Dead_Cascade();
 
@@ -127,6 +133,8 @@ void CObjBossBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			pBombletExplode->Initialize();
 			pBombletExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombletExplode);
+			CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_CLUSTERBOMBLETEXPLOSION);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_ClusterBombletExplosion.wav", SOUND_SFX_CLUSTERBOMBLETEXPLOSION, 1.f);
 		}
 		else if (m_iOption == 1)
 		{
@@ -134,6 +142,8 @@ void CObjBossBullet::On_Collision(CObj* pObj, COLLISIONID eCollID, void* etc)
 			pBombExplode->Initialize();
 			pBombExplode->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 			CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBombExplode);
+			CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_EXPLOSION);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingBombExplosion.wav", SOUND_SFX_BOMBING_EXPLOSION, 1.f);
 		}
 		return;
 	}

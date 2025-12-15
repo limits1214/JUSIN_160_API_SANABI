@@ -37,12 +37,12 @@ public:
 		m_iKnockBackFrameCnt = 30;
 		m_bKnockBack = bKnockback;
 
-		if (m_iKnockbackedCnt >= 2)
+		if (m_iKnockbackedCnt >= 1)
 		{
 			m_eAniStateBroken = BROKEN;
 		}
 
-		if (m_iKnockbackedCnt >= 3)
+		if (m_iKnockbackedCnt >= 1)
 		{
 			m_iKnockBackFrameCnt = 200;
 			m_bEndStart = true;

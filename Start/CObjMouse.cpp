@@ -3,6 +3,8 @@
 #include "CObjMgr.h"
 #include "CKeyMgr2.h"
 #include "CMouseEvent.h"
+#include "CTimeMgr.h"
+#include "CBmpMgr.h"
 
 CObjMouse::CObjMouse()
 	:m_bTargetBringToTop(false), m_bPreventEvent(false), m_pBringToTopObj(nullptr)
@@ -18,14 +20,18 @@ CObjMouse::~CObjMouse()
 
 void CObjMouse::Initialize()
 {
-	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = 10.f;
+	CBmpMgr::Get_Instance()->Insert_Bmp(L"../Image/MousePointer.bmp", STR_FKI_MOUSE_POINTER);
+	m_tInfo.fCX = 128.f;
+	m_tInfo.fCY = 128.f;
+
+	m_eFrameKey = FKI_MOUSE_POINTER;
+	m_tFrame = FrameStateId_To_Frame(FSI_MOUSE_POINTER, CTimeMgr::Get_Instance()->Get_Tick_Count());
 }
 
 int CObjMouse::Update()
 {
 	
-
+	ShowCursor(false);
 	__super::Update_Rect();
 
 	
@@ -85,7 +91,16 @@ void CObjMouse::Late_Update()
 
 void CObjMouse::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	HDC		hMemDC = CBmpMgr::Get_Instance()->Find_Image(FrameKeyId_To_Text2(m_eFrameKey));
+	BmpRender(
+		hDC,
+		m_tRect.left, m_tRect.top,
+		(int)m_tInfo.fCX, (int)m_tInfo.fCY,
+		hMemDC,
+		m_tFrame.iStart * (int)m_tInfo.fCX, m_tFrame.iMotion * (int)m_tInfo.fCY,
+		(int)m_tInfo.fCX, (int)m_tInfo.fCY
+	);
 }
 
 void CObjMouse::Release()

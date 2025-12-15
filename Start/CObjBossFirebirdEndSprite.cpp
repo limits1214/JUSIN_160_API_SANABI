@@ -5,6 +5,8 @@
 #include "CTimeMgr.h"
 #include "CSceneMgr.h"
 #include "CGameStorageMgr.h"
+#include "CSoundMgr.h"
+
 
 CObjBossFirebirdEndSprite::CObjBossFirebirdEndSprite()
 {
@@ -23,6 +25,19 @@ void CObjBossFirebirdEndSprite::Initialize()
 	Set_FrameKeyId(FKI_FIREBIRD_END_SHEET);
 	Set_Frame(FrameStateId_To_Frame(FSI_FIREBIRD_END, CTimeMgr::Get_Instance()->Get_Tick_Count()));
 	__super::Update_Rect();
+
+	CTimeMgr::Get_Instance()->Set_Timer([]() {
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOSS_DESTROY1);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap3_Minigame_BigDebris_Destroy1.wav", SOUND_SFX_BOSS_DESTROY1, 1.f);
+		}, 300);
+	CTimeMgr::Get_Instance()->Set_Timer([]() {
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOSS_DESTROY2);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap3_Minigame_BigDebris_Destroy2.wav", SOUND_SFX_BOSS_DESTROY2, 1.f);
+		}, 1400);
+	CTimeMgr::Get_Instance()->Set_Timer([]() {
+		CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOSS_DESTROY3);
+		CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap3_Minigame_BigDebris_Destroy3.wav", SOUND_SFX_BOSS_DESTROY3, 1.f);
+		}, 2700);
 }
 
 int CObjBossFirebirdEndSprite::Update()
@@ -39,6 +54,20 @@ int CObjBossFirebirdEndSprite::Update()
 	{
 		CGameStorageMgr::Get_Instance()->Set_BossDeadEnd(true);
 		//parent->m_eAniStateGun = CObjBossFireBird::ANI_STATE_GUN::GUNSHOOTSTART_END;
+	}
+
+	if (m_tFrame.iStart == 10)
+	{
+		
+	}
+	else if (m_tFrame.iStart == 30)
+	{
+		
+	}
+	else if (m_tFrame.iStart == 50)
+	{
+		cout << "50" << endl;
+		
 	}
 	
 

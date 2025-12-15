@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 #include "CTimeMgr.h"
 #include "CObjPlayer2.h"
-
+#include "CSoundMgr.h"
 
 CObjMonsterWarrior::CObjMonsterWarrior()
 {
@@ -42,6 +42,9 @@ void CObjMonsterWarrior::Initialize()
 	m_bHovering = false;
 
 	m_bGrabbed = false;
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_SPAWN_WARNING);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap2_SpawnWarning.wav", SOUND_SFX_SPAWN_WARNING, 1.f);
 }
 
 int CObjMonsterWarrior::Update()
@@ -213,6 +216,9 @@ int CObjMonsterWarrior::Update()
 					)
 				{
 					m_eAniState = AST_RIGHT_ATTACKREADY_START;
+					//Sfx_Chap2_Warrior_Slash.wav
+					CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WARRIOR_SLASH);
+					CSoundMgr::Get_Instance()->PlaySound(L"Sfx_Chap2_Warrior_Slash.wav", SOUND_SFX_WARRIOR_SLASH, 1.f);
 				}
 			}
 			else
@@ -229,6 +235,9 @@ int CObjMonsterWarrior::Update()
 					)
 				{
 					m_eAniState = AST_LEFT_ATTACKREADY_START;
+
+					CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_WARRIOR_SLASH);
+					CSoundMgr::Get_Instance()->PlaySound(L"Sfx_Chap2_Warrior_Slash.wav", SOUND_SFX_WARRIOR_SLASH, 1.f);
 				}
 			}
 		}
@@ -329,6 +338,11 @@ void CObjMonsterWarrior::Excuted(CObj* pPlayer, float fRad)
 	//pExplosionSprite->Initialize();
 	//pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 	//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+
+	//SFX_EventWarrior_Explosion.wav
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_WARRIOR_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_EventWarrior_Explosion.wav", SOUND_SFX_ENE_WARRIOR_EXPLOSION, 1.f);
 }
 
 void CObjMonsterWarrior::Grabbed(CObj* pPlayer)

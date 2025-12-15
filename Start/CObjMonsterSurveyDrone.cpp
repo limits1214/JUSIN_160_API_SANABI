@@ -5,6 +5,7 @@
 #include "CTimeMgr.h"
 #include "CObjPlayer2.h"
 #include "CObjExplosionSprite.h"
+#include "CSoundMgr.h"
 
 
 CObjMonsterSurveyDrone::CObjMonsterSurveyDrone()
@@ -176,6 +177,8 @@ int CObjMonsterSurveyDrone::Update()
 						[&]()
 						{
 							m_eAniState = AST_RIGHT_PHOTO_START;
+							CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_SURVEYDRONE_PHOTO);
+							CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap5_Surveyor_Photo (3).wav", SOUND_SFX_SURVEYDRONE_PHOTO, 1.f);
 						}
 					);
 				}
@@ -198,6 +201,8 @@ int CObjMonsterSurveyDrone::Update()
 						[&]()
 						{
 							m_eAniState = AST_LEFT_PHOTO_START;
+							CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_SURVEYDRONE_PHOTO);
+							CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap5_Surveyor_Photo (3).wav", SOUND_SFX_SURVEYDRONE_PHOTO, 1.f);
 						}
 					);
 				}
@@ -267,6 +272,9 @@ void CObjMonsterSurveyDrone::Excuted(CObj* pPlayer, float fRad)
 	pExplosionSprite->Initialize();
 	pExplosionSprite->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 	CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pExplosionSprite);
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Ene_Explosion.wav", SOUND_SFX_ENE_EXPLOSION, 1.f);
 }
 
 void CObjMonsterSurveyDrone::Grabbed(CObj* pPlayer)

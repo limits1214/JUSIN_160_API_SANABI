@@ -16,6 +16,7 @@
 #include "CObjBossBodySlap.h"
 #include "CObjBossBackHeli.h"
 #include "CObjBossFirebirdEndSprite.h"
+#include "CSoundMgr.h"
 
 CObjBossFireBird::CObjBossFireBird()
 	: m_pClusterAim(nullptr)
@@ -437,6 +438,9 @@ void CObjBossFireBird::State_Update()
 						pBossBullet->Initialize();
 						pBossBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY + 150);
 						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBossBullet);
+
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BOMBING_START);
+						CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BombingStart.wav", SOUND_SFX_BOMBING_START, 1.f);
 						});
 				}
 				
@@ -571,7 +575,8 @@ void CObjBossFireBird::State_Update()
 							CObjMgr::Get_Instance()->Add_Object(OBJ_BG, pAlert);
 						}
 
-						
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BODYSLAPALERT);
+						CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BodySlapWarning.wav", SOUND_SFX_BODYSLAPALERT, 1.f);
 					}
 				}
 			}, 3000);
@@ -587,6 +592,9 @@ void CObjBossFireBird::State_Update()
 						pBossBodySlap->Initialize();
 						pBossBodySlap->Set_Pos(m_fBodySlapPlayerX - 224 * 3, m_fBodySlapPlayerY);
 						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBossBodySlap);
+					//SFX_Chap4_Firebird_BodySlap.wav
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_BODYSLAP);
+						CSoundMgr::Get_Instance()->PlaySound(L"SFX_Chap4_Firebird_BodySlap.wav", SOUND_SFX_BODYSLAP, 1.f);
 					}
 				}
 			}, 5000);

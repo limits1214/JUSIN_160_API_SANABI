@@ -244,6 +244,9 @@ void CSceneBoss::Initialize()
     //BGM_Chap4_Main_Intro.wav
 
     CSoundMgr::Get_Instance()->PlayBGM(_T("BGM_Chap4_Main_Intro.wav"), 1.f);
+    CSoundMgr::Get_Instance()->PlayBGM(_T("SFX_Chap4_Firebird_Loop.wav"), SOUND_BGM_FIREBIRD_LOOP, 1.f);
+
+    
 }
 
 int CSceneBoss::Update()
@@ -324,6 +327,7 @@ void CSceneBoss::Render(HDC hDC)
 void CSceneBoss::Release()
 {
     CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+    CSoundMgr::Get_Instance()->StopSound(SOUND_BGM_FIREBIRD_LOOP);
     CObjMgr::Get_Instance()->Dead_ID_Except({ OBJ_MOUSE, OBJ_GATE });
     CScrollMgr::Get_Instance()->Scroll_Reset();
 }

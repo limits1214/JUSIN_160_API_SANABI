@@ -7,6 +7,7 @@
 #include "CObjMonsterBullet.h"
 #include "CObjCollisionRect.h"
 #include "CCollisionMgr.h"
+#include "CSoundMgr.h"
 CObjMonsterTrooper::CObjMonsterTrooper()
 {
 }
@@ -46,6 +47,10 @@ void CObjMonsterTrooper::Initialize()
 	m_fSpeed = 2.f;
 	m_eMoveDir = DIR_LEFT;
 	m_dwMoveToggleInterval = CTimeMgr::Get_Instance()->Get_Tick_Count();
+
+
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_PODSPAWN);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Trooperpod_b.wav", SOUND_SFX_PODSPAWN, 1.f);
 }
 
 int CObjMonsterTrooper::Update()
@@ -221,6 +226,9 @@ int CObjMonsterTrooper::Update()
 						pBullet->Initialize();
 						pBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY);
 						CObjMgr::Get_Instance()->Add_Object(OBJ_BULLET, pBullet);
+
+						CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_MACHINEGUN_SHOOT);
+						CSoundMgr::Get_Instance()->PlaySound(L"gun_machinegun_auto_heavy_shot_01.wav", SOUND_SFX_MACHINEGUN_SHOOT, 0.3f);
 					}
 				}
 				--m_iFireCnt;
@@ -305,6 +313,8 @@ void CObjMonsterTrooper::Excuted(CObj* pPlayer, float fRad)
 {
 	m_eAniState = AST_RIGHT_DEAD_START;
 	m_bExcuted = true;
+	CSoundMgr::Get_Instance()->StopSound(SOUND_SFX_ENE_EXPLOSION);
+	CSoundMgr::Get_Instance()->PlaySound(L"SFX_Ene_Explosion.wav", SOUND_SFX_ENE_EXPLOSION, 1.f);
 }
 
 void CObjMonsterTrooper::Grabbed(CObj* pPlayer)
