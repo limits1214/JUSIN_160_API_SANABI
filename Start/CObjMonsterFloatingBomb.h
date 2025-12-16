@@ -33,5 +33,6 @@ private:
 private:
 	int m_iAngle;
 	bool m_bExploded;
+	bool m_bFakeExcuted;
 };
 

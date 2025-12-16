@@ -10,6 +10,7 @@
 #include "CSceneBoss.h"
 #include "CSceneLap2.h"
 #include "CSceneMonster.h"
+#include "CSceneEnding.h"
 
 
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
@@ -63,6 +64,10 @@ void CSceneMgr::Scene_Change(SCENEID eID)
 			break;
 		case SC_MONSTER:
 			m_pScene = new CSceneMonster;
+			break;
+
+		case SC_ENDING:
+			m_pScene = new CSceneEnding;
 			break;
 
 		default:

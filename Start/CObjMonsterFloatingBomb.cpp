@@ -41,6 +41,8 @@ void CObjMonsterFloatingBomb::Initialize()
 	m_iAngle = 45;
 
 	m_bExploded = false;
+
+	m_bFakeExcuted = false;
 }
 
 int CObjMonsterFloatingBomb::Update()

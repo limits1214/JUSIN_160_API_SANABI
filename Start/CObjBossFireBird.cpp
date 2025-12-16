@@ -71,6 +71,9 @@ void CObjBossFireBird::Initialize()
 
 	m_iDamagedCnt = 0;
 
+	m_bPhase2Start = false;
+	m_bPhase2Pend = false;
+
 	m_bEndStart = false;
 	m_bEnd = false;
 
@@ -104,7 +107,48 @@ int CObjBossFireBird::Update()
     if (m_bDead)
         return OBJ_DEAD;
 
-	if (!m_bEnd)
+	for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+	{
+		CObjPlayer2* pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+		if (pPlayer != nullptr)
+		{
+			
+			float playerX = pPlayer->Get_Info()->fX;
+			float playerY = pPlayer->Get_Info()->fY;
+
+
+			float width = m_tInfo.fX - playerX;
+			float height = m_tInfo.fY - playerY;
+			float distance = sqrtf(width * width + height * height);
+			if (distance > 1000)
+			{
+				m_fSpeed = 20.f;
+			}
+			if (distance > 700)
+			{
+				m_fSpeed = 6.f;
+			}
+			if (distance > 300)
+			{
+				m_fSpeed = 3.f;
+			}
+			else
+			{
+				m_fSpeed = 2.;
+			}
+			
+			break;
+		}
+	}
+
+
+	//if (m_bPhase2Pend)
+	//{
+	//	return OBJ_NOEVENT;
+	//}
+	
+
+	if (!m_bEnd )
 	{
 		if (m_bKnockBack)
 		{
@@ -115,7 +159,25 @@ int CObjBossFireBird::Update()
 			{
 				m_bKnockBack = false;
 
-				if (m_bEndStart)
+				if (m_bPhase2Start)
+				{
+					//m_bPhase2Start = false;
+					//m_bPhase2Pend = true;
+					//CObjBossBackHeli* pBackHeli = new CObjBossBackHeli;
+					//pBackHeli->Initialize();
+					//pBackHeli->Set_Pos(WINCX , WINCY);
+					//pBackHeli->Set_MoveTarget(0, 0);
+					//CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBackHeli);
+
+					//CTimeMgr::Get_Instance()->Set_Timer(
+					//	[=]() {
+					//		pBackHeli->Set_Dead();
+					//		m_bPhase2Pend = false;
+					//		m_eAniStateBroken = BROKEN;
+					//		//m_fSpeed = 2.f;
+					//	}, 3000);
+				}
+				else if (m_bEndStart)
 				{
 					m_bEnd = true;
 					CObjBossFirebirdEndSprite* pFireBirdEnd = new CObjBossFirebirdEndSprite;
@@ -129,9 +191,7 @@ int CObjBossFireBird::Update()
 			m_fPlayerFollowAngle += 1.f;
 			State_Update();
 		}
-	
 	}
-	
 
 	
 
@@ -469,10 +529,30 @@ void CObjBossFireBird::State_Update()
 
 		m_dwShootingEndDelay = CTimeMgr::Get_Instance()->Get_Tick_Count();
 
+		CObjPlayer2* pPlayer = nullptr;
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer2* _pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+			if (_pPlayer != nullptr)
+			{
+				pPlayer = _pPlayer;
+				break;
+			}
+		}
+
+
 
 		CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
 		pBossClusterAim->Initialize();
-		pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		if (pPlayer != nullptr)
+		{
+			pBossClusterAim->Set_Pos(pPlayer->Get_Info()->fX, pPlayer->Get_Info()->fY);
+		}
+		else
+		{
+			pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		}
+		
 		pBossClusterAim->Set_Shoot(false);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossClusterAim);
 		m_pClusterAim = pBossClusterAim;
@@ -642,9 +722,29 @@ void CObjBossFireBird::State_Update()
 		
 		
 
+
+		CObjPlayer2* pPlayer = nullptr;
+		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))
+		{
+			CObjPlayer2* _pPlayer = dynamic_cast<CObjPlayer2*>(pObj);
+			if (_pPlayer != nullptr)
+			{
+				pPlayer = _pPlayer;
+				break;
+			}
+		}
+
+
 		CObjBossClusterAim* pBossClusterAim = new CObjBossClusterAim;
 		pBossClusterAim->Initialize();
-		pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		if (pPlayer != nullptr)
+		{
+			pBossClusterAim->Set_Pos(pPlayer->Get_Info()->fX, pPlayer->Get_Info()->fY);
+		}
+		else
+		{
+			pBossClusterAim->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+		}
 		pBossClusterAim->Set_Shoot(false);
 		CObjMgr::Get_Instance()->Add_Object(OBJ_MONSTER, pBossClusterAim);
 		m_pClusterAim = pBossClusterAim;
@@ -694,8 +794,19 @@ void CObjBossFireBird::State_Update()
 						backHeli->Set_Dead();
 					}
 				}
-				m_eState = PATTERN4_CLUSTERBOMB_END;
+				
 			}, 8000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_bBossShowToUp = true;
+			}, 8000);
+
+		CTimeMgr::Get_Instance()->Set_Timer(
+			[&]() {
+				m_eState = PATTERN4_CLUSTERBOMB_END;
+				m_bBossShowToUp = false;
+			}, 9000);
 	}
 	break;
 
@@ -704,6 +815,10 @@ void CObjBossFireBird::State_Update()
 		if (m_bBossHideToDown)
 		{
 			Move(270.f, 15.f);
+		}
+		else if (m_bBossShowToUp)
+		{
+			Move(90.f, 15.f);
 		}
 
 		for (auto*& pObj : *CObjMgr::Get_Instance()->Get_ObjectList(OBJ_PLAYER))

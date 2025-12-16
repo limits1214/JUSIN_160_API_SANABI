@@ -120,6 +120,7 @@ int CSceneLogo::Update()
 
 				CTimeMgr::Get_Instance()->Set_Timer([=]() {
 					CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+					//CSceneMgr::Get_Instance()->Scene_Change(SC_ENDING);
 					pGate->GateOpen();
 					}, 1500);
 

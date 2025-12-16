@@ -287,7 +287,7 @@ int CSceneBoss::Update()
         dynamic_cast<CObjGateSprite*>(CObjMgr::Get_Instance()->Get_ObjectList(OBJ_GATE)->front())->GateClose();
 
         CTimeMgr::Get_Instance()->Set_Timer([=]() {
-            CSceneMgr::Get_Instance()->Scene_Change(SC_MENU);
+            CSceneMgr::Get_Instance()->Scene_Change(SC_ENDING);
             }, 1000);
 
         CTimeMgr::Get_Instance()->Set_Timer([=]() {

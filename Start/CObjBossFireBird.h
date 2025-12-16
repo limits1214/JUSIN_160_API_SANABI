@@ -32,17 +32,19 @@ public:
 
 	void Set_Knockback(float bKnockback)
 	{
-		cout << "KNOCKbACK" << endl;
+		cout << "KNOCKbACK" << m_iKnockbackedCnt << endl;
 		++m_iKnockbackedCnt;
 		m_iKnockBackFrameCnt = 30;
 		m_bKnockBack = bKnockback;
 
-		if (m_iKnockbackedCnt >= 2)
+		if (m_iKnockbackedCnt == 2)
 		{
+			//m_iKnockBackFrameCnt = 200;
+			//m_bPhase2Start = true;
 			m_eAniStateBroken = BROKEN;
 		}
 
-		if (m_iKnockbackedCnt >= 3)
+		if (m_iKnockbackedCnt == 3)
 		{
 			m_iKnockBackFrameCnt = 200;
 			m_bEndStart = true;
@@ -116,6 +118,10 @@ private:
 
 	bool m_bEndStart;
 	bool m_bEnd;
+
+
+	bool m_bPhase2Start;
+	bool m_bPhase2Pend;
 
 	int m_iDamagedCnt;
 
