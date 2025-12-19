@@ -19,8 +19,8 @@ CObjMonsterTrooper::~CObjMonsterTrooper()
 void CObjMonsterTrooper::Initialize()
 {
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 50;
-	m_tInfo.fCY = 50;
+	m_tInfo.fCX = 60;
+	m_tInfo.fCY = 60;
 
 	m_bExcuted = false;
 	m_bAirMonster = true;

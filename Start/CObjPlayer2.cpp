@@ -250,7 +250,7 @@ int CObjPlayer2::Update()
 	{
 		m_bWallTopEscape = false;
 
-		JumpRoutine(90.f, 21.f);
+		JumpRoutine(90.f, 16.f);
 		
 	}
 	else if (m_bWallDownEscape)
@@ -318,8 +318,15 @@ void CObjPlayer2::Render(HDC hDC)
 			float grabX = m_pGrab->Get_Info()->fX + iScrollX;
 			float grabY = m_pGrab->Get_Info()->fY + iScrollY;
 
+			HPEN hNewPen = CreatePen(PS_SOLID, 2, RGB(101, 67, 34));
+			HPEN hOldPen = (HPEN)SelectObject(hDC, hNewPen);
+
 			MoveToEx(hDC, grabX, grabY, nullptr);
 			LineTo(hDC, m_tInfo.fX + iScrollX, m_tInfo.fY + iScrollY);
+
+			HPEN hOldPen2 = (HPEN)SelectObject(hDC, hOldPen);
+			DeleteObject(hOldPen2);
+			DeleteObject(hNewPen);
 		}
 	}
 	else if (m_bExc)
@@ -722,7 +729,7 @@ void CObjPlayer2::On_Mouse_Key_Down(CObj* pObj)
 			CObjMgr::Get_Instance()->Add_Object(OBJ_PLAYER, pGrab);
 			m_pGrab = pGrab;
 			CSoundMgr::Get_Instance()->StopSound(SOUND_HOOK_SHOOT);
-			CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_Shoot.wav", SOUND_HOOK_SHOOT, 1.f);
+			CSoundMgr::Get_Instance()->PlaySound(L"SFX_SNB_Shoot.wav", SOUND_HOOK_SHOOT, 0.5f);
 		}
 	}
 }
@@ -1644,6 +1651,20 @@ void CObjPlayer2::ExcGrab(CObjPlayer2Grab* pObj, CObjMonster* pTarget)
 			m_eAniStateSNB = AST_RIGHT_SNB_SWING_START;
 			m_eAniStateSNBARM = AST_RIGHT_ARM_SWING_START;
 		}*/
+		auto pMon = dynamic_cast<CObjMonster*>(m_pTarget);
+		if (pMon != nullptr)
+		{
+
+			/*auto w = ptCurr.x - m_tInfo.fX  ;
+			auto h = ptCurr.y - m_tInfo.fY ;*/
+			/*auto w = (float)ptCurr.x - (m_tInfo.fX + iScrollX);
+			auto h = (float)ptCurr.y - (m_tInfo.fY + iScrollY);
+			auto rad = atan2f(h, w);*/
+			pMon->Excuted(this, 0.f);
+			m_pTarget = nullptr;
+		}
+
+
 
 		m_bExcGrabLoad = true;
 
@@ -1880,7 +1901,7 @@ void CObjPlayer2::GrabLoad()
 				
 				// 들어가지 않게 체인 아래 위치시키기
 				m_tInfo.fX = m_pGrab->Get_Info()->fX;
-				m_tInfo.fY = (m_tCeilStickCollisionRectInfo.fY + m_tCeilStickCollisionRectInfo.fCY * 0.5f) + (m_tInfo.fCY * 0.5f) + 10; // 10 은 그랩 FCY / 2 임
+				m_tInfo.fY = (m_tCeilStickCollisionRectInfo.fY + m_tCeilStickCollisionRectInfo.fCY * 0.5f) + (m_tInfo.fCY * 0.5f) + 0; // 10 은 그랩 FCY / 2 임
 			}
 			else if (m_pGrab->Get_CollisionLeft())
 			{

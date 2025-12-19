@@ -37,8 +37,8 @@ void CObjUnstableKnockbackPlatformA::Initialize()
 	Set_Option(ERI_CLIMABLE);
 
 	Set_UseMainScroll(true);
-	m_tInfo.fCX = 264;
-	m_tInfo.fCY = 112;
+	m_tInfo.fCX = 260;
+	m_tInfo.fCY = 110;
 
 	CObjUnstableKnockbackPlatformASprite* pSprite = new CObjUnstableKnockbackPlatformASprite;
 	pSprite->Initialize();
